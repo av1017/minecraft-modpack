@@ -1,0 +1,149 @@
+{
+  "minecraft": "26.3",
+  "loader": {
+    "type": "fabric",
+    "version": "0.19.5",
+    "version_id": "fabric-loader-0.19.5-26.3",
+    "sha1": "395cc21c4da34048b3b2492bcb6c90f8f030e919",
+    "source": "https://meta.fabricmc.net/v2/versions/loader/26.3/0.19.5/profile/json"
+  },
+  "profile": {
+    "key": "fabric-26.3-modded",
+    "name": "Fabric 26.3 (Modded)",
+    "icon": "Crafting_Table"
+  },
+  "mods": [
+    {
+      "name": "Cloth Config API",
+      "slug": "cloth-config",
+      "project_id": "9s6osm5g",
+      "version_id": "fg2uyxOW",
+      "version": "26.3.159+fabric",
+      "filename": "cloth-config-fabric-26.3.159.jar",
+      "url": "https://cdn.modrinth.com/data/9s6osm5g/versions/fg2uyxOW/cloth-config-fabric-26.3.159.jar",
+      "sha1": "9a5cce069380a2047250831dcb19f4ef1b15872d",
+      "side": "both"
+    },
+    {
+      "name": "Collective",
+      "slug": "collective",
+      "project_id": "e0M1UDsY",
+      "version_id": "nygfvi1O",
+      "version": "26.3.0-8.40-fabric+forge+neo",
+      "filename": "collective-26.3.0-8.40.jar",
+      "url": "https://cdn.modrinth.com/data/e0M1UDsY/versions/nygfvi1O/collective-26.3.0-8.40.jar",
+      "sha1": "52309c6c4d079c493a26e966a23defe74071efe5",
+      "side": "both"
+    },
+    {
+      "name": "Fabric API",
+      "slug": "fabric-api",
+      "project_id": "P7dR8mSH",
+      "version_id": "bNnaTiuM",
+      "version": "0.161.0+26.3",
+      "filename": "fabric-api-0.161.0+26.3.jar",
+      "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar",
+      "sha1": "53f9ee02c3702734d90520aa8c9719bf0e1c8d4f",
+      "side": "both"
+    },
+    {
+      "name": "Fabric Language Kotlin",
+      "slug": "fabric-language-kotlin",
+      "project_id": "Ha28R6CL",
+      "version_id": "eRRZzGMc",
+      "version": "1.14.1+kotlin.2.4.20",
+      "filename": "fabric-language-kotlin-1.14.1+kotlin.2.4.20.jar",
+      "url": "https://cdn.modrinth.com/data/Ha28R6CL/versions/eRRZzGMc/fabric-language-kotlin-1.14.1%2Bkotlin.2.4.20.jar",
+      "sha1": "62ae40a31b689b52fde399f2143d547a631e942c",
+      "side": "both"
+    },
+    {
+      "name": "Farmer's Delight Refabricated",
+      "slug": "farmers-delight-refabricated",
+      "project_id": "7vxePowz",
+      "version_id": "hTNvMewX",
+      "version": "26.3-3.6.27",
+      "filename": "FarmersDelight-26.3-3.6.27+refabricated.jar",
+      "url": "https://cdn.modrinth.com/data/7vxePowz/versions/hTNvMewX/FarmersDelight-26.3-3.6.27%2Brefabricated.jar",
+      "sha1": "8c00b5f004fafe157df7ddb241d32f28f458a4d6",
+      "side": "both"
+    },
+    {
+      "name": "Rustic Delight",
+      "slug": "rustic-delight",
+      "project_id": "foa4fGIH",
+      "version_id": "ietejMuZ",
+      "version": "1.7.0",
+      "filename": "rusticdelight-fabric-26.3-1.7.0.jar",
+      "url": "https://cdn.modrinth.com/data/foa4fGIH/versions/ietejMuZ/rusticdelight-fabric-26.3-1.7.0.jar",
+      "sha1": "eeccaad85c330367c33dcbef4366f8f6f0d45804",
+      "side": "both"
+    },
+    {
+      "name": "Text Placeholder API",
+      "slug": "placeholder-api",
+      "project_id": "eXts2L7r",
+      "version_id": "lXytLqWj",
+      "version": "3.2.0+26.3",
+      "filename": "placeholder-api-3.2.0+26.3.jar",
+      "url": "https://cdn.modrinth.com/data/eXts2L7r/versions/lXytLqWj/placeholder-api-3.2.0%2B26.3.jar",
+      "sha1": "4c455faa6333dbaef72cedbb91fe4a2a03176741",
+      "side": "both"
+    },
+    {
+      "name": "Wool Tweaks",
+      "slug": "wool-tweaks",
+      "project_id": "lqQsKUma",
+      "version_id": "ahbMsYDP",
+      "version": "26.3.0-4.0-fabric+forge+neo",
+      "filename": "wooltweaks-26.3.0-4.0.jar",
+      "url": "https://cdn.modrinth.com/data/lqQsKUma/versions/ahbMsYDP/wooltweaks-26.3.0-4.0.jar",
+      "sha1": "a580af9f55a72f0d7d8d95b8eacb1b50a5d1338e",
+      "side": "both"
+    },
+    {
+      "name": "Inventory Profiles Next",
+      "slug": "inventory-profiles-next",
+      "project_id": "O7RBXm3n",
+      "version_id": "y8vT21Sb",
+      "version": "fabric-26.3-2.3.8",
+      "filename": "InventoryProfilesNext-fabric-26.3-2.3.8.jar",
+      "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/y8vT21Sb/InventoryProfilesNext-fabric-26.3-2.3.8.jar",
+      "sha1": "2e0c90e7a1e7aab6cd6d65349f55b69f79995a9e",
+      "side": "client"
+    },
+    {
+      "name": "libIPN",
+      "slug": "libipn",
+      "project_id": "onSQdWhM",
+      "version_id": "aKBFonyQ",
+      "version": "fabric-26.3-6.9.0",
+      "filename": "libIPN-fabric-26.3-6.9.0.jar",
+      "url": "https://cdn.modrinth.com/data/onSQdWhM/versions/aKBFonyQ/libIPN-fabric-26.3-6.9.0.jar",
+      "sha1": "f989cd24ace83f73db6bfcf704cab99ad6d53d10",
+      "side": "client"
+    },
+    {
+      "name": "Mod Menu",
+      "slug": "modmenu",
+      "project_id": "mOgUt4GM",
+      "version_id": "kyy7dbrZ",
+      "version": "21.0.0",
+      "filename": "modmenu-21.0.0.jar",
+      "url": "https://cdn.modrinth.com/data/mOgUt4GM/versions/kyy7dbrZ/modmenu-21.0.0.jar",
+      "sha1": "66ec40f1cd0c037ddca2b5fc6b4b976d479c18e8",
+      "side": "client"
+    },
+    {
+      "name": "Mouse Tweaks",
+      "slug": "mouse-tweaks",
+      "project_id": "aC3cM3Vq",
+      "version_id": "LeMuMhLv",
+      "version": "26.3-2.31-fabric",
+      "filename": "MouseTweaks-fabric-mc26.3-2.31.jar",
+      "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/LeMuMhLv/MouseTweaks-fabric-mc26.3-2.31.jar",
+      "sha1": "65c0f5588900e7ade476164ec4915bfab52c129a",
+      "side": "client"
+    }
+  ]
+}
