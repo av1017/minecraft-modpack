@@ -509,6 +509,24 @@
       "from": "key.keyboard.o",
       "to": "key.keyboard.unknown",
       "why": "O is Cobblemon's 'hide party'; the shader menu is still in Options > Video Settings > Shader Packs"
+    },
+    {
+      "key": "key_key.travelersbackpack.inventory",
+      "from": "key.keyboard.b",
+      "to": "key.keyboard.g",
+      "why": "B is Xaero's 'new waypoint'; G is free in this profile"
+    },
+    {
+      "key": "key_key.travelersbackpack.cycle_tool",
+      "from": "key.keyboard.z",
+      "to": "key.keyboard.h",
+      "why": "Z is Xaero's 'enlarge minimap'; H is free in this profile"
+    },
+    {
+      "key": "key_key.ricksportalgun.portal_menu",
+      "from": "key.keyboard.v",
+      "to": "key.keyboard.j",
+      "why": "V is this profile's camera-view key; J is free"
     }
   ]
 }

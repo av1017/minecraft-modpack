@@ -17,6 +17,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
   - `resourcepacks`: optional; texture packs in load order (later entries load on top). `"enabled": false` means installed but not switched on (e.g. an alternative to compare).
   - `shaderpacks`: optional; Iris shader packs. Installed into `<game folder>\shaderpacks` and never switched on by the sync, because graphics cards differ.
+  - `keybinds`: optional; keybind fixes for clashes between mods, as `{key, from, to, why}` using `options.txt` names (`key_<translation key>`, `key.keyboard.<x>`; `key.keyboard.unknown` = unbound). The sync applies one only if that line is missing or still equals `from`, so a key the player changed is never touched.
   - Any mod entry can have `"pinned": true` plus `pinned_reason`; `add-mod.ps1` won't update it. Cobblemon's Sodium is pinned to 0.6.x because Iris for 1.21.1 requires Sodium 0.6.x. Unpin only when an Iris build for 1.21.1 accepts a newer Sodium (check its `fabric.mod.json`).
 - **`loader/<version_id>.json`** is the launcher version file for each Fabric/Minecraft pair, checksummed in the pack's `mods.json`.
 - **`sync.ps1 -Pack <pack>`** makes the PC match the pack:
@@ -26,6 +27,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - creates or updates the launcher profile, including `gameDir` for packs with their own folder
   - on first setup of a separate game folder, copies `options.txt` so settings and keybinds carry over
   - installs listed texture packs into `<game folder>\resourcepacks`. It switches a pack on in `options.txt` only the first time it installs it, keeping Minecraft's CRLF line endings and the existing entries, and backs up `options.txt` first. It never deletes texture packs it didn't install, and never re-enables a pack the player turned off.
+  - applies the pack's `keybinds` fixes to `options.txt` (same CRLF handling and backup)
   - backs up `launcher_profiles.json` before changing anything
 
   It supports `-DryRun` and `-MinecraftDir`, and running it twice is safe. If the pack's Minecraft version isn't downloaded yet, it prints a note; the launcher downloads it on first launch.
@@ -47,8 +49,9 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - It keeps relative links between pages inside the layout.
   - It counts each page's `<li data-id>` checklist items for the sidebar progress. Pages save under the localStorage key `mc-guide-<page>-progress-fallback`.
 - **Numbered steps** (`ol.flow` / `ol.steps`) use block layout with an absolutely positioned number. Don't use `display: flex` on those `li`s: inline bold text and key badges would split into columns.
-- **When the mods change, update the matching guide pages in the same commit:** `mods.html` for Our World mods, `cobblemon.html` for the Cobblemon pack, and `controls.html` for keybinds and texture packs.
-- **Verify facts before writing them.** Read recipes and text from the installed jars, and read keybinds from the pack's `options.txt` after a launch.
+- **When the mods change, update the matching guide pages in the same commit:** `mods.html` for Our World mods, `cobblemon.html` for the Cobblemon pack, and `controls.html` for keybinds, `visuals.html` for texture packs and shaders.
+- **Verify facts before writing them.** Read recipes and text from the installed jars, and read keybinds from the pack's `options.txt` after a launch. Before a launch, a mod's default keys are in its bytecode: the int pushed right after the `key.<mod>.<name>` string in the class that registers its key mappings (GLFW codes: 66 = B, 90 = Z, 86 = V, 295 = F6, -1 = unbound).
+- **After adding a mod, check its default keys against both profiles' `options.txt`** and add a `keybinds` fix for any clash. Prefer moving the new mod's key, and update `controls.html`.
 - **Keep every page working on a phone:** keep the viewport meta, don't use fixed widths, and wrap wide tables in an `overflow-x: auto` container.
 - Pushing to `main` republishes the site within a minute or two.
 

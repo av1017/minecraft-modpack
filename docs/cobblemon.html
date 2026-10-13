@@ -129,7 +129,9 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
     <a href="#heal">Healing &amp; Storage</a>
     <a href="#grow">Growing Your Team</a>
     <a href="#maps">Maps</a>
+    <a href="#gyms">Trainers &amp; Gyms</a>
     <a href="#extras">What Else Is Here</a>
+    <a href="#portal">Portal Gun</a>
   </nav>
 
   <div class="callout">
@@ -145,7 +147,7 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
       <li><strong>Send it out:</strong> press <span class="kbd">R</span> to throw your selected Pokémon out. Press it again while looking at it to call it back. <span class="kbd">&uarr;</span>/<span class="kbd">&darr;</span> choose which party member R sends.</li>
       <li><strong>Find apricorn trees.</strong> Their fruit, apricorns, is what Poké Balls are made from. They grow in forests, grasslands, hills, deserts, jungles, and snowy forests. Grab every color you see.</li>
       <li><strong>Mine copper and iron.</strong> Basic Poké Balls need copper, Great Balls need iron, and the PC and Healing Machine need both.</li>
-      <li><strong>Mark your base</strong> with <span class="kbd">B</span>, so you can always find it on the map.</li>
+      <li><strong>Mark your base</strong> with <span class="kbd">B</span>, so you can always find it on the map. (B is the map's key here; the backpack opens with <span class="kbd">G</span> in this world.)</li>
     </ol>
     <ul class="tasks">
       <li data-id="start-1"><span class="checkbox"></span><span class="task-text">Choose a starter (<span class="kbd">I</span>)</span></li>
@@ -249,6 +251,29 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
     </ul>
   </section>
 
+  <!-- GYMS -->
+  <section class="panel" id="gyms">
+    <h2>Trainers &amp; Gyms</h2>
+    <p class="sub"><strong>Testing on Avery's PC first.</strong> These mods are on a separate test branch of the modpack and aren't on the other PC yet. Don't sync to get them until Avery says they work.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Mod</th><th>What it adds</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Radical Cobblemon Trainers</strong></td><td>Over 1,500 trainers that spawn naturally, different ones in different biomes. Story mode: beat leaders and rivals on the way to champion. Visit the <strong>Trainer Association</strong> to choose your path.</td></tr>
+        <tr><td><strong>Level cap</strong></td><td>Party Pokémon stop gaining experience at the current cap until you beat the next key trainer, such as a gym leader. We kept this on.</td></tr>
+        <tr><td><strong>Trainer Card</strong></td><td>Tracks your progress, shows trainer info, and points to the next key trainer when one spawns nearby.</td></tr>
+        <tr><td><strong>Radical Gyms &amp; Structures</strong> <span class="note">(beta)</span></td><td>Gym buildings for the 8 Kanto leaders, plus the League (Elite Four and Champion). Most are in the Overworld; Cinnabar Gym is in the <strong>Nether</strong>, and Blackthorn Gym and the League are in the <strong>End</strong>.</td></tr>
+        <tr><td><strong>Badges</strong></td><td>Badge items and a badge case. A small data pack in the world makes gym leaders drop them.</td></tr>
+        <tr><td><strong>CobbleFurnies</strong></td><td>Pokémon-themed furniture for your base.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout">Like new crops, gyms only appear in land you haven't explored yet. Head past the edge of your map, and mark each gym with <span class="kbd">B</span> when you find it. The gym mod is in beta, so Avery backs up the world before each test session.</div>
+    <ul class="tasks">
+      <li data-id="gym-trainer"><span class="checkbox"></span><span class="task-text">Beat a wandering trainer</span></li>
+      <li data-id="gym-find"><span class="checkbox"></span><span class="task-text">Find a gym (mark it with <span class="kbd">B</span>)</span></li>
+      <li data-id="gym-badge"><span class="checkbox"></span><span class="task-text">Win your first badge</span></li>
+    </ul>
+  </section>
+
   <!-- EXTRAS -->
   <section class="panel" id="extras">
     <h2>What Else Is Here</h2>
@@ -259,13 +284,54 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
         <tr><td><strong>Farmer's Delight + Rustic Delight</strong></td><td>The cooking system, new crops, and farmable cotton from Our World. See <a href="mods.html">Cotton &amp; Cookpots</a>.</td></tr>
         <tr><td><strong>Wool Tweaks</strong></td><td>1 wool &rarr; 4 string, and re-dyeing wool, beds, and carpets.</td></tr>
         <tr><td><strong>Inventory sorting</strong></td><td>Sort buttons, slot locking, Mouse Tweaks dragging. Same as Our World.</td></tr>
+        <tr><td><strong>Traveler's Backpack</strong></td><td>A wearable backpack with extra storage, two fluid tanks, a sleeping bag, and upgrades. Open the one you're wearing with <span class="kbd">G</span>; <span class="kbd">H</span> swaps its tools. Hold Shift over the item for its built-in tips. Recipe below.</td></tr>
+        <tr><td><strong>Rick's Portal Gun</strong></td><td>A Rick and Morty portal gun: set a destination, shoot, step through. Its own section is below.</td></tr>
+        <tr><td><strong>Distant Horizons</strong></td><td>Far-off terrain on the horizon. See <a href="visuals.html#far">Light &amp; Texture</a>.</td></tr>
+        <tr><td><strong>First-person Model</strong></td><td>Look down and you see your own body and legs instead of floating arms. <span class="kbd">F6</span> turns it off.</td></tr>
         <tr><td><strong>Performance</strong></td><td>Sodium (smoother framerate), Lithium (faster world simulation, which matters most for the LAN host), and FerriteCore (less memory). The sync also gives this profile 6 GB of memory.</td></tr>
-        <tr><td><strong>Texture packs</strong></td><td>Cobblemon Interface (Pokémon-style menus), the minimap icons, and Fresh Animations. Turn them on, off, or reorder in Options &rarr; Resource Packs.</td></tr>
+        <tr><td><strong>The look</strong></td><td>Faithful 32x, 3D and foliage packs, Complementary shaders, and Pokémon-style menus. All on <a href="visuals.html">Light &amp; Texture</a>.</td></tr>
       </tbody>
     </table></div>
+    <h3>Backpack recipes</h3>
+    <div class="recipes" data-recipes="pack"></div>
+    <ul class="tasks">
+      <li data-id="extra-pack"><span class="checkbox"></span><span class="task-text">Craft a Traveler's Backpack</span></li>
+    </ul>
   </section>
 
-  <footer>Cobblemon 1.8.2 recipes and text read from the installed mod file &middot; Oct 2026</footer>
+  <!-- PORTAL GUN -->
+  <section class="panel" id="portal">
+    <h2>Portal Gun</h2>
+    <p class="sub">Rick's Portal Gun: choose a destination, fire a portal, and walk through. Portals stay open about 10 seconds. Shooting uses <strong>fuel</strong>, refilled with Portal Fluid. A late-game project: the gun needs an End Crystal, and that takes a Ghast Tear from the Nether and an Eye of Ender.</p>
+    <div class="recipes" data-recipes="portal"></div>
+    <h3>Everything else is made at the Portal Gun Workbench</h3>
+    <p>Put the ingredients in the workbench (no grid pattern), and it shows what you can make.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Make</th><th>From</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Circuit Board</strong> &times;3</td><td>Each: slime ball, comparator, 3 gold nuggets, 2 repeaters</td></tr>
+        <tr><td><strong>Bootleg Portal Fluid</strong></td><td>Potion of Poison + ender pearl. Don't fire portals with it: bootleg portals burn.</td></tr>
+        <tr><td><strong>Quantum Leap Elixir</strong></td><td>Amethyst shard, honey bottle, blaze powder</td></tr>
+        <tr><td><strong>Portal Fluid</strong></td><td>Bootleg Portal Fluid + Quantum Leap Elixir</td></tr>
+        <tr><td><strong>Portal Gun</strong></td><td>End Crystal, Portal Fluid, 2 iron ingots, 3 Circuit Boards</td></tr>
+        <tr><td><strong>Disc Template</strong></td><td>Circuit Board, 2 redstone, copper ingot. The base for every upgrade.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Using it</h3>
+    <ol class="flow">
+      <li><strong>Hold the gun and press <span class="kbd">J</span></strong> to open its menu. <strong>Coordinate Travel</strong> sets where the next portal goes; there's also a Randomize button.</li>
+      <li><strong>Fire</strong> at a wall or the floor. Step through before it closes.</li>
+      <li><strong>Upgrades</strong> (Disc Template + extras, applied from the gun's settings menu): Waypoints to save places, a bigger fuel tank, biome / structure / player locators, and Dimension Mk.I for travelling to the Nether or End. Mk.I won't open the End while the dragon is alive.</li>
+    </ol>
+    <div class="callout ball"><strong>It's a gameplay mod:</strong> both PCs need it for LAN. It's only in the Cobblemon world; there's no portal gun mod for 26.3 yet.</div>
+    <ul class="tasks">
+      <li data-id="portal-bench"><span class="checkbox"></span><span class="task-text">Build a Portal Gun Workbench</span></li>
+      <li data-id="portal-fluid"><span class="checkbox"></span><span class="task-text">Make your first Portal Fluid</span></li>
+      <li data-id="portal-gun"><span class="checkbox"></span><span class="task-text">Craft the Portal Gun and take a trip</span></li>
+    </ul>
+  </section>
+
+  <footer>Cobblemon 1.8.2, Traveler's Backpack, and Rick's Portal Gun recipes read from the installed mod files &middot; Oct 2026</footer>
 </div>
 
 <script>
@@ -279,6 +345,14 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
     base: [
       { name: "PC", note: "Stores Pokémon beyond your party of 6.", grid: ["Iron","Glass","Iron","Iron","Copper","Iron","Smooth Stone","Copper","Smooth Stone"], out: "PC" },
       { name: "Healing Machine", note: "Needs a Max Revive (chain below).", grid: ["Copper","Copper","Copper","Iron","Max Revive","Iron","Iron","Redstone","Iron"], out: "Healing Machine" }
+    ],
+    pack: [
+      { name: "Traveler's Backpack", note: "4 leather, string, 2 tanks, a chest, and a sleeping bag.", grid: ["Leather","String","Leather","Backpack Tank","Chest","Backpack Tank","Leather","Sleeping Bag","Leather"], out: "Traveler's Backpack" },
+      { name: "Backpack Tank", note: "Holds fluids. Make 2.", grid: ["Glass","Iron Ingot","Glass","Glass",null,"Glass","Glass","Iron Ingot","Glass"], out: "Backpack Tank" },
+      { name: "Sleeping Bag", note: "Any wool color works the same way.", grid: [null,null,null,"Red Wool","Red Wool","White Wool",null,null,null], out: "Sleeping Bag" }
+    ],
+    portal: [
+      { name: "Portal Gun Workbench", note: "Where every other portal gun part is made.", grid: [null,"Copper Block",null,"Redstone","Crafting Table","Redstone",null,"Smithing Table",null], out: "Workbench" }
     ],
     grow: [
       { name: "Pasture", note: "Needs a PC inside.", grid: ["Planks","Planks","Planks","Planks","PC","Planks","Wheat","Hopper","Wheat"], out: "Pasture" },

@@ -360,5 +360,13 @@
       "sha1": "838139b54cddb56b2e83cd260d8efd960ac536d6",
       "side": "client"
     }
+  ],
+  "keybinds": [
+    {
+      "key": "key_iris.keybind.shaderPackSelection",
+      "from": "key.keyboard.o",
+      "to": "key.keyboard.unknown",
+      "why": "O is 26.3's Friends key; the shader menu is still in Options > Video Settings > Shader Packs"
+    }
   ]
 }

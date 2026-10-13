@@ -67,6 +67,8 @@ h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12p
 .verdict { border: 2px solid; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
 .verdict.ok { border-color: var(--ok); background: var(--ok-bg); }
 .verdict.warn { border-color: var(--warn); background: var(--warn-bg); }
+.verdict.fixed { border-color: var(--map); background: var(--map-bg); }
+.verdict.fixed .tag { color: var(--map); }
 .verdict .tag { font-family: "Silkscreen", monospace; font-size: 0.68rem; }
 .verdict.ok .tag { color: var(--ok); }
 .verdict.warn .tag { color: var(--warn); }
@@ -91,6 +93,7 @@ table.keys td.k { white-space: nowrap; width: 1%; }
 .src.map { color: var(--map); background: var(--map-bg); }
 .src.inv { color: var(--inv); background: var(--inv-bg); }
 .src.van { color: var(--van); background: var(--van-bg); }
+.src.vis { color: var(--amber); background: var(--slot); border: 1px solid var(--amber); }
 .note { font-size: 0.82rem; color: var(--ink-faint); }
 
 [data-world] { }
@@ -119,7 +122,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
   <div class="hero">
     <span class="eyebrow">Both worlds &middot; read from the game's own settings</span>
     <h1>Every Key</h1>
-    <p>Every key the mods add, in both worlds, and which ones overlap. The bindings come from the Cobblemon profile's settings file after its first launch, so they're exactly what the game uses. Change any of them in <strong>Options &rarr; Controls &rarr; Key Binds</strong>.</p>
+    <p>Every key the mods add, in both worlds, and which ones overlap. The bindings come from each profile's settings file and from inside the mods themselves, so they're exactly what the game uses. Change any of them in <strong>Options &rarr; Controls &rarr; Key Binds</strong>.</p>
   </div>
 
   <div class="switch" role="group" aria-label="Show controls for">
@@ -131,8 +134,33 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
   <!-- OVERLAPS -->
   <section class="panel" id="overlaps">
     <h2>Do any keys clash?</h2>
-    <p class="sub">I checked every binding in both profiles for keys used twice. Nothing actually breaks; there are three things worth knowing.</p>
+    <p class="sub">I checked every binding in both profiles, plus the default keys inside each new mod, for keys used twice. Five real clashes turned up. The sync fixes them automatically: it moves the mod's key, but only if you haven't already changed it yourself.</p>
     <div class="verdicts">
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what"><span class="kbd">R</span> Throw Pokémon / reload shaders</span>
+        <span class="why">Iris put "reload shaders" on R, so every Pokémon throw also froze the game while shaders reloaded. Iris's R is now unbound in the Cobblemon world.</span>
+      </div>
+      <div class="verdict fixed">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what"><span class="kbd">O</span> Shader pack menu</span>
+        <span class="why">O is Cobblemon's "hide party" and 26.3's Friends key. Iris's O is unbound in both worlds; the menu is still at Options &rarr; Video Settings &rarr; Shader Packs.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Open backpack: <span class="kbd">B</span> &rarr; <span class="kbd">G</span></span>
+        <span class="why">Traveler's Backpack defaults to B, which is Xaero's "new waypoint". In the Cobblemon world the backpack opens with G.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Backpack tool swap: <span class="kbd">Z</span> &rarr; <span class="kbd">H</span></span>
+        <span class="why">Z is Xaero's "enlarge minimap". The backpack's tool/hose key is H in the Cobblemon world.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Portal gun menu: <span class="kbd">V</span> &rarr; <span class="kbd">J</span></span>
+        <span class="why">V is the camera key in the Cobblemon world. The portal gun menu opens with J.</span>
+      </div>
       <div class="verdict ok" data-world="cobblemon">
         <span class="tag">WORKS AS-IS</span>
         <span class="what"><span class="kbd">R</span> Send out Pokémon / sort inventory</span>
@@ -143,10 +171,15 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <span class="what"><span class="kbd">R</span>+<span class="kbd">C</span> Sorting settings</span>
         <span class="why">Pressing R+C out in the world also sends out your Pokémon, since R goes first. Open sorting settings from inside your inventory instead, or through <strong>Mods</strong> on the pause menu.</span>
       </div>
-      <div class="verdict ok">
-        <span class="tag">ONLY IN CREATIVE</span>
+      <div class="verdict ok" data-world="ourworld">
+        <span class="tag">ONLY IN CREATIVE &middot; OUR WORLD</span>
         <span class="what"><span class="kbd">C</span> Camera view / save hotbar</span>
-        <span class="why">C changes your camera view (Minecraft's default is F5; C came from your own settings). C is also "save toolbar", which only works in creative. In survival, C just switches the camera.</span>
+        <span class="why">In Our World, C changes your camera view (Minecraft's default is F5; C came from your own settings). C is also "save toolbar", which only works in creative. In survival, C just switches the camera.</span>
+      </div>
+      <div class="verdict ok" data-world="ourworld">
+        <span class="tag">WORKS AS-IS &middot; OUR WORLD</span>
+        <span class="what"><span class="kbd">B</span> Open backpack</span>
+        <span class="why">Our World has no Xaero's maps, so the backpack keeps its default B. F3+B (show hitboxes) only fires while F3 is held.</span>
       </div>
     </div>
     <div class="callout" data-world="cobblemon">
@@ -191,6 +224,28 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <tr><td class="k"><span class="note">not set</span></td><td>Cave mode, entity radar, zoom, grid, slime chunks</td><td>Optional toggles. <strong>Cave mode</strong> is the one worth a key: it shows the cave layer you're standing in.</td></tr>
       </tbody>
     </table></div>
+  </section>
+
+  <!-- NEW MODS -->
+  <section class="panel" id="newmods">
+    <h2>Shaders, backpack, portal gun &amp; camera</h2>
+    <p class="sub">Keys for the mods added in October. Keys marked <strong>after the sync</strong> are the moved ones from the clash list above.</p>
+    <div class="table-scroll"><table class="keys">
+      <thead><tr><th>Key</th><th>Action</th><th>From</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="kbd">K</span></td><td>Shaders on/off. Both worlds.</td><td><span class="src vis">IRIS</span></td></tr>
+        <tr><td class="k"><span class="note">menu only</span></td><td>Shader pack menu: Options &rarr; Video Settings &rarr; Shader Packs. Its O shortcut is off in both worlds.</td><td><span class="src vis">IRIS</span></td></tr>
+        <tr data-world="ourworld"><td class="k"><span class="kbd">R</span></td><td>Reload shaders. Our World only; unbound in the Cobblemon world because R throws your Pokémon.</td><td><span class="src vis">IRIS</span></td></tr>
+        <tr data-world="cobblemon"><td class="k"><span class="kbd">G</span> <span class="note">after the sync</span></td><td>Open the backpack you're wearing (Cobblemon world)</td><td><span class="src inv">BACKPACK</span></td></tr>
+        <tr data-world="cobblemon"><td class="k"><span class="kbd">H</span> <span class="note">after the sync</span></td><td>Swap the backpack's tools, or change hose mode (Cobblemon world)</td><td><span class="src inv">BACKPACK</span></td></tr>
+        <tr data-world="ourworld"><td class="k"><span class="kbd">B</span> <span class="note">expected</span></td><td>Open the backpack you're wearing (Our World). The 26.3 build hides its defaults; check Controls after the first launch.</td><td><span class="src inv">BACKPACK</span></td></tr>
+        <tr><td class="k"><span class="note">not set</span></td><td>Sort backpack, special ability, toggle each upgrade slot. Assign keys in Controls if you want them.</td><td><span class="src inv">BACKPACK</span></td></tr>
+        <tr data-world="cobblemon"><td class="k"><span class="kbd">J</span> <span class="note">after the sync</span></td><td>Portal gun menu: destination, waypoints, settings. Hold the gun first. Cobblemon world only.</td><td><span class="src cob">PORTAL GUN</span></td></tr>
+        <tr><td class="k"><span class="kbd">F6</span></td><td>Turn First-person Model on/off (see your own arms, body, and legs when you look down). Both worlds.</td><td><span class="src van">FIRST-PERSON</span></td></tr>
+        <tr><td class="k"><span class="note">Mods menu</span></td><td>Distant Horizons has no keys. Settings: pause menu &rarr; Mods &rarr; Distant Horizons.</td><td><span class="src van">DISTANT HORIZONS</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Default keys were read from inside each mod's files, since the game hasn't been launched with them yet. More on these mods: <a href="visuals.html">Light &amp; Texture</a> and <a href="cobblemon.html#extras">Pokémon Trail</a>.</p>
   </section>
 
   <!-- INVENTORY -->
@@ -241,7 +296,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       <thead><tr><th>Key</th><th>Action</th></tr></thead>
       <tbody>
         <tr><td class="k"><span class="kbd">L</span></td><td>Advancements. Farmer's Delight and Cobblemon use them as built-in guides.</td></tr>
-        <tr><td class="k"><span class="kbd">C</span> <span class="note">(yours)</span> / <span class="kbd">F5</span></td><td>Change camera view</td></tr>
+        <tr><td class="k"><span class="kbd">V</span> / <span class="kbd">C</span> <span class="note">(yours)</span> / <span class="kbd">F5</span></td><td>Change camera view: V in the Cobblemon world, C in Our World (both from your own settings; F5 is Minecraft's default)</td></tr>
         <tr><td class="k"><span class="kbd">F3</span></td><td>Coordinates and debug info. F3 combos (F3+G for chunk borders, etc.) only fire while F3 is held, so they never clash with normal keys.</td></tr>
         <tr><td class="k"><span class="kbd">F2</span></td><td>Screenshot</td></tr>
         <tr><td class="k"><span class="kbd">Esc</span> &rarr; Open to LAN</td><td>Lets the other player join your world</td></tr>
@@ -249,7 +304,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     </table></div>
   </section>
 
-  <footer>Bindings read from the Cobblemon profile's options.txt, Oct 2026 &middot; Inventory Profiles Next defaults from its documentation</footer>
+  <footer>Bindings read from both profiles' options.txt and the new mods' own files, Oct 2026 &middot; Inventory Profiles Next defaults from its documentation</footer>
 </div>
 
 <script>
@@ -259,7 +314,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-show") === which ? "true" : "false"); });
     document.querySelectorAll("[data-world]").forEach(function (el) {
       var w = el.getAttribute("data-world");
-      el.classList.toggle("hide", which === "ourworld" && w === "cobblemon");
+      el.classList.toggle("hide", (which === "ourworld" && w === "cobblemon") || (which === "cobblemon" && w === "ourworld"));
     });
     try { localStorage.setItem("mc-controls-world", which); } catch (e) {}
   }
