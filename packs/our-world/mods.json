@@ -204,6 +204,17 @@
   ],
   "resourcepacks": [
     {
+      "name": "Lively by Alexio",
+      "slug": "lively-by-alexio",
+      "project_id": "SWCde9S7",
+      "version_id": "AtPoqw5S",
+      "version": "26.3.0",
+      "filename": "Lively by Alexio 26.3.zip",
+      "url": "https://cdn.modrinth.com/data/SWCde9S7/versions/AtPoqw5S/Lively%20by%20Alexio%2026.3.zip",
+      "sha1": "779d8d948f435eed390f19a37efe6c5ac4273c42",
+      "side": "client"
+    },
+    {
       "name": "Fresh Animations",
       "slug": "fresh-animations",
       "project_id": "50dA9Sha",

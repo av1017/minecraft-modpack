@@ -337,6 +337,17 @@
   ],
   "resourcepacks": [
     {
+      "name": "Lively by Alexio",
+      "slug": "lively-by-alexio",
+      "project_id": "SWCde9S7",
+      "version_id": "77rWLSA6",
+      "version": "1.3.0",
+      "filename": "Lively by Alexio 1.21 - 1.21.1.zip",
+      "url": "https://cdn.modrinth.com/data/SWCde9S7/versions/77rWLSA6/Lively%20by%20Alexio%201.21%20-%201.21.1.zip",
+      "sha1": "e2313c26ac0d80f170450bd541998bb0809deda2",
+      "side": "client"
+    },
+    {
       "name": "Cobblemon Interface",
       "slug": "cobblemon-interface",
       "project_id": "gfiYlQU0",

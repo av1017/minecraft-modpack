@@ -223,11 +223,18 @@ if ($rpNew.Count -gt 0) {
       $parsed = ConvertFrom-Json $lines[$idx].Substring("resourcePacks:".Length)
       foreach ($e in $parsed) { [void]$enabled.Add([string]$e) }
     } else { [void]$enabled.Add("vanilla"); [void]$enabled.Add("fabric") }
-    foreach ($rp in $rpList) {
-      if ($rpNew -contains $rp) {
-        $entry = "file/" + $rp.filename
-        if (-not ($enabled -contains $entry)) { [void]$enabled.Add($entry) }
+    # Put each new pack in its list position: just below the next listed pack that's already on, else on top.
+    for ($i = 0; $i -lt $rpList.Count; $i++) {
+      $rp = $rpList[$i]
+      if (-not ($rpNew -contains $rp)) { continue }
+      $entry = "file/" + $rp.filename
+      if ($enabled -contains $entry) { continue }
+      $insertAt = -1
+      for ($j = $i + 1; $j -lt $rpList.Count -and $insertAt -lt 0; $j++) {
+        $later = $enabled.IndexOf("file/" + $rpList[$j].filename)
+        if ($later -ge 0) { $insertAt = $later }
       }
+      if ($insertAt -ge 0) { $enabled.Insert($insertAt, $entry) } else { [void]$enabled.Add($entry) }
     }
     $quoted = @($enabled | ForEach-Object { '"' + ($_ -replace '\\', '\\' -replace '"', '\"') + '"' })
     $newLine = "resourcePacks:[" + ($quoted -join ",") + "]"
