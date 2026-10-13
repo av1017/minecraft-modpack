@@ -236,6 +236,17 @@
       "side": "client"
     },
     {
+      "name": "Skyboxify",
+      "slug": "skyboxify",
+      "project_id": "DWuwk8aA",
+      "version_id": "ipMSJF5L",
+      "version": "1.4",
+      "filename": "optiboxes-1.4+mc1.21.1-9eba186.jar",
+      "url": "https://cdn.modrinth.com/data/DWuwk8aA/versions/ipMSJF5L/optiboxes-1.4%2Bmc1.21.1-9eba186.jar",
+      "sha1": "f45cd6c44b50f752c113348c12aa9e42405d6c63",
+      "side": "client"
+    },
+    {
       "name": "Sodium",
       "slug": "sodium",
       "project_id": "AANobbMI",
@@ -259,6 +270,18 @@
       "filename": "Ashen_16x.zip",
       "url": "https://cdn.modrinth.com/data/LSmohupN/versions/cR2AGjlP/Ashen_16x.zip",
       "sha1": "5effb57027827f46d4fe4d4b278fde3383ef0117",
+      "side": "client",
+      "enabled": false
+    },
+    {
+      "name": "Yuushya 16x",
+      "slug": "yuushya-16x",
+      "project_id": "URJhe7Uz",
+      "version_id": "TuwbZAy3",
+      "version": "0.20.0",
+      "filename": "[1.19-1.21] Yuushya Release 0.20.0.zip",
+      "url": "https://cdn.modrinth.com/data/URJhe7Uz/versions/TuwbZAy3/%5B1.19-1.21%5D%20Yuushya%20Release%200.20.0.zip",
+      "sha1": "6da76b78a67303b9a55a242342ca207847c75ec3",
       "side": "client",
       "enabled": false
     },
@@ -293,6 +316,50 @@
       "filename": "Fast Better Grass.zip",
       "url": "https://cdn.modrinth.com/data/dspVZXKP/versions/U9zNcnWW/Fast%20Better%20Grass.zip",
       "sha1": "3a344f8e36a2e748f11dce1c246b5c6ce91141f1",
+      "side": "client"
+    },
+    {
+      "name": "3D Sugar Cane",
+      "slug": "3d-sugar-cane",
+      "project_id": "pT71mSWA",
+      "version_id": "sU6FmyoH",
+      "version": "2.0",
+      "filename": "3D Sugar Cane.zip",
+      "url": "https://cdn.modrinth.com/data/pT71mSWA/versions/sU6FmyoH/3D%20Sugar%20Cane.zip",
+      "sha1": "95cf29263f55885b0bf2a46b2ccdf7687d21e4e1",
+      "side": "client"
+    },
+    {
+      "name": "Torches Reimagined",
+      "slug": "torches-reimagined",
+      "project_id": "pfnQDIWs",
+      "version_id": "fNTKqclK",
+      "version": "v1.8",
+      "filename": "Â§eTorchesÂ§8-Â§eReimaginedÂ§0_Â§8[v1.8]Â§0.zip",
+      "url": "https://cdn.modrinth.com/data/pfnQDIWs/versions/fNTKqclK/%C2%A7eTorches%C2%A78-%C2%A7eReimagined%C2%A70_%C2%A78%5Bv1.8%5D%C2%A70.zip",
+      "sha1": "06032557b84a41a28e3473f483b34cb6737002b0",
+      "side": "client"
+    },
+    {
+      "name": "Better 3D Beds",
+      "slug": "better-3d-beds",
+      "project_id": "LukwUauE",
+      "version_id": "d3akIBaA",
+      "version": "3.0",
+      "filename": "Â§lBetter Beds.zip",
+      "url": "https://cdn.modrinth.com/data/LukwUauE/versions/d3akIBaA/%C2%A7lBetter%20Beds.zip",
+      "sha1": "0a1492aa035665650d70b99d09b6c45ed05f9b3e",
+      "side": "client"
+    },
+    {
+      "name": "Dramatic Skys",
+      "slug": "dramatic-skys",
+      "project_id": "2YyNMled",
+      "version_id": "4MZQy9nc",
+      "version": "1.5.3.36.6",
+      "filename": "Dramatic Skys Demo 1.5.3.36.6.zip",
+      "url": "https://cdn.modrinth.com/data/2YyNMled/versions/4MZQy9nc/Dramatic%20Skys%20Demo%201.5.3.36.6.zip",
+      "sha1": "8953223ba4d04261917b2e29bdcc1841297a5efa",
       "side": "client"
     },
     {
