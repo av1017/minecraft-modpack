@@ -40,6 +40,14 @@ $api = "https://api.modrinth.com/v2"
 
 function Fail($msg) { Write-Host "`nSTOPPED: $msg" -ForegroundColor Red; exit 1 }
 function Enc($s) { [Uri]::EscapeDataString($s) }
+# Windows PowerShell 5.1's Invoke-RestMethod decodes Modrinth's UTF-8 replies as Latin-1 (so "§" became "Â§").
+# Fetch the raw bytes and decode them as UTF-8 ourselves.
+function Get-Api([string]$url) {
+  $wc = New-Object System.Net.WebClient
+  $wc.Headers.Add("User-Agent", $headers["User-Agent"])
+  try { $bytes = $wc.DownloadData($url) } finally { $wc.Dispose() }
+  return ([System.Text.Encoding]::UTF8.GetString($bytes) | ConvertFrom-Json)
+}
 
 # Minimal JSON writer that matches the repo's 2-space format and doesn't escape apostrophes.
 function Write-JsonValue($v, [int]$level) {
@@ -97,7 +105,7 @@ $changes = New-Object System.Collections.ArrayList
 $seen = @{}
 
 function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDependency) {
-  $project = Invoke-RestMethod -Uri "$api/project/$(Enc $projectRef)" -Headers $headers
+  $project = Get-Api "$api/project/$(Enc $projectRef)"
   if ($seen.ContainsKey($project.id)) { return }
   $seen[$project.id] = $true
 
@@ -112,11 +120,11 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
   }
 
   if ($pinnedVersionId) {
-    $version = Invoke-RestMethod -Uri "$api/version/$(Enc $pinnedVersionId)" -Headers $headers
+    $version = Get-Api "$api/version/$(Enc $pinnedVersionId)"
   } else {
     $q = "loaders=" + (Enc ('["' + $loader + '"]')) + "&game_versions=" + (Enc ('["' + $mc + '"]'))
     # Windows PowerShell 5.1 emits a JSON array as ONE pipeline object; unroll it explicitly.
-    $raw = Invoke-RestMethod -Uri "$api/project/$($project.id)/version?$q" -Headers $headers
+    $raw = Get-Api "$api/project/$($project.id)/version?$q"
     $versions = New-Object System.Collections.ArrayList
     foreach ($v in $raw) { [void]$versions.Add($v) }
     $version = $null
@@ -153,7 +161,7 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
     if ($dep.dependency_type -ne "required") { continue }
     if ($dep.project_id) { Resolve-Mod $dep.project_id $null $true }
     elseif ($dep.version_id) {
-      $dv = Invoke-RestMethod -Uri "$api/version/$(Enc $dep.version_id)" -Headers $headers
+      $dv = Get-Api "$api/version/$(Enc $dep.version_id)"
       Resolve-Mod $dv.project_id $dep.version_id $true
     }
   }

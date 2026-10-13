@@ -163,10 +163,14 @@ $downloads = @($toInstall) + @($rpToInstall) + @($spToInstall)
 if ($downloads.Count -gt 0) {
   Step "Downloading $($downloads.Count) file(s) from Modrinth"
   New-Item -ItemType Directory -Force -Path $staging | Out-Null
+  $n = 0
   foreach ($mod in $downloads) {
     $tmp = Join-Path $staging $mod.filename
-    try { Invoke-WebRequest -UseBasicParsing -Uri $mod.url -OutFile $tmp -Headers @{ "User-Agent" = "av1017/minecraft-modpack" } }
+    # Download to a plain name first: -OutFile treats [ ] in file names as wildcards.
+    $plain = Join-Path $staging ("download-" + ($n++) + ".part")
+    try { Invoke-WebRequest -UseBasicParsing -Uri $mod.url -OutFile $plain -Headers @{ "User-Agent" = "av1017/minecraft-modpack" } }
     catch { Fail "Couldn't download $($mod.name): $($_.Exception.Message). Nothing was changed." }
+    Move-Item -LiteralPath $plain -Destination $tmp -Force
     if ((Sha1Of $tmp) -ne $mod.sha1.ToLower()) { Fail "Downloaded $($mod.filename) doesn't match its checksum. Nothing was changed." }
     Ok "Downloaded and verified $($mod.filename)"
   }
