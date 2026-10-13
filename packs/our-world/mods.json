@@ -11,7 +11,8 @@
     "key": "fabric-26.3-modded",
     "name": "Fabric 26.3 (Modded)",
     "icon": "Crafting_Table",
-    "memory_gb": 4
+    "memory_gb": 4,
+    "gc_args": "-XX:+UseZGC"
   },
   "mods": [
     {
