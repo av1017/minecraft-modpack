@@ -102,6 +102,28 @@
       "side": "both"
     },
     {
+      "name": "[EMF] Entity Model Features",
+      "slug": "entity-model-features",
+      "project_id": "4I1XuqiY",
+      "version_id": "N7d5LddE",
+      "version": "3.3.11-fabric-26.3",
+      "filename": "entity_model_features-3.3.11-26.3-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/4I1XuqiY/versions/N7d5LddE/entity_model_features-3.3.11-26.3-fabric.jar",
+      "sha1": "9c11805cc34153fd89cb9fecf78be2b5a803b373",
+      "side": "client"
+    },
+    {
+      "name": "[ETF] Entity Texture Features",
+      "slug": "entitytexturefeatures",
+      "project_id": "BVzZfTc1",
+      "version_id": "O8J3sxxp",
+      "version": "7.2.5-fabric-26.3",
+      "filename": "entity_texture_features-7.2.5-26.3-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/BVzZfTc1/versions/O8J3sxxp/entity_texture_features-7.2.5-26.3-fabric.jar",
+      "sha1": "c4d8d0f47a2ab15091f47a1d74336a119ab5f1b1",
+      "side": "client"
+    },
+    {
       "name": "Inventory Profiles Next",
       "slug": "inventory-profiles-next",
       "project_id": "O7RBXm3n",
@@ -143,6 +165,19 @@
       "filename": "MouseTweaks-fabric-mc26.3-2.31.jar",
       "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/LeMuMhLv/MouseTweaks-fabric-mc26.3-2.31.jar",
       "sha1": "65c0f5588900e7ade476164ec4915bfab52c129a",
+      "side": "client"
+    }
+  ],
+  "resourcepacks": [
+    {
+      "name": "Fresh Animations",
+      "slug": "fresh-animations",
+      "project_id": "50dA9Sha",
+      "version_id": "RGIzA5em",
+      "version": "1.10.5",
+      "filename": "FreshAnimations_v1.10.5.zip",
+      "url": "https://cdn.modrinth.com/data/50dA9Sha/versions/RGIzA5em/FreshAnimations_v1.10.5.zip",
+      "sha1": "0d069c5583d1dd4591e55ec5ff6dd0905f3f8615",
       "side": "client"
     }
   ]

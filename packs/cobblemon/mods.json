@@ -136,6 +136,28 @@
       "side": "both"
     },
     {
+      "name": "[EMF] Entity Model Features",
+      "slug": "entity-model-features",
+      "project_id": "4I1XuqiY",
+      "version_id": "VeoAKvQ0",
+      "version": "3.3.11-fabric-1.21",
+      "filename": "entity_model_features-3.3.11-1.21-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/4I1XuqiY/versions/VeoAKvQ0/entity_model_features-3.3.11-1.21-fabric.jar",
+      "sha1": "484d51ba5c1efcfb511e2f8db7c0974e66d594fb",
+      "side": "client"
+    },
+    {
+      "name": "[ETF] Entity Texture Features",
+      "slug": "entitytexturefeatures",
+      "project_id": "BVzZfTc1",
+      "version_id": "OVZ7HJXt",
+      "version": "7.2.5-fabric-1.21",
+      "filename": "entity_texture_features-7.2.5-1.21-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/BVzZfTc1/versions/OVZ7HJXt/entity_texture_features-7.2.5-1.21-fabric.jar",
+      "sha1": "726958e34edf7b424d7254d73d214caeedd15737",
+      "side": "client"
+    },
+    {
       "name": "Inventory Profiles Next",
       "slug": "inventory-profiles-next",
       "project_id": "O7RBXm3n",
@@ -177,6 +199,52 @@
       "filename": "MouseTweaks-fabric-mc1.21-2.26.jar",
       "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/ylmBQ38A/MouseTweaks-fabric-mc1.21-2.26.jar",
       "sha1": "ee81af33a5606ef2cd057e075833d7c69836c210",
+      "side": "client"
+    }
+  ],
+  "resourcepacks": [
+    {
+      "name": "Cobblemon Interface",
+      "slug": "cobblemon-interface",
+      "project_id": "gfiYlQU0",
+      "version_id": "8SjyMuZO",
+      "version": "1.6.0",
+      "filename": "Cobblemon Interface v1.6.0.zip",
+      "url": "https://cdn.modrinth.com/data/gfiYlQU0/versions/8SjyMuZO/Cobblemon%20Interface%20v1.6.0.zip",
+      "sha1": "f91aa128e036b579fc687e55f9b9a240e3fbf65a",
+      "side": "client"
+    },
+    {
+      "name": "Cobblemon Interface: Modded",
+      "slug": "cobblemon-interface-modded",
+      "project_id": "5DF3hBIs",
+      "version_id": "pfFd0Jh4",
+      "version": "1.9.4",
+      "filename": "Cobblemon Interface Modded v1.9.4.zip",
+      "url": "https://cdn.modrinth.com/data/5DF3hBIs/versions/pfFd0Jh4/Cobblemon%20Interface%20Modded%20v1.9.4.zip",
+      "sha1": "0599cd556bafd67537690ebe037bc7e4a88c2542",
+      "side": "client"
+    },
+    {
+      "name": "Fresh Animations",
+      "slug": "fresh-animations",
+      "project_id": "50dA9Sha",
+      "version_id": "xN57JJts",
+      "version": "1.10.4",
+      "filename": "FreshAnimations_v1.10.4.zip",
+      "url": "https://cdn.modrinth.com/data/50dA9Sha/versions/xN57JJts/FreshAnimations_v1.10.4.zip",
+      "sha1": "73db740a6868e043c5e615c036fca2c912615b6e",
+      "side": "client"
+    },
+    {
+      "name": "E19 - Cobblemon Minimap Icons",
+      "slug": "e19_cobblemon_minimap_icons",
+      "project_id": "Va3BanZa",
+      "version_id": "MAumPyhV",
+      "version": "1.5.2",
+      "filename": "E19 Cobblemon Minimap Icons.zip",
+      "url": "https://cdn.modrinth.com/data/Va3BanZa/versions/MAumPyhV/E19%20Cobblemon%20Minimap%20Icons.zip",
+      "sha1": "77813d38002b43c9c243d694728479bd3879cf86",
       "side": "client"
     }
   ]

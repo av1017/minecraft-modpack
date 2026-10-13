@@ -15,6 +15,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `loader`: Fabric version, ID, and SHA-1
   - `profile`: launcher profile key, name, and icon
   - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
+  - `resourcepacks`: optional; texture packs in load order (later entries load on top)
 - **`loader/<version_id>.json`** is the launcher version file for each Fabric/Minecraft pair, checksummed in the pack's `mods.json`.
 - **`sync.ps1 -Pack <pack>`** makes the PC match the pack:
   - downloads mods from Modrinth into a temp folder and verifies SHA-1 before touching anything
@@ -22,10 +23,13 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - installs the loader file
   - creates or updates the launcher profile, including `gameDir` for packs with their own folder
   - on first setup of a separate game folder, copies `options.txt` so settings and keybinds carry over
+  - installs listed texture packs into `<game folder>\resourcepacks`. It switches a pack on in `options.txt` only the first time it installs it, keeping Minecraft's CRLF line endings and the existing entries, and backs up `options.txt` first. It never deletes texture packs it didn't install, and never re-enables a pack the player turned off.
   - backs up `launcher_profiles.json` before changing anything
 
   It supports `-DryRun` and `-MinecraftDir`, and running it twice is safe. If the pack's Minecraft version isn't downloaded yet, it prints a note; the launcher downloads it on first launch.
 - **`tools/add-mod.ps1 -Pack <pack> -Slug a,b`** adds or updates mods in a pack from Modrinth. It only picks releases built for that pack's Minecraft version and adds required dependencies. Dependencies already in the pack keep their version.
+  - Add `-ResourcePack` for texture packs. They keep the order given, and required mods aren't added automatically, so check the pack's page. Fresh Animations needs the `entity-model-features` and `entitytexturefeatures` mods.
+  - Add `-AllowBeta` for projects that only publish betas (Fresh Animations does).
 
 ## Rules
 - **Mod files never go in the repo.** Some licenses forbid re-hosting (Wool Tweaks requires downloads to stay on CurseForge or Modrinth). `.gitignore` blocks `*.jar`.

@@ -7,8 +7,11 @@
 
   -Pack        Which pack to edit (a folder name under packs\). Default: our-world.
   -Slug        One or more Modrinth project slugs (the name in the URL: modrinth.com/mod/<slug>).
-  -DryRun      Show what would change without writing mods.json.
-  -AllowBeta   Accept beta/alpha builds when no release exists.
+  -DryRun        Show what would change without writing mods.json.
+  -AllowBeta     Accept beta/alpha builds when no release exists.
+  -ResourcePack  Add texture/resource packs instead of mods. They go in the "resourcepacks"
+                 list, in the order given: later packs load on top of earlier ones, so add a
+                 pack's add-ons after the pack itself.
 
   This only edits mods.json. Afterwards: run sync.ps1, test in-game, then commit and push.
 #>
@@ -16,7 +19,8 @@ param(
   [string]$Pack = "our-world",
   [Parameter(Mandatory = $true)][string[]]$Slug,
   [switch]$DryRun,
-  [switch]$AllowBeta
+  [switch]$AllowBeta,
+  [switch]$ResourcePack
 )
 
 $ErrorActionPreference = "Stop"
@@ -68,8 +72,14 @@ function Write-JsonValue($v, [int]$level) {
 $m = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
 $mc = $m.minecraft
 $loader = $m.loader.type
+$listName = "mods"
+if ($ResourcePack) {
+  $loader = "minecraft"   # Modrinth files resource packs under the "minecraft" loader
+  $listName = "resourcepacks"
+  if (-not ($m.PSObject.Properties.Name -contains "resourcepacks")) { $m | Add-Member -NotePropertyName resourcepacks -NotePropertyValue @() }
+}
 $mods = New-Object System.Collections.ArrayList
-foreach ($x in @($m.mods)) { [void]$mods.Add($x) }
+foreach ($x in @($m.$listName)) { if ($x) { [void]$mods.Add($x) } }
 
 $changes = New-Object System.Collections.ArrayList
 $seen = @{}
@@ -105,7 +115,7 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
   $file = @($version.files) | Where-Object { $_.primary } | Select-Object -First 1
   if (-not $file) { $file = @($version.files)[0] }
 
-  $side = "both"; if ($project.server_side -eq "unsupported") { $side = "client" }
+  $side = "both"; if ($ResourcePack -or $project.server_side -eq "unsupported") { $side = "client" }
   $entry = [pscustomobject][ordered]@{
     name = $project.title; slug = $project.slug; project_id = $project.id; version_id = $version.id
     version = $version.version_number; filename = $file.filename; url = $file.url
@@ -124,6 +134,7 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
     [void]$changes.Add("ADD    $($project.title) $($version.version_number) ($side)")
   }
 
+  if ($ResourcePack) { return }   # resource packs list mods they need as "dependencies"; add those with -Slug yourself
   foreach ($dep in $version.dependencies) {
     if ($dep.dependency_type -ne "required") { continue }
     if ($dep.project_id) { Resolve-Mod $dep.project_id $null $true }
@@ -146,8 +157,11 @@ foreach ($c in $changes) { Write-Host "   $c" -ForegroundColor Yellow }
 
 if ($DryRun) { Write-Host "`nDRY RUN: mods.json not written." -ForegroundColor Yellow; exit 0 }
 
-$sorted = @($mods | Sort-Object @{ Expression = { if ($_.side -eq "both") { 0 } else { 1 } } }, @{ Expression = { $_.name.ToLower() } })
-$m.mods = $sorted
+if ($ResourcePack) {
+  $m.resourcepacks = @($mods)   # keep order: it's load priority
+} else {
+  $m.mods = @($mods | Sort-Object @{ Expression = { if ($_.side -eq "both") { 0 } else { 1 } } }, @{ Expression = { $_.name.ToLower() } })
+}
 [System.IO.File]::WriteAllText($manifestPath, (Write-JsonValue $m 0) + "`n", (New-Object System.Text.UTF8Encoding($false)))
 $null = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
 Write-Host "`nmods.json updated. Next: run sync.ps1, test in-game, then commit and push." -ForegroundColor Green

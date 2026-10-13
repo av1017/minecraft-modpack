@@ -100,6 +100,17 @@ $wantGameDir = $null
 if ($gameDir -ne $MinecraftDir) { $wantGameDir = $gameDir }
 $needProfile = -not ($currentProfile -and $currentProfile.lastVersionId -eq $versionId -and $currentProfile.gameDir -eq $wantGameDir)
 
+# Resource packs: install listed ones that are missing or changed. Never delete other packs
+# (players may have their own). Newly installed packs are switched on, in list order.
+$rpDir = Join-Path $gameDir "resourcepacks"
+$rpList = @()
+if ($m.PSObject.Properties.Name -contains "resourcepacks") { $rpList = @($m.resourcepacks | Where-Object { $_ }) }
+$rpToInstall = @()
+foreach ($rp in $rpList) {
+  $dst = Join-Path $rpDir $rp.filename
+  if (-not ((Test-Path -LiteralPath $dst) -and ((Sha1Of $dst) -eq $rp.sha1.ToLower()))) { $rpToInstall += $rp }
+}
+
 # A new separate game folder starts with default settings; copy your existing settings and keybinds once.
 $srcOptions = Join-Path $MinecraftDir "options.txt"
 $dstOptions = Join-Path $gameDir "options.txt"
@@ -107,12 +118,14 @@ $needOptions = ($gameDir -ne $MinecraftDir) -and (Test-Path $srcOptions) -and -n
 
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
+foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
 if ($needLoader)  { Plan "Install Fabric loader version $versionId" }
 if ($needProfile) { Plan "Set launcher profile '$($m.profile.name)' to $versionId" }
 if ($needOptions) { Plan "Copy your game settings and keybinds into the new game folder" }
 Ok "$unchanged of $($m.mods.Count) mods already up to date"
+if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpList.Count) resource packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -120,10 +133,11 @@ if ($changes -eq 0) {
 
 # 4. Download and verify new mods into a staging folder first
 $staging = Join-Path $env:TEMP "minecraft-modpack-$stamp"
-if ($toInstall.Count -gt 0) {
-  Step "Downloading $($toInstall.Count) mod(s) from Modrinth"
+$downloads = @($toInstall) + @($rpToInstall)
+if ($downloads.Count -gt 0) {
+  Step "Downloading $($downloads.Count) file(s) from Modrinth"
   New-Item -ItemType Directory -Force -Path $staging | Out-Null
-  foreach ($mod in $toInstall) {
+  foreach ($mod in $downloads) {
     $tmp = Join-Path $staging $mod.filename
     try { Invoke-WebRequest -UseBasicParsing -Uri $mod.url -OutFile $tmp -Headers @{ "User-Agent" = "av1017/minecraft-modpack" } }
     catch { Fail "Couldn't download $($mod.name): $($_.Exception.Message). Nothing was changed." }
@@ -157,6 +171,18 @@ foreach ($mod in $toInstall) {
   if ((Sha1Of $dst) -ne $mod.sha1.ToLower()) { Fail "Installed $($mod.filename) doesn't match its checksum." }
 }
 if ($toInstall.Count -gt 0) { Ok "Installed $($toInstall.Count) mod(s)" }
+
+$rpNew = @()
+if ($rpToInstall.Count -gt 0) {
+  New-Item -ItemType Directory -Force -Path $rpDir | Out-Null
+  foreach ($rp in $rpToInstall) {
+    $dst = Join-Path $rpDir $rp.filename
+    if (-not (Test-Path -LiteralPath $dst)) { $rpNew += $rp }
+    Copy-Item -LiteralPath (Join-Path $staging $rp.filename) -Destination $dst -Force
+    if ((Sha1Of $dst) -ne $rp.sha1.ToLower()) { Fail "Installed $($rp.filename) doesn't match its checksum." }
+  }
+  Ok "Installed $($rpToInstall.Count) resource pack(s)"
+}
 if (Test-Path $staging) { Remove-Item -Recurse -Force $staging }
 
 if ($needLoader) {
@@ -168,6 +194,36 @@ if ($needLoader) {
 if ($needOptions) {
   Copy-Item -LiteralPath $srcOptions -Destination $dstOptions
   Ok "Copied game settings and keybinds"
+}
+
+# Switch on resource packs installed for the first time (later entries load on top).
+if ($rpNew.Count -gt 0) {
+  if (-not (Test-Path $dstOptions)) {
+    Note "No options.txt yet; turn the new resource packs on in Options > Resource Packs after your first launch."
+  } else {
+    Copy-Item -LiteralPath $dstOptions -Destination (Join-Path $backupDir "options.txt")
+    $lines = [System.Collections.ArrayList]@([System.IO.File]::ReadAllLines($dstOptions))
+    $idx = -1
+    for ($i = 0; $i -lt $lines.Count; $i++) { if ($lines[$i] -like "resourcePacks:*") { $idx = $i } }
+    $enabled = New-Object System.Collections.ArrayList
+    if ($idx -ge 0) {
+      # Windows PowerShell 5.1 emits a JSON array as ONE object; assign first, then iterate to unroll it.
+      $parsed = ConvertFrom-Json $lines[$idx].Substring("resourcePacks:".Length)
+      foreach ($e in $parsed) { [void]$enabled.Add([string]$e) }
+    } else { [void]$enabled.Add("vanilla"); [void]$enabled.Add("fabric") }
+    foreach ($rp in $rpList) {
+      if ($rpNew -contains $rp) {
+        $entry = "file/" + $rp.filename
+        if (-not ($enabled -contains $entry)) { [void]$enabled.Add($entry) }
+      }
+    }
+    $quoted = @($enabled | ForEach-Object { '"' + ($_ -replace '\\', '\\' -replace '"', '\"') + '"' })
+    $newLine = "resourcePacks:[" + ($quoted -join ",") + "]"
+    if ($idx -ge 0) { $lines[$idx] = $newLine } else { [void]$lines.Add($newLine) }
+    $nl = "`n"; if ([System.IO.File]::ReadAllText($dstOptions).Contains("`r`n")) { $nl = "`r`n" }   # keep Minecraft's line endings
+    [System.IO.File]::WriteAllText($dstOptions, (($lines -join $nl) + $nl), $utf8NoBom)
+    Ok "Switched on $($rpNew.Count) new resource pack(s) (change order or turn off in Options > Resource Packs)"
+  }
 }
 
 if ($needProfile) {

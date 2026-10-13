@@ -13,12 +13,17 @@ The repo stores **lists** of mods, not the mod files. The sync script downloads 
 Each pack has its own game folder, with its own worlds, mods, and settings, so they never interfere with each other. Exact versions are in `packs/<pack>/mods.json`.
 
 ### our-world
-Wool Tweaks, Farmer's Delight, Rustic Delight, plus inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu) and the libraries they need.
+- **Mods:** Wool Tweaks, Farmer's Delight, Rustic Delight, inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu), and EMF + ETF for animated mobs, plus the libraries they need.
+- **Texture pack:** Fresh Animations.
 
 ### cobblemon
 - **Cobblemon:** catch, battle, evolve, and ride Pokémon. A fan-made mod with original models.
 - **Xaero's Minimap + Xaero's World Map:** a corner minimap, a full-screen map, and waypoints.
-- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, and libraries.
+- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, and libraries.
+- **Texture packs:** Cobblemon Interface (+ Modded), E19 Cobblemon Minimap Icons, Fresh Animations.
+
+### Texture packs
+The sync installs each pack's texture packs into its `resourcepacks` folder and switches them on the first time. After that, each player controls them in **Options → Resource Packs**. The sync never turns a pack back on, and never deletes texture packs it didn't install. Texture packs don't need to match for LAN.
 
 ## Set up a new PC
 1. **Install Minecraft Java Edition** and sign in. Play vanilla once, then close the game and launcher.
@@ -38,6 +43,8 @@ The slug is the name in the Modrinth URL: `modrinth.com/mod/<slug>`. For several
 - picks the newest release for the pack's Minecraft version
 - adds any required libraries
 - updates a mod that's already listed
+
+For texture packs, add `-ResourcePack`. Order matters: later packs load on top, so add a pack's add-ons after the pack itself. Some packs only publish "beta" versions (Fresh Animations does); add `-AllowBeta` for those.
 
 Then run the sync, **test in-game**, and commit and push.
 
