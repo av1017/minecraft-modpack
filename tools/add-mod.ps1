@@ -12,6 +12,10 @@
   -ResourcePack  Add texture/resource packs instead of mods. They go in the "resourcepacks"
                  list, in the order given: later packs load on top of earlier ones, so add a
                  pack's add-ons after the pack itself.
+  -ShaderPack    Add shader packs (Iris) to the "shaderpacks" list instead of mods.
+
+  Entries with "pinned": true in mods.json are never updated by this tool (see each entry's
+  "pinned_reason"); change those by hand only after checking what depends on them.
 
   This only edits mods.json. Afterwards: run sync.ps1, test in-game, then commit and push.
 #>
@@ -20,7 +24,8 @@ param(
   [Parameter(Mandatory = $true)][string[]]$Slug,
   [switch]$DryRun,
   [switch]$AllowBeta,
-  [switch]$ResourcePack
+  [switch]$ResourcePack,
+  [switch]$ShaderPack
 )
 
 $ErrorActionPreference = "Stop"
@@ -73,10 +78,17 @@ $m = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
 $mc = $m.minecraft
 $loader = $m.loader.type
 $listName = "mods"
+if ($ResourcePack -and $ShaderPack) { Fail "Use -ResourcePack or -ShaderPack, not both." }
 if ($ResourcePack) {
   $loader = "minecraft"   # Modrinth files resource packs under the "minecraft" loader
   $listName = "resourcepacks"
-  if (-not ($m.PSObject.Properties.Name -contains "resourcepacks")) { $m | Add-Member -NotePropertyName resourcepacks -NotePropertyValue @() }
+}
+if ($ShaderPack) {
+  $loader = "iris"        # shader packs are filed under the "iris" (and "optifine") loaders
+  $listName = "shaderpacks"
+}
+if ($ResourcePack -or $ShaderPack) {
+  if (-not ($m.PSObject.Properties.Name -contains $listName)) { $m | Add-Member -NotePropertyName $listName -NotePropertyValue @() }
 }
 $mods = New-Object System.Collections.ArrayList
 foreach ($x in @($m.$listName)) { if ($x) { [void]$mods.Add($x) } }
@@ -115,7 +127,7 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
   $file = @($version.files) | Where-Object { $_.primary } | Select-Object -First 1
   if (-not $file) { $file = @($version.files)[0] }
 
-  $side = "both"; if ($ResourcePack -or $project.server_side -eq "unsupported") { $side = "client" }
+  $side = "both"; if ($ResourcePack -or $ShaderPack -or $project.server_side -eq "unsupported") { $side = "client" }
   $entry = [pscustomobject][ordered]@{
     name = $project.title; slug = $project.slug; project_id = $project.id; version_id = $version.id
     version = $version.version_number; filename = $file.filename; url = $file.url
@@ -124,7 +136,9 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
 
   $existing = $null; $idx = -1
   for ($i = 0; $i -lt $mods.Count; $i++) { if ($mods[$i].project_id -eq $project.id) { $existing = $mods[$i]; $idx = $i } }
-  if ($existing -and $existing.version_id -eq $version.id) {
+  if ($existing -and ($existing.PSObject.Properties.Name -contains "pinned") -and $existing.pinned) {
+    Write-Host "   pinned   $($project.title) $($existing.version) (not updated: $($existing.pinned_reason))" -ForegroundColor DarkYellow
+  } elseif ($existing -and $existing.version_id -eq $version.id) {
     Write-Host "   current  $($project.title) $($version.version_number)" -ForegroundColor DarkGray
   } elseif ($existing) {
     $mods[$idx] = $entry
@@ -134,7 +148,7 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
     [void]$changes.Add("ADD    $($project.title) $($version.version_number) ($side)")
   }
 
-  if ($ResourcePack) { return }   # resource packs list mods they need as "dependencies"; add those with -Slug yourself
+  if ($ResourcePack -or $ShaderPack) { return }   # packs list mods they need as "dependencies"; add those with -Slug yourself
   foreach ($dep in $version.dependencies) {
     if ($dep.dependency_type -ne "required") { continue }
     if ($dep.project_id) { Resolve-Mod $dep.project_id $null $true }
@@ -157,8 +171,8 @@ foreach ($c in $changes) { Write-Host "   $c" -ForegroundColor Yellow }
 
 if ($DryRun) { Write-Host "`nDRY RUN: mods.json not written." -ForegroundColor Yellow; exit 0 }
 
-if ($ResourcePack) {
-  $m.resourcepacks = @($mods)   # keep order: it's load priority
+if ($ResourcePack -or $ShaderPack) {
+  $m.$listName = @($mods)   # keep order (for resource packs it's load priority)
 } else {
   $m.mods = @($mods | Sort-Object @{ Expression = { if ($_.side -eq "both") { 0 } else { 1 } } }, @{ Expression = { $_.name.ToLower() } })
 }

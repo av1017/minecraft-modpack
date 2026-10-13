@@ -120,6 +120,17 @@ foreach ($rp in $rpList) {
   if (-not ((Test-Path -LiteralPath $dst) -and ((Sha1Of $dst) -eq $rp.sha1.ToLower()))) { $rpToInstall += $rp }
 }
 
+# Shader packs: installed into <game folder>\shaderpacks, never switched on (graphics cards differ;
+# each player turns shaders on in Options > Video Settings > Shader Packs).
+$spDir = Join-Path $gameDir "shaderpacks"
+$spList = @()
+if ($m.PSObject.Properties.Name -contains "shaderpacks") { $spList = @($m.shaderpacks | Where-Object { $_ }) }
+$spToInstall = @()
+foreach ($sp in $spList) {
+  $dst = Join-Path $spDir $sp.filename
+  if (-not ((Test-Path -LiteralPath $dst) -and ((Sha1Of $dst) -eq $sp.sha1.ToLower()))) { $spToInstall += $sp }
+}
+
 # A new separate game folder starts with default settings; copy your existing settings and keybinds once.
 $srcOptions = Join-Path $MinecraftDir "options.txt"
 $dstOptions = Join-Path $gameDir "options.txt"
@@ -128,6 +139,7 @@ $needOptions = ($gameDir -ne $MinecraftDir) -and (Test-Path $srcOptions) -and -n
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
 foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
+foreach ($sp in $spToInstall) { Plan "Install shader pack: $($sp.name) $($sp.version)" }
 if ($needLoader)  { Plan "Install Fabric loader version $versionId" }
 if ($needProfile) {
   $memNote = ""; if ($wantJavaArgs) { $memNote = " with " + ([regex]::Match($wantJavaArgs, '-Xmx(\d+)G').Groups[1].Value) + " GB of memory" }
@@ -137,7 +149,9 @@ if ($needOptions) { Plan "Copy your game settings and keybinds into the new game
 Ok "$unchanged of $($m.mods.Count) mods already up to date"
 if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpList.Count) resource packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+if ($spList.Count -gt 0) { Ok "$($spList.Count - $spToInstall.Count) of $($spList.Count) shader packs already up to date" }
+
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -145,7 +159,7 @@ if ($changes -eq 0) {
 
 # 4. Download and verify new mods into a staging folder first
 $staging = Join-Path $env:TEMP "minecraft-modpack-$stamp"
-$downloads = @($toInstall) + @($rpToInstall)
+$downloads = @($toInstall) + @($rpToInstall) + @($spToInstall)
 if ($downloads.Count -gt 0) {
   Step "Downloading $($downloads.Count) file(s) from Modrinth"
   New-Item -ItemType Directory -Force -Path $staging | Out-Null
@@ -195,6 +209,15 @@ if ($rpToInstall.Count -gt 0) {
   }
   Ok "Installed $($rpToInstall.Count) resource pack(s)"
 }
+if ($spToInstall.Count -gt 0) {
+  New-Item -ItemType Directory -Force -Path $spDir | Out-Null
+  foreach ($sp in $spToInstall) {
+    $dst = Join-Path $spDir $sp.filename
+    Copy-Item -LiteralPath (Join-Path $staging $sp.filename) -Destination $dst -Force
+    if ((Sha1Of $dst) -ne $sp.sha1.ToLower()) { Fail "Installed $($sp.filename) doesn't match its checksum." }
+  }
+  Ok "Installed $($spToInstall.Count) shader pack(s) (turn on in Options > Video Settings > Shader Packs)"
+}
 if (Test-Path $staging) { Remove-Item -Recurse -Force $staging }
 
 if ($needLoader) {
@@ -224,9 +247,11 @@ if ($rpNew.Count -gt 0) {
       foreach ($e in $parsed) { [void]$enabled.Add([string]$e) }
     } else { [void]$enabled.Add("vanilla"); [void]$enabled.Add("fabric") }
     # Put each new pack in its list position: just below the next listed pack that's already on, else on top.
+    $switchedOn = 0
     for ($i = 0; $i -lt $rpList.Count; $i++) {
       $rp = $rpList[$i]
       if (-not ($rpNew -contains $rp)) { continue }
+      if ($rp.PSObject.Properties.Name -contains "enabled" -and $rp.enabled -eq $false) { continue }   # installed, but left off
       $entry = "file/" + $rp.filename
       if ($enabled -contains $entry) { continue }
       $insertAt = -1
@@ -235,13 +260,16 @@ if ($rpNew.Count -gt 0) {
         if ($later -ge 0) { $insertAt = $later }
       }
       if ($insertAt -ge 0) { $enabled.Insert($insertAt, $entry) } else { [void]$enabled.Add($entry) }
+      $switchedOn++
     }
     $quoted = @($enabled | ForEach-Object { '"' + ($_ -replace '\\', '\\' -replace '"', '\"') + '"' })
     $newLine = "resourcePacks:[" + ($quoted -join ",") + "]"
     if ($idx -ge 0) { $lines[$idx] = $newLine } else { [void]$lines.Add($newLine) }
     $nl = "`n"; if ([System.IO.File]::ReadAllText($dstOptions).Contains("`r`n")) { $nl = "`r`n" }   # keep Minecraft's line endings
     [System.IO.File]::WriteAllText($dstOptions, (($lines -join $nl) + $nl), $utf8NoBom)
-    Ok "Switched on $($rpNew.Count) new resource pack(s) (change order or turn off in Options > Resource Packs)"
+    $leftOff = $rpNew.Count - $switchedOn
+    $offNote = ""; if ($leftOff -gt 0) { $offNote = "; $leftOff installed but left off" }
+    Ok "Switched on $switchedOn new resource pack(s)$offNote (change order or turn off in Options > Resource Packs)"
   }
 }
 

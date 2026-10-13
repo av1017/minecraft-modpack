@@ -15,7 +15,9 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `loader`: Fabric version, ID, and SHA-1
   - `profile`: launcher profile key, name, icon, and `memory_gb`. The sync writes `javaArgs` with `-Xmx` set to that amount, capped at a third of the PC's RAM and never below 2 GB, plus G1GC flags.
   - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
-  - `resourcepacks`: optional; texture packs in load order (later entries load on top)
+  - `resourcepacks`: optional; texture packs in load order (later entries load on top). `"enabled": false` means installed but not switched on (e.g. an alternative to compare).
+  - `shaderpacks`: optional; Iris shader packs. Installed into `<game folder>\shaderpacks` and never switched on by the sync, because graphics cards differ.
+  - Any mod entry can have `"pinned": true` plus `pinned_reason`; `add-mod.ps1` won't update it. Cobblemon's Sodium is pinned to 0.6.x because Iris for 1.21.1 requires Sodium 0.6.x. Unpin only when an Iris build for 1.21.1 accepts a newer Sodium (check its `fabric.mod.json`).
 - **`loader/<version_id>.json`** is the launcher version file for each Fabric/Minecraft pair, checksummed in the pack's `mods.json`.
 - **`sync.ps1 -Pack <pack>`** makes the PC match the pack:
   - downloads mods from Modrinth into a temp folder and verifies SHA-1 before touching anything
@@ -30,6 +32,8 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
 - **`tools/add-mod.ps1 -Pack <pack> -Slug a,b`** adds or updates mods in a pack from Modrinth. It only picks releases built for that pack's Minecraft version and adds required dependencies. Dependencies already in the pack keep their version.
   - Add `-ResourcePack` for texture packs. They keep the order given, and required mods aren't added automatically, so check the pack's page. Fresh Animations needs the `entity-model-features` and `entitytexturefeatures` mods.
   - Add `-AllowBeta` for projects that only publish betas (Fresh Animations does).
+  - Add `-ShaderPack` for shader packs (Modrinth loader `iris`).
+  - Before adding a mod that depends on Sodium (like Iris), read its `fabric.mod.json` `depends` and compare it with the pack's Sodium. A mismatch stops the game from launching.
 
 ## Guide website
 `docs/` is a static HTML site published by GitHub Pages at https://av1017.github.io/minecraft-modpack/ (branch `main`, folder `/docs`). Pages are self-contained: inline CSS/JS, Google Fonts, no build step. Checklist progress is stored in each visitor's browser (`localStorage`).

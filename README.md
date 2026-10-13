@@ -24,6 +24,11 @@ Each pack has its own game folder, with its own worlds, mods, and settings, so t
 - **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, performance mods (Sodium, Lithium, FerriteCore), and libraries. The profile gets 6 GB of memory.
 - **Texture packs:** Cobblemon Interface (+ Modded), E19 Cobblemon Minimap Icons, Fresh Animations.
 
+### Look: Faithful 32x and shaders
+- **Both packs:** Faithful 32x, Fast Better Grass, and Ashen 16x. Ashen is installed but off, as an alternative; swap them in Options → Resource Packs.
+- **Cobblemon only:** Motschen's Better Leaves (no 26.3 version).
+- **Shaders:** Iris + Complementary Reimagined in both packs. The sync installs the shader pack but doesn't turn it on. Turn it on in **Options → Video Settings → Shader Packs**, and pick a lower profile there if the framerate drops.
+
 ### Texture packs
 The sync installs each pack's texture packs into its `resourcepacks` folder and switches them on the first time. After that, each player controls them in **Options → Resource Packs**. The sync never turns a pack back on, and never deletes texture packs it didn't install. Texture packs don't need to match for LAN.
 
