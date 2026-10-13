@@ -158,6 +158,17 @@
       "side": "client"
     },
     {
+      "name": "Iris Shaders",
+      "slug": "iris",
+      "project_id": "YL57xq9U",
+      "version_id": "vTN4NRGW",
+      "version": "1.11.7+26.3-fabric",
+      "filename": "iris-fabric-1.11.7+mc26.3.jar",
+      "url": "https://cdn.modrinth.com/data/YL57xq9U/versions/vTN4NRGW/iris-fabric-1.11.7%2Bmc26.3.jar",
+      "sha1": "fa03640ba1e4ef2f7ae3619c6373a06e46d0ba2c",
+      "side": "client"
+    },
+    {
       "name": "libIPN",
       "slug": "libipn",
       "project_id": "onSQdWhM",
@@ -204,14 +215,37 @@
   ],
   "resourcepacks": [
     {
-      "name": "Lively by Alexio",
-      "slug": "lively-by-alexio",
-      "project_id": "SWCde9S7",
-      "version_id": "AtPoqw5S",
-      "version": "26.3.0",
-      "filename": "Lively by Alexio 26.3.zip",
-      "url": "https://cdn.modrinth.com/data/SWCde9S7/versions/AtPoqw5S/Lively%20by%20Alexio%2026.3.zip",
-      "sha1": "779d8d948f435eed390f19a37efe6c5ac4273c42",
+      "name": "Ashen 16x",
+      "slug": "ashen",
+      "project_id": "LSmohupN",
+      "version_id": "cR2AGjlP",
+      "version": "1.17.1",
+      "filename": "Ashen_16x.zip",
+      "url": "https://cdn.modrinth.com/data/LSmohupN/versions/cR2AGjlP/Ashen_16x.zip",
+      "sha1": "5effb57027827f46d4fe4d4b278fde3383ef0117",
+      "side": "client",
+      "enabled": false
+    },
+    {
+      "name": "Faithful 32x",
+      "slug": "faithful-32x",
+      "project_id": "w0TnApzs",
+      "version_id": "lDYpMiqk",
+      "version": "26.3-september-2026",
+      "filename": "Faithful 32x - 26.3.zip",
+      "url": "https://cdn.modrinth.com/data/w0TnApzs/versions/lDYpMiqk/Faithful%2032x%20-%2026.3.zip",
+      "sha1": "0f20dfdff314da4da3bdf365f66718e8c344075b",
+      "side": "client"
+    },
+    {
+      "name": "Fast Better Grass",
+      "slug": "fast-better-grass",
+      "project_id": "dspVZXKP",
+      "version_id": "Alviiov6",
+      "version": "26.3",
+      "filename": "Fast Better Grass.zip",
+      "url": "https://cdn.modrinth.com/data/dspVZXKP/versions/Alviiov6/Fast%20Better%20Grass.zip",
+      "sha1": "ca670657742ed2f479877da9440547372e5f92b5",
       "side": "client"
     },
     {
@@ -223,6 +257,19 @@
       "filename": "FreshAnimations_v1.10.5.zip",
       "url": "https://cdn.modrinth.com/data/50dA9Sha/versions/RGIzA5em/FreshAnimations_v1.10.5.zip",
       "sha1": "0d069c5583d1dd4591e55ec5ff6dd0905f3f8615",
+      "side": "client"
+    }
+  ],
+  "shaderpacks": [
+    {
+      "name": "Complementary Shaders - Reimagined",
+      "slug": "complementary-reimagined",
+      "project_id": "HVnmMxH1",
+      "version_id": "Bqen1mJX",
+      "version": "r5.9.3",
+      "filename": "ComplementaryReimagined_r5.9.3.zip",
+      "url": "https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip",
+      "sha1": "838139b54cddb56b2e83cd260d8efd960ac536d6",
       "side": "client"
     }
   ]
