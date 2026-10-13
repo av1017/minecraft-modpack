@@ -98,7 +98,16 @@ $currentProfile = $null
 if ($profiles.profiles.PSObject.Properties.Name -contains $profileKey) { $currentProfile = $profiles.profiles.$profileKey }
 $wantGameDir = $null
 if ($gameDir -ne $MinecraftDir) { $wantGameDir = $gameDir }
-$needProfile = -not ($currentProfile -and $currentProfile.lastVersionId -eq $versionId -and $currentProfile.gameDir -eq $wantGameDir)
+
+# Memory for the profile. Never more than a third of this PC's RAM, never less than 2 GB.
+$wantJavaArgs = $null
+if ($m.profile.memory_gb) {
+  $totalGb = [math]::Floor((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB)
+  $memGb = [math]::Max(2, [math]::Min([int]$m.profile.memory_gb, [math]::Floor($totalGb / 3)))
+  $wantJavaArgs = "-Xmx${memGb}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200"
+  if ($memGb -lt [int]$m.profile.memory_gb) { Note "This PC has $totalGb GB of RAM, so Minecraft gets $memGb GB instead of the pack's $($m.profile.memory_gb) GB." }
+}
+$needProfile = -not ($currentProfile -and $currentProfile.lastVersionId -eq $versionId -and $currentProfile.gameDir -eq $wantGameDir -and $currentProfile.javaArgs -eq $wantJavaArgs)
 
 # Resource packs: install listed ones that are missing or changed. Never delete other packs
 # (players may have their own). Newly installed packs are switched on, in list order.
@@ -120,7 +129,10 @@ foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
 foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
 if ($needLoader)  { Plan "Install Fabric loader version $versionId" }
-if ($needProfile) { Plan "Set launcher profile '$($m.profile.name)' to $versionId" }
+if ($needProfile) {
+  $memNote = ""; if ($wantJavaArgs) { $memNote = " with " + ([regex]::Match($wantJavaArgs, '-Xmx(\d+)G').Groups[1].Value) + " GB of memory" }
+  Plan "Set launcher profile '$($m.profile.name)' to $versionId$memNote"
+}
 if ($needOptions) { Plan "Copy your game settings and keybinds into the new game folder" }
 Ok "$unchanged of $($m.mods.Count) mods already up to date"
 if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpList.Count) resource packs already up to date" }
@@ -233,6 +245,7 @@ if ($needProfile) {
     lastVersionId = $versionId; name = $m.profile.name; type = "custom"
   }
   if ($wantGameDir) { $newProfile | Add-Member -NotePropertyName gameDir -NotePropertyValue $wantGameDir }
+  if ($wantJavaArgs) { $newProfile | Add-Member -NotePropertyName javaArgs -NotePropertyValue $wantJavaArgs }
   if ($currentProfile) { $profiles.profiles.$profileKey = $newProfile }
   else { $profiles.profiles | Add-Member -NotePropertyName $profileKey -NotePropertyValue $newProfile }
   [System.IO.File]::WriteAllText($profilesPath, ($profiles | ConvertTo-Json -Depth 20), $utf8NoBom)

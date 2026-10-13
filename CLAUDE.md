@@ -13,7 +13,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `minecraft`: the Minecraft version
   - `game_dir`: optional; a folder next to `.minecraft` holding this pack's mods, worlds, and settings
   - `loader`: Fabric version, ID, and SHA-1
-  - `profile`: launcher profile key, name, and icon
+  - `profile`: launcher profile key, name, icon, and `memory_gb`. The sync writes `javaArgs` with `-Xmx` set to that amount, capped at a third of the PC's RAM and never below 2 GB, plus G1GC flags.
   - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
   - `resourcepacks`: optional; texture packs in load order (later entries load on top)
 - **`loader/<version_id>.json`** is the launcher version file for each Fabric/Minecraft pair, checksummed in the pack's `mods.json`.
