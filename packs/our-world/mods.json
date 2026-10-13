@@ -191,6 +191,17 @@
       "side": "client"
     },
     {
+      "name": "First-person Model",
+      "slug": "first-person-model",
+      "project_id": "H5XMjpHi",
+      "version_id": "Z05WZTy2",
+      "version": "2.7.3",
+      "filename": "firstperson-fabric-2.7.3-mc26.3.jar",
+      "url": "https://cdn.modrinth.com/data/H5XMjpHi/versions/Z05WZTy2/firstperson-fabric-2.7.3-mc26.3.jar",
+      "sha1": "5402c9d8eeacd396081aa4e9bb9f47e5c7466024",
+      "side": "client"
+    },
+    {
       "name": "Inventory Profiles Next",
       "slug": "inventory-profiles-next",
       "project_id": "O7RBXm3n",
@@ -243,6 +254,17 @@
       "filename": "MouseTweaks-fabric-mc26.3-2.31.jar",
       "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/LeMuMhLv/MouseTweaks-fabric-mc26.3-2.31.jar",
       "sha1": "65c0f5588900e7ade476164ec4915bfab52c129a",
+      "side": "client"
+    },
+    {
+      "name": "Not Enough Animations",
+      "slug": "not-enough-animations",
+      "project_id": "MPCX6s5C",
+      "version_id": "EhSk2OTD",
+      "version": "1.12.6",
+      "filename": "notenoughanimations-fabric-1.12.6-mc26.3.jar",
+      "url": "https://cdn.modrinth.com/data/MPCX6s5C/versions/EhSk2OTD/notenoughanimations-fabric-1.12.6-mc26.3.jar",
+      "sha1": "6554509fc89187c5b6d63f586edfc35b8e41158c",
       "side": "client"
     },
     {
