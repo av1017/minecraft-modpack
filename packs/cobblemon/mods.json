@@ -203,6 +203,17 @@
       "side": "both"
     },
     {
+      "name": "Rick's Portal Gun [Fabric/Quilt]",
+      "slug": "ricks-portal-gun-fabric",
+      "project_id": "okWylF5O",
+      "version_id": "HojX5KCi",
+      "version": "1.4.5",
+      "filename": "ricksportalgun-fabric-1.21.1-1.4.5.jar",
+      "url": "https://cdn.modrinth.com/data/okWylF5O/versions/HojX5KCi/ricksportalgun-fabric-1.21.1-1.4.5.jar",
+      "sha1": "61677e7f75ceb1cf9f8db2e03ebb4824b989a92d",
+      "side": "both"
+    },
+    {
       "name": "Rustic Delight",
       "slug": "rustic-delight",
       "project_id": "foa4fGIH",
