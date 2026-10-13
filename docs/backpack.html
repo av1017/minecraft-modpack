@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traveler's Backpack</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #8a5a2b; --accent-bg: #f3e8dc;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #d9a46b; --accent-bg: #33261a;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #d9a46b; --accent-bg: #33261a;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Traveler's Backpack</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Both worlds &middot; Traveler's Backpack 10.1 (Cobblemon) / 11.4 (Our World)</span>
+    <h1>Traveler's Backpack</h1>
+    <p>A backpack you wear on your back. Beyond extra storage, it carries two fluid tanks, a sleeping bag, tool slots, and upgrade slots that add a crafting grid, furnace, magnet, auto-feeding, and more. Upgrade it through five tiers, from leather to netherite, or craft a themed backpack with its own special ability.</p>
+    <div class="stats">
+      <div class="stat"><b>27 &rarr; 63</b><span>storage slots, leather to netherite</span></div>
+      <div class="stat"><b>2 tanks</b><span>of water, lava, or other fluids</span></div>
+      <div class="stat"><b>G / B</b><span>open it: G in Cobblemon, B in Our World</span></div>
+      <div class="stat"><b>Kept on death</b><span>left as a block where you died, with its coordinates</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#first">Your First Backpack</a>
+    <a href="#wear">Wearing It</a>
+    <a href="#tiers">Tiers</a>
+    <a href="#upgrades">Upgrades</a>
+    <a href="#tools">Tools &amp; Hose</a>
+    <a href="#sleep">Sleeping Bag</a>
+    <a href="#themed">Themed Backpacks</a>
+    <a href="#death">If You Die</a>
+  </nav>
+
+  <!-- FIRST -->
+  <section class="panel" id="first">
+    <h2>Your First Backpack</h2>
+    <p class="sub">Three steps: a sleeping bag, two tanks, then the backpack. In total: 4 leather, 1 string, 3 wool, a chest, 12 glass, and 4 iron ingots.</p>
+    <div class="recipes" data-recipes="first"></div>
+    <div class="callout">There are also versions <strong>without tanks</strong> (a chest in the middle row instead of tanks and chest) and <strong>without a sleeping bag</strong>. The recipe book shows all of them. You can add tanks later with the Tanks upgrade.</div>
+    <ul class="tasks">
+      <li data-id="first-bag"><span class="checkbox"></span><span class="task-text">Craft a sleeping bag</span></li>
+      <li data-id="first-tanks"><span class="checkbox"></span><span class="task-text">Craft 2 Backpack Tanks</span></li>
+      <li data-id="first-pack"><span class="checkbox"></span><span class="task-text">Craft the Traveler's Backpack</span></li>
+    </ul>
+  </section>
+
+  <!-- WEAR -->
+  <section class="panel" id="wear">
+    <h2>Wearing It</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Do this</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Put it on</strong></td><td>Hold it in your main hand and right-click to open it, then click <strong>Equip Backpack</strong>. It now sits on your back, and your hands are free.</td></tr>
+        <tr><td><strong>Open it</strong></td><td><span class="kbd">G</span> in the Cobblemon world (moved from B so it doesn't clash with the map). In Our World it should be <span class="kbd">B</span>. Or click the backpack icon in your inventory.</td></tr>
+        <tr><td><strong>Take it off</strong></td><td>Open it, click the <strong>three dots</strong> button to show more buttons, then <strong>Unequip</strong>. You need a free inventory slot.</td></tr>
+        <tr><td><strong>Place it as a block</strong></td><td>Hold it and sneak + right-click the ground. Right-click the placed backpack to open it, and break it to pick it back up with everything inside.</td></tr>
+        <tr><td><strong>Inside the screen</strong></td><td>Buttons sort (hold Shift to change the sort order), quick-stack into the backpack, and move everything between the backpack and your inventory. In settings you can mark slots to skip when sorting, or reserve slots for one item.</td></tr>
+        <tr><td><strong>Hide it</strong></td><td>"Hide Backpack" in its screen stops it showing on your back.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>One worn backpack at a time.</strong> Extras can be carried as items or placed as blocks.</div>
+    <ul class="tasks">
+      <li data-id="wear-equip"><span class="checkbox"></span><span class="task-text">Equip it and open it with its key</span></li>
+      <li data-id="wear-place"><span class="checkbox"></span><span class="task-text">Place it on the ground and pick it back up</span></li>
+    </ul>
+  </section>
+
+  <!-- TIERS -->
+  <section class="panel" id="tiers">
+    <h2>Tiers</h2>
+    <p class="sub">Each tier adds a row of 9 storage slots, plus more upgrade and tool slots. Tank space grows with it: 1 bucket per storage row.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Tier</th><th>Storage</th><th>Each tank holds</th><th>Tier upgrade recipe</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Leather</strong></td><td>27 slots (3 rows)</td><td>3 buckets</td><td>Where every backpack starts</td></tr>
+        <tr><td><strong>Iron</strong></td><td>36 slots</td><td>4 buckets</td><td>8 iron ingots around a Blank Upgrade</td></tr>
+        <tr><td><strong>Gold</strong></td><td>45 slots</td><td>5 buckets</td><td>8 gold ingots around a Blank Upgrade</td></tr>
+        <tr><td><strong>Diamond</strong></td><td>54 slots</td><td>6 buckets</td><td>8 diamonds around a Blank Upgrade</td></tr>
+        <tr><td><strong>Netherite</strong></td><td>63 slots</td><td>7 buckets</td><td>Smithing table: netherite upgrade template + Blank Upgrade + netherite ingot</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Applying a tier</h3>
+    <ol class="flow">
+      <li>Craft a <strong>Blank Upgrade</strong>: 1 leather in the middle with 4 string around it (top, bottom, left, right).</li>
+      <li>Turn it into the next tier's upgrade (table above). Tiers go in order: leather &rarr; iron &rarr; gold &rarr; diamond &rarr; netherite.</li>
+      <li>At a <strong>smithing table</strong>, put <strong>leather</strong> in the template slot, your <strong>backpack</strong> in the middle, and the <strong>tier upgrade</strong> last. Your items stay inside.</li>
+    </ol>
+    <p class="note">Storage and tanks are read from the mod's config (27 slots at leather, one row per tier, 1 bucket per row). Exact upgrade and tool slot counts per tier show in-game.</p>
+    <ul class="tasks">
+      <li data-id="tier-iron"><span class="checkbox"></span><span class="task-text">Upgrade to Iron</span></li>
+      <li data-id="tier-diamond"><span class="checkbox"></span><span class="task-text">Upgrade to Diamond</span></li>
+    </ul>
+  </section>
+
+  <!-- UPGRADES -->
+  <section class="panel" id="upgrades">
+    <h2>Upgrades</h2>
+    <p class="sub">Functionality upgrades go in the slots on the <strong>right side</strong> of the backpack screen. Each one starts with a Blank Upgrade. Many only work while the backpack is worn. Toggle them on and off from the screen, or bind the "Toggle Upgrade" keys in Controls.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Upgrade</th><th>What it does</th><th>Recipe (Blank Upgrade in the middle)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Crafting</strong></td><td>A crafting grid inside the backpack</td><td>Crafting table above, chest below</td></tr>
+        <tr><td><strong>Furnace</strong> / <strong>Smoker</strong> / <strong>Blast Furnace</strong></td><td>Smelt or cook while you walk</td><td>That furnace above, chest below</td></tr>
+        <tr><td><strong>Magnet</strong></td><td>Pulls nearby items to you</td><td>2 ender pearls on top, redstone, lapis, iron below</td></tr>
+        <tr><td><strong>Pickup</strong></td><td>Items you pick up go straight into the backpack (with filters)</td><td>2 hoppers beside it, 3 redstone below</td></tr>
+        <tr><td><strong>Feeding</strong></td><td>Eats food from the backpack when you're hungry. Can skip foods with bad effects.</td><td>Golden carrot and golden apple beside it, 3 redstone below</td></tr>
+        <tr><td><strong>Refill</strong></td><td>Tops up chosen items in your inventory from the backpack, such as torches or blocks</td><td>2 droppers beside it, 3 redstone below</td></tr>
+        <tr><td><strong>Void</strong></td><td>A trash bin, plus filters that delete junk (cobblestone, dirt) as it's picked up</td><td>2 lava buckets beside it, 3 redstone below</td></tr>
+        <tr><td><strong>Tanks</strong></td><td>Adds the two fluid tanks to a backpack made without them</td><td>A Backpack Tank on each side</td></tr>
+        <tr><td><strong>Lantern</strong></td><td>The backpack gives off light</td><td>2 lanterns beside it, 3 redstone below</td></tr>
+        <tr><td><strong>Jukebox</strong></td><td>Play music discs on the go</td><td>Blank Upgrade on top; redstone, jukebox, redstone below</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout good"><strong>Best first picks for caving and Pokémon trips:</strong> Magnet + Pickup + Void (filter cobblestone and dirt) keep your inventory clean. Feeding means you never stop to eat.</div>
+    <ul class="tasks">
+      <li data-id="up-blank"><span class="checkbox"></span><span class="task-text">Craft a Blank Upgrade</span></li>
+      <li data-id="up-first"><span class="checkbox"></span><span class="task-text">Install your first functionality upgrade</span></li>
+    </ul>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="panel" id="tools">
+    <h2>Tools &amp; Hose</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Feature</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tool slots</strong></td><td>"Show Tool Slots" in the backpack screen. Store a pickaxe, axe, shovel, and sword there instead of in your hotbar.</td></tr>
+        <tr><td><strong>Quick swap</strong></td><td>Hold <span class="kbd">H</span> (Cobblemon world) or <span class="kbd">Z</span> (Our World, the mod's default) to open a wheel of your stored tools. Point at one and let go to swap it into your hand. Point at "+" to store the tool you're holding.</td></tr>
+        <tr><td><strong>Hose</strong></td><td>Craft a <strong>Hose Nozzle</strong> (gold ingot above, two iron ingots below), then the <strong>Hose</strong> (nozzle + 4 green dye). Hold it while wearing the backpack.</td></tr>
+        <tr><td><strong>Hose modes</strong></td><td>Holding the hose, the same <span class="kbd">H</span> / <span class="kbd">Z</span> wheel picks the tank and mode. <strong>Suck</strong> takes fluid from the world or another tank. <strong>Spill</strong> places it. <strong>Drink</strong> drinks from the tank; some fluids, like potions, give effects.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>A tank of water</strong> lets you start a farm or put out fires far from home: Spill mode places it like a bucket.</div>
+    <ul class="tasks">
+      <li data-id="tools-swap"><span class="checkbox"></span><span class="task-text">Store your tools and try the quick-swap wheel</span></li>
+      <li data-id="tools-hose"><span class="checkbox"></span><span class="task-text">Craft a hose and fill a tank with water</span></li>
+    </ul>
+  </section>
+
+  <!-- SLEEP -->
+  <section class="panel" id="sleep">
+    <h2>Sleeping Bag</h2>
+    <ol class="flow">
+      <li><strong>Sleep anywhere:</strong> open the worn backpack, click the three dots, then <strong>Use Sleeping Bag</strong>. You can also place the backpack and unfold the bag beside it.</li>
+      <li><strong>It does not move your spawn point.</strong> It just skips the night. Your bed at home stays your respawn.</li>
+      <li><strong>Change its color:</strong> place the backpack, hold a different sleeping bag, and sneak + right-click the backpack. Shift-click the sleeping bag button to detach it.</li>
+    </ol>
+    <div class="callout">On LAN, the night only skips when both players sleep, in a bed or a sleeping bag.</div>
+    <ul class="tasks">
+      <li data-id="sleep-1"><span class="checkbox"></span><span class="task-text">Skip a night with the sleeping bag</span></li>
+    </ul>
+  </section>
+
+  <!-- THEMED -->
+  <section class="panel" id="themed">
+    <h2>Themed Backpacks</h2>
+    <p class="sub">Surround a standard backpack with themed items to change its look. Many also gain a <strong>special ability</strong>, which works only while worn (some also as a placed block). Check the recipe book for each layout; for example, the Bee backpack is the standard pack surrounded by honeycomb and honey bottles. Turn the ability on in the backpack's screen.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Backpack</th><th>Ability</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Blaze</strong></td><td>No fall damage, and immune to blaze fireballs</td></tr>
+        <tr><td><strong>Spider</strong></td><td>Climb walls</td></tr>
+        <tr><td><strong>Creeper</strong></td><td>When you'd die, explodes instead and gives you absorption, regeneration, and fire protection. Recharges every few minutes.</td></tr>
+        <tr><td><strong>Pumpkin</strong></td><td>Looking at Endermen doesn't anger them</td></tr>
+        <tr><td><strong>Lapis</strong></td><td>15% chance to double experience you pick up</td></tr>
+        <tr><td><strong>Hay</strong></td><td>40% chance of extra crop drops</td></tr>
+        <tr><td><strong>Ocelot</strong></td><td>Speed when hostile mobs are near</td></tr>
+        <tr><td><strong>Cow</strong></td><td>Clears negative effects</td></tr>
+        <tr><td><strong>Cake</strong></td><td>Feeds you cake and gives 10 seconds of regeneration</td></tr>
+        <tr><td><strong>Enderman</strong></td><td>One extra block of reach</td></tr>
+        <tr><td><strong>Ghast</strong></td><td>Ghasts treat you as a friend unless you attack</td></tr>
+        <tr><td><strong>Wither</strong> / <strong>Warden</strong> / <strong>Bee</strong></td><td>Your hits apply Wither II, Slowness II, or poison</td></tr>
+        <tr><td><strong>Cactus</strong> / <strong>Sponge</strong></td><td>Fill the tanks with water, from rain or by soaking it up</td></tr>
+        <tr><td><strong>Bookshelf</strong></td><td>Counts as a bookshelf when placed near an enchanting table</td></tr>
+        <tr><td><strong>Redstone</strong></td><td>A placed block that gives a full redstone signal</td></tr>
+        <tr><td><strong>Chicken</strong></td><td>You lay eggs</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Purely cosmetic versions include Iron, Gold, Diamond, Emerald, Quartz, Coal, Sandstone, Snow, Melon, Nether, End, Dragon, Skeleton, Squid, Sheep, Pig, Horse, Wolf, and Fox. Themed backpacks still upgrade through the tiers.</p>
+    <ul class="tasks">
+      <li data-id="themed-1"><span class="checkbox"></span><span class="task-text">Craft a themed backpack with an ability</span></li>
+    </ul>
+  </section>
+
+  <!-- DEATH -->
+  <section class="panel" id="death">
+    <h2>If You Die</h2>
+    <ol class="flow">
+      <li><strong>The backpack is placed as a block where you died</strong>, and a chat message gives its coordinates. Write them down or make a map waypoint.</li>
+      <li><strong>Dying in the void</strong> spawns it floating above the bottom of the world instead of losing it.</li>
+      <li><strong>Still lost?</strong> The mod saves a copy of every backpack you die with. The host can restore it with <code>/tb restore &lt;player&gt; &lt;backpack file&gt;</code>, which needs cheats on (Open to LAN &rarr; Allow Cheats).</li>
+    </ol>
+  </section>
+
+  <footer>Recipes and screen text read from the installed Traveler's Backpack 10.1.39 jar and its config &middot; how-tos from the mod's official wiki &middot; Oct 2026</footer>
+</div>
+
+
+<script>
+(function () {
+  var R = {
+    first: [
+      { name: "Sleeping Bag", note: "Two wool of one color plus one white. Each color makes its own bag.", grid: [null,null,null,"Red Wool","Red Wool","White Wool",null,null,null], out: "Sleeping Bag" },
+      { name: "Backpack Tank", note: "Make 2.", grid: ["Glass","Iron Ingot","Glass","Glass",null,"Glass","Glass","Iron Ingot","Glass"], out: "Tank" },
+      { name: "Traveler's Backpack", note: "The standard backpack, leather tier.", grid: ["Leather","String","Leather","Tank","Chest","Tank","Leather","Sleeping Bag","Leather"], out: "Backpack" }
+    ]
+  };  function slot(label) { var d = document.createElement("div"); d.className = "cslot"; if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "→"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-backpack-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "✓" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trainers &amp; Gyms</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #c0392b; --accent-bg: #f9e2df;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #ec7a6c; --accent-bg: #3a1c19;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #ec7a6c; --accent-bg: #3a1c19;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Trainers &amp; Gyms</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world &middot; testing on Avery's PC</span>
+    <h1>Trainers &amp; Gyms</h1>
+    <p>Over 1,700 NPC trainers who spawn around you and battle like the main games, gym buildings for the eight Kanto leaders, a League in the End, badges, and a level cap that keeps the challenge honest. It all runs through one item: the Trainer Card.</p>
+    <div class="stats">
+      <div class="stat"><b>15</b><span>starting level cap</span></div>
+      <div class="stat"><b>12</b><span>trainers max around each player</span></div>
+      <div class="stat"><b>8 + League</b><span>gym buildings to find</span></div>
+      <div class="stat"><b>3 series</b><span>Radical Red, Brilliant Diamond/Shining Pearl, Unbound</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <div class="callout bad"><strong>Not on both PCs yet.</strong> These mods are on the modpack's <code>gyms-test</code> branch, installed only on Avery's PC. The other PC shouldn't sync to get them until Avery confirms they work; for LAN, both PCs will need them.</div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#cap">The Level Cap</a>
+    <a href="#start">Getting Started</a>
+    <a href="#series">Choosing a Series</a>
+    <a href="#battle">Battling Trainers</a>
+    <a href="#gyms">The Gyms</a>
+    <a href="#find">Finding Them</a>
+    <a href="#blocks">Repel Rod &amp; Spawner</a>
+    <a href="#test">Test Checklist</a>
+  </nav>
+
+  <!-- CAP -->
+  <section class="panel" id="cap">
+    <h2>The Level Cap</h2>
+    <p class="sub">The rule everything else follows. Each player has their own cap.</p>
+    <ol class="flow">
+      <li><strong>Pokémon in your party at or above your cap gain no experience.</strong> They don't lose levels; they just stop growing.</li>
+      <li><strong>Trainers won't battle you</strong> if your party has a Pokémon above their cap. Keep stronger Pokémon in the PC when you go trainer hunting.</li>
+      <li><strong>Beat your series' next key trainer</strong> (usually a gym leader) to raise the cap. The new cap matches that series' next big battle.</li>
+      <li><strong>Wild trainers scale to your team</strong> but never go above your cap.</li>
+    </ol>
+    <div class="callout"><strong>Until you pick a series, you're in "No Series"</strong> with a cap of 15 that never rises. Picking a series is step one. Our Pokémon from before the mod are probably above 15, which is why trainers may refuse to fight at first.</div>
+  </section>
+
+  <!-- START -->
+  <section class="panel" id="start">
+    <h2>Getting Started</h2>
+    <div class="recipes" data-recipes="card"></div>
+    <ol class="flow">
+      <li><strong>Craft a Trainer Card</strong> (above). Each player needs their own copy, but it stores no data: it shows the progress of whoever holds it.</li>
+      <li><strong>Find the Trainer Association.</strong> This NPC spawns near players who carry a Trainer Card and haven't started a series, and near villages (3 or more beds). It despawns when its chunk unloads, so trade straight away. A name tag or a boat keeps it around.</li>
+      <li><strong>Trade for a series.</strong> Right-click the Association to open its trade screen. Each series is one trade, and it gives the trade item back. Your cap jumps to fit that series' first leader.</li>
+      <li><strong>Read your Trainer Card.</strong> Defeated trainers are listed with their whole team. The next key trainer shows as <code>???</code>, but you can see which biomes they spawn in.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="start-card"><span class="checkbox"></span><span class="task-text">Craft a Trainer Card</span></li>
+      <li data-id="start-ta"><span class="checkbox"></span><span class="task-text">Find the Trainer Association</span></li>
+      <li data-id="start-series"><span class="checkbox"></span><span class="task-text">Start a series</span></li>
+    </ul>
+  </section>
+
+  <!-- SERIES -->
+  <section class="panel" id="series">
+    <h2>Choosing a Series</h2>
+    <p class="sub">A series is a story path: 8 leaders, rivals, an evil team, the Elite Four, and a champion, each raising your cap. Only your series' trainers show on your card. Each player picks their own.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Series</th><th>Difficulty</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Brilliant Diamond / Shining Pearl</strong></td><td>5 / 10</td><td>"A casual series but still with decent difficulty." Sinnoh's leaders. They spawn out in the world; the gym buildings below are for Kanto, not Sinnoh.</td></tr>
+        <tr><td><strong>Radical Red</strong></td><td>9 / 10</td><td>"A difficult series taking place in the Kanto region." These are the leaders the gym buildings are made for. Expect tough, competitive teams.</td></tr>
+        <tr><td><strong>Unbound</strong></td><td>8 / 10</td><td>The Borrius region. Unlocks after completing another series.</td></tr>
+        <tr><td><strong>Freeroam</strong></td><td>&mdash;</td><td>Pauses your series with a cap of 100. Unlocks after completing a series. Switch back anytime; your cap returns to where it was.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout good"><strong>Which one?</strong> Radical Red if you want the gym buildings to mean something and don't mind a hard fight. BDSP for a relaxed first run. Finishing any series raises your luck, which improves trainer loot for good.</div>
+  </section>
+
+  <!-- BATTLE -->
+  <section class="panel" id="battle">
+    <h2>Battling Trainers</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>What</th><th>How it works here</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Starting a battle</strong></td><td>Right-click a trainer. Trainers also challenge you if you look at each other for about 3 seconds within 8 blocks. They talk in speech bubbles.</td></tr>
+        <tr><td><strong>Where they spawn</strong></td><td>25&ndash;70 blocks from you, different trainers in different biomes. Up to 12 around each player. Trainers who can't battle you wander off and despawn.</td></tr>
+        <tr><td><strong>If you lose</strong></td><td>Try again. Trainers can be fought until beaten; the wait between tries starts around 12 seconds and grows with quick repeats.</td></tr>
+        <tr><td><strong>If they refuse</strong></td><td>What they say hints why: already beaten, cooldown, your Pokémon are over the cap, wrong series, or you haven't beaten an earlier key trainer.</td></tr>
+        <tr><td><strong>Rewards</strong></td><td>Lots of experience and EVs, plus up to 3 item stacks of loot (better from higher-level trainers). Leaders drop their <strong>badge</strong> the first time you beat them.</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="battle-first"><span class="checkbox"></span><span class="task-text">Beat a wandering trainer</span></li>
+      <li data-id="battle-key"><span class="checkbox"></span><span class="task-text">Beat a key trainer and raise your cap</span></li>
+    </ul>
+  </section>
+
+  <!-- GYMS -->
+  <section class="panel" id="gyms">
+    <h2>The Gyms</h2>
+    <p class="sub">Radical Gyms &amp; Structures adds buildings for each Kanto leader, generated only in certain biomes. Like any structure, they only appear in <strong>land you haven't explored yet</strong>. The mod is in beta, so back up the world before each session.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Gym</th><th>Leader</th><th>Where</th><th>Biomes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pewter</strong></td><td>Brock</td><td>Overworld</td><td>Meadow, stony peaks, windswept hills and forests</td></tr>
+        <tr><td><strong>Cerulean</strong></td><td>Misty</td><td>Overworld</td><td>Beaches, stony shore, warm and lukewarm ocean, swamps, mangroves</td></tr>
+        <tr><td><strong>Vermilion</strong></td><td>Lt. Surge</td><td>Overworld</td><td>Badlands, savanna</td></tr>
+        <tr><td><strong>Celadon</strong></td><td>Erika</td><td>Overworld</td><td>Forest, birch forest, flower forest</td></tr>
+        <tr><td><strong>Fuchsia</strong></td><td>Koga</td><td>Overworld</td><td>Jungle, bamboo jungle</td></tr>
+        <tr><td><strong>Saffron</strong></td><td>Sabrina</td><td>Overworld</td><td>Dark forest, cherry grove</td></tr>
+        <tr><td><strong>Cinnabar</strong></td><td>Blaine</td><td><strong>Nether</strong></td><td>Nether wastes, crimson and warped forests</td></tr>
+        <tr><td><strong>Blackthorn</strong></td><td>Clair</td><td><strong>The End</strong></td><td>Outer End islands</td></tr>
+        <tr><td><strong>Kanto League</strong></td><td>Elite Four + Champion</td><td><strong>The End</strong></td><td>Outer End islands (the rarest)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Spacing read from the mod: the game tries one spot for each Overworld and Nether gym per 512&times;512-block area, and builds it only if that spot is the right biome. Blackthorn gets one try per 1,024 blocks, the League one per 1,536. So expect to travel.</p>
+    <ul class="tasks">
+      <li data-id="gym-pewter"><span class="checkbox"></span><span class="task-text">Boulder Badge (Brock)</span></li>
+      <li data-id="gym-cerulean"><span class="checkbox"></span><span class="task-text">Cascade Badge (Misty)</span></li>
+      <li data-id="gym-vermilion"><span class="checkbox"></span><span class="task-text">Thunder Badge (Lt. Surge)</span></li>
+      <li data-id="gym-celadon"><span class="checkbox"></span><span class="task-text">Rainbow Badge (Erika)</span></li>
+      <li data-id="gym-fuchsia"><span class="checkbox"></span><span class="task-text">Soul Badge (Koga)</span></li>
+      <li data-id="gym-saffron"><span class="checkbox"></span><span class="task-text">Marsh Badge (Sabrina)</span></li>
+      <li data-id="gym-cinnabar"><span class="checkbox"></span><span class="task-text">Volcano Badge (Blaine, in the Nether)</span></li>
+      <li data-id="gym-blackthorn"><span class="checkbox"></span><span class="task-text">Rising Badge (Clair, in the End)</span></li>
+      <li data-id="gym-league"><span class="checkbox"></span><span class="task-text">Beat the Elite Four and Champion</span></li>
+    </ul>
+  </section>
+
+  <!-- FIND -->
+  <section class="panel" id="find">
+    <h2>Finding Them</h2>
+    <ol class="flow">
+      <li><strong>Your Trainer Card glows</strong> when your next key trainer is loaded in the world, and a holographic arrow points to them. If the arrow spins, they're in another dimension.</li>
+      <li><strong>Head for the right biome</strong> using the table above, past the edge of the explored map. A horse, boat, or riding Pokémon helps.</li>
+      <li><strong>Mark each gym</strong> with a map waypoint (<span class="kbd">B</span>) when you find it.</li>
+      <li><strong>Portal gun shortcut:</strong> the Structure Locator upgrade should find gyms, since they're normal structures. See <a href="portalgun.html#upgrades">Portal Gun</a>.</li>
+      <li><strong>With cheats on</strong> (Open to LAN &rarr; Allow Cheats): <code>/locate structure rgs:pewter_gym</code>. Swap in <code>cerulean_gym</code>, <code>kanto_league</code>, and so on.</li>
+    </ol>
+  </section>
+
+  <!-- BLOCKS -->
+  <section class="panel" id="blocks">
+    <h2>Repel Rod &amp; Spawner</h2>
+    <div class="recipes" data-recipes="blocks"></div>
+    <div class="table-scroll" style="margin-top:14px;"><table class="spec">
+      <thead><tr><th>Block</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Trainer Repel Rod</strong></td><td>Stops trainers spawning naturally in a 7&times;7-chunk area (about 112 blocks across). Put one at your base so trainers don't crowd it. A redstone signal switches it off.</td></tr>
+        <tr><td><strong>Trainer Spawner</strong></td><td>Lets a chosen trainer spawn on that spot. Feed it a trainer's signature item by right-clicking; a redstone signal forces a spawn attempt. Needs 2 air blocks above it.</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="blocks-rod"><span class="checkbox"></span><span class="task-text">Place a Repel Rod at home</span></li>
+    </ul>
+  </section>
+
+  <!-- TEST -->
+  <section class="panel" id="test">
+    <h2>Test Checklist</h2>
+    <p class="sub">For Avery's test session, before the gym mods go to both PCs. Report anything odd so it can be fixed before the merge.</p>
+    <ul class="tasks">
+      <li data-id="test-backup"><span class="checkbox"></span><span class="task-text">World backed up before testing</span></li>
+      <li data-id="test-load"><span class="checkbox"></span><span class="task-text">World loads with no errors, and existing Pokémon are fine</span></li>
+      <li data-id="test-trainers"><span class="checkbox"></span><span class="task-text">Trainers spawn and battles start and finish normally</span></li>
+      <li data-id="test-gym"><span class="checkbox"></span><span class="task-text">Found a gym building in new land</span></li>
+      <li data-id="test-badge"><span class="checkbox"></span><span class="task-text">Beating a leader dropped a badge (the badge data pack was built for an older RCT version, so this is the big unknown)</span></li>
+      <li data-id="test-perf"><span class="checkbox"></span><span class="task-text">Game still runs smoothly with trainers around</span></li>
+    </ul>
+  </section>
+
+  <footer>Rules and numbers read from the Radical Cobblemon Trainers 0.19.2 config, its jar, and its official docs &middot; gym biomes and spacing read from the Radical Gyms &amp; Structures jar &middot; Oct 2026</footer>
+</div>
+
+
+<script>
+(function () {
+  var R = {
+    card: [
+      { name: "Trainer Card", note: "Shows your progress and points to your next key trainer.", grid: ["Paper","Paper","Paper","Name Tag","Glass Pane","Redstone","Paper","Paper","Paper"], out: "Trainer Card" }
+    ],
+    blocks: [
+      { name: "Trainer Repel Rod", note: "No natural trainer spawns nearby.", grid: [null,"Redstone Torch",null,null,"Iron Ingot",null,null,"Copper Ingot",null], out: "Repel Rod" },
+      { name: "Trainer Spawner", note: "Spawns a chosen trainer here.", grid: ["Stone Bricks","Stone Brick Slab","Stone Bricks","Diamond","Redstone","Diamond","Stone Bricks","Stone Brick Slab","Stone Bricks"], out: "Spawner" }
+    ]
+  };  function slot(label) { var d = document.createElement("div"); d.className = "cslot"; if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "→"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-gyms-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "✓" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
