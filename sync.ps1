@@ -104,7 +104,10 @@ $wantJavaArgs = $null
 if ($m.profile.memory_gb) {
   $totalGb = [math]::Floor((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB)
   $memGb = [math]::Max(2, [math]::Min([int]$m.profile.memory_gb, [math]::Floor($totalGb / 3)))
-  $wantJavaArgs = "-Xmx${memGb}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200"
+  # Garbage collector flags: the pack's "gc_args" if set (e.g. ZGC to cut stutter), else G1.
+  $gcArgs = "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200"
+  if (($m.profile.PSObject.Properties.Name -contains "gc_args") -and $m.profile.gc_args) { $gcArgs = $m.profile.gc_args }
+  $wantJavaArgs = "-Xmx${memGb}G $gcArgs"
   if ($memGb -lt [int]$m.profile.memory_gb) { Note "This PC has $totalGb GB of RAM, so Minecraft gets $memGb GB instead of the pack's $($m.profile.memory_gb) GB." }
 }
 $needProfile = -not ($currentProfile -and $currentProfile.lastVersionId -eq $versionId -and $currentProfile.gameDir -eq $wantGameDir -and $currentProfile.javaArgs -eq $wantJavaArgs)

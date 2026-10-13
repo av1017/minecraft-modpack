@@ -12,7 +12,8 @@
     "key": "fabric-1.21.1-cobblemon",
     "name": "Cobblemon 1.21.1",
     "icon": "Furnace",
-    "memory_gb": 6
+    "memory_gb": 6,
+    "gc_args": "-XX:+UseZGC -XX:+ZGenerational"
   },
   "mods": [
     {
