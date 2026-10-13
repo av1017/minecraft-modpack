@@ -496,5 +496,19 @@
       "sha1": "838139b54cddb56b2e83cd260d8efd960ac536d6",
       "side": "client"
     }
+  ],
+  "keybinds": [
+    {
+      "key": "key_iris.keybind.reload",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.unknown",
+      "why": "R is Cobblemon's 'throw Pokémon'; Iris's reload-shaders on R froze the game on every throw"
+    },
+    {
+      "key": "key_iris.keybind.shaderPackSelection",
+      "from": "key.keyboard.o",
+      "to": "key.keyboard.unknown",
+      "why": "O is Cobblemon's 'hide party'; the shader menu is still in Options > Video Settings > Shader Packs"
+    }
   ]
 }
