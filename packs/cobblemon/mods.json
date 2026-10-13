@@ -16,6 +16,17 @@
   },
   "mods": [
     {
+      "name": "Architectury API",
+      "slug": "architectury-api",
+      "project_id": "lhGA9TYQ",
+      "version_id": "Pzc2FP5K",
+      "version": "13.0.11+fabric",
+      "filename": "architectury-13.0.11-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/lhGA9TYQ/versions/Pzc2FP5K/architectury-13.0.11-fabric.jar",
+      "sha1": "18200609d4c3571c4237b50884966f6fd82431ea",
+      "side": "both"
+    },
+    {
       "name": "Cloth Config API",
       "slug": "cloth-config",
       "project_id": "9s6osm5g",
@@ -27,6 +38,17 @@
       "side": "both"
     },
     {
+      "name": "CobbleFurnies",
+      "slug": "cobblefurnies",
+      "project_id": "AXY1OO9m",
+      "version_id": "54k31lEX",
+      "version": "1.2",
+      "filename": "CobbleFurnies-fabric-1.2.jar",
+      "url": "https://cdn.modrinth.com/data/AXY1OO9m/versions/54k31lEX/CobbleFurnies-fabric-1.2.jar",
+      "sha1": "a71f20907c3350680a11054584cf96963f5875e5",
+      "side": "both"
+    },
+    {
       "name": "Cobblemon",
       "slug": "cobblemon",
       "project_id": "MdwFAVRL",
@@ -35,6 +57,17 @@
       "filename": "Cobblemon-fabric-1.8.2+1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/MdwFAVRL/versions/GJ2a1b8O/Cobblemon-fabric-1.8.2%2B1.21.1.jar",
       "sha1": "1a8ec812b2e7b392ac60801c910d3128d0bbb432",
+      "side": "both"
+    },
+    {
+      "name": "Cobblemon Pokemon Badges",
+      "slug": "cobblemon-pokemon-badges",
+      "project_id": "pPldOOeY",
+      "version_id": "LFfopB1R",
+      "version": "0.1.1",
+      "filename": "cobblemonpokemonbadges-fabric-0.1.1.jar",
+      "url": "https://cdn.modrinth.com/data/pPldOOeY/versions/LFfopB1R/cobblemonpokemonbadges-fabric-0.1.1.jar",
+      "sha1": "ed857e4cd38a8b02ad191bc794c0085429687e75",
       "side": "both"
     },
     {
@@ -93,6 +126,17 @@
       "side": "both"
     },
     {
+      "name": "Forge Config API Port",
+      "slug": "forge-config-api-port",
+      "project_id": "ohNO6lps",
+      "version_id": "N5qzq0XV",
+      "version": "v21.1.6-1.21.1-Fabric",
+      "filename": "ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
+      "url": "https://cdn.modrinth.com/data/ohNO6lps/versions/N5qzq0XV/ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
+      "sha1": "18bf1f21cd2db6dcd4e42db85eae54e2a49a48ee",
+      "side": "both"
+    },
+    {
       "name": "Lithium",
       "slug": "lithium",
       "project_id": "gvQqBUqZ",
@@ -101,6 +145,39 @@
       "filename": "lithium-fabric-0.15.4+mc1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/gvQqBUqZ/versions/N08Z8wog/lithium-fabric-0.15.4%2Bmc1.21.1.jar",
       "sha1": "7d82a004403b7780d4443d8e40361a55cfd0ae63",
+      "side": "both"
+    },
+    {
+      "name": "Radical Cobblemon Trainers",
+      "slug": "rctmod",
+      "project_id": "lRwTUnD7",
+      "version_id": "rgfBfnW9",
+      "version": "0.19.2-beta",
+      "filename": "rctmod-fabric-1.21.1-0.19.2-beta.jar",
+      "url": "https://cdn.modrinth.com/data/lRwTUnD7/versions/rgfBfnW9/rctmod-fabric-1.21.1-0.19.2-beta.jar",
+      "sha1": "dba27885e477a583dffe1a46c83b4df6af96fc4c",
+      "side": "both"
+    },
+    {
+      "name": "Radical Cobblemon Trainers API",
+      "slug": "rctapi",
+      "project_id": "CBfM2yw7",
+      "version_id": "DoQNDXAU",
+      "version": "0.16.2-beta",
+      "filename": "rctapi-fabric-1.21.1-0.16.2-beta.jar",
+      "url": "https://cdn.modrinth.com/data/CBfM2yw7/versions/DoQNDXAU/rctapi-fabric-1.21.1-0.16.2-beta.jar",
+      "sha1": "3514532fea28e2e1160894428302eb1000af8459",
+      "side": "both"
+    },
+    {
+      "name": "Radical Gyms & Structures [Cobblemon]",
+      "slug": "radical-gyms-cobblemon",
+      "project_id": "3sLJoaQH",
+      "version_id": "TWiuaa3o",
+      "version": "0.7",
+      "filename": "Radical Gyms  Structures - RGS.jar",
+      "url": "https://cdn.modrinth.com/data/3sLJoaQH/versions/TWiuaa3o/Radical%20Gyms%20%20Structures%20-%20RGS.jar",
+      "sha1": "67b4f2175aa45e2e2d96987db7541a97413f861a",
       "side": "both"
     },
     {
@@ -181,6 +258,17 @@
       "side": "client"
     },
     {
+      "name": "Athena",
+      "slug": "athena-ctm",
+      "project_id": "b1ZV3DIJ",
+      "version_id": "JfyYsWKP",
+      "version": "4.0.6",
+      "filename": "athena-fabric-1.21.1-4.0.6.jar",
+      "url": "https://cdn.modrinth.com/data/b1ZV3DIJ/versions/JfyYsWKP/athena-fabric-1.21.1-4.0.6.jar",
+      "sha1": "92534d85cad33ab1fee598068443c685f4bb06e0",
+      "side": "client"
+    },
+    {
       "name": "Inventory Profiles Next",
       "slug": "inventory-profiles-next",
       "project_id": "O7RBXm3n",
@@ -234,6 +322,17 @@
       "url": "https://cdn.modrinth.com/data/AANobbMI/versions/SMxNOGZ6/sodium-fabric-0.8.13%2Bmc1.21.1.jar",
       "sha1": "003c114c85ca88ef3362e018deb6aca0c682d6a1",
       "side": "client"
+    },
+    {
+      "name": "ToolTipFix",
+      "slug": "tooltipfix",
+      "project_id": "2RKFTmiB",
+      "version_id": "B2L4LeMV",
+      "version": "1.1.1-1.20",
+      "filename": "tooltipfix-1.1.1-1.20.jar",
+      "url": "https://cdn.modrinth.com/data/2RKFTmiB/versions/B2L4LeMV/tooltipfix-1.1.1-1.20.jar",
+      "sha1": "de704792c691e3d19316c87c21c9ad2bee6c66c3",
+      "side": "client"
     }
   ],
   "resourcepacks": [
@@ -280,6 +379,17 @@
       "url": "https://cdn.modrinth.com/data/Va3BanZa/versions/MAumPyhV/E19%20Cobblemon%20Minimap%20Icons.zip",
       "sha1": "77813d38002b43c9c243d694728479bd3879cf86",
       "side": "client"
+    }
+  ],
+  "host_world_datapacks": [
+    {
+      "note": "Data pack for the HOST's world only (put in <world>/datapacks). Not installed by sync.ps1.",
+      "name": "RCT Badges - Cobblemon Pokemon Badges",
+      "slug": "rct-badges-cobblemonpokemonbadges",
+      "version": "1.1.2",
+      "filename": "RCT-Badges-CobblemonPokemonBadges-0.15+1.1.2.zip",
+      "url": "https://cdn.modrinth.com/data/3w9Vewuj/versions/pDsbqEcN/RCT-Badges-CobblemonPokemonBadges-0.15%2B1.1.2.zip",
+      "sha1": "6fa9f537a6da556de186603c2962aa0cca30a621"
     }
   ]
 }
