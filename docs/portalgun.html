@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal Gun</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #3d8a2a; --accent-bg: #e3f1dc;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #8fd46a; --accent-bg: #1d2e16;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #8fd46a; --accent-bg: #1d2e16;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Portal Gun</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world only &middot; Rick's Portal Gun 1.4.5</span>
+    <h1>Portal Gun</h1>
+    <p>The portal gun from Rick and Morty. Set a destination, fire at a wall or the floor, and a green portal opens there, with its twin at the destination. Step through before it closes. It's a late-game build: the gun needs an End Crystal, which needs a Ghast Tear from the Nether and an Eye of Ender.</p>
+    <div class="stats">
+      <div class="stat"><b>64</b><span>portals per full tank (128 upgraded)</span></div>
+      <div class="stat"><b>1 bottle</b><span>of Portal Fluid refills it completely</span></div>
+      <div class="stat"><b>10 sec</b><span>portal open time (5&ndash;45 adjustable)</span></div>
+      <div class="stat"><b>3 sec</b><span>cooldown between shots</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#shopping">Shopping List</a>
+    <a href="#build">Building It</a>
+    <a href="#use">Using It</a>
+    <a href="#upgrades">Upgrades</a>
+    <a href="#waypoints">Waypoints</a>
+    <a href="#blocks">Dispenser &amp; Barrier</a>
+    <a href="#looks">Looks &amp; Settings</a>
+    <a href="#danger">Dangers</a>
+  </nav>
+
+  <!-- SHOPPING -->
+  <section class="panel" id="shopping">
+    <h2>Shopping List</h2>
+    <p class="sub">Everything for the workbench and your first gun with one tank of fuel. Gather it all before you start crafting.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Where from</th><th>What to gather</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Overworld, easy</strong></td><td><div class="chips"><span class="chip">1 copper block</span><span class="chip">1 crafting table</span><span class="chip">1 smithing table</span><span class="chip">2 iron ingots</span><span class="chip">9 gold nuggets</span><span class="chip">lots of redstone</span><span class="chip">stone + quartz for 3 comparators and 6 repeaters</span><span class="chip">7 glass</span></div></td></tr>
+        <tr><td><strong>Overworld, a little work</strong></td><td><div class="chips"><span class="chip">3 slime balls</span><span class="chip">1 honey bottle</span><span class="chip">1 amethyst shard</span><span class="chip">1 ender pearl (for the fluid)</span><span class="chip">1 more ender pearl (for the Eye of Ender)</span><span class="chip">1 spider eye</span></div></td></tr>
+        <tr><td><strong>The Nether</strong></td><td><div class="chips"><span class="chip">1 ghast tear</span><span class="chip">blaze rods (2 blaze powder: elixir + Eye of Ender)</span><span class="chip">nether wart (for brewing)</span><span class="chip">nether quartz (comparators)</span></div></td></tr>
+        <tr><td><strong>Brewing stand</strong></td><td><div class="chips"><span class="chip">Potion of Poison: water bottle + nether wart = Awkward Potion, then + spider eye</span></div></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>Slime balls</strong> are the usual sticking point: kill slimes in swamps at night or in slime chunks deep underground. <strong>Amethyst</strong> comes from geodes, the purple crystal caves around Y 0&ndash;30.</div>
+    <ul class="tasks">
+      <li data-id="shop-overworld"><span class="checkbox"></span><span class="task-text">Gather the Overworld materials</span></li>
+      <li data-id="shop-nether"><span class="checkbox"></span><span class="task-text">Get a ghast tear and blaze rods from the Nether</span></li>
+      <li data-id="shop-poison"><span class="checkbox"></span><span class="task-text">Brew a Potion of Poison</span></li>
+    </ul>
+  </section>
+
+  <!-- BUILD -->
+  <section class="panel" id="build">
+    <h2>Building It</h2>
+    <p class="sub">Only the workbench uses the normal crafting table. Everything after it is made <strong>in the Portal Gun Workbench</strong>: put the ingredients in, with no pattern needed, and take the result.</p>
+    <div class="recipes" data-recipes="bench"></div>
+    <h3>Then, in the workbench, in this order</h3>
+    <ol class="flow">
+      <li><strong>Circuit Board &times;3:</strong> each one is <span class="chip">slime ball</span> <span class="chip">comparator</span> <span class="chip">3 gold nuggets</span> <span class="chip">2 repeaters</span></li>
+      <li><strong>Bootleg Portal Fluid:</strong> <span class="chip">Potion of Poison</span> <span class="chip">ender pearl</span>. It's an ingredient only; never fuel the gun with it (see Dangers).</li>
+      <li><strong>Quantum Leap Elixir:</strong> <span class="chip">amethyst shard</span> <span class="chip">honey bottle</span> <span class="chip">blaze powder</span></li>
+      <li><strong>Portal Fluid:</strong> <span class="chip">Bootleg Portal Fluid</span> <span class="chip">Quantum Leap Elixir</span></li>
+      <li><strong>End Crystal</strong> (normal crafting table): 7 glass around an <strong>Eye of Ender</strong> (ender pearl + blaze powder), with a <strong>ghast tear</strong> below it.</li>
+      <li><strong>Portal Gun:</strong> <span class="chip">End Crystal</span> <span class="chip">Portal Fluid</span> <span class="chip">2 iron ingots</span> <span class="chip">3 Circuit Boards</span>. It comes with a full tank.</li>
+    </ol>
+    <div class="callout good"><strong>Make extra Portal Fluid</strong> while you're at it. Each bottle is another 64 portals, and the Fuel upgrade needs 4 of them.</div>
+    <ul class="tasks">
+      <li data-id="build-bench"><span class="checkbox"></span><span class="task-text">Place a Portal Gun Workbench</span></li>
+      <li data-id="build-boards"><span class="checkbox"></span><span class="task-text">Make 3 Circuit Boards</span></li>
+      <li data-id="build-fluid"><span class="checkbox"></span><span class="task-text">Make Portal Fluid</span></li>
+      <li data-id="build-crystal"><span class="checkbox"></span><span class="task-text">Craft an End Crystal</span></li>
+      <li data-id="build-gun"><span class="checkbox"></span><span class="task-text">Craft the Portal Gun</span></li>
+    </ul>
+  </section>
+
+  <!-- USE -->
+  <section class="panel" id="use">
+    <h2>Using It</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Do this</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Set the destination</strong></td><td>Hold the gun and press <span class="kbd">J</span>. (The mod's default is V; the sync moved it because V is the camera key in this world.) Type X, Y, Z in <strong>Coordinate Travel</strong>. A box left empty uses where you're standing. <strong>Randomize</strong> picks a random spot within 10,000 blocks and finds a safe height.</td></tr>
+        <tr><td><strong>Fire</strong></td><td><strong>Right-click</strong> with the gun in your main hand. A portal opens where you're aiming, and its twin opens at the destination.</td></tr>
+        <tr><td><strong>Come back</strong></td><td>Step back through the twin portal before it closes (10 seconds by default), or fire a new portal with your old coordinates. Note your coordinates with <span class="kbd">F3</span> before you leave, or save them as a waypoint.</td></tr>
+        <tr><td><strong>Refuel</strong></td><td>Gun in your main hand, <strong>Portal Fluid</strong> in your off hand (<span class="kbd">F</span> swaps an item there), then right-click. One bottle fills the tank. Hover over the gun to see its fuel.</td></tr>
+        <tr><td><strong>Apply an upgrade</strong></td><td>Same trick: upgrade in your off hand, right-click with the gun. (Or add it through the gun's settings menu.)</td></tr>
+        <tr><td><strong>Bring a friend</strong></td><td>Both of you can walk through the same open portal, so one shot moves you both. Some mobs are blocked from portals by the mod's config.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>Other dimensions</strong> need the Dimension upgrade. Without it, the menu only shows coordinates, and portals stay in the dimension you're in.</div>
+    <ul class="tasks">
+      <li data-id="use-trip"><span class="checkbox"></span><span class="task-text">Portal somewhere and back</span></li>
+      <li data-id="use-refuel"><span class="checkbox"></span><span class="task-text">Refuel with a Portal Fluid bottle in your off hand</span></li>
+      <li data-id="use-together"><span class="checkbox"></span><span class="task-text">Take both players through the same portal</span></li>
+    </ul>
+  </section>
+
+  <!-- UPGRADES -->
+  <section class="panel" id="upgrades">
+    <h2>Upgrades</h2>
+    <p class="sub">Every upgrade starts with a <strong>Disc Template</strong> (<span class="chip">Circuit Board</span> <span class="chip">2 redstone</span> <span class="chip">copper ingot</span>) and is made in the workbench. Some need another upgrade installed first.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Upgrade</th><th>What it does</th><th>Disc Template plus</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Settings</strong></td><td>Unlocks Security and Customization: portal size, open time, portal color, menu theme. Get this one early.</td><td>comparator, book &amp; quill, 2 repeaters</td></tr>
+        <tr><td><strong>Waypoints</strong></td><td>Save places and portal back to them. No limit on how many.</td><td>a Data Card (see Waypoints)</td></tr>
+        <tr><td><strong>Fuel</strong></td><td>Doubles the tank from 64 to 128 portals.</td><td>4 Portal Fluid, 2 glowstone dust, 2 redstone</td></tr>
+        <tr><td><strong>Dimension Mk.I</strong></td><td>Portal to the Nether and the End. Won't open the End while the Ender Dragon is alive.</td><td>2 blaze powder, 4 glowstone dust, 2 nether wart</td></tr>
+        <tr><td><strong>Dimension Mk.II</strong> <span class="note">needs Mk.I</span></td><td>Removes the dragon restriction.</td><td>Eye of Ender, 4 chorus fruit</td></tr>
+        <tr><td><strong>Biome Locator</strong></td><td>Finds the nearest biome of the type you pick.</td><td>compass, 4 cherry saplings, 16 weeping vines</td></tr>
+        <tr><td><strong>Player Locator</strong> <span class="note">needs Biome</span></td><td>Finds another player. Handy for meeting up on LAN.</td><td>5 Eyes of Ender, compass, map</td></tr>
+        <tr><td><strong>Structure Locator</strong> <span class="note">needs Player</span></td><td>Finds structures, like villages and probably the gyms (they're normal structures named <code>rgs:pewter_gym</code> and so on).</td><td>recovery compass, 4 Eyes of Ender, 4 End Crystals</td></tr>
+        <tr><td><strong>Fire Resistance</strong></td><td>The gun survives lava and fire if dropped.</td><td>netherite ingot, netherite upgrade template</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="up-settings"><span class="checkbox"></span><span class="task-text">Install the Settings upgrade</span></li>
+      <li data-id="up-waypoint"><span class="checkbox"></span><span class="task-text">Install the Waypoints upgrade</span></li>
+      <li data-id="up-dim"><span class="checkbox"></span><span class="task-text">Install Dimension Mk.I and portal to the Nether</span></li>
+    </ul>
+  </section>
+
+  <!-- WAYPOINTS -->
+  <section class="panel" id="waypoints">
+    <h2>Waypoints</h2>
+    <p class="sub">With the Waypoints upgrade, open the gun's menu (<span class="kbd">J</span>), choose <strong>Waypoints</strong>, and save where you're standing: home, the Healing Machine, a gym. Pick a saved one to fire a portal straight there.</p>
+    <ol class="flow">
+      <li><strong>Make Data Cards</strong> in the workbench: <span class="chip">Disc Template</span> <span class="chip">book &amp; quill</span> <span class="chip">gold nugget</span>. A Data Card holds waypoints without a gun.</li>
+      <li><strong>Share waypoints between guns:</strong> put a gun or Data Card in the workbench and choose <strong>Edit Portal Gun Waypoints</strong>. You can copy or move waypoints to the other device, or delete them.</li>
+      <li><strong>Copy your list to the other player's gun</strong> so you both have the same destinations.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="wp-home"><span class="checkbox"></span><span class="task-text">Save a waypoint at home</span></li>
+      <li data-id="wp-share"><span class="checkbox"></span><span class="task-text">Copy waypoints to the other player's gun with a Data Card</span></li>
+    </ul>
+  </section>
+
+  <!-- BLOCKS -->
+  <section class="panel" id="blocks">
+    <h2>Dispenser &amp; Barrier</h2>
+    <div class="recipes" data-recipes="blocks"></div>
+    <div class="table-scroll" style="margin-top:14px;"><table class="spec">
+      <thead><tr><th>Block</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Portal Dispenser</strong></td><td>Opens a portal when it gets a redstone signal, so you can wire a button to a fixed destination. Holds 16 fuel. <strong>Its recipe uses up a whole portal gun</strong>, so build it only once you can spare one.</td></tr>
+        <tr><td><strong>Sub-Ether Barrier</strong></td><td>Needs redstone power. Within 3 chunks, it blocks any portal that doesn't carry its code. Set your gun's code in Security Settings to get through.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- LOOKS -->
+  <section class="panel" id="looks">
+    <h2>Looks &amp; Settings</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>What</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gun style</strong></td><td>In the workbench, <strong>Edit Portal Gun Appearance</strong>: Alternative, Flintlock, Futuristic, Junk, Mk.II, Sidestep, Sloped, Square, or Symmetrical.</td></tr>
+        <tr><td><strong>Gun color</strong></td><td>The workbench takes a dye to recolor the gun, or a water bucket to wash it.</td></tr>
+        <tr><td><strong>Portal color, size, open time</strong></td><td>Settings upgrade &rarr; Customization. Open time can be 5 to 45 seconds; the default is 10.</td></tr>
+        <tr><td><strong>Menu theme</strong></td><td>Customization &rarr; Edit Portal Gun Menu Theme: background, text, and highlight colors.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- DANGER -->
+  <section class="panel" id="danger">
+    <h2>Dangers</h2>
+    <div class="callout bad"><strong>Never fuel the gun with Bootleg Portal Fluid.</strong> It fills the tank, but per the mod's wiki, portals made with it kill anyone who touches them ("incinerated by a bootleg portal"). Use it only to make real Portal Fluid.</div>
+    <div class="table-scroll" style="margin-top:12px;"><table class="spec">
+      <thead><tr><th>Setting</th><th>What to know</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Self destruct</strong></td><td>If you turn it on, a button appears on the coordinates screen. Pressing it drops the gun, which can't be picked up, and it explodes 10 seconds later. Leave this off.</td></tr>
+        <tr><td><strong>Biometric lock</strong></td><td>Only the owner can use the gun. Whoever fires it first becomes the owner.</td></tr>
+        <tr><td><strong>Transfer ownership</strong></td><td>Hands the gun to another player. If the lock is on, you lose access to it.</td></tr>
+        <tr><td><strong>Portaling blind</strong></td><td>Randomize finds a safe height, but typed coordinates don't. Check the Y value so you don't land inside stone or in the sky.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Recipes read from the installed Rick's Portal Gun 1.4.5 jar &middot; fuel, cooldown, and refuel behavior from the mod's source code &middot; usage from the official mod wiki &middot; Oct 2026</footer>
+</div>
+
+<script>
+(function () {
+  var R = {
+    bench: [
+      { name: "Portal Gun Workbench", note: "Normal crafting table. Everything else is made in this.", grid: [null,"Copper Block",null,"Redstone","Crafting Table","Redstone",null,"Smithing Table",null], out: "Workbench" }
+    ],
+    blocks: [
+      { name: "Portal Dispenser", note: "Uses up a portal gun.", grid: ["Cobble","Cobble","Cobble","Cobble","Portal Gun","Cobble","Cobble","Redstone","Cobble"], out: "Dispenser" },
+      { name: "Sub-Ether Barrier", note: "Needs redstone power to work.", grid: ["Portal Fluid","Observer","Portal Fluid","Circuit Board","Redstone","Circuit Board","Iron Block","Iron Block","Iron Block"], out: "Barrier" }
+    ]
+  };
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot"; if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "→"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-portalgun-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "✓" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
