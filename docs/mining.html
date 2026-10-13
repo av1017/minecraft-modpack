@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Diamond Depths</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --diamond: #1f9e94;
+  --diamond-bg: #dff5f2;
+  --redstone: #a82f2f;
+  --redstone-bg: #fbe5e1;
+  --lapis: #2f5fa8;
+  --lapis-bg: #e2eaf7;
+  --gold: #b8891a;
+  --gold-bg: #faf0d8;
+  --netherite: #4a3b3b;
+  --netherite-bg: #ece5e1;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --basic: #4a7a2e;
+  --basic-bg: #e6f0da;
+  --inter: #b8720f;
+  --inter-bg: #f7ead2;
+  --expert: #a82f2f;
+  --expert-bg: #fbe5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --diamond: #4dd8d0;
+    --diamond-bg: #17302e;
+    --redstone: #e0605a;
+    --redstone-bg: #3a1c1a;
+    --lapis: #6f9adb;
+    --lapis-bg: #1a2740;
+    --gold: #e0b23e;
+    --gold-bg: #3a2f14;
+    --netherite: #c9beb8;
+    --netherite-bg: #2a2422;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+    --basic: #7cb84f;
+    --basic-bg: #1e2c17;
+    --inter: #e8a33d;
+    --inter-bg: #332711;
+    --expert: #e0605a;
+    --expert-bg: #3a1c1a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --diamond: #4dd8d0;
+  --diamond-bg: #17302e;
+  --redstone: #e0605a;
+  --redstone-bg: #3a1c1a;
+  --lapis: #6f9adb;
+  --lapis-bg: #1a2740;
+  --gold: #e0b23e;
+  --gold-bg: #3a2f14;
+  --netherite: #c9beb8;
+  --netherite-bg: #2a2422;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+  --basic: #7cb84f;
+  --basic-bg: #1e2c17;
+  --inter: #e8a33d;
+  --inter-bg: #332711;
+  --expert: #e0605a;
+  --expert-bg: #3a1c1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+/* breadcrumb / back nav */
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+/* hero */
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--diamond); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--diamond); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+/* progress bar */
+.progress-wrap {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--diamond); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* tier nav */
+.tier-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.tier-nav a {
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  padding: 7px 13px;
+  border: 2px solid var(--slot-border);
+  background: var(--slot);
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.tier-nav a:hover, .tier-nav a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+/* panels */
+.panel {
+  background: var(--panel);
+  border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+
+.tier-tag {
+  display: inline-block;
+  font-family: "Silkscreen", monospace;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  margin-bottom: 10px;
+}
+.tier-tag.basic { color: var(--basic); background: var(--basic-bg); }
+.tier-tag.inter { color: var(--inter); background: var(--inter-bg); }
+.tier-tag.expert { color: var(--expert); background: var(--expert-bg); }
+
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+/* checklist */
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.95rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 12px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text .src { font-size: 0.8rem; color: var(--ink-faint); margin-left: 4px; }
+.task-text .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.task-text .src a:hover { color: var(--link); border-color: var(--link); }
+
+/* ore table */
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+table.ore { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 0.92rem; }
+table.ore caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.ore th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.03em; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.ore td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); font-variant-numeric: tabular-nums; color: var(--ink); vertical-align: top; }
+table.ore tr:last-child td { border-bottom: none; }
+.ore-chip { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; white-space: nowrap; }
+.ore-chip .swatch { width: 11px; height: 11px; flex: 0 0 auto; border: 1px solid var(--shadow); }
+.sw-coal { background: #3a3a3a; }
+.sw-iron { background: #c9b18a; }
+.sw-copper { background: #c26a3f; }
+.sw-gold { background: var(--gold); }
+.sw-redstone { background: var(--redstone); }
+.sw-diamond { background: var(--diamond); }
+.sw-lapis { background: var(--lapis); }
+.sw-debris { background: var(--netherite); }
+
+/* diagram */
+.diagram-box {
+  background: var(--slot);
+  border: 2px solid var(--slot-border);
+  padding: 16px;
+  margin: 14px 0;
+  overflow-x: auto;
+}
+.diagram-box svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.diagram-caption { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+
+/* callouts */
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.diamond { border-left-color: var(--diamond); }
+
+/* trade-off table */
+.tradeoff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 14px 0 4px; }
+.tradeoff-card { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.tradeoff-card .label { font-family: "Silkscreen", monospace; font-size: 0.7rem; color: var(--diamond); margin-bottom: 6px; display: block; }
+.tradeoff-card .stat { font-family: "Space Mono", monospace; font-size: 1.1rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tradeoff-card .note { font-size: 0.83rem; color: var(--ink-soft); margin-top: 4px; }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+
+@media (max-width: 480px) {
+  .progress-wrap { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html" id="hub-link">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Mining</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Deep Dive &middot; Verified for 26.3</div>
+    <h1>The Diamond Depths</h1>
+    <p>What actually works underground, sourced against the Minecraft Wiki's generation data and community testing — not just "mine at Y-58." Three tiers: basic gets you diamonds reliably, expert gets you diamonds <em>fast</em>, with the real risks spelled out.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="tier-nav">
+    <a href="#ore-table">Ore Y-Levels</a>
+    <a href="#basic">Basic</a>
+    <a href="#intermediate">Intermediate</a>
+    <a href="#expert">Expert</a>
+    <a href="#nether-mining">Nether &amp; Netherite</a>
+  </nav>
+
+  <!-- ORE TABLE -->
+  <section class="panel" id="ore-table">
+    <h2>Ore Y-Levels — Current Generation</h2>
+    <p class="sub">Unchanged since the 1.18 world-height rework; 26.3 made no changes to ore generation. Diamonds and redstone use a triangular distribution that peaks sharply at Y −59, tapering off within about 5 levels either side.</p>
+    <div class="table-scroll">
+      <table class="ore">
+        <caption>Best Y-level and generation notes, per ore</caption>
+        <thead><tr><th>Ore</th><th>Peak Y</th><th>Practical range</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ore-chip"><span class="swatch sw-coal"></span>Coal</span></td><td>Y 96</td><td>Y 0–192</td><td>Abundant everywhere, including exposed on mountains</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-iron"></span>Iron</span></td><td>Y 16</td><td>Y 0–64, also high mountains</td><td>Two separate generation bands — underground and mountain peaks</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-copper"></span>Copper</span></td><td>Y 48</td><td>Y 0–96</td><td>Low priority unless doing lightning rods/spyglass</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-gold"></span>Gold</span></td><td>Y −16</td><td>Y −64–32; surface in badlands</td><td>Needed for piglin bartering &amp; powered rails</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-redstone"></span>Redstone</span></td><td>Y −59</td><td>Y −64 to −32</td><td>Same band as diamond — you'll get both branch mining</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-diamond"></span>Diamond</span></td><td><strong>Y −59</strong></td><td>Y −64 to −54</td><td>See the Y −54 vs Y −59 trade-off below</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-lapis"></span>Lapis</span></td><td>Y 0</td><td>Y −32 to 32</td><td>For enchanting table max level</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-debris"></span>Ancient Debris</span></td><td>Nether Y 15</td><td>Nether Y 8–22</td><td>Two overlapping generation bands stack near Y 15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout diamond">
+      <strong>Y −59 vs Y −54 — the trade-off nobody mentions:</strong> Y −59 is the mathematical diamond peak, but most large lava lakes generate just below it. Mining at <strong>Y −54</strong> gives you nearly the same diamond density with meaningfully less risk of watching your drops burn in lava you broke into blind. If you're branch mining solo without a water bucket ready at all times, Y −54 is the safer practical choice.
+      <div class="src"><a href="https://minecraft.wiki/w/Tutorial:Mining" target="_blank" rel="noopener">Source: Minecraft Wiki, Tutorial:Mining</a> &middot; <a href="https://minecraftxray.com/blog/best-y-level-diamonds-2026" target="_blank" rel="noopener">community Y-level testing, 2026</a></div>
+    </div>
+  </section>
+
+  <!-- BASIC -->
+  <section class="panel" id="basic">
+    <span class="tier-tag basic">BASIC</span>
+    <h2>Get Diamonds Reliably</h2>
+    <p class="sub">The floor for "mining actually works." No fancy setup, minimal risk, still finds diamonds consistently.</p>
+    <ul class="tasks" data-group="mining-basic">
+      <li data-id="basic-1"><span class="checkbox"></span><span class="task-text"><strong>Dig a main shaft down to Y −54 or Y −59</strong> using a ladder/staircase or a straight vertical shaft with water at the bottom to break your fall.</span></li>
+      <li data-id="basic-2"><span class="checkbox"></span><span class="task-text"><strong>Branch mine</strong>: dig a central tunnel, then 1×2 side tunnels every 2 blocks. This is the current community-recommended default — it exposes more new block faces per block mined than old-style strip mining. <span class="src">(<a href="https://minecraft.wiki/w/Tutorial:Mining" target="_blank" rel="noopener">wiki</a>, <a href="https://minecraftxray.com/blog/strip-mining-vs-branch-mining-2026" target="_blank" rel="noopener">2026 comparison</a>)</span></span></li>
+      <li data-id="basic-3"><span class="checkbox"></span><span class="task-text">Carry a <strong>water bucket</strong> at all times below Y −40 — for extinguishing yourself, redirecting lava, and safe falls.</span></li>
+      <li data-id="basic-4"><span class="checkbox"></span><span class="task-text">Carry <strong>blocks to wall off</strong> any cave opening, lava pool, or mob you break into — sealing first, looting second.</span></li>
+      <li data-id="basic-5"><span class="checkbox"></span><span class="task-text">An <strong>iron pickaxe</strong> is the minimum for diamond ore — stone won't cut it, and neither will wood or gold.</span></li>
+    </ul>
+  </section>
+
+  <!-- INTERMEDIATE -->
+  <section class="panel" id="intermediate">
+    <span class="tier-tag inter">INTERMEDIATE</span>
+    <h2>Mine With the Math</h2>
+    <p class="sub">Once basic branch mining feels slow, these are the actual numbers behind why spacing and enchants matter — not just "trust me."</p>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 640 200" role="img" aria-labelledby="spacing-title spacing-desc">
+        <title id="spacing-title">Branch spacing comparison</title>
+        <desc id="spacing-desc">Diagram comparing 2-block branch spacing (full coverage, more digging) against 6-block spacing (less digging, best ore-per-block ratio).</desc>
+        <text x="20" y="24" font-family="Space Mono, monospace" font-size="12" fill="var(--ink-soft)">2-BLOCK SPACING — full coverage, more digging</text>
+        <g transform="translate(20,36)">
+          <rect x="0" y="0" width="600" height="16" fill="var(--slot-border)" opacity="0.35"/>
+          <rect x="0" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="80" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="160" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="240" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="320" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="400" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="480" y="0" width="40" height="16" fill="var(--diamond)"/>
+          <rect x="560" y="0" width="40" height="16" fill="var(--diamond)"/>
+        </g>
+        <text x="20" y="90" font-family="Space Mono, monospace" font-size="12" fill="var(--ink-soft)">6-BLOCK SPACING — best ore found per block mined</text>
+        <g transform="translate(20,102)">
+          <rect x="0" y="0" width="600" height="16" fill="var(--slot-border)" opacity="0.35"/>
+          <rect x="0" y="0" width="24" height="16" fill="var(--amber)"/>
+          <rect x="120" y="0" width="24" height="16" fill="var(--amber)"/>
+          <rect x="240" y="0" width="24" height="16" fill="var(--amber)"/>
+          <rect x="360" y="0" width="24" height="16" fill="var(--amber)"/>
+          <rect x="480" y="0" width="24" height="16" fill="var(--amber)"/>
+        </g>
+        <text x="20" y="150" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink-soft)">2-block gap guarantees every 1-wide diamond vein gets exposed by some tunnel.</text>
+        <text x="20" y="170" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink-soft)">6-block gap means tunnels never overlap the same vein — about 1.7% of blocks mined are diamond.</text>
+      </svg>
+      <p class="diagram-caption">Tighter spacing = nothing missed but more swings. Wider spacing = better ore-per-swing but some veins between tunnels go unseen.</p>
+    </div>
+
+    <div class="tradeoff-grid">
+      <div class="tradeoff-card"><span class="label">2-BLOCK SPACING</span><span class="stat">Full coverage</span><div class="note">No vein missed, but exposes far more stone/deepslate per diamond found. Best if you have time, not patience for gaps.</div></div>
+      <div class="tradeoff-card"><span class="label">6-BLOCK SPACING</span><span class="stat">~1.7% hit rate</span><div class="note">Mathematically the best ore-per-block-mined ratio — tunnels never re-cover ground. Best if you value speed over completeness.</div></div>
+    </div>
+    <div class="callout">Community math consensus: 6-block spacing is the efficiency peak per swing, 2-block spacing is the completeness peak. Most players split the difference around 3–4 blocks. <div class="src"><a href="https://www.minecraftforum.net/forums/minecraft-java-edition/survival-mode/2859064-the-most-efficient-and-practical-way-to-branch" target="_blank" rel="noopener">Source: Minecraft Forum efficiency math thread</a></div></div>
+
+    <ul class="tasks" data-group="mining-intermediate" style="margin-top:18px;">
+      <li data-id="inter-1"><span class="checkbox"></span><span class="task-text">Pick your branch spacing deliberately — 2 blocks for max coverage, 6 for max ore-per-swing, 3–4 as the common middle ground.</span></li>
+      <li data-id="inter-2"><span class="checkbox"></span><span class="task-text"><strong>Fortune III vs Silk Touch</strong>: for diamonds, Fortune III averages a bit over 2x the drops per ore. Silk Touch is only better when you want to move/store the ore block itself. Don't put both on one pickaxe — carry two if you need both effects. <span class="src">(<a href="https://www.minecraft-guides.com/vanilla/enchanting/best-pickaxe-enchantments/" target="_blank" rel="noopener">source</a>)</span></span></li>
+      <li data-id="inter-3"><span class="checkbox"></span><span class="task-text">Cave-diving can beat branch mining in ore-per-minute <em>if</em> you find a large post-1.18 cave system — but avoid relying on fully open caves for diamond specifically: air-exposed veins are more likely to be partially cut off by generation than veins found underground intact.</span></li>
+      <li data-id="inter-4"><span class="checkbox"></span><span class="task-text">Run <strong>Efficiency V</strong> on your mining pickaxe once available — it meaningfully cuts time-per-block, which compounds over a long mining session more than most players expect.</span></li>
+    </ul>
+  </section>
+
+  <!-- EXPERT -->
+  <section class="panel" id="expert">
+    <span class="tier-tag expert">EXPERT / ABOVE &amp; BEYOND</span>
+    <h2>Blast Mining &amp; Risk Trade-offs</h2>
+    <p class="sub">Faster than branch mining, but each technique here trades a resource cost or a real risk for speed. Know the trade before you commit to it.</p>
+    <ul class="tasks" data-group="mining-expert">
+      <li data-id="expert-1"><span class="checkbox"></span><span class="task-text"><strong>TNT mining (Overworld)</strong>: clears large volumes fast, but roughly <strong>30% of blown-up ore blocks are destroyed</strong> rather than dropping — including diamonds. Community consensus treats this as a high-risk/high-reward bulk-clearing tool, not a diamond-hunting method — the destroyed-block rate cancels out most of the time saved when diamonds are the actual goal. <span class="src">(<a href="https://www.minecraftforum.net/forums/minecraft-java-edition/survival-mode/237003-am-i-the-only-one-who-tnt-mines" target="_blank" rel="noopener">community discussion</a>)</span></span></li>
+      <li data-id="expert-2"><span class="checkbox"></span><span class="task-text">TNT duping (piston + slime block setup) is a long-standing, unpatched glitch mostly used for large-scale terrain clearing (tree farms, world-eaters) rather than personal ore stock — it doesn't put TNT in your inventory, it primes and drops existing TNT. Treat as a build-project tool, not a mining shortcut. <span class="src">(<a href="https://www.cemetech.net/forum/viewtopic.php?t=18712" target="_blank" rel="noopener">source</a>)</span></span></li>
+      <li data-id="expert-3"><span class="checkbox"></span><span class="task-text">Know before you use it: TNT-based mining is a grey area on many multiplayer servers even where technically not a bannable exploit — check server rules before using it beyond singleplayer.</span></li>
+    </ul>
+  </section>
+
+  <!-- NETHER MINING -->
+  <section class="panel" id="nether-mining">
+    <span class="tier-tag expert">EXPERT</span>
+    <h2>Ancient Debris &amp; the Bed-Blast Method</h2>
+    <p class="sub">Ancient debris has the highest blast resistance of any minable Nether block — which is exactly why explosives outperform pickaxes here, if you accept the risk.</p>
+    <ul class="tasks" data-group="mining-nether">
+      <li data-id="nether-1"><span class="checkbox"></span><span class="task-text"><strong>Fortune and Silk Touch do nothing on ancient debris</strong> — it always drops exactly 1 block per block mined regardless of enchant. Don't waste a pickaxe slot on it for this purpose; Efficiency + Unbreaking + Mending is the actual optimal ancient debris pickaxe. <span class="src">(<a href="https://buzztum.com/does-fortune-work-on-ancient-debris/" target="_blank" rel="noopener">source</a>)</span></span></li>
+      <li data-id="nether-2"><span class="checkbox"></span><span class="task-text">Standard method: branch mine at <strong>Y 15</strong> where the two generation bands overlap — normal pickaxe mining, safer, slower.</span></li>
+      <li data-id="nether-3"><span class="checkbox"></span><span class="task-text"><strong>Bed-blast method (expert):</strong> dig tunnels at Y 11–15 ending in a bed; shelter behind a block, then use the bed to detonate it (beds explode outside the Overworld). The blast reveals debris around the explosion point without destroying it, since debris survives almost anything short of direct pickaxe contact needs.</span></li>
+      <li data-id="nether-4"><span class="checkbox"></span><span class="task-text"><strong>Bring multiple Fire Resistance potions</strong> before attempting bed-blast mining — accidentally exposing or stepping into lava mid-blast is the single most common way this method goes wrong. <span class="src">(<a href="https://minecraft.wiki/w/Tutorials/Ancient_Debris" target="_blank" rel="noopener">source: Minecraft Wiki</a>)</span></span></li>
+      <li data-id="nether-5"><span class="checkbox"></span><span class="task-text">Mine lower (closer to Y 8–11) rather than right at the Y 15 peak if you want to reduce the odds of breaking into an open lava ocean, which are more common near the upper part of the debris band.</span></li>
+    </ul>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki and community testing threads, current as of Sept 2026 &middot; Diamond found at Y −59</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-mining-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/mining');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

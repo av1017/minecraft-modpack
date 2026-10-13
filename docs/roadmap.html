@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Full Route</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --early: #4a7a2e;
+  --early-bg: #e6f0da;
+  --mid: #2f5fa8;
+  --mid-bg: #e2eaf7;
+  --late: #a82f2f;
+  --late-bg: #fbe5e1;
+  --post: #6a3a9e;
+  --post-bg: #ece0f5;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --boss: #7a1f1f;
+  --boss-bg: #f5dcdc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --early: #7cb84f;
+    --early-bg: #1e2c17;
+    --mid: #6f9adb;
+    --mid-bg: #1a2740;
+    --late: #e0605a;
+    --late-bg: #3a1c1a;
+    --post: #b58bdb;
+    --post-bg: #271c33;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+    --boss: #e07a7a;
+    --boss-bg: #331b1b;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --early: #7cb84f;
+  --early-bg: #1e2c17;
+  --mid: #6f9adb;
+  --mid-bg: #1a2740;
+  --late: #e0605a;
+  --late-bg: #3a1c1a;
+  --post: #b58bdb;
+  --post-bg: #271c33;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+  --boss: #e07a7a;
+  --boss-bg: #331b1b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px; flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--mid); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+.progress-wrap {
+  margin-top: 18px; display: flex; align-items: center; gap: 12px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--mid); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* stage rail */
+.stage-rail { display: flex; gap: 8px; margin-bottom: 26px; flex-wrap: wrap; }
+.stage-rail a {
+  display: flex; align-items: center; gap: 7px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  padding: 8px 14px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.stage-rail a .dot { width: 8px; height: 8px; border-radius: 50%; }
+.stage-rail a:hover { border-color: var(--amber-bright); color: var(--ink); }
+
+/* stage sections */
+.stage {
+  border: 3px solid var(--panel-border);
+  background: var(--panel);
+  padding: 22px 22px 26px;
+  margin-bottom: 26px;
+  box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+.stage-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Silkscreen", monospace; font-size: 0.85rem;
+  padding: 6px 14px; margin-bottom: 12px;
+}
+.stage-label.early { background: var(--early-bg); color: var(--early); }
+.stage-label.mid { background: var(--mid-bg); color: var(--mid); }
+.stage-label.late { background: var(--late-bg); color: var(--late); }
+.stage-label.post { background: var(--post-bg); color: var(--post); }
+.stage h2 { margin: 0 0 6px; font-size: 1.25rem; }
+.stage .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+/* category grid within a stage */
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.cat-block { display: flex; flex-direction: column; gap: 8px; }
+.cat-title { font-family: "Silkscreen", monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 9px 11px; font-size: 0.9rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.6; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 11px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text a { color: var(--link); }
+
+/* boss cards */
+.boss-card {
+  border: 2px solid var(--boss); background: var(--boss-bg);
+  padding: 14px 16px; margin-top: 4px; display: flex; flex-direction: column; gap: 6px;
+}
+.boss-card .name { font-family: "Silkscreen", monospace; font-size: 0.95rem; color: var(--boss); }
+.boss-card .stats { font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-soft); }
+.boss-card .note { font-size: 0.87rem; color: var(--ink-soft); }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.9rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout .src { font-size: 0.78rem; color: var(--ink-faint); margin-top: 6px; display: block; }
+.callout .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.callout .src a:hover { color: var(--link); border-color: var(--link); }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>The Full Route</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Progression Map &middot; Verified for 26.3</div>
+    <h1>The Full Route</h1>
+    <p>Every milestone, structure, boss, and destination worth knowing about, laid out in the order you'd realistically hit them — from your first crafting table to whatever you decide "done" means.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="stage-rail">
+    <a href="#early"><span class="dot" style="background:var(--early);"></span>Early Game</a>
+    <a href="#mid"><span class="dot" style="background:var(--mid);"></span>Mid Game</a>
+    <a href="#late"><span class="dot" style="background:var(--late);"></span>Late Game</a>
+    <a href="#post"><span class="dot" style="background:var(--post);"></span>Post-Game</a>
+  </nav>
+
+  <!-- EARLY -->
+  <section class="stage" id="early">
+    <span class="stage-label early">STAGE 1</span>
+    <h2>Early Game — Survive &amp; Stabilize</h2>
+    <p class="sub">Don't move on from this stage until you can survive a night, mine underground safely, and aren't hungry. See <a href="mining.html">The Diamond Depths</a> and <a href="farms.html">The Farm Stack</a> for the deep dives on these.</p>
+    <div class="cat-grid">
+      <div class="cat-block">
+        <span class="cat-title">Gear Milestones</span>
+        <ul class="tasks" data-group="road-early-gear">
+          <li data-id="eg-1"><span class="checkbox"></span><span class="task-text">Stone tools + furnace</span></li>
+          <li data-id="eg-2"><span class="checkbox"></span><span class="task-text">Iron pickaxe, sword, and a <strong>shield</strong> — this is the single most important early upgrade</span></li>
+          <li data-id="eg-3"><span class="checkbox"></span><span class="task-text">Full iron armor set</span></li>
+          <li data-id="eg-4"><span class="checkbox"></span><span class="task-text">Bed + safe, lit shelter</span></li>
+        </ul>
+      </div>
+      <div class="cat-block">
+        <span class="cat-title">Infrastructure</span>
+        <ul class="tasks" data-group="road-early-infra">
+          <li data-id="ei-1"><span class="checkbox"></span><span class="task-text">Basic food farm running</span></li>
+          <li data-id="ei-2"><span class="checkbox"></span><span class="task-text">Sorted storage system</span></li>
+          <li data-id="ei-3"><span class="checkbox"></span><span class="task-text">First iron golem farm</span></li>
+        </ul>
+      </div>
+      <div class="cat-block">
+        <span class="cat-title">Places to Find</span>
+        <ul class="tasks" data-group="road-early-places">
+          <li data-id="ep-1"><span class="checkbox"></span><span class="task-text">A village (plains/desert/savanna biomes first)</span></li>
+          <li data-id="ep-2"><span class="checkbox"></span><span class="task-text">A cave system worth branch mining near</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MID -->
+  <section class="stage" id="mid">
+    <span class="stage-label mid">STAGE 2</span>
+    <h2>Mid Game — Gear Up &amp; Push Underground</h2>
+    <p class="sub">Diamonds, enchanting, and your first Nether trip. See <a href="enchanting.html">The Rush to Mending</a> and <a href="caving.html">Reading the Dark</a> for the deep dives.</p>
+    <div class="cat-grid">
+      <div class="cat-block">
+        <span class="cat-title">Gear Milestones</span>
+        <ul class="tasks" data-group="road-mid-gear">
+          <li data-id="mg-1"><span class="checkbox"></span><span class="task-text">Diamond pickaxe, sword, armor</span></li>
+          <li data-id="mg-2"><span class="checkbox"></span><span class="task-text"><strong>Mending</strong> on your main tools (villager trade-reset)</span></li>
+          <li data-id="mg-3"><span class="checkbox"></span><span class="task-text">Enchanting table + bookshelves, Efficiency/Unbreaking/Protection</span></li>
+          <li data-id="mg-4"><span class="checkbox"></span><span class="task-text">Flint and steel + obsidian for a Nether portal</span></li>
+        </ul>
+      </div>
+      <div class="cat-block">
+        <span class="cat-title">Infrastructure</span>
+        <ul class="tasks" data-group="road-mid-infra">
+          <li data-id="mi-1"><span class="checkbox"></span><span class="task-text">Sugar cane farm (feeds paper &#8594; emeralds)</span></li>
+          <li data-id="mi-2"><span class="checkbox"></span><span class="task-text">Villager trading hall + breeder</span></li>
+          <li data-id="mi-3"><span class="checkbox"></span><span class="task-text">Mob XP farm</span></li>
+        </ul>
+      </div>
+      <div class="cat-block">
+        <span class="cat-title">Places to Explore</span>
+        <ul class="tasks" data-group="road-mid-places">
+          <li data-id="mp-1"><span class="checkbox"></span><span class="task-text">A Nether Fortress — 10 blaze rods is the real target</span></li>
+          <li data-id="mp-2"><span class="checkbox"></span><span class="task-text">A Bastion Remnant — piglin bartering, gold armor for safety</span></li>
+          <li data-id="mp-3"><span class="checkbox"></span><span class="task-text">A Trial Chamber — see the callout below, genuinely worth a detour</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px;">
+      <strong>Trial Chambers</strong> generate between Y −40 and −20 and are one of the newer structures worth prioritizing: clear a trial spawner's waves for a trial key, or drink an <strong>Ominous Bottle</strong> (from raid captains or vaults) to convert nearby trial spawners into <em>Ominous</em> versions mid-run — these drop Ominous Trial Keys, which unlock Ominous Vaults holding genuinely unique loot, including the Heavy Core and Flow Armor Trim, unmatched anywhere else in the game.
+      <span class="src"><a href="https://minecraft.wiki/w/Ominous_Vault" target="_blank" rel="noopener">Source: Minecraft Wiki, Ominous Vault</a></span>
+    </div>
+  </section>
+
+  <!-- LATE -->
+  <section class="stage" id="late">
+    <span class="stage-label late">STAGE 3</span>
+    <h2>Late Game — Boss Fights</h2>
+    <p class="sub">Minecraft has exactly two official bosses with a health bar, plus one unofficial third that's arguably scarier than both.</p>
+    <div class="boss-card">
+      <span class="name">🐉 The Ender Dragon</span>
+      <span class="stats">200 HP &times; 100 (i.e. 100 hearts worth)</span>
+      <span class="note">Requires: stronghold found via Eyes of Ender, full enchanted gear, blocks for the crystal towers. See <a href="quickstart.html">the End fight strategy</a> — pop the crystals first, then fight or bed-trick the dragon.</span>
+    </div>
+    <div class="boss-card">
+      <span class="name">💀 The Wither</span>
+      <span class="stats">300 HP &times; 150</span>
+      <span class="note">Summoned by the player: 4 Soul Sand/Soil in a T-shape topped with 3 Wither Skeleton skulls. Build the summon structure underground or behind blast-resistant walls — it explodes on spawn. Drops a Nether Star, used to craft a Beacon.</span>
+    </div>
+    <div class="boss-card">
+      <span class="name">👁️ The Warden (unofficial)</span>
+      <span class="stats">500 HP, up to 6 hearts of damage per hit</span>
+      <span class="note">Found in the Deep Dark. Not meant to be fought — see <a href="caving.html">Reading the Dark</a> for how to avoid triggering one entirely.</span>
+    </div>
+    <div class="cat-grid" style="margin-top:18px;">
+      <div class="cat-block">
+        <span class="cat-title">Places to Explore</span>
+        <ul class="tasks" data-group="road-late-places">
+          <li data-id="lp-1"><span class="checkbox"></span><span class="task-text">Woodland Mansion (Dark Forest biome) — rare, often thousands of blocks from spawn, Totems of Undying</span></li>
+          <li data-id="lp-2"><span class="checkbox"></span><span class="task-text">Ocean Monument (deep ocean) — guardian farming, sponges, prismarine</span></li>
+          <li data-id="lp-3"><span class="checkbox"></span><span class="task-text">Ancient City (Deep Dark, below Y 0) — best vanilla loot outside the End, guarded by Warden risk</span></li>
+        </ul>
+      </div>
+      <div class="cat-block">
+        <span class="cat-title">Gear Milestones</span>
+        <ul class="tasks" data-group="road-late-gear">
+          <li data-id="lg-1"><span class="checkbox"></span><span class="task-text">Netherite upgrade on your full kit</span></li>
+          <li data-id="lg-2"><span class="checkbox"></span><span class="task-text">A Beacon (post-Wither) for area buffs</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- POST -->
+  <section class="stage" id="post">
+    <span class="stage-label post">STAGE 4</span>
+    <h2>Post-Game — Whatever "Done" Means to You</h2>
+    <p class="sub">The credits roll after the dragon, but the world keeps going. These are the goals most players actually chase afterward.</p>
+    <div class="cat-grid">
+      <div class="cat-block">
+        <span class="cat-title">Gear &amp; Items</span>
+        <ul class="tasks" data-group="road-post-gear">
+          <li data-id="pg-1"><span class="checkbox"></span><span class="task-text">Elytra (from an End City, found via End Ships past the main island)</span></li>
+          <li data-id="pg-2"><span class="checkbox"></span><span class="task-text">Shulker boxes — portable, stackable storage that survives inventory death</span></li>
+          <li data-id="pg-3"><span class="checkbox"></span><span class="task-text">A dragon egg (trophy, no functional use)</span></li>
+        </ul>
+      </div>
+      <div class="cat-block">
+        <span class="cat-title">Open-Ended Projects</span>
+        <ul class="tasks" data-group="road-post-projects">
+          <li data-id="pp-1"><span class="checkbox"></span><span class="task-text">A megabase or full villager city</span></li>
+          <li data-id="pp-2"><span class="checkbox"></span><span class="task-text">Redstone contraptions purely for fun — see the Redstone page once it's built</span></li>
+          <li data-id="pp-3"><span class="checkbox"></span><span class="task-text">A second world/server for you and your girlfriend to build in together</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki, current as of Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-roadmap-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/roadmap');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

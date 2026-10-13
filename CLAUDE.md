@@ -31,6 +31,13 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - Add `-ResourcePack` for texture packs. They keep the order given, and required mods aren't added automatically, so check the pack's page. Fresh Animations needs the `entity-model-features` and `entitytexturefeatures` mods.
   - Add `-AllowBeta` for projects that only publish betas (Fresh Animations does).
 
+## Guide website
+`docs/` is a static HTML site published by GitHub Pages at https://av1017.github.io/minecraft-modpack/ (branch `main`, folder `/docs`). `index.html` is the hub, and each topic is its own page, linked with relative links like `controls.html`. Pages are self-contained: inline CSS/JS, Google Fonts, no build step. Checklist progress is stored in each visitor's browser (`localStorage`).
+- **When the mods change, update the matching guide pages in the same commit:** `mods.html` for Our World mods, `cobblemon.html` for the Cobblemon pack, and `controls.html` for keybinds and texture packs.
+- **Verify facts before writing them.** Read recipes and text from the installed jars, and read keybinds from the pack's `options.txt` after a launch.
+- **Keep every page working on a phone:** keep the viewport meta, don't use fixed widths, and wrap wide tables in an `overflow-x: auto` container.
+- Pushing to `main` republishes the site within a minute or two.
+
 ## Rules
 - **Mod files never go in the repo.** Some licenses forbid re-hosting (Wool Tweaks requires downloads to stay on CurseForge or Modrinth). `.gitignore` blocks `*.jar`.
 - **Every PC must match per pack.** LAN fails if gameplay mods differ. Client-only mods can differ, but keep them in sync anyway.

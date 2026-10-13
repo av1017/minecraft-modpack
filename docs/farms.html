@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Farm Stack</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --wheat: #c8a02e;
+  --wheat-bg: #f7edd2;
+  --iron: #9a6a3a;
+  --iron-bg: #f2e6d3;
+  --cane: #5d8a3a;
+  --cane-bg: #e6f0da;
+  --mob: #5a4a6e;
+  --mob-bg: #ece5f2;
+  --villager: #2e8a5a;
+  --villager-bg: #dcf0e4;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --basic: #4a7a2e;
+  --basic-bg: #e6f0da;
+  --inter: #b8720f;
+  --inter-bg: #f7ead2;
+  --expert: #a82f2f;
+  --expert-bg: #fbe5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --wheat: #e0c04a;
+    --wheat-bg: #332911;
+    --iron: #d3a878;
+    --iron-bg: #332a1c;
+    --cane: #8fc466;
+    --cane-bg: #1c2a15;
+    --mob: #a893c4;
+    --mob-bg: #241d33;
+    --villager: #52c98a;
+    --villager-bg: #133523;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+    --basic: #7cb84f;
+    --basic-bg: #1e2c17;
+    --inter: #e8a33d;
+    --inter-bg: #332711;
+    --expert: #e0605a;
+    --expert-bg: #3a1c1a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --wheat: #e0c04a;
+  --wheat-bg: #332911;
+  --iron: #d3a878;
+  --iron-bg: #332a1c;
+  --cane: #8fc466;
+  --cane-bg: #1c2a15;
+  --mob: #a893c4;
+  --mob-bg: #241d33;
+  --villager: #52c98a;
+  --villager-bg: #133523;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+  --basic: #7cb84f;
+  --basic-bg: #1e2c17;
+  --inter: #e8a33d;
+  --inter-bg: #332711;
+  --expert: #e0605a;
+  --expert-bg: #3a1c1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px; flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--wheat); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--wheat); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+.progress-wrap {
+  margin-top: 18px; display: flex; align-items: center; gap: 12px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--wheat); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.tier-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tier-nav a {
+  font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.tier-nav a:hover, .tier-nav a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+.panel {
+  background: var(--panel); border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+
+.order-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; font-family: "Silkscreen", monospace; font-size: 0.9rem;
+  color: var(--stone-deep); margin-bottom: 10px;
+}
+
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.95rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 12px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text .src { font-size: 0.8rem; color: var(--ink-faint); margin-left: 4px; }
+.task-text .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.task-text .src a:hover { color: var(--link); border-color: var(--link); }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); }
+
+.diagram-box { background: var(--slot); border: 2px solid var(--slot-border); padding: 16px; margin: 14px 0; overflow-x: auto; }
+.diagram-box svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.diagram-caption { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.03em; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); font-variant-numeric: tabular-nums; color: var(--ink); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+
+/* order rail */
+.order-rail { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; }
+.order-rail a {
+  display: flex; align-items: center; gap: 6px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem;
+  padding: 7px 12px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.order-rail a .n { font-family: "Silkscreen", monospace; }
+.order-rail a:hover { border-color: var(--amber-bright); color: var(--ink); }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Farms</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Deep Dive &middot; Verified for 26.3</div>
+    <h1>The Farm Stack</h1>
+    <p>Five farms, in the order that actually makes sense — each one either removes a daily chore or feeds directly into the next. Skip nothing here just because it's not exciting; food and iron unlock everything else.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="order-rail">
+    <a href="#f1"><span class="n">1</span> Food</a>
+    <a href="#f2"><span class="n">2</span> Iron</a>
+    <a href="#f3"><span class="n">3</span> Sugar Cane</a>
+    <a href="#f4"><span class="n">4</span> Mob XP</a>
+    <a href="#f5"><span class="n">5</span> Villagers</a>
+  </nav>
+
+  <div class="callout">
+    <strong>Why this order:</strong> food and iron remove the two chores you repeat constantly by hand — eating and re-mining tools. Sugar cane comes next because it feeds paper, which feeds villager trading, which is the actual endgame of "efficient survival." Mob XP and villager breeding are quality-of-life multipliers you add once the essentials are running themselves.
+    <div class="src"><a href="https://minecraft.how/blog/post/minecraft-farms-guide-rates-layouts" target="_blank" rel="noopener">Source: community farm-order consensus, 2026</a></div>
+  </div>
+
+  <!-- FARM 1: FOOD -->
+  <section class="panel" id="f1">
+    <span class="order-num" style="background: var(--wheat);">1</span>
+    <h2>Food Farm — Build This First</h2>
+    <p class="sub">The water-flow flood method: no redstone required, works for wheat, carrots, potatoes, and beetroot alike.</p>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 640 170" role="img" aria-labelledby="food-title food-desc">
+        <title id="food-title">Water-flood crop farm cross-section</title>
+        <desc id="food-desc">A staircase of farmland plots with a water source at the top; releasing the water sweeps harvested crops down into a hopper collection line at the bottom.</desc>
+        <g transform="translate(20,20)">
+          <rect x="0" y="0" width="70" height="20" fill="var(--wheat)" opacity="0.5"/>
+          <text x="35" y="14" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="var(--ink)">WATER</text>
+          <rect x="80" y="30" width="500" height="18" fill="var(--wheat-bg)" stroke="var(--wheat)" stroke-width="1.5"/>
+          <rect x="80" y="58" width="500" height="18" fill="var(--wheat-bg)" stroke="var(--wheat)" stroke-width="1.5"/>
+          <rect x="80" y="86" width="500" height="18" fill="var(--wheat-bg)" stroke="var(--wheat)" stroke-width="1.5"/>
+          <text x="330" y="43" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="10.5" fill="var(--ink)">farmland row — crops planted here</text>
+          <text x="330" y="71" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="10.5" fill="var(--ink)">farmland row</text>
+          <text x="330" y="99" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="10.5" fill="var(--ink)">farmland row</text>
+          <rect x="80" y="114" width="500" height="16" fill="var(--slot-border)" opacity="0.4"/>
+          <text x="330" y="126" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="var(--ink-soft)">hopper line &#8594; chest</text>
+        </g>
+      </svg>
+      <p class="diagram-caption">Releasing the water at the top sweeps every mature crop down into the hoppers below — the farmland itself is never destroyed.</p>
+    </div>
+
+    <ul class="tasks" data-group="farm-food">
+      <li data-id="food-1"><span class="checkbox"></span><span class="task-text">Build a <strong>staircase of farmland</strong> rows, one water source block placed at the top edge, hidden behind a wall or block.</span></li>
+      <li data-id="food-2"><span class="checkbox"></span><span class="task-text">Plant wheat, carrots, potatoes, or beetroot — all behave the same way with this design. Any of these need a <strong>light level of 9 or higher</strong> at the plant block to grow at all.</span></li>
+      <li data-id="food-3"><span class="checkbox"></span><span class="task-text">When crops are mature, release the water — <strong>flowing water breaks mature crops and drops their full yield without destroying the farmland</strong>, sweeping everything down to a hopper line at the bottom.</span></li>
+      <li data-id="food-4"><span class="checkbox"></span><span class="task-text">A lever or simple observer-triggered dispenser can automate the water release, but a manual lever is completely fine for your first version.</span></li>
+      <li data-id="food-5"><span class="checkbox"></span><span class="task-text">Once you have surplus food, this directly feeds <strong>Farm 5 (villager breeding)</strong> later — no separate food source needed for that.</span></li>
+    </ul>
+  </section>
+
+  <!-- FARM 2: IRON -->
+  <section class="panel" id="f2">
+    <span class="order-num" style="background: var(--iron);">2</span>
+    <h2>Iron Farm — Build This Second</h2>
+    <p class="sub">Full build details live on the dedicated Iron page — here's the short version and why it's second in line.</p>
+    <div class="callout">
+      Iron stops being something you interrupt mining trips for. The panic-based method (3+ panicking villagers near a caged zombie) is the fastest to get running; the zombie-free gossip method (5+ villagers) is worth switching to once you have enough villagers spare. <a href="iron.html">Full build guide &rarr;</a>
+    </div>
+    <ul class="tasks" data-group="farm-iron" style="margin-top:12px;">
+      <li data-id="iron-1"><span class="checkbox"></span><span class="task-text">Gather at least <strong>3 villagers</strong> and get a basic panic-triggered iron golem farm running before moving to sugar cane — see the Iron page for the exact setup.</span></li>
+    </ul>
+  </section>
+
+  <!-- FARM 3: SUGAR CANE -->
+  <section class="panel" id="f3">
+    <span class="order-num" style="background: var(--cane);">3</span>
+    <h2>Sugar Cane Farm — Build This Third</h2>
+    <p class="sub">Feeds paper, which feeds emeralds via librarian trading, which feeds your entire enchanting pipeline. Fully automatable with a simple observer-piston unit.</p>
+    <div class="callout danger">
+      <strong>One thing that changed:</strong> the old "zero-tick" instant-growth sugar cane farm trick was patched years ago and does not work in current versions. Any guide describing zero-tick farming is out of date — modern designs rely on natural growth timing with observers.
+      <div class="src"><a href="https://syntaxmine.com/articles/sugar-cane-farm-minecraft-26-2" target="_blank" rel="noopener">Source: SyntaxMine, current sugar cane farm design</a></div>
+    </div>
+    <ul class="tasks" data-group="farm-cane" style="margin-top:14px;">
+      <li data-id="cane-1"><span class="checkbox"></span><span class="task-text">Plant sugar cane next to water — it grows to a maximum of <strong>3 blocks tall</strong> and regrows from the base indefinitely once harvested correctly.</span></li>
+      <li data-id="cane-2"><span class="checkbox"></span><span class="task-text">Place an <strong>observer</strong> facing each cane stalk from behind, watching for the block to reach its third (top) segment.</span></li>
+      <li data-id="cane-3"><span class="checkbox"></span><span class="task-text">Wire the observer to a <strong>piston</strong> placed directly behind the cane — when the observer detects the top block growing in, it pulses the piston to break just the upper section, leaving the base intact to keep growing.</span></li>
+      <li data-id="cane-4"><span class="checkbox"></span><span class="task-text">Repeat this <strong>one observer + one piston per stalk</strong> unit side by side to scale up production — it's a simple repeating module, not a single complex machine.</span></li>
+      <li data-id="cane-5"><span class="checkbox"></span><span class="task-text">Funnel the drops into a hopper line beneath the pistons for full automation with zero manual harvesting.</span></li>
+    </ul>
+  </section>
+
+  <!-- FARM 4: MOB XP -->
+  <section class="panel" id="f4">
+    <span class="order-num" style="background: var(--mob);">4</span>
+    <h2>Mob XP Farm — Build This Fourth</h2>
+    <p class="sub">Two real options depending on what you've found — a spawner farm if you're lucky, a dark-room tower if you're not.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Mob farm options compared</caption>
+        <thead><tr><th>Design</th><th>Rate</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr><td>Spawner farm</td><td>~80 mobs/min</td><td>Requires finding a dungeon spawner — cheapest, fastest build if you have one</td></tr>
+          <tr><td>Dark-room tower</td><td>Up to ~150 mobs/min (4-level sky tower)</td><td>No spawner needed — needs a fully dark, enclosed platform away from natural caves</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="src" style="margin-top:6px; display:block;"><a href="https://xgamingserver.com/blog/minecraft-xp-farm-guide/" target="_blank" rel="noopener">Source: XGamingServer, XP farm rate comparison</a></div>
+    <ul class="tasks" data-group="farm-mob" style="margin-top:14px;">
+      <li data-id="mob-1"><span class="checkbox"></span><span class="task-text">Mobs only spawn at <strong>light level 0</strong> on opaque blocks with 2 blocks of clear air above — cover any gaps with slabs or fully enclose the space, or your farm silently underperforms.</span></li>
+      <li data-id="mob-2"><span class="checkbox"></span><span class="task-text">Build sky platforms high up, away from natural caves and ravines below — competing spawn locations elsewhere reduce what spawns at your farm.</span></li>
+      <li data-id="mob-3"><span class="checkbox"></span><span class="task-text">Use water streams to push spawned mobs toward a central drop point, funneling them down into a kill chamber.</span></li>
+      <li data-id="mob-4"><span class="checkbox"></span><span class="task-text"><strong>Fall exactly 22 blocks</strong> before the kill point — this leaves mobs at half a heart so one hit finishes them for full XP. <strong>24+ blocks kills them outright and gives zero XP</strong> — get this number right.</span></li>
+      <li data-id="mob-5"><span class="checkbox"></span><span class="task-text">You must land the final blow yourself (or hit them within 5 seconds/100 ticks before something else kills them) — mobs give no XP if something else finishes them off.</span></li>
+      <li data-id="mob-6"><span class="checkbox"></span><span class="task-text">Remember the <strong>128-block mob cap sphere</strong> centered on you — stand at your AFK spot within that radius, or spawns elsewhere on the map eat into your farm's budget.</span></li>
+    </ul>
+  </section>
+
+  <!-- FARM 5: VILLAGERS -->
+  <section class="panel" id="f5">
+    <span class="order-num" style="background: var(--villager);">5</span>
+    <h2>Villager Trading Hall &amp; Breeder — Build This Fifth</h2>
+    <p class="sub">The capstone. By now you have surplus food and iron to spend on this, and it's what actually sustains your enchanting pipeline long-term.</p>
+    <ul class="tasks" data-group="farm-villager">
+      <li data-id="vill-1"><span class="checkbox"></span><span class="task-text">Villagers breed when they have an available bed (one per adult, plus one extra), enough food in their inventory, and are marked <strong>"willing"</strong> — reached at 3 bread, or 12 of any single crop (carrots/potatoes/beetroot).</span></li>
+      <li data-id="vill-2"><span class="checkbox"></span><span class="task-text"><strong>Bread is the efficient choice</strong> — only 3 loaves needed vs. 12 raw crops, which matters a lot once you're running multiple breeding pairs.</span></li>
+      <li data-id="vill-3"><span class="checkbox"></span><span class="task-text">For full automation: route your food farm's surplus through a hopper to a <strong>farmer villager</strong>, who converts crops to bread and shares it with nearby villagers automatically — a closed loop that keeps producing babies as long as your food farm runs.</span></li>
+      <li data-id="vill-4"><span class="checkbox"></span><span class="task-text">A compact, fast breeder: <strong>2 villagers in a 3×3 glass box</strong> with a hopper feeding bread in from above — commonly reported at roughly 1 baby every 2-3 minutes once seeded.</span></li>
+      <li data-id="vill-5"><span class="checkbox"></span><span class="task-text">Move new/excess villagers roughly <strong>32 blocks away</strong> from the breeder into your actual trading hall cells — keeps the breeding room from filling up and stalling itself out.</span></li>
+      <li data-id="vill-6"><span class="checkbox"></span><span class="task-text">This is also where the <a href="enchanting.html">Enchanting page's</a> trading hall advice plugs in directly — one villager per cell, one workstation per cell, trade once to lock it in.</span></li>
+    </ul>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki and current community farm guides, current as of Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-farms-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/farms');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

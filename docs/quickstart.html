@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Start Route</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --dirt: #8b6844;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --grass: #4a7a2e;
+  --grass-deep: #365a20;
+  --diamond: #1f9e94;
+  --diamond-bg: #dff5f2;
+  --redstone: #a82f2f;
+  --redstone-bg: #fbe5e1;
+  --lapis: #2f5fa8;
+  --lapis-bg: #e2eaf7;
+  --gold: #b8891a;
+  --gold-bg: #faf0d8;
+  --netherite: #4a3b3b;
+  --netherite-bg: #ece5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --code-bg: #2b2620;
+  --code-fg: #d9d2c0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --dirt: #6b4f31;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --grass: #7cb84f;
+    --grass-deep: #5d8a3a;
+    --diamond: #4dd8d0;
+    --diamond-bg: #17302e;
+    --redstone: #e0605a;
+    --redstone-bg: #3a1c1a;
+    --lapis: #6f9adb;
+    --lapis-bg: #1a2740;
+    --gold: #e0b23e;
+    --gold-bg: #3a2f14;
+    --netherite: #c9beb8;
+    --netherite-bg: #2a2422;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --code-bg: #0c0a08;
+    --code-fg: #cfc7b4;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --dirt: #6b4f31;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --grass: #7cb84f;
+  --grass-deep: #5d8a3a;
+  --diamond: #4dd8d0;
+  --diamond-bg: #17302e;
+  --redstone: #e0605a;
+  --redstone-bg: #3a1c1a;
+  --lapis: #6f9adb;
+  --lapis-bg: #1a2740;
+  --gold: #e0b23e;
+  --gold-bg: #3a2f14;
+  --netherite: #c9beb8;
+  --netherite-bg: #2a2422;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --code-bg: #0c0a08;
+  --code-fg: #cfc7b4;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding-block: 32px 80px;
+}
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 28px 24px;
+  margin-bottom: 28px;
+  image-rendering: pixelated;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px solid var(--panel-border);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+
+.eyebrow .pip {
+  width: 8px; height: 8px;
+  background: var(--amber-bright);
+  box-shadow: 0 0 0 2px var(--stone-deep) inset;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4.2vw, 2.35rem);
+  line-height: 1.35;
+  margin: 0 0 12px;
+  color: var(--ink);
+  text-shadow: 2px 2px 0 var(--shadow);
+}
+
+.hero p {
+  margin: 0;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  font-size: 1rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.badge {
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  background: var(--slot);
+  border: 2px solid var(--slot-border);
+  color: var(--ink-soft);
+}
+
+/* ---------- Hotbar nav ---------- */
+
+.hotbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px;
+  margin-bottom: 32px;
+  background: var(--stone-deep);
+  border: 3px solid var(--panel-border);
+  box-shadow: 0 4px 0 var(--shadow);
+}
+
+.hotbar a {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--slot);
+  border: 2px solid var(--slot-border);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 1.15rem;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.hotbar a:hover, .hotbar a:focus-visible {
+  border-color: var(--amber-bright);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.hotbar a span {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 480px) {
+  .hotbar a { width: 38px; height: 38px; font-size: 1rem; }
+}
+
+/* ---------- Sections as crafting panels ---------- */
+
+.panel {
+  background: var(--panel);
+  border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px;
+  margin-bottom: 26px;
+  box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 64px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.phase-num {
+  font-family: "Silkscreen", monospace;
+  font-size: 0.85rem;
+  color: var(--stone);
+  background: var(--amber);
+  padding: 3px 8px;
+}
+
+.panel h2 {
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--ink);
+}
+
+.panel .sub {
+  margin: 4px 0 18px;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+  max-width: 68ch;
+}
+
+/* checklist items styled as inventory slots */
+
+ul.tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ul.tasks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--slot);
+  border: 2px solid var(--slot-border);
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+ul.tasks li .check {
+  flex: 0 0 auto;
+  width: 18px; height: 18px;
+  margin-top: 2px;
+  border: 2px solid var(--amber);
+  background: transparent;
+}
+
+ul.tasks li strong { color: var(--ink); }
+
+/* ---------- Ore table ---------- */
+
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+
+table.ore {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 0.92rem;
+}
+
+table.ore caption {
+  text-align: left;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+table.ore th {
+  text-align: left;
+  font-family: "Silkscreen", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+  border-bottom: 3px solid var(--panel-border);
+  color: var(--ink-soft);
+}
+
+table.ore td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--panel-border);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+table.ore tr:last-child td { border-bottom: none; }
+
+.ore-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 600;
+}
+
+.ore-chip .swatch {
+  width: 11px; height: 11px;
+  flex: 0 0 auto;
+  border: 1px solid var(--shadow);
+}
+
+.sw-coal { background: #3a3a3a; }
+.sw-iron { background: #c9b18a; }
+.sw-copper { background: #c26a3f; }
+.sw-gold { background: var(--gold); }
+.sw-redstone { background: var(--redstone); }
+.sw-diamond { background: var(--diamond); }
+.sw-lapis { background: var(--lapis); }
+.sw-debris { background: var(--netherite); }
+
+/* ---------- Enchant / priority pills ---------- */
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+
+.pill {
+  font-family: "Space Mono", monospace;
+  font-size: 0.82rem;
+  padding: 6px 11px;
+  border: 2px solid;
+  white-space: nowrap;
+}
+
+.pill.diamond { color: var(--diamond); border-color: var(--diamond); background: var(--diamond-bg); }
+.pill.gold { color: var(--gold); border-color: var(--gold); background: var(--gold-bg); }
+.pill.redstone { color: var(--redstone); border-color: var(--redstone); background: var(--redstone-bg); }
+.pill.lapis { color: var(--lapis); border-color: var(--lapis); background: var(--lapis-bg); }
+
+/* ---------- Farm cards ---------- */
+
+.farm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.farm {
+  border: 2px solid var(--slot-border);
+  background: var(--slot);
+  padding: 13px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.farm .rank {
+  font-family: "Silkscreen", monospace;
+  font-size: 0.68rem;
+  color: var(--grass);
+}
+
+.farm .name { font-weight: 700; color: var(--ink); font-size: 0.98rem; }
+.farm .note { color: var(--ink-soft); font-size: 0.87rem; }
+.farm.skip { opacity: 0.68; }
+.farm.skip .rank { color: var(--ink-soft); }
+
+/* ---------- Callouts ---------- */
+
+.callout {
+  border-left: 5px solid var(--amber);
+  background: var(--slot);
+  padding: 12px 14px;
+  margin: 16px 0 4px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+.callout strong { color: var(--ink); }
+
+.callout.danger { border-left-color: var(--redstone); }
+.callout.nether { border-left-color: var(--netherite); }
+
+/* ---------- Cheat sheet ---------- */
+
+.cheat {
+  background: var(--stone-deep);
+  border: 3px solid var(--amber);
+  padding: 22px;
+  box-shadow: 0 5px 0 var(--shadow);
+}
+
+.cheat h2 { color: var(--amber-bright); }
+
+ol.steps {
+  margin: 14px 0 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+ol.steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+ol.steps li::before {
+  content: counter(step);
+  flex: 0 0 auto;
+  font-family: "Silkscreen", monospace;
+  font-size: 0.78rem;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--amber);
+  color: var(--stone-deep);
+}
+
+footer {
+  text-align: center;
+  color: var(--ink-soft);
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  margin-top: 36px;
+  letter-spacing: 0.03em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotbar a { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p style="font-family: 'Space Mono', monospace; font-size: 0.78rem; margin: 0 0 18px;"><a href="index.html" style="color: inherit;">&larr; Back to the guide</a></p>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Java Edition &middot; Survival Route</div>
+    <h1>From Punching Trees to Slaying the Ender Dragon</h1>
+    <p>An efficient path through vanilla survival — mining, farms, enchanting, and the End fight — for a player who already knows the basics and wants the fast track, not a tutorial.</p>
+    <div class="hero-meta">
+      <span class="badge">VANILLA ONLY</span>
+      <span class="badge">VERIFIED FOR 26.3 &middot; WILDERNESS BOUND</span>
+      <span class="badge">~1 SITTING, GOOD RNG</span>
+    </div>
+  </div>
+
+  <nav class="hotbar" aria-label="Jump to phase">
+    <a href="#p0" title="Day 1–2 Setup">🌳<span>Day 1–2 Setup</span></a>
+    <a href="#p1" title="Early Game">⛏️<span>Early Game</span></a>
+    <a href="#p2" title="Mining">💎<span>Mining</span></a>
+    <a href="#p3" title="Enchanting">📖<span>Enchanting</span></a>
+    <a href="#p4" title="Farms">🌾<span>Farms</span></a>
+    <a href="#p5" title="The Nether">🔥<span>The Nether</span></a>
+    <a href="#p6" title="Stronghold">🔮<span>Stronghold</span></a>
+    <a href="#p7" title="End Fight">🐉<span>End Fight</span></a>
+    <a href="#cheat" title="Cheat Sheet">⚡<span>Cheat Sheet</span></a>
+  </nav>
+
+  <section class="panel" id="p0">
+    <div class="panel-head"><span class="phase-num">PHASE 0</span><h2>Day 1–2 Setup</h2></div>
+    <p class="sub">Get off wood tools and into a safe, lit shelter before the first proper night.</p>
+    <ul class="tasks">
+      <li><span class="check"></span><span>Punch trees for wood → craft a <strong>crafting table</strong> and wooden pickaxe, axe, sword (or skip straight to stone if rock is exposed nearby).</span></li>
+      <li><span class="check"></span><span>Mine at least 11 cobblestone → <strong>stone pickaxe, axe, sword</strong> + a <strong>furnace</strong>.</span></li>
+      <li><span class="check"></span><span>Grab surface <strong>coal</strong> for torches — lighting your base stops mob spawns.</span></li>
+      <li><span class="check"></span><span>Shear or kill sheep for wool → craft a <strong>bed</strong>. Sleeping skips night and sets spawn.</span></li>
+      <li><span class="check"></span><span>Dig in or find shelter before nightfall — a hillside hole with a dirt wall is fine, don't overbuild yet.</span></li>
+      <li><span class="check"></span><span>Stockpile a little extra wood — always keep enough on hand for a quick tool replacement.</span></li>
+    </ul>
+    <div class="callout"><strong>Goal by end of Day 2:</strong> stone tools, furnace, bed, safe shelter.</div>
+    <div class="callout" style="margin-top:10px;"><strong>New in 26.3:</strong> the <strong>straw bed</strong> (straw + wool) skips the night without resetting your spawn point — but it's single-use and can't be used in the Nether or End. Handy for exploring away from your real bed; doesn't replace it.</div>
+  </section>
+
+  <section class="panel" id="p1">
+    <div class="panel-head"><span class="phase-num">PHASE 1</span><h2>Early Game — Iron &amp; Infrastructure</h2></div>
+    <p class="sub">Iron gear, a food loop, and organized storage so you stop wasting time on logistics.</p>
+    <ul class="tasks">
+      <li><span class="check"></span><span>Mine and smelt <strong>iron ore</strong> → iron pickaxe (needed for diamond/redstone), iron sword, and at least an iron chestplate.</span></li>
+      <li><span class="check"></span><span>Craft a <strong>shield</strong> (iron ingot + plank) — cuts early damage drastically, especially from skeletons.</span></li>
+      <li><span class="check"></span><span>Dig gravel for <strong>flint</strong> → craft <strong>flint and steel</strong> for the Nether portal later.</span></li>
+      <li><span class="check"></span><span>Till dirt near water, plant a <strong>wheat plot</strong> (break tall grass for seeds).</span></li>
+      <li><span class="check"></span><span>Pen a few <strong>animals</strong>: cows (leather + beef), pigs, chickens (eggs → more chickens).</span></li>
+      <li><span class="check"></span><span>Set up <strong>sorted storage</strong> — chests by category: ores, food, building blocks, tools.</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="p2">
+    <div class="panel-head"><span class="phase-num">PHASE 2</span><h2>Mining Efficiently</h2></div>
+    <p class="sub">Ore Y-levels shifted with the 1.18 world-height update — these are the current sweet spots.</p>
+    <div class="table-scroll">
+      <table class="ore">
+        <caption>Best Y-level by ore, current world generation</caption>
+        <thead>
+          <tr><th>Ore</th><th>Best Y-level</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="ore-chip"><span class="swatch sw-coal"></span>Coal</span></td><td>Y 96 &amp; below</td><td>Also common on the surface</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-iron"></span>Iron</span></td><td>Y 16 (decent 0–64)</td><td>Also found high up in mountains</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-copper"></span>Copper</span></td><td>Y 48</td><td>Low priority — lightning rods, spyglass</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-gold"></span>Gold</span></td><td>Y −16 to 16</td><td>Surface gold in badlands biome too</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-redstone"></span>Redstone</span></td><td>Y −58</td><td>Deepslate level — mine in bulk</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-diamond"></span>Diamond</span></td><td><strong>Y −58</strong></td><td>Best rate — branch mine here</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-lapis"></span>Lapis</span></td><td>Y 0</td><td>For enchanting</td></tr>
+          <tr><td><span class="ore-chip"><span class="swatch sw-debris"></span>Ancient Debris</span></td><td>Nether, Y 8–22 (best ~15)</td><td>Netherite — needs Nether access first</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pill-row">
+      <span class="pill diamond">Branch mine Y −58</span>
+      <span class="pill lapis">2-block tunnel spacing</span>
+      <span class="pill gold">Fortune III &gt; Silk Touch for yield</span>
+    </div>
+    <ul class="tasks" style="margin-top:14px;">
+      <li><span class="check"></span><span><strong>Branch mining (current best):</strong> dig a main tunnel at Y −58/−59, then 1×2 branch tunnels off it spaced exactly 2 blocks apart. This exposes more new block faces per block broken than old-style strip mining, which is why it's overtaken strip mining as the standard ore-hunting method.</span></li>
+      <li><span class="check"></span><span><strong>Strip mining</strong> (solid, gapless tunnels) is now mainly for clearing bulk stone or flattening a build area, not for ore-hunting — branch mining finds more ore per minute.</span></li>
+      <li><span class="check"></span><span><strong>Cave diving:</strong> post-1.18 caves are huge and ore-dense — can outpace branch mining if you find a good system, but yields are less predictable. Wall off lava and mob spawns as you go, and avoid fully open caves for diamond specifically — air-exposed veins often get partially discarded by world generation.</span></li>
+      <li><span class="check"></span><span>Always carry torches, blocks to wall off danger, food, a water bucket (redirects lava, breaks falls), and a spare pickaxe.</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="p3">
+    <div class="panel-head"><span class="phase-num">PHASE 3</span><h2>Enchanting &amp; Villager Trading</h2></div>
+    <p class="sub">One good enchanting setup plus a trading hall covers nearly everything you need.</p>
+    <ul class="tasks">
+      <li><span class="check"></span><span>Build an <strong>enchanting table</strong> (diamond + obsidian — get obsidian by pouring water on lava, then mining with a diamond pickaxe).</span></li>
+      <li><span class="check"></span><span>Surround it with <strong>15 bookshelves</strong>, one block gap from the table, for level 30 max enchants.</span></li>
+      <li><span class="check"></span><span>Farm XP through mining, mob kills, and breeding — a simple mob grinder speeds this up a lot.</span></li>
+      <li><span class="check"></span><span>Find a <strong>village</strong> and trade-reset librarians (break + replace their lectern) to reroll for specific enchanted books, including ones the table can't give you.</span></li>
+    </ul>
+    <div class="pill-row">
+      <span class="pill diamond">Mending</span>
+      <span class="pill lapis">Unbreaking III</span>
+      <span class="pill diamond">Fortune III (pickaxe)</span>
+      <span class="pill redstone">Sharpness V / Looting III</span>
+      <span class="pill lapis">Protection IV</span>
+      <span class="pill gold">Efficiency V</span>
+    </div>
+    <p class="sub" style="margin-top:12px; margin-bottom:0;"><strong>Mending</strong> only comes from villager trades — get it early on your main pickaxe, sword, and armor so gear repairs itself with XP.</p>
+  </section>
+
+  <section class="panel" id="p4">
+    <div class="panel-head"><span class="phase-num">PHASE 4</span><h2>Farms Worth Building</h2></div>
+    <p class="sub">Ranked by how much time they actually save. If your only goal is beating the game, the first two are enough.</p>
+    <div class="farm-grid">
+      <div class="farm"><span class="rank">01 · ESSENTIAL</span><span class="name">Food farm</span><span class="note">Automated wheat/carrot/potato with water flow — never worry about hunger again.</span></div>
+      <div class="farm"><span class="rank">02 · ESSENTIAL</span><span class="name">Iron farm</span><span class="note">Villager-based golem farm — steady iron for tools, blocks, hoppers, anvils.</span></div>
+      <div class="farm"><span class="rank">03 · USEFUL</span><span class="name">Cobblestone generator</span><span class="note">Lava + water, infinite building filler.</span></div>
+      <div class="farm"><span class="rank">04 · USEFUL</span><span class="name">Mob XP farm</span><span class="note">Dark spawning platform funneling into a kill zone — XP and gunpowder/string.</span></div>
+      <div class="farm"><span class="rank">05 · USEFUL</span><span class="name">Sugar cane farm</span><span class="note">Renewable paper for books, bookshelves, and brewing XP bottles later.</span></div>
+      <div class="farm"><span class="rank">06 · USEFUL</span><span class="name">Villager trading hall</span><span class="note">Professions organized by workstation — emeralds, books, gear on tap.</span></div>
+      <div class="farm skip"><span class="rank">07 · OPTIONAL</span><span class="name">Guardian farm</span><span class="note">Great XP and prismarine, but high effort — skip if speed is the goal.</span></div>
+      <div class="farm skip"><span class="rank">08 · OPTIONAL</span><span class="name">Nether gold farm</span><span class="note">Feeds piglin bartering — ender pearls and obsidian without visiting the End first.</span></div>
+    </div>
+  </section>
+
+  <section class="panel" id="p5">
+    <div class="panel-head"><span class="phase-num">PHASE 5</span><h2>The Nether</h2></div>
+    <p class="sub">Blaze rods and ender pearls are the two things you're actually here for.</p>
+    <ul class="tasks">
+      <li><span class="check"></span><span>Build the portal: <strong>10 obsidian</strong> minimum, 4×5 frame, light with flint and steel.</span></li>
+      <li><span class="check"></span><span>Bring: full iron+ armor, sword, bow and arrows, blocks for ledges, and at least one piece of <strong>gold armor</strong> — piglins stay neutral around any gold.</span></li>
+      <li><span class="check"></span><span>Raid a <strong>Nether fortress</strong> for <strong>blaze rods</strong> (needed for brewing stands and Eyes of Ender).</span></li>
+      <li><span class="check"></span><span>Get <strong>ender pearls</strong> via piglin bartering (safer) or Endermen kills (riskier) → craft <strong>Eyes of Ender</strong> — aim for 12–16, some break in flight.</span></li>
+      <li><span class="check"></span><span>Optional: mine <strong>ancient debris</strong> at Y 15, smelt to scrap, combine 4 scrap + 4 gold ingots → netherite ingot, upgrade diamond gear at a smithing table.</span></li>
+    </ul>
+    <div class="callout nether"><strong>Remember:</strong> the Nether is 1:8 scale to the Overworld — mark your portal with torches or blocks so you can find your way back.</div>
+  </section>
+
+  <section class="panel" id="p6">
+    <div class="panel-head"><span class="phase-num">PHASE 6</span><h2>Finding the Stronghold</h2></div>
+    <p class="sub">Throw, follow, repeat — then gear up before you step through.</p>
+    <ul class="tasks">
+      <li><span class="check"></span><span>Throw an Eye of Ender, follow the direction it flies, repeat until one sinks down near a spot — the stronghold is roughly beneath it.</span></li>
+      <li><span class="check"></span><span>Dig down or explore to find the <strong>End Portal room</strong>, and fill the frame's empty slots with your remaining Eyes.</span></li>
+      <li><span class="check"></span><span>Full enchanted armor and weapons (Protection IV, Mending, Unbreaking) — this is not the place to go in half-geared.</span></li>
+      <li><span class="check"></span><span>Bring at least a stack of blocks (for the crystal towers), golden apples, food, a spare pickaxe, and a <strong>bed</strong>.</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="p7">
+    <div class="panel-head"><span class="phase-num">PHASE 7</span><h2>The End Fight</h2></div>
+    <p class="sub">Crystals first, dragon second — the order is what makes this fight fast instead of brutal.</p>
+    <ul class="tasks">
+      <li><span class="check"></span><span>Snipe the <strong>Ender Crystals</strong> on the obsidian towers first — they continuously heal the dragon. Bow from range, or melee if towers are caged in iron bars.</span></li>
+      <li><span class="check"></span><span>Once crystals are down, focus the dragon while it perches on the exit portal — your best damage window.</span></li>
+      <li><span class="check"></span><span>Sidestep the dive-bomb charge — don't try to tank it.</span></li>
+      <li><span class="check"></span><span><strong>Bed trick:</strong> place and use a bed near where the dragon perches — beds explode in the End, dealing a big burst of damage.</span></li>
+      <li><span class="check"></span><span>Grab the dragon egg (trophy only) and jump into the exit portal for the credits.</span></li>
+    </ul>
+    <div class="callout danger"><strong>The game keeps going</strong> after the credits — that's just the "beat the game" marker. Elytra from End Cities, shulker boxes, and totems of undying are the natural next goals.</div>
+  </section>
+
+  <section class="cheat" id="cheat">
+    <h2 style="margin:0 0 4px;">⚡ Fast-Track Cheat Sheet</h2>
+    <p class="sub" style="color:var(--ink-soft);">If you just want the condensed version, this is the whole run.</p>
+    <ol class="steps">
+      <li>Wood → stone tools → iron tools, armor, and a shield.</li>
+      <li>Branch mine at <strong>Y −58</strong> for diamond + redstone, grabbing iron/coal along the way.</li>
+      <li>Diamond pickaxe → obsidian → enchanting table + 15 bookshelves.</li>
+      <li>Basic food farm + iron source so logistics stop costing you time.</li>
+      <li>Nether run: blaze rods from a fortress, ender pearls from piglins or Endermen.</li>
+      <li>Eyes of Ender → find the stronghold → gear up fully before entering the portal.</li>
+      <li>In the End: pop the crystals first, then fight or bed-trick the dragon.</li>
+    </ol>
+  </section>
+
+  <footer>Diamond found at Y −58 · good luck out there</footer>
+
+</div>
+</body>
+</html>

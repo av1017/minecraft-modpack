@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cotton &amp; Cookpots</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --grid-bg: #c6c6c6;
+  --grid-slot: #8b8b8b;
+  --grid-ink: #ffffff;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --cotton: #8a6fa8;
+  --cotton-bg: #efe8f6;
+  --wool: #b0527a;
+  --wool-bg: #f7e3ec;
+  --farm: #6b8a2e;
+  --farm-bg: #eaf1d8;
+  --lib: #6a7480;
+  --lib-bg: #e6e9ec;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --grid-bg: #3a3632;
+    --grid-slot: #26231f;
+    --grid-ink: #ece6d6;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --cotton: #b99ad8;
+    --cotton-bg: #2a2133;
+    --wool: #e083aa;
+    --wool-bg: #34202a;
+    --farm: #a3c763;
+    --farm-bg: #232c15;
+    --lib: #a3adb8;
+    --lib-bg: #23272b;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --grid-bg: #3a3632;
+  --grid-slot: #26231f;
+  --grid-ink: #ece6d6;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --cotton: #b99ad8;
+  --cotton-bg: #2a2133;
+  --wool: #e083aa;
+  --wool-bg: #34202a;
+  --farm: #a3c763;
+  --farm-bg: #232c15;
+  --lib: #a3adb8;
+  --lib-bg: #23272b;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative; border: 4px solid var(--panel-border); background: var(--panel);
+  padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cotton); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--cotton); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.badge { font-family: "Space Mono", monospace; font-size: 0.72rem; padding: 5px 10px; background: var(--slot); border: 2px solid var(--slot-border); color: var(--ink-soft); }
+
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--cotton); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a {
+  font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+.panel {
+  background: var(--panel); border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.9rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+
+.mod-tag { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 4px 10px; margin-bottom: 10px; }
+.mod-tag.wool { color: var(--wool); background: var(--wool-bg); }
+.mod-tag.cotton { color: var(--cotton); background: var(--cotton-bg); }
+.mod-tag.farm { color: var(--farm); background: var(--farm-bg); }
+.mod-tag.lib { color: var(--lib); background: var(--lib-bg); }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-bg); }
+.callout .src { display: block; margin-top: 6px; font-size: 0.78rem; color: var(--ink-faint); }
+.callout .src a { color: var(--ink-faint); }
+
+/* string source cards */
+.source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.source { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.source .from { font-family: "Silkscreen", monospace; font-size: 0.68rem; color: var(--ink-faint); }
+.source .yield { font-family: "Space Mono", monospace; font-size: 1.05rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.source .note { font-size: 0.84rem; color: var(--ink-soft); }
+
+/* crafting grids */
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; color: var(--ink); }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cgrid.shapeless { grid-template-columns: repeat(3, 44px); }
+.cslot {
+  background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center;
+  font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden;
+}
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout {
+  width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); position: relative;
+}
+.cout .qty { position: absolute; right: 3px; bottom: 1px; font-size: 11px; font-weight: 700; }
+.shapeless-label { font-family: "Space Mono", monospace; font-size: 0.68rem; color: var(--ink-faint); }
+
+/* tables */
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 520px; font-size: 0.92rem; }
+table.spec caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); color: var(--ink); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+
+/* flow steps */
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: flex; gap: 12px; align-items: flex-start; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; }
+ol.flow li::before {
+  content: counter(s); flex: 0 0 auto; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+  font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--cotton); color: var(--stone-deep);
+}
+ol.flow.farm li::before { background: var(--farm); }
+
+/* effect cards */
+.effects { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.effect { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.effect .ename { font-family: "Silkscreen", monospace; font-size: 0.8rem; color: var(--farm); display: block; margin-bottom: 4px; }
+.effect .etrig { font-family: "Space Mono", monospace; font-size: 0.74rem; color: var(--ink-faint); display: block; margin-bottom: 6px; }
+.effect p { margin: 0; font-size: 0.87rem; color: var(--ink-soft); }
+
+/* checklist */
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease;
+}
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+
+/* library list */
+.libs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.lib-card { border: 2px dashed var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.lib-card .lname { font-weight: 700; color: var(--ink); font-size: 0.93rem; }
+.lib-card .lwhy { font-size: 0.84rem; color: var(--ink-soft); margin-top: 2px; }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Installed Mods</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Our World &middot; Fabric 26.3</div>
+    <h1>Cotton &amp; Cookpots</h1>
+    <p>What the mods on our Fabric profile actually add, and how to start using them. Every recipe on this page was read straight from the installed mod files, so what's shown here matches what you'll see in-game.</p>
+    <div class="meta-row">
+      <span class="badge">PROFILE: FABRIC 26.3 (MODDED)</span>
+      <span class="badge">3 GAMEPLAY MODS</span>
+      <span class="badge">3 INVENTORY MODS</span>
+      <span class="badge">6 LIBRARIES</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#string">String, Solved</a>
+    <a href="#wool">Wool Tweaks</a>
+    <a href="#rustic">Rustic Delight</a>
+    <a href="#farmers">Farmer's Delight</a>
+    <a href="#inventory">Inventory Sorting</a>
+    <a href="#libs">Libraries</a>
+  </nav>
+
+  <div class="callout danger">
+    <strong>New wild crops only appear in unexplored land.</strong> Minecraft generates plants when land is first loaded, so the parts of Our World you'd already explored before installing mods won't have Wild Cotton, Wild Cabbage, and the rest. Travel past the edge of where you've been (a horse helps) and they'll start showing up.
+  </div>
+
+  <!-- STRING -->
+  <section class="panel" id="string">
+    <h2>String, Solved</h2>
+    <p class="sub">The reason we installed these mods. You now have four ways to get string, plus two recipes that remove the need for it.</p>
+    <div class="source-grid">
+      <div class="source"><span class="from">WOOL TWEAKS</span><span class="yield">1 wool &rarr; 4 string</span><span class="note">Any color. The fastest option if you have sheep.</span></div>
+      <div class="source"><span class="from">RUSTIC DELIGHT</span><span class="yield">1 cotton boll &rarr; 1 string</span><span class="note">Farmable. Slower per craft, but it's a renewable crop.</span></div>
+      <div class="source"><span class="from">VANILLA</span><span class="yield">Spiders &amp; cobwebs</span><span class="note">Still work. Spiders drop 0&ndash;2; cobwebs drop 1 when cut with a sword.</span></div>
+      <div class="source"><span class="from">FARMER'S DELIGHT</span><span class="yield">5 straw &rarr; 1 lead</span><span class="note">A lead without string or slime. Solves our earlier horse problem.</span></div>
+    </div>
+    <div class="callout">
+      <strong>Books without leather:</strong> Farmer's Delight adds a book recipe using 3 paper + 1 canvas. Between cotton paper and cotton canvas, you can now make all 45 books for a full enchanting setup without hunting a single cow. See <a href="enchanting.html">The Rush to Mending</a> for the bookshelf layout.
+    </div>
+    <div class="recipes" data-recipes="string"></div>
+  </section>
+
+  <!-- WOOL TWEAKS -->
+  <section class="panel" id="wool">
+    <span class="mod-tag wool">WOOL TWEAKS</span>
+    <h2>Wool Tweaks</h2>
+    <p class="sub">Small mod, three changes. Nothing to build or find, so it works as soon as you load in.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>What it adds</caption>
+        <thead><tr><th>Feature</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>Wool &rarr; string</td><td>Any color of wool in a crafting grid gives 4 string.</td></tr>
+          <tr><td>Re-dye anything</td><td>Vanilla only lets you dye white wool. Now any color of wool or bed can be dyed with a single dye, and 8 carpets of any color around 1 dye recolors all 8.</td></tr>
+          <tr><td>Dye placed blocks</td><td>Right-click a placed wool block, bed, or carpet with a dye in hand to change its color without breaking it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tasks">
+      <li data-id="wool-1"><span class="checkbox"></span><span class="task-text">Test it: put <strong>1 wool</strong> in the crafting grid and confirm you get <strong>4 string</strong>.</span></li>
+      <li data-id="wool-2"><span class="checkbox"></span><span class="task-text">Set up a small <strong>sheep pen</strong> and shear it regularly. It's now your main string supply.</span></li>
+    </ul>
+  </section>
+
+  <!-- RUSTIC DELIGHT -->
+  <section class="panel" id="rustic">
+    <span class="mod-tag cotton">RUSTIC DELIGHT</span>
+    <h2>Rustic Delight</h2>
+    <p class="sub">An add-on for Farmer's Delight. Cotton is the headline for us, but it also adds coffee, bell peppers, pancakes, calamari, and fried foods.</p>
+
+    <h3>Starting a cotton farm</h3>
+    <ol class="flow">
+      <li>Travel into <strong>new, unexplored forest</strong>. Wild Cotton only generates in forest biomes.</li>
+      <li>Harvest the Wild Cotton. For the most out of each plant, put it on a <strong>Cutting Board</strong> and use a knife on it: you get <strong>Cotton Seeds</strong> plus a chance at a bonus drop.</li>
+      <li>Plant the seeds on farmland like wheat. Water within 4 blocks and light keep it growing.</li>
+      <li>Harvest the grown crop for <strong>Cotton Bolls</strong>, and replant the seeds it drops.</li>
+      <li>Craft the bolls into what you need: <strong>string</strong> (1 &rarr; 1), <strong>paper</strong> (3 &rarr; 3), or <strong>canvas</strong> (4 &rarr; 1).</li>
+    </ol>
+    <div class="recipes" data-recipes="cotton"></div>
+
+    <h3>Everything else it adds</h3>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Rustic Delight features</caption>
+        <thead><tr><th>Feature</th><th>Where / how</th><th>Why bother</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Coffee</strong></td><td>Wild Coffee in <strong>jungles</strong>. Brewed into drinks.</td><td>Gives <strong>Speed and Haste</strong>: you move and mine faster. Genuinely useful before a branch-mining session.</td></tr>
+          <tr><td><strong>Cooking Oil</strong></td><td>Cotton Seeds in a Cooking Pot, served into a glass bottle.</td><td>Unlocks fried foods: fried chicken, spring rolls, fried egg, and more.</td></tr>
+          <tr><td><strong>Bell Peppers</strong></td><td>Wild Bell Peppers in <strong>jungles</strong>. Red, yellow, and green.</td><td>Ingredient for stuffed peppers and pasta.</td></tr>
+          <tr><td><strong>Pancakes</strong></td><td>Made from Batter and Syrup. Placed as a block, like cake.</td><td>Several flavors, each with its own bonus effect.</td></tr>
+          <tr><td><strong>Calamari</strong></td><td>Squid and glow squid now drop it.</td><td>Cook it, fry it, or make calamari rolls.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tasks">
+      <li data-id="rustic-1"><span class="checkbox"></span><span class="task-text">Find <strong>Wild Cotton</strong> in a newly explored forest.</span></li>
+      <li data-id="rustic-2"><span class="checkbox"></span><span class="task-text">Plant a first row of <strong>cotton</strong> at the base.</span></li>
+      <li data-id="rustic-3"><span class="checkbox"></span><span class="task-text">Craft your first <strong>string from a cotton boll</strong>.</span></li>
+      <li data-id="rustic-4"><span class="checkbox"></span><span class="task-text">Find <strong>Wild Coffee</strong> in a jungle, for Speed + Haste drinks.</span></li>
+    </ul>
+  </section>
+
+  <!-- FARMER'S DELIGHT -->
+  <section class="panel" id="farmers">
+    <span class="mod-tag farm">FARMER'S DELIGHT</span>
+    <h2>Farmer's Delight</h2>
+    <p class="sub">The biggest of the three. It's a full cooking and farming expansion: new crops, a kitchen, better soil, and meals that give real buffs. It came along because Rustic Delight requires it, but it's worth using on its own.</p>
+    <div class="callout">
+      <strong>Built-in guide:</strong> press <strong>L</strong> in-game to open Advancements. Farmer's Delight lays out its progression there, so it doubles as a checklist.
+      <span class="src"><a href="https://modrinth.com/mod/farmers-delight-refabricated" target="_blank" rel="noopener">Source: Farmer's Delight Refabricated</a></span>
+    </div>
+
+    <h3>Starter path: in this order</h3>
+    <ol class="flow farm">
+      <li><strong>Flint Knife</strong> (flint over a stick). Knives can't be made from wood or stone; flint is the cheapest. Break tall grass with it for <strong>Straw</strong>, and kill animals with it for guaranteed leather and feathers.</li>
+      <li><strong>Cutting Board</strong>. Place an item on it, then right-click with the right tool to break it into ingredients. Knives cut food, axes strip bark, pickaxes split bricks, shovels get clay from clay blocks.</li>
+      <li><strong>Stove</strong>. A campfire upgrade that holds 6 items and never needs fuel. It's also the heat source for the next two.</li>
+      <li><strong>Cooking Pot</strong> on top of the stove (a campfire, fire, or lava also works). Up to 6 ingredients in, and it can hold 64 servings. Most meals need a bowl to serve.</li>
+      <li><strong>Skillet</strong>. Cooks items in about 6 seconds, roughly 5&times; faster than a campfire. Use it in your hand near a heat source, or place it on the stove. It's also a heavy weapon with double knockback.</li>
+    </ol>
+    <div class="recipes" data-recipes="kitchen"></div>
+
+    <h3>Meal buffs</h3>
+    <div class="effects">
+      <div class="effect">
+        <span class="ename">COMFORT</span>
+        <span class="etrig">From meals served in a bowl</span>
+        <p>Your health keeps regenerating even when you're too hungry to heal normally. Shown as a silver shimmer on your hearts.</p>
+      </div>
+      <div class="effect">
+        <span class="ename">NOURISHMENT</span>
+        <span class="etrig">From meals served on a plate (feasts)</span>
+        <p>Running, jumping, and fighting stop draining hunger, so you go much longer without eating. It pauses only while you're healing. It also cancels the Hunger effect.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Feasts</strong> (Roast Chicken, Stuffed Pumpkin, Honey Glazed Ham, Shepherd's Pie) are placed as a block, and each one serves 4 bowls. Right-click the placed feast with a bowl to get a serving. That's handy for two players sharing a base.
+    </div>
+
+    <h3>Wild crops: where to look</h3>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Biomes read from the installed mod's world-generation data</caption>
+        <thead><tr><th>Wild crop</th><th>Where it grows</th><th>Gives you</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Wild Cabbage</strong></td><td>Beaches</td><td>Cabbage seeds</td></tr>
+          <tr><td><strong>Wild Beetroot</strong></td><td>Beaches</td><td>Beetroot seeds</td></tr>
+          <tr><td><strong>Wild Tomatoes</strong></td><td>Hot biomes: desert, savanna, jungle, stony peaks</td><td>Tomato seeds</td></tr>
+          <tr><td><strong>Wild Rice</strong></td><td>Wet biomes: swamps, mangroves, jungles, beaches, rivers</td><td>Rice (cut the panicle on a Cutting Board for rice + straw)</td></tr>
+          <tr><td><strong>Wild Onions, Carrots, Potatoes</strong></td><td>Almost anywhere in the Overworld (rarer)</td><td>The crop itself</td></tr>
+          <tr><td><strong>Mushroom Colonies</strong></td><td>Mushroom fields</td><td>Mushrooms; can also be grown on Rich Soil in the dark</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Utility blocks worth knowing</h3>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Non-food features</caption>
+        <thead><tr><th>Block</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Rich Soil</strong></td><td>Place <strong>Organic Compost</strong> and it slowly turns into Rich Soil. Sunlight, nearby water, and mushrooms speed that up. Plants on it grow as if randomly bone-mealed. Tilled into Rich Farmland, it can't be trampled by mobs.</td></tr>
+          <tr><td><strong>Rope</strong></td><td>2 straw makes 4 rope. Place rope against rope and it drops all the way down: the easiest safe way into a ravine or cave. Climb it like a ladder.</td></tr>
+          <tr><td><strong>Safety Net</strong></td><td>4 rope in a square. Breaks falls.</td></tr>
+          <tr><td><strong>Basket</strong></td><td>Catches items that land in its open side, like a hopper without the pushing, and holds as much as a chest. Pairs well with the Cutting Board and Skillet, which fling their output sideways.</td></tr>
+          <tr><td><strong>Canvas</strong></td><td>4 straw (or 4 cotton bolls). Used for baskets, signs, paintings, scaffolding, and books.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="recipes" data-recipes="utility"></div>
+
+    <div class="callout">
+      <strong>Knife enchant worth knowing:</strong> knives take Sharpness, Looting, Efficiency, Unbreaking, and Mending like other tools, plus an exclusive enchant called <strong>Backstabbing</strong>. It multiplies damage from behind by up to 2.2&times; at level III.
+    </div>
+
+    <ul class="tasks">
+      <li data-id="fd-1"><span class="checkbox"></span><span class="task-text">Craft a <strong>Flint Knife</strong> and collect straw from tall grass.</span></li>
+      <li data-id="fd-2"><span class="checkbox"></span><span class="task-text">Build the kitchen: <strong>Cutting Board, Stove, Cooking Pot</strong>.</span></li>
+      <li data-id="fd-3"><span class="checkbox"></span><span class="task-text">Cook your first bowl meal and see the <strong>Comfort</strong> effect.</span></li>
+      <li data-id="fd-4"><span class="checkbox"></span><span class="task-text">Forage <strong>Wild Cabbage</strong> on a beach and <strong>Wild Rice</strong> in a swamp.</span></li>
+      <li data-id="fd-5"><span class="checkbox"></span><span class="task-text">Make <strong>Organic Compost</strong> and let it turn into <strong>Rich Soil</strong> for your main farm.</span></li>
+      <li data-id="fd-6"><span class="checkbox"></span><span class="task-text">Craft <strong>Rope</strong> for your next caving trip.</span></li>
+      <li data-id="fd-7"><span class="checkbox"></span><span class="task-text">Place and share a <strong>Feast</strong>.</span></li>
+    </ul>
+  </section>
+
+  <!-- INVENTORY -->
+  <section class="panel" id="inventory">
+    <span class="mod-tag lib">INVENTORY</span>
+    <h2>Inventory Sorting</h2>
+    <p class="sub">Three mods that make chests and your inventory faster to manage. All three run only on your PC, so your girlfriend doesn't need them for LAN, though she'll probably want them too.</p>
+
+    <h3>Inventory Profiles Next: sorting</h3>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>What it does</caption>
+        <thead><tr><th>Feature</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Sort</strong></td><td>Small buttons appear beside chest and inventory screens. Click one to sort. There's also a sort hotkey (R by default); the settings screen shows the current key.</td></tr>
+          <tr><td><strong>Dump into chest</strong></td><td>One click moves everything from your inventory into an open chest.</td></tr>
+          <tr><td><strong>Move matching</strong></td><td>Moves only the items you carry that the chest already contains. This keeps a sorted storage room sorted.</td></tr>
+          <tr><td><strong>Lock slots</strong></td><td>Locked slots are skipped by sorting and dumping, so your hotbar tools stay put.</td></tr>
+          <tr><td><strong>Auto-replace tools</strong></td><td>Swaps in a fresh copy before a tool breaks, or when a stack you're placing runs out.</td></tr>
+          <tr><td><strong>Settings</strong></td><td>Hold <strong>R</strong> and press <strong>C</strong>, or open it through Mod Menu.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Mouse Tweaks: faster moving</h3>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Mouse controls inside any inventory screen</caption>
+        <thead><tr><th>Do this</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Hold <strong>right-click</strong> and drag</td><td>Drops one item in each slot you pass over, even slots that already have items. Fast for filling a crafting grid.</td></tr>
+          <tr><td>Hold <strong>left-click</strong> on an item, then drag</td><td>Picks up every matching item you drag across.</td></tr>
+          <tr><td>Hold <strong>Shift + left-click</strong> and drag</td><td>Shift-clicks every slot you pass over, moving a whole row into a chest in one sweep.</td></tr>
+          <tr><td><strong>Scroll down</strong> on a stack</td><td>Moves items one at a time into the other inventory. Scroll up to pull them back.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">Every key in both worlds, including which ones overlap, is on <a href="controls.html">Every Key</a>.</div>
+
+    <h3>Mod Menu: settings for everything</h3>
+    <p>Adds a <strong>Mods</strong> button to the title screen and pause menu. It lists every installed mod, and clicking one opens its settings if it has any. Use it to change Inventory Profiles Next's hotkeys.</p>
+
+    <ul class="tasks">
+      <li data-id="inv-1"><span class="checkbox"></span><span class="task-text">Open a chest and click a <strong>sort button</strong>.</span></li>
+      <li data-id="inv-2"><span class="checkbox"></span><span class="task-text"><strong>Lock</strong> your hotbar tool slots so sorting skips them.</span></li>
+      <li data-id="inv-3"><span class="checkbox"></span><span class="task-text">Try <strong>Shift + left-click drag</strong> to empty a row into a chest.</span></li>
+      <li data-id="inv-4"><span class="checkbox"></span><span class="task-text">Open <strong>Mods</strong> from the pause menu and look through the settings.</span></li>
+    </ul>
+  </section>
+
+  <!-- LIBRARIES -->
+  <section class="panel" id="libs">
+    <span class="mod-tag lib">LIBRARIES</span>
+    <h2>The Helper Mods</h2>
+    <p class="sub">These add nothing you'll see in-game. The mods above need them to run. Don't delete them from the mods folder.</p>
+    <div class="libs">
+      <div class="lib-card"><div class="lname">Fabric API</div><div class="lwhy">Shared toolkit most Fabric mods are built on.</div></div>
+      <div class="lib-card"><div class="lname">Cloth Config</div><div class="lwhy">Settings screens. Required by Rustic Delight.</div></div>
+      <div class="lib-card"><div class="lname">Collective</div><div class="lwhy">Shared code for Serilum's mods. Required by Wool Tweaks.</div></div>
+      <div class="lib-card"><div class="lname">libIPN</div><div class="lwhy">Required by Inventory Profiles Next.</div></div>
+      <div class="lib-card"><div class="lname">Fabric Language Kotlin</div><div class="lwhy">Lets mods written in Kotlin run. Required by Inventory Profiles Next.</div></div>
+      <div class="lib-card"><div class="lname">Placeholder API</div><div class="lwhy">Required by Mod Menu.</div></div>
+    </div>
+    <div class="callout">
+      <strong>Playing together:</strong> for LAN to connect, your girlfriend's PC needs the three gameplay mods plus Fabric API, Cloth Config, and Collective. The inventory mods are optional for her. The full list and file names are in <code>minecraftServer/MODS.md</code>.
+    </div>
+  </section>
+
+  <footer>Recipes read from the installed mod files &middot; mechanics from each mod's official page and wiki &middot; Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  // Recipes transcribed from the installed jars. null = empty slot.
+  var R = {
+    string: [
+      { name: "String from wool", note: "Wool Tweaks. Any color.", shapeless: true, grid: ["Wool"], out: "String", qty: 4 },
+      { name: "String from cotton", note: "Rustic Delight.", shapeless: true, grid: ["Cotton Boll"], out: "String", qty: 1 },
+      { name: "Lead from straw", note: "Farmer's Delight. No string needed.", grid: ["Straw","Straw",null,"Straw","Straw",null,null,null,"Straw"], out: "Lead", qty: 1 },
+      { name: "Book from canvas", note: "Farmer's Delight. No leather needed.", shapeless: true, grid: ["Paper","Paper","Paper","Canvas"], out: "Book", qty: 1 }
+    ],
+    cotton: [
+      { name: "Paper from cotton", note: "One row of 3 bolls.", grid: ["Cotton Boll","Cotton Boll","Cotton Boll",null,null,null,null,null,null], out: "Paper", qty: 3 },
+      { name: "Canvas from cotton", note: "2&times;2 bolls. Straw works too.", grid: ["Cotton Boll","Cotton Boll",null,"Cotton Boll","Cotton Boll",null,null,null,null], out: "Canvas", qty: 1 }
+    ],
+    kitchen: [
+      { name: "Flint Knife", note: "Iron/gold/diamond knives use the same shape.", grid: [null,"Flint",null,null,"Stick",null,null,null,null], out: "Flint Knife", qty: 1 },
+      { name: "Cutting Board", note: "Any planks.", grid: ["Stick","Planks","Planks","Stick","Planks","Planks",null,null,null], out: "Cutting Board", qty: 1 },
+      { name: "Stove", note: "Bricks = brick blocks.", grid: ["Iron","Iron","Iron","Bricks",null,"Bricks","Bricks","Camp&shy;fire","Bricks"], out: "Stove", qty: 1 },
+      { name: "Cooking Pot", note: "Brick = single brick item.", grid: ["Brick","Wood Shovel","Brick","Iron","Water Bucket","Iron","Iron","Iron","Iron"], out: "Cooking Pot", qty: 1 },
+      { name: "Skillet", note: "Brick = single brick item.", grid: [null,"Iron","Iron",null,"Iron","Iron","Brick",null,null], out: "Skillet", qty: 1 }
+    ],
+    utility: [
+      { name: "Rope", note: "Makes 4.", grid: [null,"Straw",null,null,"Straw",null,null,null,null], out: "Rope", qty: 4 },
+      { name: "Safety Net", note: "", grid: ["Rope","Rope",null,"Rope","Rope",null,null,null,null], out: "Safety Net", qty: 1 },
+      { name: "Wooden Basket", note: "Bamboo instead of sticks makes the bamboo version.", grid: ["Stick",null,"Stick","Canvas",null,"Canvas","Stick","Canvas","Stick"], out: "Basket", qty: 1 },
+      { name: "Organic Compost", note: "Or: dirt, 2 straw, 2 bone meal, 4 tree bark.", shapeless: true, grid: ["Dirt","Straw","Straw","Bone Meal","Bone Meal","Bone Meal","Bone Meal","Rotten Flesh","Rotten Flesh"], out: "Organic Compost", qty: 1 }
+    ]
+  };
+
+  function slot(label) {
+    var d = document.createElement("div");
+    d.className = "cslot";
+    if (label) d.innerHTML = label;
+    return d;
+  }
+
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div");
+      card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.innerHTML = "&rarr;"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.innerHTML = r.out + (r.qty > 1 ? '<span class="qty">' + r.qty + "</span>" : "");
+      craft.appendChild(o);
+      card.appendChild(craft);
+      var note = document.createElement("div"); note.className = "rnote";
+      note.innerHTML = (r.shapeless ? '<span class="shapeless-label">ANY ARRANGEMENT &middot; </span>' : "") + (r.note || "");
+      if (r.shapeless || r.note) card.appendChild(note);
+      host.appendChild(card);
+    });
+  });
+
+  // Checklist persistence (same pattern as the other guide pages)
+  var STORAGE_KEY = "mc-guide-mods-progress-fallback";
+  var db = null, docRef = null, state = {};
+
+  function loadLocal() { try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; } catch (e) { return {}; } }
+  function saveLocal(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {} }
+
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "✓" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = done + " / " + items.length + " checked";
+  }
+
+  function toggle(id) {
+    state[id] = !state[id];
+    render();
+    if (db && docRef) {
+      var f = {}; f[id] = state[id];
+      docRef.update(f).catch(function () { docRef.set(state).catch(function () {}); });
+    } else { saveLocal(state); }
+  }
+
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0");
+    li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); }
+    });
+  });
+
+  state = loadLocal();
+  render();
+
+  (async function () {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use("user");
+      db = await window.claude.use("db");
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) { db = null; return; }
+      docRef = db.doc("data/users/" + uid + "/progress/mods");
+      var snap = await docRef.get();
+      if (snap.exists) { state = Object.assign({}, state, snap.data() || {}); render(); }
+      docRef.onSnapshot(function (s) { if (s.exists) { state = Object.assign({}, s.data() || {}); render(); } });
+    } catch (e) { db = null; }
+  })();
+})();
+</script>
+</body>
+</html>

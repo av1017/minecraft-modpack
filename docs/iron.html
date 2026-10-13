@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Iron Supply</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --iron: #9a6a3a;
+  --iron-bg: #f2e6d3;
+  --redstone: #a82f2f;
+  --redstone-bg: #fbe5e1;
+  --lapis: #2f5fa8;
+  --lapis-bg: #e2eaf7;
+  --gold: #b8891a;
+  --gold-bg: #faf0d8;
+  --grass: #4a7a2e;
+  --grass-bg: #e6f0da;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --basic: #4a7a2e;
+  --basic-bg: #e6f0da;
+  --inter: #b8720f;
+  --inter-bg: #f7ead2;
+  --expert: #a82f2f;
+  --expert-bg: #fbe5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --iron: #d3a878;
+    --iron-bg: #332a1c;
+    --redstone: #e0605a;
+    --redstone-bg: #3a1c1a;
+    --lapis: #6f9adb;
+    --lapis-bg: #1a2740;
+    --gold: #e0b23e;
+    --gold-bg: #3a2f14;
+    --grass: #7cb84f;
+    --grass-bg: #1e2c17;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+    --basic: #7cb84f;
+    --basic-bg: #1e2c17;
+    --inter: #e8a33d;
+    --inter-bg: #332711;
+    --expert: #e0605a;
+    --expert-bg: #3a1c1a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --iron: #d3a878;
+  --iron-bg: #332a1c;
+  --redstone: #e0605a;
+  --redstone-bg: #3a1c1a;
+  --lapis: #6f9adb;
+  --lapis-bg: #1a2740;
+  --gold: #e0b23e;
+  --gold-bg: #3a2f14;
+  --grass: #7cb84f;
+  --grass-bg: #1e2c17;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+  --basic: #7cb84f;
+  --basic-bg: #1e2c17;
+  --inter: #e8a33d;
+  --inter-bg: #332711;
+  --expert: #e0605a;
+  --expert-bg: #3a1c1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px; flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--iron); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--iron); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+.progress-wrap {
+  margin-top: 18px; display: flex; align-items: center; gap: 12px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--iron); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.tier-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tier-nav a {
+  font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.tier-nav a:hover, .tier-nav a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+.panel {
+  background: var(--panel); border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+
+.tier-tag { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 4px 10px; margin-bottom: 10px; }
+.tier-tag.basic { color: var(--basic); background: var(--basic-bg); }
+.tier-tag.inter { color: var(--inter); background: var(--inter-bg); }
+.tier-tag.expert { color: var(--expert); background: var(--expert-bg); }
+
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.95rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 12px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text .src { font-size: 0.8rem; color: var(--ink-faint); margin-left: 4px; }
+.task-text .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.task-text .src a:hover { color: var(--link); border-color: var(--link); }
+
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.03em; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); font-variant-numeric: tabular-nums; color: var(--ink); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+
+.diagram-box { background: var(--slot); border: 2px solid var(--slot-border); padding: 16px; margin: 14px 0; overflow-x: auto; }
+.diagram-box svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.diagram-caption { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.iron { border-left-color: var(--iron); }
+
+.tradeoff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 14px 0 4px; }
+.tradeoff-card { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.tradeoff-card .label { font-family: "Silkscreen", monospace; font-size: 0.7rem; color: var(--iron); margin-bottom: 6px; display: block; }
+.tradeoff-card .stat { font-family: "Space Mono", monospace; font-size: 1.1rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tradeoff-card .note { font-size: 0.83rem; color: var(--ink-soft); margin-top: 4px; }
+
+.faq-item { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; margin-bottom: 8px; }
+.faq-item .q { font-weight: 700; color: var(--ink); font-size: 0.94rem; margin-bottom: 5px; }
+.faq-item .a { color: var(--ink-soft); font-size: 0.9rem; }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Iron</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Deep Dive &middot; Verified for 26.3</div>
+    <h1>The Iron Supply</h1>
+    <p>Going from "enough iron to get by" to "iron is never a bottleneck again" — manual mining routes, exact iron golem farm mechanics (both zombie and zombie-free versions), realistic production rates, and the specific reasons farms fail.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="tier-nav">
+    <a href="#basic">Basic — Manual Mining</a>
+    <a href="#intermediate">Intermediate — Simple Farm</a>
+    <a href="#expert">Expert — Zombie-Free &amp; Scaling</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+  </nav>
+
+  <!-- BASIC -->
+  <section class="panel" id="basic">
+    <span class="tier-tag basic">BASIC</span>
+    <h2>Manual Mining — Two Real Options</h2>
+    <p class="sub">Iron generates in two separate bands. Most guides only mention one of them.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Iron generation, both bands</caption>
+        <thead><tr><th>Location</th><th>Peak Y-level</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Underground band</td><td>Y 16</td><td>The reliable, always-available option. Y 10–20 keeps you close to peak without excess deepslate digging.</td></tr>
+          <tr><td>Mountain peak band</td><td>Y 232</td><td>A second, separate iron peak exposed on the surface of tall mountains and Stony Peaks biomes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout iron">
+      <strong>The mountain-peak route is genuinely underrated:</strong> because mountain terrain is full of exposed cliff faces, iron ore there is frequently already visible on the surface — no pickaxe-first tunneling required. Testing has shown players gathering 2+ stacks of raw iron in under 10 minutes just by side-hilling across a Stony Peaks biome at the right elevation, without ever placing a torch underground.
+      <div class="src"><a href="https://resources.oreate.ai/updates/best-ylevel-for-iron-in-minecraft-and-how-to-find-massive-veins" target="_blank" rel="noopener">Source: Oreate AI mining guide, mountain-peak field testing</a></div>
+    </div>
+    <ul class="tasks" data-group="iron-basic" style="margin-top:14px;">
+      <li data-id="basic-1"><span class="checkbox"></span><span class="task-text"><strong>Underground:</strong> branch mine around Y 16 the same way you would for diamond, just much shallower — you'll pass through this band on your way down anyway.</span></li>
+      <li data-id="basic-2"><span class="checkbox"></span><span class="task-text"><strong>Mountain peak:</strong> find a Stony Peaks or tall mountain biome and travel <em>sideways</em> across exposed rock faces near the summit rather than tunneling straight in — you'll spot far more ore per block traveled this way.</span></li>
+      <li data-id="basic-3"><span class="checkbox"></span><span class="task-text">Bring a stack of torches and expect wind/fall risk at altitude — mountain iron is fast but exposes you to long falls in a way underground mining doesn't.</span></li>
+      <li data-id="basic-4"><span class="checkbox"></span><span class="task-text">Fortune III applies normally to iron ore — worth using once you have it, same as any other Fortune-eligible ore.</span></li>
+    </ul>
+  </section>
+
+  <!-- INTERMEDIATE -->
+  <section class="panel" id="intermediate">
+    <span class="tier-tag inter">INTERMEDIATE</span>
+    <h2>Your First Iron Golem Farm</h2>
+    <p class="sub">Once manual mining feels slow, this is where "iron stops being a bottleneck" actually happens. The mechanic: villagers that feel threatened attempt to summon an iron golem for protection, roughly every 5 seconds while panicking.</p>
+    <div class="tradeoff-grid">
+      <div class="tradeoff-card"><span class="label">MINIMUM VILLAGERS</span><span class="stat">3 panicking</span><div class="note">Java Edition only needs 3 villagers actively panicking (not just present) to reliably trigger golem spawn attempts.</div></div>
+      <div class="tradeoff-card"><span class="label">SPAWN ATTEMPT RATE</span><span class="stat">Every 5 sec</span><div class="note">Per panicking villager, while the panic state is active — this is what a zombie-scare farm is actually built around.</div></div>
+      <div class="tradeoff-card"><span class="label">TYPICAL OUTPUT</span><span class="stat">240–400/hr</span><div class="note">Iron ingots per hour from a solid single-village farm; some tuned designs report 400–600+.</div></div>
+    </div>
+    <div class="src" style="margin-top:6px; display:block;"><a href="https://minecraft.wiki/w/Tutorial:Iron_golem_farming" target="_blank" rel="noopener">Source: Minecraft Wiki, Tutorial:Iron golem farming</a></div>
+
+    <ul class="tasks" data-group="iron-intermediate" style="margin-top:18px;">
+      <li data-id="inter-1"><span class="checkbox"></span><span class="task-text">Gather <strong>at least 3 villagers</strong> (more is safer — see troubleshooting) into an enclosed pen with beds and workstations nearby.</span></li>
+      <li data-id="inter-2"><span class="checkbox"></span><span class="task-text">Place a caged zombie (behind glass/bars, visible but unable to reach them) near the villager pen — this keeps them permanently panicking, which is what drives the 5-second spawn attempts.</span></li>
+      <li data-id="inter-3"><span class="checkbox"></span><span class="task-text">Build an open-air spawning platform above the pen, roughly <strong>16×16</strong>, since that size hits the practical spawn-rate sweet spot without excess build cost. Keep the space directly above clear.</span></li>
+      <li data-id="inter-4"><span class="checkbox"></span><span class="task-text">Route spawned golems off the platform (water stream or fall damage-safe drop) into a kill zone — a simple fall onto a half-slab or a manual kill both work; golems have a lot of health, so a fall-based kill needs real height.</span></li>
+      <li data-id="inter-5"><span class="checkbox"></span><span class="task-text">Each golem killed drops <strong>3–5 iron ingots</strong> (average 4) and has roughly a 67% chance of dropping 1–2 poppies.</span></li>
+    </ul>
+  </section>
+
+  <!-- EXPERT -->
+  <section class="panel" id="expert">
+    <span class="tier-tag expert">EXPERT / ABOVE &amp; BEYOND</span>
+    <h2>Zombie-Free Farms &amp; Scaling Up</h2>
+    <p class="sub">The panic method works but keeps a zombie loaded near your base permanently, which costs a small amount of performance and requires a name-tagged zombie so it doesn't despawn. There's a cleaner mechanic that skips this entirely.</p>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 640 170" role="img" aria-labelledby="mech-title mech-desc">
+        <title id="mech-title">Two golem-spawning mechanics compared</title>
+        <desc id="mech-desc">Comparison of the panic-based method (3 villagers, caged zombie, 5-second spawn attempts) against the gossip-based method (5+ villagers, no zombie, 30-second spawn attempts).</desc>
+        <g transform="translate(20,20)">
+          <rect x="0" y="0" width="290" height="130" fill="var(--slot)" stroke="var(--slot-border)" stroke-width="2"/>
+          <text x="14" y="24" font-family="Silkscreen, monospace" font-size="12" fill="var(--redstone)">PANIC METHOD</text>
+          <text x="14" y="48" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink)">3+ villagers panicking</text>
+          <text x="14" y="68" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink)">Requires a visible caged zombie</text>
+          <text x="14" y="88" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink)">Spawn attempt every 5 seconds</text>
+          <text x="14" y="108" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink-soft)">Faster, but zombie = upkeep + lag</text>
+        </g>
+        <g transform="translate(330,20)">
+          <rect x="0" y="0" width="290" height="130" fill="var(--slot)" stroke="var(--slot-border)" stroke-width="2"/>
+          <text x="14" y="24" font-family="Silkscreen, monospace" font-size="12" fill="var(--iron)">GOSSIP METHOD</text>
+          <text x="14" y="48" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink)">5+ villagers gossiping</text>
+          <text x="14" y="68" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink)">No zombie or mob needed at all</text>
+          <text x="14" y="88" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink)">Spawn attempt every 30 seconds</text>
+          <text x="14" y="108" font-family="Public Sans, sans-serif" font-size="12.5" fill="var(--ink-soft)">Slower per-attempt, zero upkeep/lag</text>
+        </g>
+      </svg>
+      <p class="diagram-caption">Both are legitimate, community-verified mechanics. The panic method spawns faster; the gossip method needs no mob, no name tag, and works fine even on Peaceful difficulty.</p>
+    </div>
+
+    <ul class="tasks" data-group="iron-expert">
+      <li data-id="expert-1"><span class="checkbox"></span><span class="task-text"><strong>Gossip-based farm:</strong> gather 5+ villagers who regularly gossip with each other (this happens naturally when they're grouped and can path to each other) — no zombie required at all. A well-known compact version fits in roughly a 10×7 footprint. <span class="src">(<a href="https://minecraft.wiki/w/Tutorial:Iron_golem_farming" target="_blank" rel="noopener">wiki</a>)</span></span></li>
+      <li data-id="expert-2"><span class="checkbox"></span><span class="task-text">This design works on <strong>Peaceful difficulty</strong> too, since it never relies on a hostile mob being present — useful if you or your girlfriend ever toggle difficulty for building sessions.</span></li>
+      <li data-id="expert-3"><span class="checkbox"></span><span class="task-text">To scale past one village's worth of golems, run <strong>multiple separate villager pens</strong> feeding into one collection point rather than cramming more villagers into a single pen — golem spawn checks have a claim radius, so overcrowding one pen wastes villagers instead of adding output.</span></li>
+      <li data-id="expert-4"><span class="checkbox"></span><span class="task-text">Iron golems won't spawn if <strong>another golem already exists within 16 blocks</strong> in the last 30 seconds, or within 10 blocks of a very recent spawn attempt — spread multiple spawn platforms out accordingly rather than stacking them close together.</span></li>
+    </ul>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="panel" id="troubleshooting">
+    <span class="tier-tag inter">REFERENCE</span>
+    <h2>Why Your Farm Isn't Producing</h2>
+    <p class="sub">The most common real complaints, matched to the actual mechanic causing them.</p>
+    <div class="faq-item">
+      <div class="q">Golems spawn but keep falling off the platform.</div>
+      <div class="a">Known, common defect — golems can spawn right at platform edges. Build a lip/wall around the spawn platform edge so a golem can't wander directly off before your collection system catches it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Nothing is spawning at all.</div>
+      <div class="a">Check three things in order: (1) are villagers actually panicking/gossiping, not just standing nearby — presence alone doesn't trigger it; (2) is there already a golem claimed within 16 blocks that's blocking new spawns; (3) do villagers have valid beds and (for the panic method) unobstructed line of sight to the zombie.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">My farm's rate dropped after I updated / moved villagers.</div>
+      <div class="a">Villagers need to have slept in a bed within the last 20 minutes and (per some designs) worked their workstation the previous day to count toward spawn eligibility — moving villagers around resets this state and can silently reduce your effective villager count for a while.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Should I worry about "20 villagers" or "10 villagers + 20 beds" requirements I've read about?</div>
+      <div class="a">That's the Bedrock Edition mechanic, which spawns golems from full village stats on a per-tick chance — a completely different system. On Java Edition, the panic/gossip mechanics above are what actually matter; ignore Bedrock village-size numbers if you're playing Java.</div>
+    </div>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki and community-tested farm designs, current as of Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-iron-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/iron');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

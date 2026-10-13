@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every Key</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --amber: #b8720f; --amber-bright: #e8a33d;
+  --keycap: #f7f4ec; --keycap-edge: #8f8570; --keycap-ink: #241f16;
+  --ok: #3f7a2e; --ok-bg: #e4f0da; --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --cob: #c0392b; --cob-bg: #f9e2df; --map: #2f6fa8; --map-bg: #e0ebf6; --inv: #6a5a8e; --inv-bg: #ebe6f3; --van: #5f6b4a; --van-bg: #e9ecdf;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --amber: #e8a33d; --amber-bright: #ffc466;
+    --keycap: #34302a; --keycap-edge: #6d6452; --keycap-ink: #f1ead8;
+    --ok: #8fc466; --ok-bg: #1f2c16; --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --cob: #ec7a6c; --cob-bg: #3a1c19; --map: #7fb0e0; --map-bg: #182838; --inv: #b4a2dc; --inv-bg: #261f35; --van: #b5c28f; --van-bg: #252a1b;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --amber: #e8a33d; --amber-bright: #ffc466;
+  --keycap: #34302a; --keycap-edge: #6d6452; --keycap-ink: #f1ead8;
+  --ok: #8fc466; --ok-bg: #1f2c16; --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --cob: #ec7a6c; --cob-bg: #3a1c19; --map: #7fb0e0; --map-bg: #182838; --inv: #b4a2dc; --inv-bg: #261f35; --van: #b5c28f; --van-bg: #252a1b;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 20px; }
+.wrap { max-width: 920px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; display: block; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 66ch; }
+
+/* world switcher */
+.switch { display: flex; gap: 8px; margin: 0 0 22px; flex-wrap: wrap; }
+.switch button {
+  font-family: "Space Mono", monospace; font-size: 0.82rem; padding: 9px 16px; cursor: pointer;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft);
+}
+.switch button[aria-pressed="true"] { border-color: var(--amber); background: var(--amber); color: var(--stone-deep); }
+.switch button:focus-visible { outline: 3px solid var(--amber-bright); outline-offset: 2px; }
+
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 24px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.15rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 16px; color: var(--ink-soft); font-size: 0.94rem; max-width: 68ch; }
+.panel h3 { font-size: 0.85rem; margin: 22px 0 10px; color: var(--ink-soft); }
+
+/* verdict strip */
+.verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.verdict { border: 2px solid; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.verdict.ok { border-color: var(--ok); background: var(--ok-bg); }
+.verdict.warn { border-color: var(--warn); background: var(--warn-bg); }
+.verdict .tag { font-family: "Silkscreen", monospace; font-size: 0.68rem; }
+.verdict.ok .tag { color: var(--ok); }
+.verdict.warn .tag { color: var(--warn); }
+.verdict .what { font-weight: 700; font-size: 0.95rem; }
+.verdict .why { font-size: 0.86rem; color: var(--ink-soft); }
+
+/* key tables */
+.table-scroll { overflow-x: auto; }
+table.keys { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.keys caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.keys th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.68rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.keys td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.keys tr:last-child td { border-bottom: none; }
+table.keys td.k { white-space: nowrap; width: 1%; }
+.kbd {
+  display: inline-block; min-width: 1.9em; text-align: center; padding: 2px 7px; margin: 1px 2px 1px 0;
+  font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; color: var(--keycap-ink);
+  background: var(--keycap); border: 1px solid var(--keycap-edge); border-bottom-width: 3px; border-radius: 4px;
+}
+.src { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.6rem; padding: 2px 6px; white-space: nowrap; }
+.src.cob { color: var(--cob); background: var(--cob-bg); }
+.src.map { color: var(--map); background: var(--map-bg); }
+.src.inv { color: var(--inv); background: var(--inv-bg); }
+.src.van { color: var(--van); background: var(--van-bg); }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+
+[data-world] { }
+.hide { display: none !important; }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+ol.steps { margin: 8px 0 0; padding-left: 1.3em; }
+ol.steps li { margin-bottom: 6px; }
+
+.packs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.pack { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.pack .pname { font-weight: 700; }
+.pack .pwhere { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--ink-faint); margin: 2px 0 6px; display: block; }
+.pack p { margin: 0; font-size: 0.86rem; color: var(--ink-soft); }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Controls</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Both worlds &middot; read from the game's own settings</span>
+    <h1>Every Key</h1>
+    <p>Every key the mods add, in both worlds, and which ones overlap. The bindings come from the Cobblemon profile's settings file after its first launch, so they're exactly what the game uses. Change any of them in <strong>Options &rarr; Controls &rarr; Key Binds</strong>.</p>
+  </div>
+
+  <div class="switch" role="group" aria-label="Show controls for">
+    <button type="button" id="btn-all" data-show="all" aria-pressed="true">Both worlds</button>
+    <button type="button" id="btn-cobblemon" data-show="cobblemon" aria-pressed="false">Cobblemon world</button>
+    <button type="button" id="btn-ourworld" data-show="ourworld" aria-pressed="false">Our World</button>
+  </div>
+
+  <!-- OVERLAPS -->
+  <section class="panel" id="overlaps">
+    <h2>Do any keys clash?</h2>
+    <p class="sub">I checked every binding in both profiles for keys used twice. Nothing actually breaks; there are three things worth knowing.</p>
+    <div class="verdicts">
+      <div class="verdict ok" data-world="cobblemon">
+        <span class="tag">WORKS AS-IS</span>
+        <span class="what"><span class="kbd">R</span> Send out Pokémon / sort inventory</span>
+        <span class="why">Cobblemon uses R out in the world. Inventory Profiles Next uses R only while an inventory or chest is open. Different screens, so they never fire together.</span>
+      </div>
+      <div class="verdict warn" data-world="cobblemon">
+        <span class="tag">WATCH OUT</span>
+        <span class="what"><span class="kbd">R</span>+<span class="kbd">C</span> Sorting settings</span>
+        <span class="why">Pressing R+C out in the world also sends out your Pokémon, since R goes first. Open sorting settings from inside your inventory instead, or through <strong>Mods</strong> on the pause menu.</span>
+      </div>
+      <div class="verdict ok">
+        <span class="tag">ONLY IN CREATIVE</span>
+        <span class="what"><span class="kbd">C</span> Camera view / save hotbar</span>
+        <span class="why">C changes your camera view (Minecraft's default is F5; C came from your own settings). C is also "save toolbar", which only works in creative. In survival, C just switches the camera.</span>
+      </div>
+    </div>
+    <div class="callout" data-world="cobblemon">
+      <strong>No clash on M:</strong> Xaero's World Map uses <span class="kbd">M</span>, and Cobblemon's Summary is on <span class="kbd">I</span>, not M.
+    </div>
+  </section>
+
+  <!-- COBBLEMON -->
+  <section class="panel" data-world="cobblemon" id="cobblemon">
+    <h2>Cobblemon</h2>
+    <p class="sub">Pokémon controls. They work in the Cobblemon world only.</p>
+    <div class="table-scroll"><table class="keys">
+      <caption>Default keys</caption>
+      <thead><tr><th>Key</th><th>Action</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="kbd">I</span></td><td>Open Summary</td><td>Your party's stats and moves. <strong>On your first join, this is also how you pick your starter.</strong></td></tr>
+        <tr><td class="k"><span class="kbd">R</span></td><td>Throw selected Pokémon</td><td>Sends out the selected party Pokémon. Throw it at a wild Pokémon to start a battle; press again to call it back.</td></tr>
+        <tr><td class="k"><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span></td><td>Party shift up / down</td><td>Picks which party Pokémon R sends out.</td></tr>
+        <tr><td class="k"><span class="kbd">O</span></td><td>Hide party overlay</td><td>Hides the party list on the left of the screen.</td></tr>
+        <tr><td class="k"><span class="kbd">Left Alt</span></td><td>Riding freelook</td><td>While riding a Pokémon, look around without steering.</td></tr>
+        <tr><td class="k"><span class="note">not set</span></td><td>Toggle riding stats, portrait scale/position</td><td>Optional. Assign a key in Controls if you want them.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- MAPS -->
+  <section class="panel" data-world="cobblemon" id="maps">
+    <h2>Xaero's Minimap &amp; World Map</h2>
+    <p class="sub">A minimap in the corner, plus a full-screen map. Cobblemon world only. Each player's map is saved on their own PC.</p>
+    <div class="table-scroll"><table class="keys">
+      <caption>Default keys</caption>
+      <thead><tr><th>Key</th><th>Action</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="kbd">M</span></td><td>Open world map</td><td>Full-screen map of everywhere you've explored. Drag to pan, scroll to zoom, right-click a spot for options like creating a waypoint there.</td></tr>
+        <tr><td class="k"><span class="kbd">B</span></td><td>New waypoint</td><td>Marks where you're standing: your base, a village, a rare Pokémon spawn.</td></tr>
+        <tr><td class="k"><span class="kbd">U</span></td><td>Waypoint list</td><td>Edit, hide, or delete waypoints.</td></tr>
+        <tr><td class="k"><span class="kbd">Numpad +</span></td><td>Instant waypoint</td><td>Drops a waypoint without the naming screen.</td></tr>
+        <tr><td class="k"><span class="kbd">Z</span></td><td>Enlarge minimap</td><td>Hold for a bigger minimap.</td></tr>
+        <tr><td class="k"><span class="kbd">Y</span></td><td>Minimap settings</td><td>Size, shape, which corner, what it shows.</td></tr>
+        <tr><td class="k"><span class="kbd">]</span></td><td>Xaero settings</td><td>Everything else.</td></tr>
+        <tr><td class="k"><span class="kbd">Right Shift</span></td><td>Quick confirm</td><td>Confirms the waypoint screen.</td></tr>
+        <tr><td class="k"><span class="note">not set</span></td><td>Cave mode, entity radar, zoom, grid, slime chunks</td><td>Optional toggles. <strong>Cave mode</strong> is the one worth a key: it shows the cave layer you're standing in.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- INVENTORY -->
+  <section class="panel" id="inventory">
+    <h2>Inventory &amp; menus</h2>
+    <p class="sub">Inventory Profiles Next, Mouse Tweaks, and Mod Menu. These work in both worlds.</p>
+    <div class="table-scroll"><table class="keys">
+      <caption>Inside inventory and chest screens</caption>
+      <thead><tr><th>Input</th><th>Action</th><th>From</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="kbd">R</span></td><td>Sort the inventory under your cursor. The sort buttons beside the inventory do the same.</td><td><span class="src inv">IPN</span></td></tr>
+        <tr><td class="k"><span class="kbd">R</span>+<span class="kbd">C</span></td><td>Sorting settings (hotkeys, slot locking, auto-refill)</td><td><span class="src inv">IPN</span></td></tr>
+        <tr><td class="k"><span class="kbd">R</span>+<span class="kbd">Y</span></td><td>Gear profiles: save and swap armor/tool sets</td><td><span class="src inv">IPN</span></td></tr>
+        <tr><td class="k">Hold <span class="kbd">RMB</span> + drag</td><td>Drop one item into each slot you pass over</td><td><span class="src inv">Mouse Tweaks</span></td></tr>
+        <tr><td class="k">Hold <span class="kbd">LMB</span> on item + drag</td><td>Pick up every matching item you drag across</td><td><span class="src inv">Mouse Tweaks</span></td></tr>
+        <tr><td class="k"><span class="kbd">Shift</span> + <span class="kbd">LMB</span> drag</td><td>Shift-click every slot you sweep over</td><td><span class="src inv">Mouse Tweaks</span></td></tr>
+        <tr><td class="k">Scroll wheel</td><td>Move items one at a time between inventories</td><td><span class="src inv">Mouse Tweaks</span></td></tr>
+        <tr><td class="k"><span class="note">button</span></td><td><strong>Mods</strong> button on the title screen and pause menu: settings for every mod</td><td><span class="src inv">Mod Menu</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Inventory Profiles Next keeps its keys in its own settings rather than Minecraft's Key Binds screen; change them with R+C. Its defaults come from its documentation.</p>
+  </section>
+
+  <!-- TEXTURE PACKS -->
+  <section class="panel" id="packs">
+    <h2>Texture packs</h2>
+    <p class="sub">The sync installs these and switches them on the first time. Each player can turn them off or reorder them without affecting the other: texture packs never need to match for LAN.</p>
+    <div class="packs">
+      <div class="pack" data-world="cobblemon"><span class="pname">Cobblemon Interface</span><span class="pwhere">Cobblemon world</span><p>Pokémon-style menus, inventory screens, and sounds.</p></div>
+      <div class="pack" data-world="cobblemon"><span class="pname">Cobblemon Interface: Modded</span><span class="pwhere">Cobblemon world</span><p>Extends that style to your other mods' screens. Must sit <strong>above</strong> Cobblemon Interface in the list.</p></div>
+      <div class="pack" data-world="cobblemon"><span class="pname">E19 Cobblemon Minimap Icons</span><span class="pwhere">Cobblemon world</span><p>Shows Pokémon as their own icons on Xaero's minimap. If you don't see them, check that entity radar is on in minimap settings (<span class="kbd">Y</span>).</p></div>
+      <div class="pack"><span class="pname">Fresh Animations</span><span class="pwhere">Both worlds</span><p>Smooth, natural animations for vanilla mobs. Pokémon keep their own animations. Needs the EMF and ETF helper mods, which are installed.</p></div>
+    </div>
+    <h3>Turning packs on, off, or reordering</h3>
+    <ol class="steps">
+      <li><strong>Options &rarr; Resource Packs.</strong></li>
+      <li><strong>The right column is what's on.</strong> Packs higher in the list win when two change the same thing.</li>
+      <li>Hover a pack and click the arrows to turn it off or move it, then <strong>Done</strong>.</li>
+    </ol>
+    <div class="callout">If mobs look stiff or broken with Fresh Animations on, check that the <strong>Entity Model Features</strong> and <strong>Entity Texture Features</strong> mods show up under <strong>Mods</strong> in the pause menu. The sync installs both.</div>
+  </section>
+
+  <!-- VANILLA -->
+  <section class="panel" id="vanilla">
+    <h2>Handy vanilla keys</h2>
+    <p class="sub">Not mods, but easy to forget.</p>
+    <div class="table-scroll"><table class="keys">
+      <thead><tr><th>Key</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="kbd">L</span></td><td>Advancements. Farmer's Delight and Cobblemon use them as built-in guides.</td></tr>
+        <tr><td class="k"><span class="kbd">C</span> <span class="note">(yours)</span> / <span class="kbd">F5</span></td><td>Change camera view</td></tr>
+        <tr><td class="k"><span class="kbd">F3</span></td><td>Coordinates and debug info. F3 combos (F3+G for chunk borders, etc.) only fire while F3 is held, so they never clash with normal keys.</td></tr>
+        <tr><td class="k"><span class="kbd">F2</span></td><td>Screenshot</td></tr>
+        <tr><td class="k"><span class="kbd">Esc</span> &rarr; Open to LAN</td><td>Lets the other player join your world</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Bindings read from the Cobblemon profile's options.txt, Oct 2026 &middot; Inventory Profiles Next defaults from its documentation</footer>
+</div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll(".switch button");
+  function show(which) {
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-show") === which ? "true" : "false"); });
+    document.querySelectorAll("[data-world]").forEach(function (el) {
+      var w = el.getAttribute("data-world");
+      el.classList.toggle("hide", which === "ourworld" && w === "cobblemon");
+    });
+    try { localStorage.setItem("mc-controls-world", which); } catch (e) {}
+  }
+  buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-show")); }); });
+  var saved = "all";
+  try { saved = localStorage.getItem("mc-controls-world") || "all"; } catch (e) {}
+  show(saved);
+})();
+</script>
+</body>
+</html>

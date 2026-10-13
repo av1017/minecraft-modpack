@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Copper Age</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --copper: #c26a3f;
+  --copper-bg: #f5e2d6;
+  --oxidized: #5a8a75;
+  --oxidized-bg: #e0edE7;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --basic: #4a7a2e;
+  --basic-bg: #e6f0da;
+  --inter: #b8720f;
+  --inter-bg: #f7ead2;
+  --expert: #a82f2f;
+  --expert-bg: #fbe5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --copper: #e08a5c;
+    --copper-bg: #33241a;
+    --oxidized: #7cba9f;
+    --oxidized-bg: #17302a;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+    --basic: #7cb84f;
+    --basic-bg: #1e2c17;
+    --inter: #e8a33d;
+    --inter-bg: #332711;
+    --expert: #e0605a;
+    --expert-bg: #3a1c1a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --copper: #e08a5c;
+  --copper-bg: #33241a;
+  --oxidized: #7cba9f;
+  --oxidized-bg: #17302a;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+  --basic: #7cb84f;
+  --basic-bg: #1e2c17;
+  --inter: #e8a33d;
+  --inter-bg: #332711;
+  --expert: #e0605a;
+  --expert-bg: #3a1c1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px; flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--copper); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+.progress-wrap {
+  margin-top: 18px; display: flex; align-items: center; gap: 12px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--copper); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.tier-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tier-nav a {
+  font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.tier-nav a:hover, .tier-nav a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+.panel {
+  background: var(--panel); border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+
+.tier-tag { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 4px 10px; margin-bottom: 10px; }
+.tier-tag.basic { color: var(--basic); background: var(--basic-bg); }
+.tier-tag.inter { color: var(--inter); background: var(--inter-bg); }
+.tier-tag.expert { color: var(--expert); background: var(--expert-bg); }
+
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.95rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 12px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text .src { font-size: 0.8rem; color: var(--ink-faint); margin-left: 4px; }
+.task-text .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.task-text .src a:hover { color: var(--link); border-color: var(--link); }
+
+/* oxidation stage strip */
+.oxidation-strip { display: flex; gap: 0; margin: 12px 0 6px; border: 2px solid var(--slot-border); overflow: hidden; }
+.ox-stage { flex: 1; padding: 12px 10px; text-align: center; }
+.ox-stage .swatch { width: 100%; height: 34px; margin-bottom: 8px; border: 1px solid var(--shadow); }
+.ox-stage .label { font-family: "Silkscreen", monospace; font-size: 0.65rem; color: var(--ink); }
+.ox-stage .light { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--ink-soft); }
+.ox-0 .swatch { background: #d98e5a; }
+.ox-1 .swatch { background: #a8845f; }
+.ox-2 .swatch { background: #7a9c7f; }
+.ox-3 .swatch { background: #5a8a75; }
+
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.03em; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); font-variant-numeric: tabular-nums; color: var(--ink); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.copper { border-left-color: var(--copper); }
+
+.diagram-box { background: var(--slot); border: 2px solid var(--slot-border); padding: 16px; margin: 14px 0; overflow-x: auto; }
+.diagram-box svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.diagram-caption { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Copper</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Deep Dive &middot; Verified for 26.3</div>
+    <h1>The Copper Age</h1>
+    <p>Copper spent years as "the ore you skip." That's outdated — between the Copper Golem's redstone-free item sorting and the Copper Bulb's built-in toggle memory, it's now genuinely useful gear, not just a lightning rod ingredient.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="tier-nav">
+    <a href="#basic">Basic — What It's For</a>
+    <a href="#oxidation">Oxidation &amp; Waxing</a>
+    <a href="#intermediate">Intermediate — Copper Bulbs</a>
+    <a href="#expert">Expert — Copper Golem Sorting</a>
+  </nav>
+
+  <!-- BASIC -->
+  <section class="panel" id="basic">
+    <span class="tier-tag basic">BASIC</span>
+    <h2>What Copper Is Actually For</h2>
+    <p class="sub">Four real uses, ranked by how often you'll actually reach for them.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Copper's core uses</caption>
+        <thead><tr><th>Item</th><th>Recipe</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Lightning Rod</strong></td><td>3 copper ingots</td><td>Diverts lightning strikes away from a build — genuinely useful for protecting wooden bases and farms from fire.</td></tr>
+          <tr><td><strong>Spyglass</strong></td><td>2 copper ingots + 1 amethyst shard</td><td>Zoom in on distant terrain — handy for scouting builds, mobs, or terrain before committing to travel there.</td></tr>
+          <tr><td><strong>Copper Bulb</strong></td><td>Copper ingots + blaze rod + redstone</td><td>A light source with built-in toggle memory — see the Intermediate section below, it's more useful than it sounds.</td></tr>
+          <tr><td><strong>Copper Golem</strong></td><td>Copper blocks + carved pumpkin</td><td>Automatically sorts items between chests with zero redstone. See the Expert section.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tasks" data-group="copper-basic" style="margin-top:14px;">
+      <li data-id="basic-1"><span class="checkbox"></span><span class="task-text">Copper generates most densely in <strong>Dripstone Caves</strong> — if you're specifically farming copper, that biome beats generic underground mining.</span></li>
+      <li data-id="basic-2"><span class="checkbox"></span><span class="task-text">Don't skip copper mining just because it's "low priority" for progression — it's cheap to grab in bulk while passing through, and several builds below want a real stockpile of it.</span></li>
+    </ul>
+  </section>
+
+  <!-- OXIDATION -->
+  <section class="panel" id="oxidation">
+    <h2>Oxidation &amp; Waxing</h2>
+    <p class="sub">Copper blocks age over time through four visual stages — purely cosmetic for most blocks, but functionally important for one.</p>
+    <div class="oxidation-strip">
+      <div class="ox-stage ox-0"><div class="swatch"></div><span class="label">UNAFFECTED</span><br><span class="light">Light 15</span></div>
+      <div class="ox-stage ox-1"><div class="swatch"></div><span class="label">EXPOSED</span><br><span class="light">Light 12</span></div>
+      <div class="ox-stage ox-2"><div class="swatch"></div><span class="label">WEATHERED</span><br><span class="light">Light 8</span></div>
+      <div class="ox-stage ox-3"><div class="swatch"></div><span class="label">OXIDIZED</span><br><span class="light">Light 4</span></div>
+    </div>
+    <div class="callout copper">
+      <strong>The one functional exception is the Copper Bulb:</strong> its light level actually drops at each oxidation stage, from 15 down to just 4 fully oxidized. Every other copper block just changes color as it ages — the block still works identically.
+      <div class="src"><a href="https://minecraft.wiki/w/Copper_Bulb" target="_blank" rel="noopener">Source: Minecraft Wiki, Copper Bulb</a></div>
+    </div>
+    <ul class="tasks" data-group="copper-oxidation" style="margin-top:14px;">
+      <li data-id="ox-1"><span class="checkbox"></span><span class="task-text">Right-click a copper block with a <strong>honeycomb</strong> to wax it — this freezes its current oxidation stage permanently, locking in both color and (for bulbs) light level.</span></li>
+      <li data-id="ox-2"><span class="checkbox"></span><span class="task-text">Only <strong>lightning strikes or an axe</strong> can reverse oxidation on an unwaxed block — an axe scrapes it back one stage at a time.</span></li>
+      <li data-id="ox-3"><span class="checkbox"></span><span class="task-text">Wax any copper bulb you're relying on for light <strong>immediately after building it</strong> — otherwise its brightness will silently degrade over real time as it oxidizes.</span></li>
+      <li data-id="ox-4"><span class="checkbox"></span><span class="task-text">An unwaxed <strong>Copper Golem</strong> that fully oxidizes turns into a static statue — wax it with honeycomb if you want it to keep sorting items indefinitely.</span></li>
+    </ul>
+  </section>
+
+  <!-- INTERMEDIATE -->
+  <section class="panel" id="intermediate">
+    <span class="tier-tag inter">INTERMEDIATE</span>
+    <h2>Copper Bulbs — More Than a Lamp</h2>
+    <p class="sub">Visually, a copper bulb looks like a fancier redstone lamp. Mechanically, it's a memory cell — a real, useful redstone building block.</p>
+    <div class="callout">
+      <strong>The key difference from a redstone lamp:</strong> a redstone lamp is on only while it's receiving a signal. A copper bulb <em>toggles</em> — one redstone pulse flips it on or off and it holds that state, with no continuous power needed. That's a T-flip-flop (a whole small circuit's worth of behavior) built into a single block.
+      <div class="src"><a href="https://craftdex.net/articles/the-copper-bulb-and-light-toggle" target="_blank" rel="noopener">Source: Craftdex, The Copper Bulb and Light Toggle</a></div>
+    </div>
+    <ul class="tasks" data-group="copper-intermediate" style="margin-top:14px;">
+      <li data-id="inter-1"><span class="checkbox"></span><span class="task-text">Use a copper bulb anywhere you want a <strong>press-once, stays-on light switch</strong> — a single button press toggles it, no held-down lever or continuous circuit required.</span></li>
+      <li data-id="inter-2"><span class="checkbox"></span><span class="task-text">A <strong>comparator placed against a copper bulb</strong> reads its current on/off state as a signal — meaning other redstone can react to whether the bulb is lit, effectively reading memory out of it.</span></li>
+      <li data-id="inter-3"><span class="checkbox"></span><span class="task-text">This makes copper bulbs genuinely useful for <strong>compact memory cells and toggle systems</strong> in bigger redstone builds — worth knowing about even outside of lighting.</span></li>
+    </ul>
+  </section>
+
+  <!-- EXPERT -->
+  <section class="panel" id="expert">
+    <span class="tier-tag expert">EXPERT</span>
+    <h2>The Copper Golem — Redstone-Free Item Sorting</h2>
+    <p class="sub">This is the single biggest reason copper is worth stockpiling now: automatic chest sorting with zero hoppers, zero redstone, and almost no setup.</p>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 640 190" role="img" aria-labelledby="golem-title golem-desc">
+        <title id="golem-title">Copper Golem sorting flow</title>
+        <desc id="golem-desc">Items are dropped into a copper chest, the copper golem picks up matching items, and delivers them to a regular chest already containing that item type.</desc>
+        <g transform="translate(20,30)">
+          <rect x="0" y="0" width="150" height="70" fill="var(--copper-bg)" stroke="var(--copper)" stroke-width="2"/>
+          <text x="75" y="30" text-anchor="middle" font-family="Space Mono, monospace" font-size="12" fill="var(--ink)">COPPER CHEST</text>
+          <text x="75" y="50" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="11" fill="var(--ink-soft)">you dump items here</text>
+        </g>
+        <text x="200" y="72" font-family="Space Mono, monospace" font-size="18" fill="var(--ink-faint)">&#8594;</text>
+        <g transform="translate(240,15)">
+          <rect x="0" y="0" width="150" height="100" fill="var(--slot)" stroke="var(--slot-border)" stroke-width="2"/>
+          <text x="75" y="30" text-anchor="middle" font-family="Space Mono, monospace" font-size="12" fill="var(--ink)">COPPER GOLEM</text>
+          <text x="75" y="50" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="11" fill="var(--ink-soft)">picks up up to 16</text>
+          <text x="75" y="66" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="11" fill="var(--ink-soft)">items at a time,</text>
+          <text x="75" y="82" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="11" fill="var(--ink-soft)">walks it over</text>
+        </g>
+        <text x="410" y="72" font-family="Space Mono, monospace" font-size="18" fill="var(--ink-faint)">&#8594;</text>
+        <g transform="translate(450,30)">
+          <rect x="0" y="0" width="170" height="70" fill="var(--oxidized-bg)" stroke="var(--oxidized)" stroke-width="2"/>
+          <text x="85" y="30" text-anchor="middle" font-family="Space Mono, monospace" font-size="12" fill="var(--ink)">MATCHING CHEST</text>
+          <text x="85" y="50" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="11" fill="var(--ink-soft)">within 32 blocks, already has that item</text>
+        </g>
+      </svg>
+      <p class="diagram-caption">No hoppers, no redstone — the golem finds the right destination chest on its own.</p>
+    </div>
+
+    <ul class="tasks" data-group="copper-expert" style="margin-top:16px;">
+      <li data-id="expert-1"><span class="checkbox"></span><span class="task-text">Craft a Copper Golem with <strong>copper blocks and a carved pumpkin</strong> — the copper chest it needs to work from appears automatically underneath it once placed.</span></li>
+      <li data-id="expert-2"><span class="checkbox"></span><span class="task-text">The golem checks the copper chest, then searches for a <strong>regular (or trapped) chest within 32 blocks horizontally and 8 vertically</strong> that already contains a matching item, and delivers up to 16 items there per trip.</span></li>
+      <li data-id="expert-3"><span class="checkbox"></span><span class="task-text">Set up your storage room with <strong>one item type "seeded" in each destination chest</strong> ahead of time (even just a single block) — the golem needs an existing match to sort into, it won't invent new categories on its own.</span></li>
+      <li data-id="expert-4"><span class="checkbox"></span><span class="task-text">This is the easiest storage automation in the game for a <strong>small-to-medium base</strong> — for very large sorting systems, a hopper-and-redstone system still scales further, but for two players sharing a base, a couple of copper golems likely covers it entirely.</span></li>
+      <li data-id="expert-5"><span class="checkbox"></span><span class="task-text">Remember to <strong>wax your golem</strong> with honeycomb if you want it working indefinitely — an unwaxed golem eventually fully oxidizes into a non-functional statue.</span></li>
+    </ul>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki and current guides, current as of Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-copper-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/copper');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

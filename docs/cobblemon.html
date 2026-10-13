@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokémon Trail</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d;
+  --ball: #c0392b; --ball-bg: #f9e2df; --map: #2f6fa8; --map-bg: #e0ebf6;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466;
+    --ball: #ec7a6c; --ball-bg: #3a1c19; --map: #7fb0e0; --map-bg: #182838;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466;
+  --ball: #ec7a6c; --ball-bg: #3a1c19; --map: #7fb0e0; --map-bg: #182838;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 20px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ball); margin-bottom: 12px; }
+.eyebrow .pip { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(var(--ball) 0 45%, var(--ink) 45% 55%, var(--slot) 55%); border: 1px solid var(--ink); }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.badge { font-family: "Space Mono", monospace; font-size: 0.72rem; padding: 5px 10px; background: var(--slot); border: 2px solid var(--slot-border); color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--ball); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.ball { border-left-color: var(--ball); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: flex; gap: 12px; align-items: flex-start; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); flex: 0 0 auto; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--ball); color: var(--stone-deep); }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 4px; }
+.chain .link { border: 2px solid var(--slot-border); background: var(--slot); padding: 8px 11px; font-size: 0.86rem; }
+.chain .link small { display: block; font-family: "Space Mono", monospace; font-size: 0.68rem; color: var(--ink-faint); }
+.chain .arr { font-family: "Space Mono", monospace; color: var(--ink-faint); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 520px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Cobblemon World</span></nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Cobblemon 1.8.2 &middot; Minecraft 1.21.1</div>
+    <h1>Pokémon Trail</h1>
+    <p>Getting started in our Cobblemon world: picking a starter, catching and battling, healing, storing your Pokémon, and finding your way with the maps. Every recipe on this page was read from the installed mod files.</p>
+    <div class="meta-row">
+      <span class="badge">PROFILE: COBBLEMON 1.21.1</span>
+      <span class="badge">SEPARATE FROM OUR WORLD</span>
+      <span class="badge">LAN CO-OP</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#start">First Steps</a>
+    <a href="#catch">Catching</a>
+    <a href="#battle">Battling</a>
+    <a href="#heal">Healing &amp; Storage</a>
+    <a href="#grow">Growing Your Team</a>
+    <a href="#maps">Maps</a>
+    <a href="#extras">What Else Is Here</a>
+  </nav>
+
+  <div class="callout">
+    <strong>Find any recipe:</strong> open your inventory and click the green <strong>recipe book</strong>. It lists every recipe you have the ingredients for, including all of Cobblemon's. Full key list: <a href="controls.html">Every Key</a>.
+  </div>
+
+  <!-- START -->
+  <section class="panel" id="start">
+    <h2>First Steps</h2>
+    <p class="sub">What to do in your first hour.</p>
+    <ol class="flow">
+      <li><strong>Pick your starter:</strong> press <span class="kbd">I</span>. A starter screen opens with Pokémon from every region, Kanto through Paldea, plus a Random option. Choose one and click <strong>I choose you!</strong> Each player picks their own.</li>
+      <li><strong>Send it out:</strong> press <span class="kbd">R</span> to throw your selected Pokémon out. Press it again while looking at it to call it back. <span class="kbd">&uarr;</span>/<span class="kbd">&darr;</span> choose which party member R sends.</li>
+      <li><strong>Find apricorn trees.</strong> Their fruit, apricorns, is what Poké Balls are made from. They grow in forests, grasslands, hills, deserts, jungles, and snowy forests. Grab every color you see.</li>
+      <li><strong>Mine copper and iron.</strong> Basic Poké Balls need copper, Great Balls need iron, and the PC and Healing Machine need both.</li>
+      <li><strong>Mark your base</strong> with <span class="kbd">B</span>, so you can always find it on the map.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="start-1"><span class="checkbox"></span><span class="task-text">Choose a starter (<span class="kbd">I</span>)</span></li>
+      <li data-id="start-2"><span class="checkbox"></span><span class="task-text">Find an apricorn tree and collect apricorns</span></li>
+      <li data-id="start-3"><span class="checkbox"></span><span class="task-text">Set a waypoint at your base (<span class="kbd">B</span>)</span></li>
+    </ul>
+  </section>
+
+  <!-- CATCH -->
+  <section class="panel" id="catch">
+    <h2>Catching</h2>
+    <p class="sub">Poké Balls are four apricorns around a metal ingot. Better metal makes a better ball.</p>
+    <div class="recipes" data-recipes="balls"></div>
+    <h3>How to catch one</h3>
+    <ol class="flow">
+      <li><strong>Weaken it first.</strong> Battle the wild Pokémon (see Battling below) and bring its HP down. Low HP makes a catch much more likely.</li>
+      <li><strong>Throw a ball.</strong> Hold the Poké Ball and right-click to throw it at the Pokémon.</li>
+      <li><strong>Wait for the shakes.</strong> It either breaks free, and you try again, or gets caught and joins your party. A full party of 6 sends new catches to your PC.</li>
+    </ol>
+    <div class="callout ball"><strong>Tip:</strong> save Ultra Balls (gold) for rare or strong Pokémon, and use plain Poké Balls (copper) on common ones.</div>
+    <ul class="tasks">
+      <li data-id="catch-1"><span class="checkbox"></span><span class="task-text">Craft your first Poké Balls</span></li>
+      <li data-id="catch-2"><span class="checkbox"></span><span class="task-text">Catch a wild Pokémon</span></li>
+      <li data-id="catch-3"><span class="checkbox"></span><span class="task-text">Fill a party of 6</span></li>
+    </ul>
+  </section>
+
+  <!-- BATTLE -->
+  <section class="panel" id="battle">
+    <h2>Battling</h2>
+    <p class="sub">Battles work like the main Pokémon games: turns, moves, and switching.</p>
+    <ol class="flow">
+      <li><strong>Start a battle:</strong> look at a wild Pokémon and press <span class="kbd">R</span> to throw your selected Pokémon at it. A battle screen opens.</li>
+      <li><strong>Pick moves each turn.</strong> Type matchups matter (Water beats Fire, Fire beats Grass, and so on). You can also switch Pokémon or use items.</li>
+      <li><strong>Win for experience.</strong> Pokémon level up, learn moves, and evolve. Check your party anytime with <span class="kbd">I</span>.</li>
+    </ol>
+    <div class="callout">Cobblemon also supports battles between players, so the two of you can battle each other over LAN.</div>
+    <ul class="tasks">
+      <li data-id="battle-1"><span class="checkbox"></span><span class="task-text">Win your first wild battle</span></li>
+      <li data-id="battle-2"><span class="checkbox"></span><span class="task-text">Get a Pokémon to evolve</span></li>
+    </ul>
+  </section>
+
+  <!-- HEAL -->
+  <section class="panel" id="heal">
+    <h2>Healing &amp; Storage</h2>
+    <p class="sub">Two blocks every base needs: a PC for Pokémon beyond your party of 6, and a Healing Machine.</p>
+    <div class="recipes" data-recipes="base"></div>
+    <h3>The Healing Machine's long ingredient chain</h3>
+    <p>The Healing Machine needs a <strong>Max Revive</strong>, which takes a few steps. Revival Herb and Vivichoke are Cobblemon plants that grow in the wild. The cooking steps use Cobblemon's <strong>Campfire Pot</strong>; check the recipe book for it.</p>
+    <div class="chain">
+      <div class="link">Revival Herb<small>found in the wild</small></div>
+      <span class="arr">&rarr; craft &rarr;</span>
+      <div class="link">Heal Powder</div>
+      <span class="arr">&rarr; + Honey Bottle, in the pot &rarr;</span>
+      <div class="link">Revive<small>make 2</small></div>
+      <span class="arr">&rarr; 2 Revives + Vivichoke, in the pot &rarr;</span>
+      <div class="link"><strong>Max Revive</strong><small>goes in the Healing Machine</small></div>
+    </div>
+    <div class="callout"><strong>After placing a Healing Machine, let it charge.</strong> It fills up over time, then heals your whole party when you use it.</div>
+    <ul class="tasks">
+      <li data-id="heal-1"><span class="checkbox"></span><span class="task-text">Build a PC</span></li>
+      <li data-id="heal-2"><span class="checkbox"></span><span class="task-text">Make a Max Revive and build a Healing Machine</span></li>
+    </ul>
+  </section>
+
+  <!-- GROW -->
+  <section class="panel" id="grow">
+    <h2>Growing Your Team</h2>
+    <p class="sub">Useful items once you've settled in.</p>
+    <div class="recipes" data-recipes="grow"></div>
+    <div class="table-scroll" style="margin-top:14px;"><table class="spec">
+      <thead><tr><th>Item</th><th>What it's for</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pasture</strong></td><td>Let Pokémon from your PC roam around your base instead of sitting in storage. Crafted with a PC inside it.</td></tr>
+        <tr><td><strong>Link Cable</strong></td><td>Some Pokémon only evolve by trading in the main games. The Link Cable triggers those evolutions.</td></tr>
+        <tr><td><strong>Exp. Share</strong></td><td>Give it to a party member to hold, and it gets experience from battles it didn't fight in. Good for leveling a weak Pokémon.</td></tr>
+        <tr><td><strong>Pokédex</strong></td><td>Tracks every species you've seen and caught. Made from a Pokédex Screen, an apricorn, iron, and copper; the apricorn color sets the Pokédex color.</td></tr>
+        <tr><td><strong>Riding</strong></td><td>Some Pokémon can be ridden. While riding, hold <span class="kbd">Left Alt</span> to look around without steering.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- MAPS -->
+  <section class="panel" id="maps">
+    <h2>Maps</h2>
+    <p class="sub">Xaero's Minimap and World Map. Each player's map fills in as they explore, saved on their own PC.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><span class="kbd">M</span></td><td>Full-screen world map. Drag to pan, scroll to zoom, right-click for options like making a waypoint at that spot.</td></tr>
+        <tr><td><span class="kbd">B</span></td><td>New waypoint where you're standing</td></tr>
+        <tr><td><span class="kbd">U</span></td><td>Waypoint list</td></tr>
+        <tr><td><span class="kbd">Z</span></td><td>Hold for a bigger minimap</td></tr>
+        <tr><td><span class="kbd">Y</span></td><td>Minimap settings: size, corner, entity radar</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>Pokémon on the minimap:</strong> the E19 Cobblemon Minimap Icons texture pack shows wild Pokémon as their own icons, which makes hunting a specific one easier.</div>
+    <ul class="tasks">
+      <li data-id="maps-1"><span class="checkbox"></span><span class="task-text">Open the world map (<span class="kbd">M</span>) and set a few waypoints</span></li>
+    </ul>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="panel" id="extras">
+    <h2>What Else Is Here</h2>
+    <p class="sub">This world has more than Cobblemon.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Mod</th><th>What it adds</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Farmer's Delight + Rustic Delight</strong></td><td>The cooking system, new crops, and farmable cotton from Our World. See <a href="mods.html">Cotton &amp; Cookpots</a>.</td></tr>
+        <tr><td><strong>Wool Tweaks</strong></td><td>1 wool &rarr; 4 string, and re-dyeing wool, beds, and carpets.</td></tr>
+        <tr><td><strong>Inventory sorting</strong></td><td>Sort buttons, slot locking, Mouse Tweaks dragging. Same as Our World.</td></tr>
+        <tr><td><strong>Texture packs</strong></td><td>Cobblemon Interface (Pokémon-style menus), the minimap icons, and Fresh Animations. Turn them on, off, or reorder in Options &rarr; Resource Packs.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Cobblemon 1.8.2 recipes and text read from the installed mod file &middot; Oct 2026</footer>
+</div>
+
+<script>
+(function () {
+  var R = {
+    balls: [
+      { name: "Poké Ball", note: "Copper in the middle.", grid: [null,"Red Apricorn",null,"Red Apricorn","Copper Ingot","Red Apricorn",null,"Red Apricorn",null], out: "Poké Ball" },
+      { name: "Great Ball", note: "Iron in the middle.", grid: [null,"Blue Apricorn",null,"Red Apricorn","Iron Ingot","Red Apricorn",null,"Blue Apricorn",null], out: "Great Ball" },
+      { name: "Ultra Ball", note: "Gold in the middle.", grid: [null,"Black Apricorn",null,"Yellow Apricorn","Gold Ingot","Yellow Apricorn",null,"Black Apricorn",null], out: "Ultra Ball" }
+    ],
+    base: [
+      { name: "PC", note: "Stores Pokémon beyond your party of 6.", grid: ["Iron","Glass","Iron","Iron","Copper","Iron","Smooth Stone","Copper","Smooth Stone"], out: "PC" },
+      { name: "Healing Machine", note: "Needs a Max Revive (chain below).", grid: ["Copper","Copper","Copper","Iron","Max Revive","Iron","Iron","Redstone","Iron"], out: "Healing Machine" }
+    ],
+    grow: [
+      { name: "Pasture", note: "Needs a PC inside.", grid: ["Planks","Planks","Planks","Planks","PC","Planks","Wheat","Hopper","Wheat"], out: "Pasture" },
+      { name: "Link Cable", note: "For trade evolutions.", grid: [null,null,"Quartz","Copper","Ender Pearl","Copper","Quartz",null,null], out: "Link Cable" },
+      { name: "Exp. Share", note: "Held item.", grid: ["Amethyst","Gold Ingot","Amethyst","Lapis","Iron Helmet","Lapis","Iron Ingot",null,"Iron Ingot"], out: "Exp. Share" }
+    ]
+  };
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot"; if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "→"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-cobblemon-progress-fallback";
+  var db = null, docRef = null, state = {};
+  function loadLocal() { try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; } catch (e) { return {}; } }
+  function saveLocal(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "✓" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) {
+    state[id] = !state[id]; render();
+    if (db && docRef) { var f = {}; f[id] = state[id]; docRef.update(f).catch(function () { docRef.set(state).catch(function () {}); }); }
+    else { saveLocal(state); }
+  }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  state = loadLocal(); render();
+  (async function () {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use("user");
+      db = await window.claude.use("db");
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) { db = null; return; }
+      docRef = db.doc("data/users/" + uid + "/progress/cobblemon");
+      var snap = await docRef.get();
+      if (snap.exists) { state = Object.assign({}, state, snap.data() || {}); render(); }
+      docRef.onSnapshot(function (s) { if (s.exists) { state = Object.assign({}, s.data() || {}); render(); } });
+    } catch (e) { db = null; }
+  })();
+})();
+</script>
+</body>
+</html>

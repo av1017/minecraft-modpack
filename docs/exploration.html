@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond the Horizon</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --sky: #3a7ea8;
+  --sky-bg: #dcedf5;
+  --grass: #4a7a2e;
+  --grass-bg: #e6f0da;
+  --sand: #b89a4a;
+  --sand-bg: #f5edd6;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --basic: #4a7a2e;
+  --basic-bg: #e6f0da;
+  --inter: #b8720f;
+  --inter-bg: #f7ead2;
+  --expert: #a82f2f;
+  --expert-bg: #fbe5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #12161a;
+    --stone-deep: #0a0d10;
+    --ink: #e4ecf2;
+    --ink-soft: #a8b8c4;
+    --ink-faint: #78899a;
+    --panel: #1a2128;
+    --panel-border: #384a58;
+    --slot: #222b33;
+    --slot-border: #48606f;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --sky: #6fb0da;
+    --sky-bg: #15303f;
+    --grass: #7cb84f;
+    --grass-bg: #1e2c17;
+    --sand: #d3b45c;
+    --sand-bg: #332c14;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #7fb0e0;
+    --basic: #7cb84f;
+    --basic-bg: #1e2c17;
+    --inter: #e8a33d;
+    --inter-bg: #332711;
+    --expert: #e0605a;
+    --expert-bg: #3a1c1a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #12161a;
+  --stone-deep: #0a0d10;
+  --ink: #e4ecf2;
+  --ink-soft: #a8b8c4;
+  --ink-faint: #78899a;
+  --panel: #1a2128;
+  --panel-border: #384a58;
+  --slot: #222b33;
+  --slot-border: #48606f;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --sky: #6fb0da;
+  --sky-bg: #15303f;
+  --grass: #7cb84f;
+  --grass-bg: #1e2c17;
+  --sand: #d3b45c;
+  --sand-bg: #332c14;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #7fb0e0;
+  --basic: #7cb84f;
+  --basic-bg: #1e2c17;
+  --inter: #e8a33d;
+  --inter-bg: #332711;
+  --expert: #e0605a;
+  --expert-bg: #3a1c1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px; flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sky); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--sky); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+.progress-wrap {
+  margin-top: 18px; display: flex; align-items: center; gap: 12px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--sky); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.tier-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tier-nav a {
+  font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.tier-nav a:hover, .tier-nav a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+.panel {
+  background: var(--panel); border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+
+.tier-tag { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 4px 10px; margin-bottom: 10px; }
+.tier-tag.basic { color: var(--basic); background: var(--basic-bg); }
+.tier-tag.inter { color: var(--inter); background: var(--inter-bg); }
+.tier-tag.expert { color: var(--expert); background: var(--expert-bg); }
+
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.95rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 12px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text .src { font-size: 0.8rem; color: var(--ink-faint); margin-left: 4px; }
+.task-text .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.task-text .src a:hover { color: var(--link); border-color: var(--link); }
+
+.table-scroll { overflow-x: auto; margin: 4px 0 6px; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec caption { text-align: left; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.03em; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); font-variant-numeric: tabular-nums; color: var(--ink); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+
+.speed-bars { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 6px; }
+.speed-row { display: grid; grid-template-columns: 130px 1fr 90px; align-items: center; gap: 10px; font-size: 0.88rem; }
+.speed-row .name { color: var(--ink); font-weight: 600; }
+.speed-track { height: 16px; background: var(--slot); border: 1px solid var(--slot-border); position: relative; overflow: hidden; }
+.speed-fill { height: 100%; background: var(--sky); }
+.speed-val { font-family: "Space Mono", monospace; font-size: 0.8rem; color: var(--ink-soft); text-align: right; font-variant-numeric: tabular-nums; }
+
+.biome-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 4px 0 6px; }
+.biome-card { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.biome-card .name { font-family: "Silkscreen", monospace; font-size: 0.8rem; color: var(--sand); margin-bottom: 4px; display: block; }
+.biome-card .desc { font-size: 0.85rem; color: var(--ink-soft); }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.sky { border-left-color: var(--sky); }
+
+ol.steps { margin: 14px 0 0; padding-left: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 10px; }
+ol.steps li { counter-increment: step; display: flex; gap: 12px; align-items: flex-start; color: var(--ink); font-size: 0.95rem; background: var(--slot); border: 2px solid var(--slot-border); padding: 12px 14px; }
+ol.steps li::before {
+  content: counter(step); flex: 0 0 auto; font-family: "Silkscreen", monospace; font-size: 0.78rem;
+  width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+  background: var(--sky); color: var(--stone-deep);
+}
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Exploration</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Deep Dive &middot; Verified for 26.3</div>
+    <h1>Beyond the Horizon</h1>
+    <p>Finding a village and getting there fast — real travel speeds compared, how to actually use a wild horse you haven't tamed, and why plains biomes dominate village generation.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="tier-nav">
+    <a href="#rush">Right Now — Village Rush</a>
+    <a href="#basic">Basic — Village Biomes</a>
+    <a href="#speeds">Travel Speed Comparison</a>
+    <a href="#intermediate">Intermediate — Horses Done Right</a>
+    <a href="#expert">Expert — Late-Game Travel</a>
+  </nav>
+
+  <!-- RUSH -->
+  <section class="panel" id="rush">
+    <h2>Finding Your First Village — Right Now</h2>
+    <p class="sub">Assuming legit survival, no commands. Fastest realistic path with a horse and boat already nearby.</p>
+    <ol class="steps">
+      <li><strong>Tame the horse first — no saddle needed for this part.</strong> Keep mounting it (it'll buck you off repeatedly) until hearts appear. Taming and steering are separate mechanics.</li>
+      <li><strong>Craft a saddle</strong>: 3 leather + 1 iron ingot. Saddles became directly craftable in a recent update — you no longer need to find one in loot. Leather comes from cows or llamas.</li>
+      <li>Once saddled, ride toward the nearest <strong>plains, desert, or savanna</strong> biome — these have the highest village density by a wide margin.</li>
+      <li>Climb a hill or tall terrain before committing to a direction — villages in open biomes are often visible from a distance, saving you from riding the wrong way for a long time.</li>
+      <li>Expect to find one within roughly <strong>500–1000 blocks</strong> of spawn if you're in a good biome — if you've gone much further with nothing, angle toward a different biome type instead of continuing straight.</li>
+      <li>The boat is a backup, not your first choice, unless there's a coastline or river running the direction you want to go — a horse outpaces a boat on land.</li>
+    </ol>
+  </section>
+
+  <!-- BASIC -->
+  <section class="panel" id="basic">
+    <span class="tier-tag basic">BASIC</span>
+    <h2>Where Villages Actually Generate</h2>
+    <p class="sub">Villages generate in six biome types — but not evenly. The biome at the village's center point also determines its entire building style.</p>
+    <div class="biome-grid">
+      <div class="biome-card"><span class="name">Plains</span><span class="desc">Easiest to navigate, most common by far — simply because plains biomes themselves are so common. Best default target.</span></div>
+      <div class="biome-card"><span class="name">Desert</span><span class="desc">Sandstone construction, unique tower structures. Good visibility for scouting from a distance.</span></div>
+      <div class="biome-card"><span class="name">Savanna</span><span class="desc">Acacia wood — the only easy renewable source of it outside trading.</span></div>
+      <div class="biome-card"><span class="name">Taiga</span><span class="desc">Spruce construction, the most ornate building style of any village type.</span></div>
+      <div class="biome-card"><span class="name">Snowy Plains</span><span class="desc">Spruce, ice, and snow — rarer than plains simply because the biome itself is rarer.</span></div>
+      <div class="biome-card"><span class="name">Meadows</span><span class="desc">Less common overall, defaults to plains-style construction if off-center.</span></div>
+    </div>
+    <div class="callout sky" style="margin-top:12px;">
+      <strong>Why plains dominates:</strong> it's not that villages "prefer" plains — plains biomes themselves simply cover more of the map than desert, taiga, or snowy biomes, so more villages end up generating inside them by sheer land area. If you're not finding one, angling toward the largest nearby open biome is usually the right move.
+      <div class="src"><a href="https://minecraft.wiki/w/Village" target="_blank" rel="noopener">Source: Minecraft Wiki, Village</a></div>
+    </div>
+  </section>
+
+  <!-- SPEEDS -->
+  <section class="panel" id="speeds">
+    <h2>Travel Speed Comparison</h2>
+    <p class="sub">Real numbers, not vibes — useful for deciding what's actually worth building or taming at each stage of the game.</p>
+    <div class="speed-bars">
+      <div class="speed-row"><span class="name">Walking</span><div class="speed-track"><div class="speed-fill" style="width:2%"></div></div><span class="speed-val">1.7 m/s</span></div>
+      <div class="speed-row"><span class="name">Sprinting</span><div class="speed-track"><div class="speed-fill" style="width:7%"></div></div><span class="speed-val">5.6 m/s</span></div>
+      <div class="speed-row"><span class="name">Camel / Strider</span><div class="speed-track"><div class="speed-fill" style="width:10%"></div></div><span class="speed-val">~7–8 m/s</span></div>
+      <div class="speed-row"><span class="name">Minecart (powered rail)</span><div class="speed-track"><div class="speed-fill" style="width:10%"></div></div><span class="speed-val">8 m/s cap</span></div>
+      <div class="speed-row"><span class="name">Average horse</span><div class="speed-track"><div class="speed-fill" style="width:12%"></div></div><span class="speed-val">9.5 m/s</span></div>
+      <div class="speed-row"><span class="name">Best-bred horse</span><div class="speed-track"><div class="speed-fill" style="width:18%"></div></div><span class="speed-val">14.6 m/s</span></div>
+      <div class="speed-row"><span class="name">Soul Speed 3 + Speed 2</span><div class="speed-track"><div class="speed-fill" style="width:16%"></div></div><span class="speed-val">~12.7 m/s</span></div>
+      <div class="speed-row"><span class="name">Ender pearl throw</span><div class="speed-track"><div class="speed-fill" style="width:29%"></div></div><span class="speed-val">~23 m/s</span></div>
+      <div class="speed-row"><span class="name">Elytra cruise</span><div class="speed-track"><div class="speed-fill" style="width:42%"></div></div><span class="speed-val">33.5 m/s</span></div>
+      <div class="speed-row"><span class="name">Boat on ice road</span><div class="speed-track"><div class="speed-fill" style="width:90%"></div></div><span class="speed-val">72 m/s</span></div>
+      <div class="speed-row"><span class="name">Elytra diving w/ rockets</span><div class="speed-track" style="border-color: var(--amber);"><div class="speed-fill" style="width:100%; background: var(--amber-bright);"></div></div><span class="speed-val">~78 m/s</span></div>
+    </div>
+    <div class="src" style="margin-top:8px; display:block;"><a href="https://minecraft.wiki/w/Transportation" target="_blank" rel="noopener">Source: Minecraft Wiki, Transportation</a></div>
+    <div class="callout" style="margin-top:12px;">
+      <strong>Right now, at your stage:</strong> a tamed and saddled horse (9.5–14.6 m/s) is the single biggest speed upgrade available for the resources you already have. Everything faster than that (elytra, ice boat roads, Soul Speed) requires End City loot, large-scale building projects, or the Nether — all well beyond finding your first village.
+    </div>
+  </section>
+
+  <!-- INTERMEDIATE -->
+  <section class="panel" id="intermediate">
+    <span class="tier-tag inter">INTERMEDIATE</span>
+    <h2>Horses Done Right</h2>
+    <p class="sub">Once you've got one horse working, this is how you end up with a genuinely fast one.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Horse stats — the three that vary per-horse</caption>
+        <thead><tr><th>Stat</th><th>Range</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Health</td><td>Varies per horse</td><td>Random on spawn, like the other two stats</td></tr>
+          <tr><td>Speed</td><td>~4.75 to 14.6 m/s</td><td>Average ~9.5 m/s; every horse you see in the wild is a random roll</td></tr>
+          <tr><td>Jump height</td><td>~1.2 to 5.3 blocks</td><td>From a jump strength value of 0.4 to 1.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tasks" data-group="explore-intermediate" style="margin-top:14px;">
+      <li data-id="inter-1"><span class="checkbox"></span><span class="task-text">Tame <strong>several wild horses</strong> rather than settling for the first one — speed and jump height are random per-horse, so a bit of selection goes a long way before you even start breeding.</span></li>
+      <li data-id="inter-2"><span class="checkbox"></span><span class="task-text">To breed, feed a <strong>golden apple or golden carrot</strong> to two tamed horses — they'll enter love mode and produce a foal.</span></li>
+      <li data-id="inter-3"><span class="checkbox"></span><span class="task-text">A foal's stats land near the <strong>midpoint of its two parents</strong>, with a real chance to exceed both — breed your two fastest horses together, then keep any foal that beats its parents and breed it back into the line.</span></li>
+      <li data-id="inter-4"><span class="checkbox"></span><span class="task-text">This is a genuine long-term project if you want it — repeating the "keep the best foal" cycle several generations can meaningfully close the gap to the 14.6 m/s ceiling.</span></li>
+      <li data-id="inter-5"><span class="checkbox"></span><span class="task-text">A <strong>lead</strong> isn't required to ride — it's only for walking a horse (or other mob) around without riding it, useful for bringing a newly tamed horse home before you have a saddle for it.</span></li>
+    </ul>
+  </section>
+
+  <!-- EXPERT -->
+  <section class="panel" id="expert">
+    <span class="tier-tag expert">EXPERT / ABOVE &amp; BEYOND</span>
+    <h2>Late-Game Travel</h2>
+    <p class="sub">Not relevant to finding your first village, but worth knowing what you're eventually working toward.</p>
+    <ul class="tasks" data-group="explore-expert">
+      <li data-id="expert-1"><span class="checkbox"></span><span class="task-text"><strong>Ender pearls</strong> (~23 m/s effective) are a mid-game jump — useful for crossing gaps or closing distance fast once you're doing Nether runs for pearls anyway, at the cost of fall damage on landing.</span></li>
+      <li data-id="expert-2"><span class="checkbox"></span><span class="task-text"><strong>Elytra</strong> (from an End City) cruises at 33.5 m/s and can exceed 78 m/s diving with firework rocket boosts — the actual long-term answer to "fastest way to get anywhere," but locked behind beating the dragon and finding an End City.</span></li>
+      <li data-id="expert-3"><span class="checkbox"></span><span class="task-text"><strong>Boats on blue ice roads</strong> hit roughly 72 m/s — a genuinely absurd speed for a purely early-to-mid-game-craftable vehicle, if you're willing to lay an ice road. Worth it for a fixed route you'll travel repeatedly (e.g. base to base).</span></li>
+      <li data-id="expert-4"><span class="checkbox"></span><span class="task-text"><strong>Soul Speed III boots + Speed II potion</strong> on soul sand/soil gets you to roughly 12.7 m/s on foot — nearly matching a top-tier horse without needing to breed or saddle anything, if you have Nether access for soul sand and a source of Speed potions.</span></li>
+    </ul>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki, current as of Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-exploration-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/exploration');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

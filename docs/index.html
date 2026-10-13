@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stronghold Route</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --grass: #4a7a2e;
+  --diamond: #1f9e94;
+  --redstone: #a82f2f;
+  --lapis: #2f5fa8;
+  --gold: #b8891a;
+  --netherite: #4a3b3b;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410;
+    --stone-deep: #0f0d0a;
+    --ink: #ece6d6;
+    --ink-soft: #b8ae98;
+    --ink-faint: #8a8168;
+    --panel: #211d16;
+    --panel-border: #4a4232;
+    --slot: #2a251c;
+    --slot-border: #5c5340;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --grass: #7cb84f;
+    --diamond: #4dd8d0;
+    --redstone: #e0605a;
+    --lapis: #6f9adb;
+    --gold: #e0b23e;
+    --netherite: #c9beb8;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --link: #6f9adb;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #171410;
+  --stone-deep: #0f0d0a;
+  --ink: #ece6d6;
+  --ink-soft: #b8ae98;
+  --ink-faint: #8a8168;
+  --panel: #211d16;
+  --panel-border: #4a4232;
+  --slot: #2a251c;
+  --slot-border: #5c5340;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --grass: #7cb84f;
+  --diamond: #4dd8d0;
+  --redstone: #e0605a;
+  --lapis: #6f9adb;
+  --gold: #e0b23e;
+  --netherite: #c9beb8;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --link: #6f9adb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 920px; margin: 0 auto; padding-block: 32px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 30px 26px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 14px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--amber-bright); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.badge { font-family: "Space Mono", monospace; font-size: 0.72rem; padding: 5px 10px; background: var(--slot); border: 2px solid var(--slot-border); color: var(--ink-soft); }
+
+.overall-progress {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.overall-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.overall-fill { height: 100%; background: var(--amber-bright); transition: width 0.3s ease; }
+
+.section-label {
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 30px 0 12px;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.page-card {
+  display: block;
+  text-decoration: none;
+  border: 3px solid var(--panel-border);
+  background: var(--panel);
+  padding: 18px 18px 20px;
+  box-shadow: 0 4px 0 var(--shadow);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+  position: relative;
+  overflow: hidden;
+}
+.page-card:hover, .page-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--amber-bright);
+  outline: none;
+}
+.page-card .icon-bar { height: 5px; margin: -18px -18px 14px; }
+.page-card .status {
+  position: absolute;
+  top: 14px; right: 14px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+.page-card .status.ready { color: var(--grass); }
+.page-card h3 { color: var(--ink); font-size: 1.05rem; margin: 0 0 6px; padding-right: 60px; }
+.page-card p { color: var(--ink-soft); font-size: 0.88rem; margin: 0; }
+.page-card .card-progress {
+  margin-top: 12px;
+  height: 6px;
+  background: var(--slot);
+  border: 1px solid var(--slot-border);
+  overflow: hidden;
+}
+.page-card .card-progress-fill { height: 100%; background: var(--diamond); }
+
+.bar-mining { background: var(--diamond); }
+.bar-farms { background: var(--grass); }
+.bar-redstone { background: var(--redstone); }
+.bar-enchant { background: var(--lapis); }
+.bar-nether { background: var(--netherite); }
+.bar-end { background: #6a3a9e; }
+.bar-villager { background: var(--gold); }
+.bar-building { background: var(--amber); }
+
+.coming-soon { opacity: 0.6; cursor: default; }
+.coming-soon:hover { transform: none; border-color: var(--panel-border); }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Java Edition &middot; Interactive Reference</div>
+    <h1>Stronghold Route</h1>
+    <p>Our guide to both worlds: survival strategy researched against the Minecraft Wiki and community testing, plus how to use every mod we've installed. Check things off as you go. Checkmarks are saved in your browser, so each device keeps its own.</p>
+    <div class="hero-meta">
+      <span class="badge">OUR WORLD &middot; 26.3</span>
+      <span class="badge">COBBLEMON &middot; 1.21.1</span>
+      <span class="badge">SOURCED &amp; CITED</span>
+    </div>
+    <div class="overall-progress">
+      <div class="overall-track"><div class="overall-fill" id="overall-fill" style="width:0%"></div></div>
+      <span id="overall-label">0% complete overall</span>
+    </div>
+  </div>
+
+  <a class="page-card" href="roadmap.html" data-page="roadmap" style="display:flex; gap:16px; align-items:center; margin-bottom:24px; padding:20px;">
+    <div style="flex:1; min-width:0;">
+      <span class="status ready" style="position:static; display:inline-block; margin-bottom:8px;">READY</span>
+      <h3 style="font-size:1.2rem; padding-right:0; margin:0 0 6px;">🗺️ The Full Route — Progression Map</h3>
+      <p>Every milestone, structure, boss, and destination from first crafting table to post-game, organized by stage: Early / Mid / Late / Post-game.</p>
+      <div class="card-progress" style="margin-top:10px;"><div class="card-progress-fill" id="progress-roadmap" style="width:0%; background: #6a3a9e;"></div></div>
+    </div>
+  </a>
+
+  <div class="section-label">Deep-Dive Pages</div>
+  <div class="page-grid">
+
+    <a class="page-card" href="mining.html" data-page="mining">
+      <div class="icon-bar bar-mining"></div>
+      <span class="status ready">READY</span>
+      <h3>⛏️ The Diamond Depths</h3>
+      <p>Ore Y-levels, branch spacing math, Fortune vs. Silk Touch, and expert-tier blast mining with real risk trade-offs.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-mining" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="iron.html" data-page="iron">
+      <div class="icon-bar" style="background:#9a6a3a;"></div>
+      <span class="status ready">READY</span>
+      <h3>🔩 The Iron Supply</h3>
+      <p>Mountain-peak vs. underground mining, exact iron golem farm mechanics (zombie and zombie-free), real production rates, and troubleshooting.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-iron" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="caving.html" data-page="caving">
+      <div class="icon-bar" style="background:#3a6e5a;"></div>
+      <span class="status ready">READY</span>
+      <h3>🕳️ Reading the Dark</h3>
+      <p>Why post-1.18 caves became real expeditions, biome differences, caving vs. branch mining, and surviving the Deep Dark and the Warden.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-caving" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="copper.html" data-page="copper">
+      <div class="icon-bar" style="background:#c26a3f;"></div>
+      <span class="status ready">READY</span>
+      <h3>🔔 The Copper Age</h3>
+      <p>Oxidation and waxing, Copper Bulbs as built-in toggle memory, and the Copper Golem's redstone-free item sorting.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-copper" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="farms.html" data-page="farms">
+      <div class="icon-bar bar-farms"></div>
+      <span class="status ready">READY</span>
+      <h3>🌾 The Farm Stack</h3>
+      <p>The correct build order — food, iron, sugar cane, mob XP, villager breeding — with real specs and sourced rates.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-farms" style="width:0%"></div></div>
+    </a>
+
+    <div class="page-card coming-soon">
+      <div class="icon-bar bar-redstone"></div>
+      <span class="status">IN RESEARCH</span>
+      <h3>🔴 Redstone Circuits</h3>
+      <p>Fundamentals (repeaters, comparators, logic gates) through basic/intermediate/expert builds.</p>
+    </div>
+
+    <a class="page-card" href="enchanting.html" data-page="enchanting">
+      <div class="icon-bar bar-enchant"></div>
+      <span class="status ready">READY</span>
+      <h3>📖 The Rush to Mending</h3>
+      <p>The fastest legitimate path to Mending, enchant priority tiers, trading hall design, and the zombie-discount/anvil-order tricks.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-enchanting" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="exploration.html" data-page="exploration">
+      <div class="icon-bar" style="background:#3a7ea8;"></div>
+      <span class="status ready">READY</span>
+      <h3>🧭 Beyond the Horizon</h3>
+      <p>Finding villages fast, village biomes, real travel speed comparisons, horse taming/breeding, and late-game transport.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-exploration" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="mods.html" data-page="mods">
+      <div class="icon-bar" style="background:#8a6fa8;"></div>
+      <span class="status ready">READY</span>
+      <h3>🧶 Cotton &amp; Cookpots</h3>
+      <p>Our installed mods: wool and cotton to string, the Farmer's Delight kitchen, wild crops, and every recipe from the mod files.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-mods" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="cobblemon.html" data-page="cobblemon">
+      <div class="icon-bar" style="background:#c0392b;"></div>
+      <span class="status ready">READY</span>
+      <h3>⚪ Pokémon Trail</h3>
+      <p>Our Cobblemon world: starters, catching, battling, healing, storage, maps, with recipes from the mod files.</p>
+      <div class="card-progress"><div class="card-progress-fill" id="progress-cobblemon" style="width:0%"></div></div>
+    </a>
+
+    <a class="page-card" href="controls.html" data-page="controls">
+      <div class="icon-bar" style="background:#7a7161;"></div>
+      <span class="status ready">READY</span>
+      <h3>⌨️ Every Key</h3>
+      <p>Every mod key in both worlds, the overlaps (and why they're fine), and managing texture packs.</p>
+    </a>
+
+    <div class="page-card coming-soon">
+      <div class="icon-bar bar-nether"></div>
+      <span class="status">IN RESEARCH</span>
+      <h3>🔥 The Nether &amp; Netherite</h3>
+      <p>Fortresses, bastions, piglin bartering routes, and the fastest safe path to full netherite gear.</p>
+    </div>
+
+    <div class="page-card coming-soon">
+      <div class="icon-bar bar-end"></div>
+      <span class="status">IN RESEARCH</span>
+      <h3>🐉 The End Fight</h3>
+      <p>Stronghold-finding, crystal strategy, the bed trick, and post-game goals once the dragon's dead.</p>
+    </div>
+
+    <div class="page-card coming-soon">
+      <div class="icon-bar bar-villager"></div>
+      <span class="status">IN RESEARCH</span>
+      <h3>🧑‍🌾 Villager Trading &amp; Breeding</h3>
+      <p>Trading hall design, profession locking, breeders, and which trades are worth farming.</p>
+    </div>
+
+    <div class="page-card coming-soon">
+      <div class="icon-bar bar-building"></div>
+      <span class="status">IN RESEARCH</span>
+      <h3>🏠 Building &amp; Aesthetics</h3>
+      <p>Practical base design, lighting for mob-proofing, and simple techniques for builds that don't look blocky.</p>
+    </div>
+
+  </div>
+
+  <footer>Diamond found at Y −59 · mods and setup: <a href="https://github.com/av1017/minecraft-modpack" style="color:inherit;">github.com/av1017/minecraft-modpack</a></footer>
+
+</div>
+
+<script>
+(function () {
+  var PAGES = ['mining', 'farms', 'redstone', 'enchanting', 'nether', 'end', 'villagers', 'building'];
+
+  async function computeProgress(page, expectedIds) {
+    // Local fallback first
+    var local = 0, localTotal = expectedIds.length;
+    try {
+      var raw = localStorage.getItem('mc-guide-' + page + '-progress-fallback');
+      if (raw) {
+        var state = JSON.parse(raw);
+        expectedIds.forEach(function (id) { if (state[id]) local++; });
+      }
+    } catch (e) {}
+    return { done: local, total: localTotal };
+  }
+
+  var PAGE_IDS = {
+    mining: ['basic-1','basic-2','basic-3','basic-4','basic-5','inter-1','inter-2','inter-3','inter-4','expert-1','expert-2','expert-3','nether-1','nether-2','nether-3','nether-4','nether-5'],
+    iron: ['basic-1','basic-2','basic-3','basic-4','inter-1','inter-2','inter-3','inter-4','inter-5','expert-1','expert-2','expert-3','expert-4'],
+    caving: ['basic-1','basic-2','basic-3','basic-4','basic-5','inter-1','inter-2','inter-3','expert-1','expert-2','expert-3','expert-4','expert-5'],
+    copper: ['basic-1','basic-2','ox-1','ox-2','ox-3','ox-4','inter-1','inter-2','inter-3','expert-1','expert-2','expert-3','expert-4','expert-5'],
+    enchanting: ['basic-1','basic-2','basic-3','inter-1','inter-2','inter-3','inter-4','expert-1','expert-2','expert-3','expert-4'],
+    exploration: ['inter-1','inter-2','inter-3','inter-4','inter-5','expert-1','expert-2','expert-3','expert-4'],
+    farms: ['food-1','food-2','food-3','food-4','food-5','iron-1','cane-1','cane-2','cane-3','cane-4','cane-5','mob-1','mob-2','mob-3','mob-4','mob-5','mob-6','vill-1','vill-2','vill-3','vill-4','vill-5','vill-6'],
+    roadmap: ['eg-1','eg-2','eg-3','eg-4','ei-1','ei-2','ei-3','ep-1','ep-2','mg-1','mg-2','mg-3','mg-4','mi-1','mi-2','mi-3','mp-1','mp-2','mp-3','lp-1','lp-2','lp-3','lg-1','lg-2','pg-1','pg-2','pg-3','pp-1','pp-2','pp-3'],
+    mods: ['wool-1','wool-2','rustic-1','rustic-2','rustic-3','rustic-4','fd-1','fd-2','fd-3','fd-4','fd-5','fd-6','fd-7','inv-1','inv-2','inv-3','inv-4'],
+    cobblemon: ['start-1','start-2','start-3','catch-1','catch-2','catch-3','battle-1','battle-2','heal-1','heal-2','maps-1']
+  };
+
+  async function render() {
+    var totalDone = 0, totalAll = 0;
+
+    for (var page in PAGE_IDS) {
+      var ids = PAGE_IDS[page];
+      var result = await computeProgress(page, ids);
+      var done = result.done, total = result.total;
+
+      try {
+        if (window.claude && window.claude.use) {
+          var user = await window.claude.use('user');
+          var db = await window.claude.use('db');
+          if (db && user) {
+            var uid = await user.id();
+            if (uid) {
+              var docRef = db.doc('data/users/' + uid + '/progress/' + page);
+              var snap = await docRef.get();
+              if (snap.exists) {
+                var remote = snap.data() || {};
+                done = 0;
+                ids.forEach(function (id) { if (remote[id]) done++; });
+              }
+            }
+          }
+        }
+      } catch (e) { /* fallback value already set */ }
+
+      var pct = total ? Math.round((done / total) * 100) : 0;
+      var bar = document.getElementById('progress-' + page);
+      if (bar) bar.style.width = pct + '%';
+
+      totalDone += done;
+      totalAll += total;
+    }
+
+    var overallPct = totalAll ? Math.round((totalDone / totalAll) * 100) : 0;
+    document.getElementById('overall-fill').style.width = overallPct + '%';
+    document.getElementById('overall-label').textContent = overallPct + '% complete overall (12 pages live)';
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

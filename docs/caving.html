@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading the Dark</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+
+:root {
+  --stone: #e8e5dc;
+  --stone-deep: #d4cfc0;
+  --ink: #241f16;
+  --ink-soft: #4a4234;
+  --ink-faint: #7a7161;
+  --panel: #f4f1e8;
+  --panel-border: #b8ae95;
+  --slot: #ffffff;
+  --slot-border: #a89d80;
+  --amber: #b8720f;
+  --amber-bright: #e8a33d;
+  --cave: #3a6e5a;
+  --cave-bg: #dcede6;
+  --lush: #5d8a3a;
+  --lush-bg: #e6f0da;
+  --dripstone: #9a6a3a;
+  --dripstone-bg: #f2e6d3;
+  --deepdark: #4a3b5e;
+  --deepdark-bg: #e6e0f0;
+  --danger: #a82f2f;
+  --danger-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18);
+  --link: #2f5fa8;
+  --basic: #4a7a2e;
+  --basic-bg: #e6f0da;
+  --inter: #b8720f;
+  --inter-bg: #f7ead2;
+  --expert: #a82f2f;
+  --expert-bg: #fbe5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #131612;
+    --stone-deep: #0c0e0b;
+    --ink: #e6ece6;
+    --ink-soft: #a8b3a8;
+    --ink-faint: #78826f;
+    --panel: #1b201c;
+    --panel-border: #3a4438;
+    --slot: #232922;
+    --slot-border: #4a5548;
+    --amber: #e8a33d;
+    --amber-bright: #ffc466;
+    --cave: #5eab8f;
+    --cave-bg: #16302a;
+    --lush: #8fc466;
+    --lush-bg: #1c2a15;
+    --dripstone: #d3a878;
+    --dripstone-bg: #332a1c;
+    --deepdark: #9f8fc4;
+    --deepdark-bg: #241d33;
+    --danger: #e0605a;
+    --danger-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.55);
+    --link: #7fb0e0;
+    --basic: #7cb84f;
+    --basic-bg: #1e2c17;
+    --inter: #e8a33d;
+    --inter-bg: #332711;
+    --expert: #e0605a;
+    --expert-bg: #3a1c1a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --stone: #131612;
+  --stone-deep: #0c0e0b;
+  --ink: #e6ece6;
+  --ink-soft: #a8b3a8;
+  --ink-faint: #78826f;
+  --panel: #1b201c;
+  --panel-border: #3a4438;
+  --slot: #232922;
+  --slot-border: #4a5548;
+  --amber: #e8a33d;
+  --amber-bright: #ffc466;
+  --cave: #5eab8f;
+  --cave-bg: #16302a;
+  --lush: #8fc466;
+  --lush-bg: #1c2a15;
+  --dripstone: #d3a878;
+  --dripstone-bg: #332a1c;
+  --deepdark: #9f8fc4;
+  --deepdark-bg: #241d33;
+  --danger: #e0605a;
+  --danger-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.55);
+  --link: #7fb0e0;
+  --basic: #7cb84f;
+  --basic-bg: #1e2c17;
+  --inter: #e8a33d;
+  --inter-bg: #332711;
+  --expert: #e0605a;
+  --expert-bg: #3a1c1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding-inline: 20px;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 24px 90px; }
+
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+
+a { color: var(--link); }
+
+.crumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.78rem;
+  color: var(--ink-faint); margin-bottom: 18px; flex-wrap: wrap;
+}
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.crumb a:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero {
+  position: relative;
+  border: 4px solid var(--panel-border);
+  background: var(--panel);
+  padding: 26px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Space Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cave); margin-bottom: 12px;
+}
+.eyebrow .pip { width: 8px; height: 8px; background: var(--cave); box-shadow: 0 0 0 2px var(--stone-deep) inset; }
+
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+
+.progress-wrap {
+  margin-top: 18px; display: flex; align-items: center; gap: 12px;
+  font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft);
+}
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); position: relative; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--cave); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.tier-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tier-nav a {
+  font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px;
+  border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none;
+}
+.tier-nav a:hover, .tier-nav a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+
+.panel {
+  background: var(--panel); border: 3px solid var(--panel-border);
+  padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow);
+  scroll-margin-top: 20px;
+}
+
+.tier-tag { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 4px 10px; margin-bottom: 10px; }
+.tier-tag.basic { color: var(--basic); background: var(--basic-bg); }
+.tier-tag.inter { color: var(--inter); background: var(--inter-bg); }
+.tier-tag.expert { color: var(--expert); background: var(--expert-bg); }
+
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+
+ul.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--slot); border: 2px solid var(--slot-border);
+  padding: 11px 13px; font-size: 0.95rem; cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+ul.tasks li:hover { border-color: var(--amber-bright); }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  border: 2px solid var(--amber); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 12px; font-weight: 700;
+}
+li.done .checkbox { background: var(--amber); }
+.task-text strong { color: var(--ink); }
+.task-text .src { font-size: 0.8rem; color: var(--ink-faint); margin-left: 4px; }
+.task-text .src a { color: var(--ink-faint); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.task-text .src a:hover { color: var(--link); border-color: var(--link); }
+
+.biome-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 4px 0 6px; }
+.biome-card { border: 2px solid var(--slot-border); background: var(--slot); padding: 14px 15px; display: flex; flex-direction: column; gap: 6px; }
+.biome-card .name { font-family: "Silkscreen", monospace; font-size: 0.85rem; }
+.biome-card .yrange { font-family: "Space Mono", monospace; font-size: 0.76rem; color: var(--ink-faint); }
+.biome-card .desc { font-size: 0.88rem; color: var(--ink-soft); }
+.biome-card.b-lush .name { color: var(--lush); }
+.biome-card.b-dripstone .name { color: var(--dripstone); }
+.biome-card.b-deepdark .name { color: var(--deepdark); }
+.biome-card.b-deepdark { border-color: var(--deepdark); background: var(--deepdark-bg); }
+
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.cave { border-left-color: var(--cave); }
+
+.tradeoff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 14px 0 4px; }
+.tradeoff-card { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px 14px; }
+.tradeoff-card .label { font-family: "Silkscreen", monospace; font-size: 0.7rem; color: var(--cave); margin-bottom: 6px; display: block; }
+.tradeoff-card .stat { font-family: "Space Mono", monospace; font-size: 1.1rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tradeoff-card .note { font-size: 0.83rem; color: var(--ink-soft); margin-top: 4px; }
+
+.diagram-box { background: var(--slot); border: 2px solid var(--slot-border); padding: 16px; margin: 14px 0; overflow-x: auto; }
+.diagram-box svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.diagram-caption { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb">
+    <a href="index.html">&larr; Stronghold Route</a>
+    <span>/</span>
+    <span>Caving</span>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pip"></span>Deep Dive &middot; Verified for 26.3</div>
+    <h1>Reading the Dark</h1>
+    <p>Since the 1.18 Caves &amp; Cliffs overhaul, caves stopped being tunnels you dig past and became actual terrain to explore — bigger, more resource-dense, and genuinely dangerous in new ways. This is the strategic side of mining that branch mining alone misses.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="tier-nav">
+    <a href="#why">Why It Changed</a>
+    <a href="#basic">Basic — Reading Terrain</a>
+    <a href="#biomes">Cave Biomes</a>
+    <a href="#intermediate">Intermediate — Hybrid Strategy</a>
+    <a href="#expert">Expert — Deep Dark &amp; the Warden</a>
+  </nav>
+
+  <!-- WHY -->
+  <section class="panel" id="why">
+    <h2>Why Caving Became a Real Strategy</h2>
+    <p class="sub">Before 1.18, caves were small, disconnected tunnel systems — not worth building a strategy around. That changed completely.</p>
+    <div class="callout cave">
+      <strong>The core shift:</strong> caves generate as huge, interconnected cavern networks now, often running from near the surface all the way down past Y 0. That means a single good cave entrance can hand you coal, iron, copper, and a run at diamond territory without you digging a single block — you're navigating existing space instead of carving new space.
+      <div class="src"><a href="https://minecraft.how/blog/post/minecraft-caves-cliffs-guide" target="_blank" rel="noopener">Source: Minecraft Caves & Cliffs 2026 guide</a></div>
+    </div>
+    <div class="callout" style="margin-top:10px;">
+      <strong>Community framing in 2026:</strong> "smart play" treats caves as mini expeditions, not tunnels — scout terrain and openings first, then decide if a cave is worth the risk versus a targeted branch-mining run. Players who still treat every cave like an old strip-mine tunnel progress slower and die more.
+      <div class="src"><a href="https://minecraft.how/blog/post/minecraft-caves-cliffs-guide" target="_blank" rel="noopener">Source: community strategy consensus, 2026</a></div>
+    </div>
+  </section>
+
+  <!-- BASIC -->
+  <section class="panel" id="basic">
+    <span class="tier-tag basic">BASIC</span>
+    <h2>Reading Terrain &amp; Not Getting Lost</h2>
+    <p class="sub">The two skills that matter before anything else: spotting good entrances, and finding your way back out.</p>
+    <ul class="tasks" data-group="caving-basic">
+      <li data-id="basic-1"><span class="checkbox"></span><span class="task-text">Look for entrances at the base of cliffs, in ravines, and inside mountain sides — these tend to connect to the largest interior cave networks rather than small pockets.</span></li>
+      <li data-id="basic-2"><span class="checkbox"></span><span class="task-text"><strong>Torch-side convention:</strong> place torches on your left wall going in; on the way out, keep torches on your right and you're automatically heading toward the exit. Simple, and it works without any map at all. <span class="src">(<a href="https://minecraft.wiki/w/Tutorials/Exploring_caves" target="_blank" rel="noopener">source</a>)</span></span></li>
+      <li data-id="basic-3"><span class="checkbox"></span><span class="task-text">Bring more torches than you think you need — light doubles as a mob-prevention tool and a breadcrumb trail at the same time.</span></li>
+      <li data-id="basic-4"><span class="checkbox"></span><span class="task-text">Carry blocks to wall off side passages you're not exploring yet — keeps hostile mobs from flanking you from unexplored tunnels while you're focused elsewhere.</span></li>
+      <li data-id="basic-5"><span class="checkbox"></span><span class="task-text">A water bucket solves two cave problems at once: safe falls into pits, and instant lava control if you break into an underground lake.</span></li>
+    </ul>
+  </section>
+
+  <!-- BIOMES -->
+  <section class="panel" id="biomes">
+    <h2>The Cave Biomes — What You're Actually Walking Into</h2>
+    <p class="sub">Not all caves are the same space with different scenery — each biome has real resource and risk differences worth knowing before you commit to exploring one.</p>
+    <div class="biome-grid">
+      <div class="biome-card b-lush">
+        <span class="name">🌿 Lush Caves</span>
+        <span class="yrange">Y 0 to Y −64</span>
+        <span class="desc">Moss, azaleas, glow berries providing natural light, and easier water movement. Generates beneath high-humidity biomes (swamp, jungle, dark forest). Good for clay and a pleasant, low-risk detour.</span>
+      </div>
+      <div class="biome-card b-dripstone">
+        <span class="name">🪨 Dripstone Caves</span>
+        <span class="yrange">Y 8 to Y −64</span>
+        <span class="desc">Stalactite/stalagmite terrain, among the deepest cave biomes. Comparatively high copper density. Good for renewable lava setups and mud-to-clay farms.</span>
+      </div>
+      <div class="biome-card b-deepdark">
+        <span class="name">🕳️ Deep Dark</span>
+        <span class="yrange">Deep underground, sculk-covered</span>
+        <span class="desc">The high-risk, high-reward biome — see the Expert section below before entering. Ancient City structures here hold some of the best loot in the game, guarded by the Warden.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERMEDIATE -->
+  <section class="panel" id="intermediate">
+    <span class="tier-tag inter">INTERMEDIATE</span>
+    <h2>Caving vs. Branch Mining — the Real Trade-off</h2>
+    <p class="sub">This isn't "which is better" — it's a variance trade-off, and the honest answer is most experienced players run both.</p>
+    <div class="tradeoff-grid">
+      <div class="tradeoff-card"><span class="label">BRANCH MINING</span><span class="stat">Low variance</span><div class="note">Predictable, steady ore over time at a chosen Y-level. Boring but reliable — you know roughly what an hour of it gets you.</div></div>
+      <div class="tradeoff-card"><span class="label">CAVE EXPLORING</span><span class="stat">High variance</span><div class="note">Can massively outpace branch mining if you find a large, ore-rich cavern — or turn up comparatively little if the cave you're in is thin. Better jackpot potential, worse consistency.</div></div>
+    </div>
+    <div class="src" style="margin-top:6px; display:block;"><a href="https://www.minecraftforum.net/forums/minecraft-java-edition/discussion/2327472-caving-vs-branch-mining" target="_blank" rel="noopener">Source: community mining-rate discussion threads</a></div>
+
+    <div class="diagram-box" style="margin-top:16px;">
+      <svg viewBox="0 0 640 150" role="img" aria-labelledby="hybrid-title hybrid-desc">
+        <title id="hybrid-title">Hybrid session split</title>
+        <desc id="hybrid-desc">A recommended session split: roughly 12 minutes branch mining paired with 8 minutes cave exploring, repeated.</desc>
+        <g transform="translate(20,30)">
+          <rect x="0" y="0" width="360" height="34" fill="var(--amber)" opacity="0.85"/>
+          <text x="180" y="22" text-anchor="middle" font-family="Space Mono, monospace" font-size="13" fill="var(--stone-deep)">BRANCH MINE — ~12 min</text>
+          <rect x="368" y="0" width="240" height="34" fill="var(--cave)" opacity="0.85"/>
+          <text x="488" y="22" text-anchor="middle" font-family="Space Mono, monospace" font-size="13" fill="var(--stone-deep)">CAVE — ~8 min</text>
+        </g>
+        <text x="20" y="100" font-family="Public Sans, sans-serif" font-size="13" fill="var(--ink-soft)">Repeat the cycle: steady baseline ore from branch mining, occasional</text>
+        <text x="20" y="120" font-family="Public Sans, sans-serif" font-size="13" fill="var(--ink-soft)">jackpot veins from whatever cave you happen to break into along the way.</text>
+      </svg>
+      <p class="diagram-caption">A commonly recommended hybrid split — adjust the ratio to taste, the point is not committing 100% to either method.</p>
+    </div>
+
+    <ul class="tasks" data-group="caving-intermediate" style="margin-top:16px;">
+      <li data-id="inter-1"><span class="checkbox"></span><span class="task-text">Run a hybrid session: branch mine as your steady baseline, and detour into any cave opening your tunnel breaks into before sealing it back up.</span></li>
+      <li data-id="inter-2"><span class="checkbox"></span><span class="task-text">Branch mining around <strong>Y −58</strong> with wider spacing pairs well with caving, since diamond-bearing caves cluster in roughly the <strong>Y −54 to −57</strong> range too — you're likely to intersect real cave systems while branch mining at diamond depth anyway.</span></li>
+      <li data-id="inter-3"><span class="checkbox"></span><span class="task-text">Treat cave diamond veins as a bonus, not a plan — the variance means a bad session can turn up little, so don't rely on caving alone if you're on a deadline (e.g. gearing up for a specific goal).</span></li>
+    </ul>
+  </section>
+
+  <!-- EXPERT -->
+  <section class="panel" id="expert">
+    <span class="tier-tag expert">EXPERT</span>
+    <h2>The Deep Dark &amp; the Warden</h2>
+    <p class="sub">The best loot in the cave system sits behind the single most dangerous mob in vanilla Minecraft. Here's exactly what you're dealing with.</p>
+    <div class="tradeoff-grid">
+      <div class="tradeoff-card"><span class="label">WARDEN DAMAGE</span><span class="stat">Up to 6 hearts/hit</span><div class="note">On Normal difficulty, a single hit can deal roughly 6 hearts of damage — full diamond armor does not make this fight winnable head-on.</div></div>
+      <div class="tradeoff-card"><span class="label">WARDEN HEALTH</span><span class="stat">250 HP</span><div class="note">For scale: a player has 20 HP. The Warden is not designed to be killed — it's designed to be avoided.</div></div>
+      <div class="tradeoff-card"><span class="label">SPAWN TRIGGER</span><span class="stat">4 shrieks</span><div class="note">A sculk shrieker must be triggered 4 times (via nearby sculk sensors detecting you) before a Warden spawns.</div></div>
+    </div>
+    <div class="src" style="margin-top:6px; display:block;"><a href="https://sportskeeda.com/minecraft/how-avoid-warden-exploring-deep-dark-caves-minecraft" target="_blank" rel="noopener">Source: community Deep Dark safety guides</a></div>
+
+    <ul class="tasks" data-group="caving-expert" style="margin-top:16px;">
+      <li data-id="expert-1"><span class="checkbox"></span><span class="task-text"><strong>Always crouch/sneak</strong> while in the Deep Dark — sculk sensors do not detect a sneaking player, which is the single most important rule of this biome.</span></li>
+      <li data-id="expert-2"><span class="checkbox"></span><span class="task-text">Place <strong>wool blocks</strong> under your feet before crossing sculk-covered ground you can't avoid — walking on wool doesn't trigger sensors even without crouching, useful when you need to move quickly.</span></li>
+      <li data-id="expert-3"><span class="checkbox"></span><span class="task-text">If you must destroy a sculk sensor or shrieker, do it <strong>while crouching</strong> — this prevents it from registering the disturbance and contributing toward a Warden spawn.</span></li>
+      <li data-id="expert-4"><span class="checkbox"></span><span class="task-text">The correct response to a Warden appearing is <strong>run, don't fight</strong> — break line of sight, throw a projectile only as a last-resort distraction, and put as much distance as possible between you and it immediately.</span></li>
+      <li data-id="expert-5"><span class="checkbox"></span><span class="task-text">Ancient Cities (the structure found in Deep Dark biomes) hold some of the game's best loot — but plan an entry and exit route in advance rather than exploring freely, since panicked movement is what triggers most accidental Warden spawns.</span></li>
+    </ul>
+  </section>
+
+  <footer>Sources checked against the Minecraft Wiki and community strategy guides, current as of Sept 2026</footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'mc-guide-caving-progress-fallback';
+  var db = null;
+  var docRef = null;
+  var localState = {};
+
+  function loadLocalFallback() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveLocalFallback(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function renderState(state) {
+    var items = document.querySelectorAll('ul.tasks li[data-id]');
+    var total = items.length;
+    var done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var checked = !!state[id];
+      li.classList.toggle('done', checked);
+      var box = li.querySelector('.checkbox');
+      box.textContent = checked ? '✓' : '';
+      if (checked) done++;
+    });
+    var pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' checked';
+  }
+
+  function toggle(id) {
+    localState[id] = !localState[id];
+    renderState(localState);
+    if (db && docRef) {
+      var field = {};
+      field[id] = localState[id];
+      docRef.update(field).catch(function () {
+        docRef.set(localState).catch(function () {});
+      });
+    } else {
+      saveLocalFallback(localState);
+    }
+  }
+
+  document.querySelectorAll('ul.tasks li[data-id]').forEach(function (li) {
+    li.addEventListener('click', function () {
+      toggle(li.getAttribute('data-id'));
+    });
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'checkbox');
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(li.getAttribute('data-id'));
+      }
+    });
+  });
+
+  localState = loadLocalFallback();
+  renderState(localState);
+
+  async function initDb() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      var user = await window.claude.use('user');
+      db = await window.claude.use('db');
+      if (!db) return;
+      var uid = user ? await user.id() : null;
+      if (!uid) return;
+      docRef = db.doc('data/users/' + uid + '/progress/caving');
+      var snap = await docRef.get();
+      if (snap.exists) {
+        var remote = snap.data() || {};
+        localState = Object.assign({}, localState, remote);
+        renderState(localState);
+      }
+      docRef.onSnapshot(function (s) {
+        if (s.exists) {
+          localState = s.data() || {};
+          renderState(localState);
+        }
+      });
+    } catch (e) {
+      /* db unavailable — local-only fallback already active */
+    }
+  }
+  initDb();
+})();
+</script>
+</body>
+</html>

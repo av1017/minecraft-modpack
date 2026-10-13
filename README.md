@@ -1,5 +1,7 @@
 # Our Minecraft modpacks
 
+**Guide website:** https://av1017.github.io/minecraft-modpack/ (mods, controls, Cobblemon, survival strategy)
+
 Mod lists for the Minecraft worlds we play together over LAN. Every PC syncs from this repo, so everyone has the same mods.
 
 The repo stores **lists** of mods, not the mod files. The sync script downloads each mod from Modrinth, as the mod authors require, and checks it against a SHA-1 checksum before installing it.
