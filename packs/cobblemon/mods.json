@@ -171,6 +171,17 @@
       "side": "both"
     },
     {
+      "name": "Lithostitched",
+      "slug": "lithostitched",
+      "project_id": "XaDC71GB",
+      "version_id": "eN30OQaU",
+      "version": "1.8.0-fabric-21.1",
+      "filename": "lithostitched-1.8.0-fabric-21.1.jar",
+      "url": "https://cdn.modrinth.com/data/XaDC71GB/versions/eN30OQaU/lithostitched-1.8.0-fabric-21.1.jar",
+      "sha1": "634f580a0ee75a558ce6560101cd838c4d35471d",
+      "side": "both"
+    },
+    {
       "name": "Radical Cobblemon Trainers",
       "slug": "rctmod",
       "project_id": "lRwTUnD7",
@@ -223,6 +234,17 @@
       "filename": "rusticdelight-fabric-1.21.1-1.7.1.jar",
       "url": "https://cdn.modrinth.com/data/foa4fGIH/versions/VAEiChba/rusticdelight-fabric-1.21.1-1.7.1.jar",
       "sha1": "ba071c28fc3827590725921a2a0380d23bf22b95",
+      "side": "both"
+    },
+    {
+      "name": "Terralith",
+      "slug": "terralith",
+      "project_id": "8oi3bsk5",
+      "version_id": "eWDLFabb",
+      "version": "2.6.2",
+      "filename": "Terralith_1.21.x_v2.6.2.jar",
+      "url": "https://cdn.modrinth.com/data/8oi3bsk5/versions/eWDLFabb/Terralith_1.21.x_v2.6.2.jar",
+      "sha1": "c200e0c01f48aecd7f34c4be337d8ff65b60c2dc",
       "side": "both"
     },
     {
