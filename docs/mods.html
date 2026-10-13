@@ -267,9 +267,9 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
     <p>What the mods on our Fabric profile actually add, and how to start using them. Every recipe on this page was read straight from the installed mod files, so what's shown here matches what you'll see in-game.</p>
     <div class="meta-row">
       <span class="badge">PROFILE: FABRIC 26.3 (MODDED)</span>
-      <span class="badge">3 GAMEPLAY MODS</span>
+      <span class="badge">4 GAMEPLAY MODS</span>
       <span class="badge">3 INVENTORY MODS</span>
-      <span class="badge">6 LIBRARIES</span>
+      <span class="badge">VISUALS + SHADERS</span>
     </div>
     <div class="progress-wrap">
       <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
@@ -283,6 +283,7 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
     <a href="#rustic">Rustic Delight</a>
     <a href="#farmers">Farmer's Delight</a>
     <a href="#inventory">Inventory Sorting</a>
+    <a href="#new">October Additions</a>
     <a href="#libs">Libraries</a>
   </nav>
 
@@ -499,6 +500,28 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
     </ul>
   </section>
 
+  <!-- OCTOBER ADDITIONS -->
+  <section class="panel" id="new">
+    <span class="mod-tag farm">NEW IN OCTOBER</span>
+    <h2>October Additions</h2>
+    <p class="sub">Added to Our World alongside the Cobblemon world. The portal gun is Cobblemon-only, since no portal gun mod exists for 26.3 yet.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <thead><tr><th>Mod</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Traveler's Backpack</strong></td><td>A wearable backpack: extra storage, two fluid tanks, a sleeping bag, tool slots, and upgrades. Crafted from 4 leather, string, 2 Backpack Tanks (glass + iron), a chest, and a sleeping bag; the recipe book shows the layout. Its open key should be <strong>B</strong> in this world; check Controls after the first launch. Gameplay mod: both PCs need it.</td></tr>
+          <tr><td><strong>Distant Horizons</strong></td><td>Draws land far past your render distance as simplified terrain, so the horizon is full of mountains instead of fog. The first trip through an area makes the PC work harder while it builds that terrain. Settings: <strong>Mods &rarr; Distant Horizons</strong>.</td></tr>
+          <tr><td><strong>First-person Model</strong></td><td>Look down and you see your own body and legs. <strong>F6</strong> turns it off. Uses Not Enough Animations for smoother arm and item animations.</td></tr>
+          <tr><td><strong>Iris + Complementary</strong></td><td>Shaders: real shadows, warm light, reflective water. <strong>K</strong> toggles them. Along with Faithful 32x and the other texture packs, see <a href="visuals.html">Light &amp; Texture</a>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tasks">
+      <li data-id="new-pack"><span class="checkbox"></span><span class="task-text">Craft a Traveler's Backpack and find its open key in Controls</span></li>
+      <li data-id="new-dh"><span class="checkbox"></span><span class="task-text">Check the horizon from a high spot (Distant Horizons)</span></li>
+    </ul>
+  </section>
+
   <!-- LIBRARIES -->
   <section class="panel" id="libs">
     <span class="mod-tag lib">LIBRARIES</span>
@@ -514,13 +537,18 @@ ol.flow li::before { position: absolute; left: 13px; top: 11px; }
       <div class="lib-card"><div class="lname">Sodium</div><div class="lwhy">Faster rendering: higher, steadier framerate. Runs on your PC only.</div></div>
       <div class="lib-card"><div class="lname">Lithium</div><div class="lwhy">Speeds up the world simulation. Helps most on the PC hosting the LAN world.</div></div>
       <div class="lib-card"><div class="lname">FerriteCore</div><div class="lwhy">Cuts how much memory Minecraft needs.</div></div>
+      <div class="lib-card"><div class="lname">Forge Config API Port</div><div class="lwhy">Settings files. Required by Traveler's Backpack.</div></div>
+      <div class="lib-card"><div class="lname">YetAnotherConfigLib</div><div class="lwhy">Settings screens. Required by Skyboxify.</div></div>
+      <div class="lib-card"><div class="lname">Skyboxify</div><div class="lwhy">Shows custom skies from texture packs (Dramatic Skys).</div></div>
+      <div class="lib-card"><div class="lname">EMF + ETF</div><div class="lwhy">Entity Model and Texture Features. Required by Fresh Animations.</div></div>
+      <div class="lib-card"><div class="lname">Not Enough Animations</div><div class="lwhy">Smoother first-person animations. Required by First-person Model.</div></div>
     </div>
     <div class="callout">
-      <strong>Playing together:</strong> for LAN to connect, your girlfriend's PC needs the three gameplay mods plus Fabric API, Cloth Config, and Collective. The inventory mods are optional for her. The full list and file names are in <code>minecraftServer/MODS.md</code>.
+      <strong>Playing together:</strong> for LAN to connect, both PCs need the same gameplay mods (Wool Tweaks, Farmer's Delight, Rustic Delight, Traveler's Backpack) and their libraries. The sync installs everything on both PCs anyway, so running it is all either of you needs to do. The full list, with versions, is in the modpack's <code>packs/our-world/mods.json</code>.
     </div>
   </section>
 
-  <footer>Recipes read from the installed mod files &middot; mechanics from each mod's official page and wiki &middot; Sept 2026</footer>
+  <footer>Recipes read from the installed mod files &middot; mechanics from each mod's official page and wiki &middot; Sept&ndash;Oct 2026</footer>
 
 </div>
 

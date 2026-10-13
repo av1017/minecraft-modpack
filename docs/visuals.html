@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Light &amp; Texture</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --amber: #b8720f; --amber-bright: #e8a33d; --dusk: #6a4fa0; --dusk-bg: #ece6f6;
+  --ok: #3f7a2e; --ok-bg: #e4f0da; --warn: #a8670f; --warn-bg: #f8ebd3;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --amber: #e8a33d; --amber-bright: #ffc466; --dusk: #b9a2e6; --dusk-bg: #271f38;
+    --ok: #8fc466; --ok-bg: #1f2c16; --warn: #e8a33d; --warn-bg: #33270f;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --amber: #e8a33d; --amber-bright: #ffc466; --dusk: #b9a2e6; --dusk-bg: #271f38;
+  --ok: #8fc466; --ok-bg: #1f2c16; --warn: #e8a33d; --warn-bg: #33270f;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--dusk); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.warn { border-left-color: var(--warn); background: var(--warn-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--dusk); color: var(--stone-deep); }
+.stacks { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.stack h3 { margin-top: 0; }
+.stack ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.stack li { background: var(--slot); border: 2px solid var(--slot-border); padding: 7px 11px; font-size: 0.88rem; }
+.stack li small { display: block; color: var(--ink-faint); font-size: 0.76rem; }
+.stack li.base { border-color: var(--dusk); }
+.stack li.off { opacity: 0.55; border-style: dashed; }
+.stack .end { font-family: "Space Mono", monospace; font-size: 0.68rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; margin: 4px 0; }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 520px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.pill { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.6rem; padding: 2px 6px; white-space: nowrap; }
+.pill.ok { color: var(--ok); background: var(--ok-bg); }
+.pill.warn { color: var(--warn); background: var(--warn-bg); }
+.pill.dusk { color: var(--dusk); background: var(--dusk-bg); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Light &amp; Texture</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Both worlds &middot; texture packs, shaders, far terrain</span>
+    <h1>Light &amp; Texture</h1>
+    <p>How our new look is put together: a Faithful 32x base, small packs for leaves, grass, and 3D details, Complementary shaders for the lighting, and Distant Horizons for the far-off view. All of it runs on your own PC only, so each of you can change it freely without breaking LAN.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#stack">What's On</a>
+    <a href="#swap">Trying Another Base Pack</a>
+    <a href="#shaders">Shaders</a>
+    <a href="#sky">Skies</a>
+    <a href="#far">Distant Horizons</a>
+    <a href="#trouble">If Something Looks Off</a>
+  </nav>
+
+  <!-- STACK -->
+  <section class="panel" id="stack">
+    <h2>What's On</h2>
+    <p class="sub">The texture packs in each world, in the order you'll see them in <strong>Options &rarr; Resource Packs</strong>. When two packs change the same block, the higher one wins. That's why the base pack sits at the bottom: the add-ons above it replace just their own pieces.</p>
+    <div class="stacks">
+      <div class="stack">
+        <h3>Cobblemon world</h3>
+        <div class="end">Top: wins</div>
+        <ol>
+          <li>E19 Cobblemon Minimap Icons<small>Pokémon icons on the minimap</small></li>
+          <li>Fresh Animations<small>Natural mob movement (needs EMF + ETF, installed)</small></li>
+          <li>Cobblemon Interface: Modded<small>Pokémon-style screens for the other mods</small></li>
+          <li>Cobblemon Interface<small>Pokémon-style menus and sounds</small></li>
+          <li>Dramatic Skys (Demo)<small>Painted skies, with shaders off</small></li>
+          <li>Better 3D Beds<small>Rounded, 3D bed models</small></li>
+          <li>Torches Reimagined<small>3D torches</small></li>
+          <li>3D Sugar Cane<small>Sugar cane with depth</small></li>
+          <li>Fast Better Grass<small>Grass sides blend into the block below</small></li>
+          <li>Motschen's Better Leaves<small>Fuller, bushier leaves</small></li>
+          <li class="base">Faithful 32x<small>The base pack: vanilla's look at double the detail</small></li>
+        </ol>
+        <div class="end">Bottom</div>
+        <ol>
+          <li class="off">Yuushya 16x <small>installed, off</small></li>
+          <li class="off">Ashen 16x <small>installed, off</small></li>
+        </ol>
+      </div>
+      <div class="stack">
+        <h3>Our World</h3>
+        <div class="end">Top: wins</div>
+        <ol>
+          <li>Fresh Animations<small>Natural mob movement</small></li>
+          <li>Dramatic Skys (Demo)<small>Painted skies, with shaders off</small></li>
+          <li>Fast Better Grass<small>Grass sides blend into the block below</small></li>
+          <li class="base">Faithful 32x<small>The base pack</small></li>
+        </ol>
+        <div class="end">Bottom</div>
+        <ol>
+          <li class="off">Ashen 16x <small>installed, off</small></li>
+        </ol>
+        <p class="callout" style="margin-top:14px;">Our World has fewer add-ons because Better Leaves, 3D Sugar Cane, Torches Reimagined, Better 3D Beds, Yuushya, and the Cobblemon packs don't have 26.3 versions yet.</p>
+      </div>
+    </div>
+    <ul class="tasks">
+      <li data-id="stack-1"><span class="checkbox"></span><span class="task-text">Open <strong>Options &rarr; Resource Packs</strong> and check the order matches the list above</span></li>
+    </ul>
+  </section>
+
+  <!-- SWAP -->
+  <section class="panel" id="swap">
+    <h2>Trying Another Base Pack</h2>
+    <p class="sub">Faithful 32x is on now. Yuushya and Ashen are installed and switched off, ready to compare. Only switch one base pack on at a time.</p>
+    <ol class="flow">
+      <li><strong>Options &rarr; Resource Packs.</strong> The right column is what's on.</li>
+      <li><strong>Turn Faithful off:</strong> hover it and click the left arrow.</li>
+      <li><strong>Turn the new base pack on:</strong> hover it in the left column and click the right arrow. It lands at the <strong>top</strong> of the list.</li>
+      <li><strong>Move it to the bottom.</strong> Hover it and click the down arrow until it sits below Better Leaves and Fast Better Grass. Left on top, it would cover up the 3D and foliage packs.</li>
+      <li>Click <strong>Done</strong> and wait for the reload. Look at grass, leaves, stone, and a village before deciding.</li>
+    </ol>
+    <div class="callout"><strong>Some packs are on Avery's PC only:</strong> Clarity, Equanimity, and John Smith Legacy (all 32x) are installed and switched off in Avery's Cobblemon profile for a side-by-side test. Whichever base pack wins goes into the modpack, and the sync then puts it on both PCs.</div>
+    <div class="table-scroll" style="margin-top:14px;"><table class="spec">
+      <thead><tr><th>Pack</th><th>Style</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Faithful 32x</strong></td><td>Vanilla's exact look, just sharper. The safe choice.</td><td><span class="pill ok">BOTH WORLDS &middot; ON</span></td></tr>
+        <tr><td><strong>Ashen 16x</strong></td><td>Muted, soft, slightly painterly, keeping vanilla's resolution.</td><td><span class="pill dusk">BOTH WORLDS &middot; OFF</span></td></tr>
+        <tr><td><strong>Yuushya 16x</strong></td><td>Warm and detailed, still 16x.</td><td><span class="pill dusk">COBBLEMON &middot; OFF</span></td></tr>
+        <tr><td><strong>Clarity 32x</strong></td><td>Crisp and clean, a little brighter than vanilla.</td><td><span class="pill warn">AVERY'S PC &middot; TRIAL</span></td></tr>
+        <tr><td><strong>Equanimity 32x</strong></td><td>Earthy and natural, with soft shading.</td><td><span class="pill warn">AVERY'S PC &middot; TRIAL</span></td></tr>
+        <tr><td><strong>John Smith Legacy 32x</strong></td><td>Rustic, medieval wood and stone. The coziest of the 32x packs.</td><td><span class="pill warn">AVERY'S PC &middot; TRIAL</span></td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="swap-yuushya"><span class="checkbox"></span><span class="task-text">Try <strong>Yuushya 16x</strong></span></li>
+      <li data-id="swap-ashen"><span class="checkbox"></span><span class="task-text">Try <strong>Ashen 16x</strong></span></li>
+      <li data-id="swap-trials"><span class="checkbox"></span><span class="task-text">Avery: try <strong>Clarity</strong>, <strong>Equanimity</strong>, and <strong>John Smith Legacy</strong></span></li>
+      <li data-id="swap-pick"><span class="checkbox"></span><span class="task-text">Pick the base pack we keep</span></li>
+    </ul>
+  </section>
+
+  <!-- SHADERS -->
+  <section class="panel" id="shaders">
+    <h2>Shaders</h2>
+    <p class="sub">The Iris mod runs shader packs; ours is <strong>Complementary Reimagined</strong>. It adds real-time shadows, warm sunlight, water reflections, and fog. Both worlds have it, and the sync leaves shaders exactly how you set them.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Do this</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Shaders on/off</strong></td><td>Press <span class="kbd">K</span>, in either world. Handy for comparing, or for a quick frame-rate boost.</td></tr>
+        <tr><td><strong>Choose a shader pack</strong></td><td><strong>Options &rarr; Video Settings &rarr; Shader Packs</strong>. Its O key shortcut is turned off in both worlds, since O is Cobblemon's "hide party" and 26.3's Friends key.</td></tr>
+        <tr><td><strong>Shader settings</strong></td><td>On that same screen, select Complementary and click <strong>Shader Pack Settings</strong>. The <strong>Profile</strong> at the top sets everything at once.</td></tr>
+        <tr><td><strong>Reload shaders</strong></td><td>Only needed after editing shader files. Its R key shortcut is turned off in the Cobblemon world because R throws your Pokémon, and every throw froze the game for a moment.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>If it's laggy:</strong> plug the laptop in first, since Windows slows the graphics chip on battery. Then lower Complementary's Profile one step, or lower the render distance in Video Settings. Shadows and render distance cost the most.</div>
+    <ul class="tasks">
+      <li data-id="shader-k"><span class="checkbox"></span><span class="task-text">Press <span class="kbd">K</span> twice to see the world with and without shaders</span></li>
+      <li data-id="shader-profile"><span class="checkbox"></span><span class="task-text">Find a Complementary Profile that runs smoothly on your PC</span></li>
+    </ul>
+  </section>
+
+  <!-- SKY -->
+  <section class="panel" id="sky">
+    <h2>Skies</h2>
+    <p class="sub">Dramatic Skys paints custom skies: sunsets, clouds, and starry nights. The free demo includes a few of them. It needs the <strong>Skyboxify</strong> mod, which both worlds have.</p>
+    <div class="callout warn"><strong>Shaders draw their own sky.</strong> With Complementary on, you'll mostly see Complementary's sky, not Dramatic Skys. Press <span class="kbd">K</span> at dusk or night to compare the two and keep whichever you like.</div>
+    <ul class="tasks">
+      <li data-id="sky-1"><span class="checkbox"></span><span class="task-text">Look at a sunset with shaders off (<span class="kbd">K</span>) to see Dramatic Skys</span></li>
+    </ul>
+  </section>
+
+  <!-- FAR -->
+  <section class="panel" id="far">
+    <h2>Distant Horizons</h2>
+    <p class="sub">Shows land far past your normal render distance as simplified terrain, so mountains and coastlines stay visible on the horizon. Both worlds have it. It only changes what you see: the world itself is unchanged.</p>
+    <ol class="flow">
+      <li><strong>The first visit is busy.</strong> It builds the far terrain in the background as you play, so expect more fan noise and a slow fill-in at first. It's saved after that, so returning to an area is fast.</li>
+      <li><strong>Settings:</strong> pause menu &rarr; <strong>Mods &rarr; Distant Horizons</strong>. The main dial is how far it draws; lower it if frame rate drops.</li>
+      <li><strong>It works with Complementary.</strong> The shader has its own settings for blending the far terrain into the fog.</li>
+    </ol>
+    <div class="callout"><strong>Playing on LAN:</strong> the player who joins builds far terrain only from land they've loaded themselves, so their horizon fills in more slowly than the host's.</div>
+    <ul class="tasks">
+      <li data-id="far-1"><span class="checkbox"></span><span class="task-text">Climb a hill and check the horizon</span></li>
+      <li data-id="far-2"><span class="checkbox"></span><span class="task-text">Set the draw distance so the game stays smooth</span></li>
+    </ul>
+  </section>
+
+  <!-- TROUBLE -->
+  <section class="panel" id="trouble">
+    <h2>If Something Looks Off</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Grass or leaves look flat</td><td>The base pack is above Better Leaves or Fast Better Grass. Move the base pack to the bottom of the list.</td></tr>
+        <tr><td>Beds look broken or invisible</td><td>Better 3D Beds was built for OptiFine, which we can't use. If beds look wrong, turn that pack off.</td></tr>
+        <tr><td>Mobs move stiffly</td><td>Fresh Animations needs the <strong>EMF</strong> and <strong>ETF</strong> mods; check they're listed under <strong>Mods</strong>.</td></tr>
+        <tr><td>Everything is suddenly plain</td><td>Shaders were toggled off with <span class="kbd">K</span>. Press it again.</td></tr>
+        <tr><td>Big frame drops</td><td>Plug in, lower Complementary's Profile, then lower Distant Horizons' draw distance.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Pack list read from the modpack's mods.json &middot; key settings read from both profiles' options.txt &middot; Oct 2026</footer>
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = "mc-guide-visuals-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "✓" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
