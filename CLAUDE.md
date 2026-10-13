@@ -13,7 +13,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `minecraft`: the Minecraft version
   - `game_dir`: optional; a folder next to `.minecraft` holding this pack's mods, worlds, and settings
   - `loader`: Fabric version, ID, and SHA-1
-  - `profile`: launcher profile key, name, icon, and `memory_gb`. The sync writes `javaArgs` with `-Xmx` set to that amount, capped at a third of the PC's RAM and never below 2 GB, plus G1GC flags.
+  - `profile`: launcher profile key, name, icon, and `memory_gb`. The sync writes `javaArgs` with `-Xmx` set to that amount, capped at a third of the PC's RAM and never below 2 GB, plus G1GC flags. Optional `gc_args` replaces the G1 flags (Cobblemon, on Java 21, uses `-XX:+UseZGC -XX:+ZGenerational`; on Java 23+ drop `-XX:+ZGenerational`, since generational mode is the default there).
   - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
   - `resourcepacks`: optional; texture packs in load order (later entries load on top). `"enabled": false` means installed but not switched on (e.g. an alternative to compare).
   - `shaderpacks`: optional; Iris shader packs. Installed into `<game folder>\shaderpacks` and never switched on by the sync, because graphics cards differ.
