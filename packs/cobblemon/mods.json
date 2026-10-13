@@ -16,6 +16,17 @@
   },
   "mods": [
     {
+      "name": "Cardinal Components API",
+      "slug": "cardinal-components-api",
+      "project_id": "K01OU20C",
+      "version_id": "nLsCe2VD",
+      "version": "6.1.3",
+      "filename": "cardinal-components-api-6.1.3.jar",
+      "url": "https://cdn.modrinth.com/data/K01OU20C/versions/nLsCe2VD/cardinal-components-api-6.1.3.jar",
+      "sha1": "e762f5205c0fd0f9bed1c04432bf9b51ec832882",
+      "side": "both"
+    },
+    {
       "name": "Cloth Config API",
       "slug": "cloth-config",
       "project_id": "9s6osm5g",
@@ -46,6 +57,17 @@
       "filename": "collective-1.21.1-8.47.jar",
       "url": "https://cdn.modrinth.com/data/e0M1UDsY/versions/jSut2GCG/collective-1.21.1-8.47.jar",
       "sha1": "7f16f8dc3c4fcfd09280eb0ce4fdec83c07de45d",
+      "side": "both"
+    },
+    {
+      "name": "Distant Horizons",
+      "slug": "distanthorizons",
+      "project_id": "uCdwusMi",
+      "version_id": "9w34y8ai",
+      "version": "3.3.3-1.21.1",
+      "filename": "DistantHorizons-3.3.3-1.21.1-fabric-neoforge.jar",
+      "url": "https://cdn.modrinth.com/data/uCdwusMi/versions/9w34y8ai/DistantHorizons-3.3.3-1.21.1-fabric-neoforge.jar",
+      "sha1": "4357b4d19fab818780c94f0e43dad1cc931634b2",
       "side": "both"
     },
     {
@@ -123,6 +145,17 @@
       "filename": "placeholder-api-2.4.2+1.21.jar",
       "url": "https://cdn.modrinth.com/data/eXts2L7r/versions/U5bhVym2/placeholder-api-2.4.2%2B1.21.jar",
       "sha1": "aa1b9a49f9f190dfe4825c502b150817dd2998c3",
+      "side": "both"
+    },
+    {
+      "name": "Traveler's Backpack",
+      "slug": "travelersbackpack",
+      "project_id": "rlloIFEV",
+      "version_id": "npKsvQvE",
+      "version": "1.21.1-10.1.39",
+      "filename": "travelersbackpack-fabric-1.21.1-10.1.39.jar",
+      "url": "https://cdn.modrinth.com/data/rlloIFEV/versions/npKsvQvE/travelersbackpack-fabric-1.21.1-10.1.39.jar",
+      "sha1": "d74374cfe5ef7d4afb4a6a3c2c9f48e41f334a8d",
       "side": "both"
     },
     {
