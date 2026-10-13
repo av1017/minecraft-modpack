@@ -115,6 +115,17 @@
       "side": "both"
     },
     {
+      "name": "Forge Config API Port",
+      "slug": "forge-config-api-port",
+      "project_id": "ohNO6lps",
+      "version_id": "N5qzq0XV",
+      "version": "v21.1.6-1.21.1-Fabric",
+      "filename": "ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
+      "url": "https://cdn.modrinth.com/data/ohNO6lps/versions/N5qzq0XV/ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
+      "sha1": "18bf1f21cd2db6dcd4e42db85eae54e2a49a48ee",
+      "side": "both"
+    },
+    {
       "name": "Lithium",
       "slug": "lithium",
       "project_id": "gvQqBUqZ",
@@ -123,6 +134,17 @@
       "filename": "lithium-fabric-0.15.4+mc1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/gvQqBUqZ/versions/N08Z8wog/lithium-fabric-0.15.4%2Bmc1.21.1.jar",
       "sha1": "7d82a004403b7780d4443d8e40361a55cfd0ae63",
+      "side": "both"
+    },
+    {
+      "name": "Rick's Portal Gun [Fabric/Quilt]",
+      "slug": "ricks-portal-gun-fabric",
+      "project_id": "okWylF5O",
+      "version_id": "HojX5KCi",
+      "version": "1.4.5",
+      "filename": "ricksportalgun-fabric-1.21.1-1.4.5.jar",
+      "url": "https://cdn.modrinth.com/data/okWylF5O/versions/HojX5KCi/ricksportalgun-fabric-1.21.1-1.4.5.jar",
+      "sha1": "61677e7f75ceb1cf9f8db2e03ebb4824b989a92d",
       "side": "both"
     },
     {
