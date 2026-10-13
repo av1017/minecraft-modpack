@@ -15,13 +15,13 @@ The repo stores **lists** of mods, not the mod files. The sync script downloads 
 Each pack has its own game folder, with its own worlds, mods, and settings, so they never interfere with each other. Exact versions are in `packs/<pack>/mods.json`.
 
 ### our-world
-- **Mods:** Wool Tweaks, Farmer's Delight, Rustic Delight, inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu), EMF + ETF for animated mobs, and performance mods (Sodium, Lithium, FerriteCore), plus the libraries they need. The profile gets 4 GB of memory.
+- **Mods:** Wool Tweaks, Farmer's Delight, Rustic Delight, inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu), EMF + ETF for animated mobs, and performance mods (Sodium, Lithium, FerriteCore), Distant Horizons (far view distance), and Traveler's Backpack, plus the libraries they need. The profile gets 4 GB of memory.
 - **Texture pack:** Fresh Animations.
 
 ### cobblemon
 - **Cobblemon:** catch, battle, evolve, and ride Pokémon. A fan-made mod with original models.
 - **Xaero's Minimap + Xaero's World Map:** a corner minimap, a full-screen map, and waypoints.
-- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, performance mods (Sodium, Lithium, FerriteCore), and libraries. The profile gets 6 GB of memory.
+- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, performance mods (Sodium, Lithium, FerriteCore), Distant Horizons (far view distance), Traveler's Backpack, and libraries. The profile gets 6 GB of memory.
 - **Texture packs:** Cobblemon Interface (+ Modded), E19 Cobblemon Minimap Icons, Fresh Animations.
 
 ### Look: Faithful 32x and shaders

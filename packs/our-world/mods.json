@@ -37,6 +37,17 @@
       "side": "both"
     },
     {
+      "name": "Distant Horizons",
+      "slug": "distanthorizons",
+      "project_id": "uCdwusMi",
+      "version_id": "TGgEbP9A",
+      "version": "3.3.4-26.3",
+      "filename": "DistantHorizons-3.3.4-26.3-fabric-neoforge.jar",
+      "url": "https://cdn.modrinth.com/data/uCdwusMi/versions/TGgEbP9A/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar",
+      "sha1": "310c0363068dfae18e91f799ed671a591b6ad49a",
+      "side": "both"
+    },
+    {
       "name": "Fabric API",
       "slug": "fabric-api",
       "project_id": "P7dR8mSH",
@@ -81,6 +92,17 @@
       "side": "both"
     },
     {
+      "name": "Forge Config API Port",
+      "slug": "forge-config-api-port",
+      "project_id": "ohNO6lps",
+      "version_id": "JpKvrr9J",
+      "version": "26.3.1",
+      "filename": "ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar",
+      "url": "https://cdn.modrinth.com/data/ohNO6lps/versions/JpKvrr9J/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar",
+      "sha1": "a0d802d2cb010a5054c72f1ccf248433b6e0bafb",
+      "side": "both"
+    },
+    {
       "name": "Lithium",
       "slug": "lithium",
       "project_id": "gvQqBUqZ",
@@ -111,6 +133,17 @@
       "filename": "placeholder-api-3.2.0+26.3.jar",
       "url": "https://cdn.modrinth.com/data/eXts2L7r/versions/lXytLqWj/placeholder-api-3.2.0%2B26.3.jar",
       "sha1": "4c455faa6333dbaef72cedbb91fe4a2a03176741",
+      "side": "both"
+    },
+    {
+      "name": "Traveler's Backpack",
+      "slug": "travelersbackpack",
+      "project_id": "rlloIFEV",
+      "version_id": "SmhjfeWr",
+      "version": "26.3-11.4.1",
+      "filename": "travelersbackpack-fabric-26.3-11.4.1.jar",
+      "url": "https://cdn.modrinth.com/data/rlloIFEV/versions/SmhjfeWr/travelersbackpack-fabric-26.3-11.4.1.jar",
+      "sha1": "47c1f44461eafff9a3d7998c79bcdfa612931584",
       "side": "both"
     },
     {
