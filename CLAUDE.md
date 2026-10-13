@@ -1,66 +1,84 @@
-# CLAUDE.md: Our World modpack
+# CLAUDE.md: Minecraft modpacks
 
-This repo defines the exact Minecraft mods for a Fabric 26.3 world that two people play together over LAN. Each PC syncs from it. You'll be asked to do one of two things: **sync** a PC to the repo, or **change** the mods.
+This repo defines the exact Minecraft mods for the worlds two people play together over LAN. Each PC syncs from it. There are multiple **packs** under `packs/`, each with its own Minecraft version, launcher profile, and (optionally) its own game folder. You'll be asked to do one of two things: **sync** a PC, or **change** a pack's mods.
+
+## Packs
+| Pack | Profile | Minecraft | Game folder |
+|---|---|---|---|
+| `our-world` | Fabric 26.3 (Modded) | 26.3 | `%APPDATA%\.minecraft` (the default) |
+| `cobblemon` | Cobblemon 1.21.1 | 1.21.1 | `%APPDATA%\.minecraft-cobblemon` |
 
 ## How it works
-- **`mods.json`** is the source of truth:
-  - the Minecraft version and Fabric loader version
-  - the launcher profile settings
-  - each mod's Modrinth project and version ID, file name, download URL, SHA-1, and `side` (`both` or `client`)
-- **`loader/fabric-loader-0.19.5-26.3.json`** is the launcher version file for Fabric, checksummed in `mods.json`.
-- **`sync.ps1`** makes `%APPDATA%\.minecraft` match `mods.json`:
-  - downloads mods from Modrinth into a temp folder and verifies their SHA-1 before touching anything
-  - removes jars not in the list, moving them to `.minecraft\setup-backups\<timestamp>\`
-  - installs the loader and launcher profile if they're missing
-  - backs up `launcher_profiles.json` first
+- **`packs/<pack>/mods.json`** is the source of truth for that pack:
+  - `minecraft`: the Minecraft version
+  - `game_dir`: optional; a folder next to `.minecraft` holding this pack's mods, worlds, and settings
+  - `loader`: Fabric version, ID, and SHA-1
+  - `profile`: launcher profile key, name, and icon
+  - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
+- **`loader/<version_id>.json`** is the launcher version file for each Fabric/Minecraft pair, checksummed in the pack's `mods.json`.
+- **`sync.ps1 -Pack <pack>`** makes the PC match the pack:
+  - downloads mods from Modrinth into a temp folder and verifies SHA-1 before touching anything
+  - removes jars not in the list, moving them to `.minecraft\setup-backups\<pack>-<timestamp>\`
+  - installs the loader file
+  - creates or updates the launcher profile, including `gameDir` for packs with their own folder
+  - on first setup of a separate game folder, copies `options.txt` so settings and keybinds carry over
+  - backs up `launcher_profiles.json` before changing anything
 
-  It supports `-DryRun` and `-MinecraftDir`, and running it twice is safe.
-- **`tools/add-mod.ps1`** adds or updates mods in `mods.json` from Modrinth. It only picks releases built for this pack's loader and Minecraft version, and adds required dependencies. Dependencies already in the pack keep their current version.
+  It supports `-DryRun` and `-MinecraftDir`, and running it twice is safe. If the pack's Minecraft version isn't downloaded yet, it prints a note; the launcher downloads it on first launch.
+- **`tools/add-mod.ps1 -Pack <pack> -Slug a,b`** adds or updates mods in a pack from Modrinth. It only picks releases built for that pack's Minecraft version and adds required dependencies. Dependencies already in the pack keep their version.
 
 ## Rules
-- **Mod files never go in the repo.** Some mod licenses forbid re-hosting (Wool Tweaks requires downloads to stay on CurseForge or Modrinth). `.gitignore` blocks `*.jar`.
-- **Every PC must match.** LAN fails if gameplay mods (`side: both`) differ. Client-only mods can differ, but keep them in sync anyway.
-- **Don't edit `mods.json` by hand except to remove an entry.** Use `tools/add-mod.ps1`, so URLs and checksums come straight from Modrinth.
+- **Mod files never go in the repo.** Some licenses forbid re-hosting (Wool Tweaks requires downloads to stay on CurseForge or Modrinth). `.gitignore` blocks `*.jar`.
+- **Every PC must match per pack.** LAN fails if gameplay mods differ. Client-only mods can differ, but keep them in sync anyway.
+- **Never move a world between packs.** Minecraft can't load a world in an older version than the one it was played on (Our World is 26.3, Cobblemon is 1.21.1), and removing a mod deletes its blocks and items from the world.
+- **Don't edit `mods.json` by hand except to remove an entry.** Use `tools/add-mod.ps1`.
 - **Never touch `saves/`.** Worlds aren't part of this repo.
-- **Don't install Java.** The Minecraft launcher bundles it.
+- **Don't install Java.** The launcher bundles it, and downloads the right Java version for each Minecraft version.
 - **Don't force-close Minecraft.** Ask the user to close it.
 - Use `-AllowRunning` only for tests against a non-real `-MinecraftDir`.
 
 ## Task: sync this PC
 1. **Confirm:**
-   - Minecraft Java is installed.
-   - Vanilla 26.3 has been launched once (`.minecraft\versions\26.3` exists).
+   - Minecraft Java is installed and has been launched once (`launcher_profiles.json` exists).
    - The game and launcher are closed.
+   - Which pack(s) the user wants. If they don't say, sync both.
 2. **Pull** if this is an existing clone: `git pull`.
-3. **Dry run** and read the planned changes:
+3. **For each pack, dry run first** and read the planned changes:
    ```
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\sync.ps1 -DryRun
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\sync.ps1 -Pack <pack> -DryRun
    ```
-   If it prints `STOPPED: ...`, fix that one thing (the message says what) and re-run. Don't work around checks.
+   If it prints `STOPPED: ...`, fix that one thing and re-run. Don't work around checks.
 4. **Sync:**
    ```
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\sync.ps1
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\sync.ps1 -Pack <pack>
    ```
-5. **Tell the user** what changed and where the backup is. To play: launcher → **Fabric 26.3 (Modded)** → Play. The first launch is slower.
+5. **Tell the user** what changed and where the backup is. To play: launcher → the pack's profile → Play. A pack's first launch is slower while the launcher downloads that Minecraft version.
 
-If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `launcher_profiles.json` and `versions\26.3`, and pass `-MinecraftDir "<path>"`.
+If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `launcher_profiles.json` and pass `-MinecraftDir "<path>"`.
 
 ## Task: add, update, or remove a mod
-1. **Find the slug** in the mod's Modrinth URL. Confirm the mod has a **Fabric 26.3** release. Before adding it, tell the user if it's client-only or if it changes the world (new blocks or items).
+1. **Find the slug** in the mod's Modrinth URL. Confirm the mod has a Fabric release for the pack's Minecraft version (check `packs/<pack>/mods.json`). Before adding it, tell the user if it's client-only or if it changes the world (new blocks, items, or creatures).
 2. **Preview, then apply:**
    ```
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Slug <slug> -DryRun
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Slug <slug>
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Pack <pack> -Slug <slug> -DryRun
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Pack <pack> -Slug <slug>
    ```
-   To update every listed mod, pass all their slugs. Updates of gameplay mods need the same caution as adding them.
-3. **To remove a mod:** delete its entry from `mods.json`. First check that no remaining mod lists it as a required dependency (look up each mod's version on Modrinth: `/v2/version/<version_id>`). Removing a mod that added blocks or items deletes those from the world.
-4. **Back up the world** (zip the folder under `saves\`) before syncing changes to gameplay mods.
+3. **To remove a mod:** delete its entry from the pack's `mods.json`. First check that no remaining mod lists it as a required dependency (look up each mod's version on Modrinth: `/v2/version/<version_id>`).
+4. **Back up the pack's world** (zip its folder under the pack's game folder `saves\`) before syncing changes to gameplay mods.
 5. **Run the sync,** then ask the user to **launch and load the world** to confirm it works.
-6. **Only then commit and push.** Use a message listing what was added, updated, or removed:
-   ```
-   git add mods.json && git commit -m "Add <mod> <version>" && git push
-   ```
-7. **Remind the user** that every other PC must `git pull` and sync before the next LAN session.
+6. **Only then commit and push:** `git add packs && git commit -m "<pack>: add <mod> <version>" && git push`
+7. **Remind the user** that every other PC must `git pull` and sync that pack before the next LAN session.
 
-## Troubleshooting a crash
-Read `.minecraft\logs\latest.log` and the newest file in `.minecraft\crash-reports\`. Look for the mod ID named in "Incompatible mods", "requires", or the top of the stack trace. A re-run of `sync.ps1 -DryRun` confirms the installed files are intact. To roll back a change, check out the previous `mods.json` from git history and sync.
+## Task: add a new pack
+1. Create `packs/<name>/mods.json` with:
+   - `minecraft`
+   - `game_dir` (always use a separate folder for a new pack)
+   - `loader`, with the Fabric profile JSON saved to `loader/` and its SHA-1 recorded
+   - `profile` (unique key and name)
+   - `"mods": []`
+2. Fill it with `tools/add-mod.ps1`.
+3. Add a `Sync <Name>.bat` like the existing ones, and update the README and this file.
+
+## Troubleshooting
+- **Crash:** read `logs\latest.log` and the newest `crash-reports\` file in the pack's **game folder**. Look for the mod ID in "Incompatible mods", "requires", or the top of the stack trace. Re-run `sync.ps1 -Pack <pack> -DryRun` to confirm files are intact. Roll back with git history and sync.
+- **A LAN player spawns as a new character:** their join line in the host's log shows "Failed to verify username but will let them in anyway!" Their real data is still in the world's `players/data/<real-uuid>.dat`, untouched. Both players should fully quit Minecraft and the launcher, reopen, and rejoin.

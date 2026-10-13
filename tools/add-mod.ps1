@@ -2,9 +2,10 @@
   Adds (or updates) mods in mods.json from Modrinth, including required dependencies.
   Only picks releases built for this pack's loader and Minecraft version.
 
-    powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Slug sodium -DryRun
-    powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Slug sodium, lithium
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Pack our-world -Slug sodium -DryRun
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Pack cobblemon -Slug sodium,lithium
 
+  -Pack        Which pack to edit (a folder name under packs\). Default: our-world.
   -Slug        One or more Modrinth project slugs (the name in the URL: modrinth.com/mod/<slug>).
   -DryRun      Show what would change without writing mods.json.
   -AllowBeta   Accept beta/alpha builds when no release exists.
@@ -12,6 +13,7 @@
   This only edits mods.json. Afterwards: run sync.ps1, test in-game, then commit and push.
 #>
 param(
+  [string]$Pack = "our-world",
   [Parameter(Mandatory = $true)][string[]]$Slug,
   [switch]$DryRun,
   [switch]$AllowBeta
@@ -19,8 +21,11 @@ param(
 
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# "powershell -File" passes "-Slug a,b" as one string; split it so both forms work.
+$Slug = @($Slug | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $repo = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$manifestPath = Join-Path $repo "mods.json"
+$manifestPath = Join-Path $repo "packs\$Pack\mods.json"
+if (-not (Test-Path $manifestPath)) { Write-Host "STOPPED: No pack named '$Pack' (expected $manifestPath)." -ForegroundColor Red; exit 1 }
 $headers = @{ "User-Agent" = "av1017/minecraft-modpack" }
 $api = "https://api.modrinth.com/v2"
 

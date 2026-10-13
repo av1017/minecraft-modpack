@@ -1,51 +1,50 @@
-# Our World modpack
+# Our Minecraft modpacks
 
-The mod list for our Fabric 26.3 Minecraft world. Every PC that plays together over LAN syncs from this repo, so everyone has the same mods.
+Mod lists for the Minecraft worlds we play together over LAN. Every PC syncs from this repo, so everyone has the same mods.
 
-The repo stores a **list** of mods (`mods.json`), not the mod files. The sync script downloads each mod from Modrinth, as the mod authors require, and checks it against a SHA-1 checksum before installing it.
+The repo stores **lists** of mods, not the mod files. The sync script downloads each mod from Modrinth, as the mod authors require, and checks it against a SHA-1 checksum before installing it.
 
-## Mods
-| Mod | What it does | Needed for LAN? |
-|---|---|---|
-| Wool Tweaks | Wool → 4 string; re-dye wool, beds, carpets | Yes |
-| Farmer's Delight Refabricated | Cooking, new crops, rich soil, rope | Yes |
-| Rustic Delight | Farmable cotton → string, coffee, peppers, pancakes | Yes |
-| Fabric API, Cloth Config, Collective, Fabric Language Kotlin, Text Placeholder API | Libraries the other mods need | Yes |
-| Inventory Profiles Next (+ libIPN) | Sort buttons, slot locking, tool auto-replace | No (client-only) |
-| Mouse Tweaks | Faster item dragging and scrolling | No (client-only) |
-| Mod Menu | In-game Mods button and settings | No (client-only) |
+## The packs
+| Pack | Launcher profile | Minecraft | Game folder | Sync with |
+|---|---|---|---|---|
+| **our-world** | Fabric 26.3 (Modded) | 26.3 | `%APPDATA%\.minecraft` | `Sync Our World.bat` |
+| **cobblemon** | Cobblemon 1.21.1 | 1.21.1 | `%APPDATA%\.minecraft-cobblemon` | `Sync Cobblemon.bat` |
 
-Exact versions are in [`mods.json`](mods.json).
+Each pack has its own game folder, with its own worlds, mods, and settings, so they never interfere with each other. Exact versions are in `packs/<pack>/mods.json`.
+
+### our-world
+Wool Tweaks, Farmer's Delight, Rustic Delight, plus inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu) and the libraries they need.
+
+### cobblemon
+- **Cobblemon:** catch, battle, evolve, and ride Pokémon. A fan-made mod with original models.
+- **Xaero's Minimap + Xaero's World Map:** a corner minimap, a full-screen map, and waypoints.
+- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, and libraries.
 
 ## Set up a new PC
-1. **Install Minecraft Java Edition** and sign in.
-2. **Play vanilla 26.3 once** (Latest Release), reach the title screen, then quit.
-3. **Close the game and launcher.**
-4. **Clone this repo:** `git clone https://github.com/av1017/minecraft-modpack.git`
-5. **Run the sync:** double-click `Sync mods.bat`. Or open Claude Code in the folder and say *"Read CLAUDE.md and sync my Minecraft mods."*
-6. **Play:** in the launcher, choose **Fabric 26.3 (Modded)** and press Play.
+1. **Install Minecraft Java Edition** and sign in. Play vanilla once, then close the game and launcher.
+2. **Clone this repo:** `git clone https://github.com/av1017/minecraft-modpack.git`
+3. **Run the sync** for each pack you want: double-click `Sync Our World.bat` and/or `Sync Cobblemon.bat`. Or open Claude Code in the folder and say *"Read CLAUDE.md and sync my Minecraft mods."*
+4. **Play:** in the launcher, pick the pack's profile and press Play. A pack's first launch is slower, because the launcher downloads that Minecraft version.
 
 ## After someone changes the mods
-Close Minecraft, then in the repo folder:
-```
-git pull
-```
-and double-click `Sync mods.bat`. The sync makes your mods folder match `mods.json` exactly. Anything it removes goes to `.minecraft\setup-backups\`.
+Close Minecraft, then `git pull` in the repo folder and run the sync file for the pack that changed. The sync makes the pack's mods folder match its list exactly. Anything it removes goes to `.minecraft\setup-backups\`.
 
 ## Changing the mods
 ```
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Slug <modrinth-slug> -DryRun
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Slug <modrinth-slug>
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Pack <pack> -Slug <slug> -DryRun
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\add-mod.ps1 -Pack <pack> -Slug <slug>
 ```
-The slug is the name in the Modrinth URL: `modrinth.com/mod/<slug>`. The tool:
-- picks the newest release built for Fabric 26.3
+The slug is the name in the Modrinth URL: `modrinth.com/mod/<slug>`. For several mods, separate slugs with commas. The tool:
+- picks the newest release for the pack's Minecraft version
 - adds any required libraries
 - updates a mod that's already listed
 
-Then run the sync, **test in-game**, and commit and push. To remove a mod, delete its entry from `mods.json`, but first check that nothing else needs it.
+Then run the sync, **test in-game**, and commit and push.
 
 ## Playing together
-1. The host opens the world on the Fabric profile, presses Esc, clicks **Open to LAN**, then **Start LAN World**.
-2. Everyone else opens the Fabric profile, goes to **Multiplayer**, and finds the world under **LAN World(s)**.
+1. The host opens the world on the pack's profile, presses Esc, clicks **Open to LAN**, then **Start LAN World**.
+2. Everyone else opens the **same profile**, goes to **Multiplayer**, and finds the world under **LAN World(s)**.
 
-Everyone must be on the same network with the same mods. If Windows Firewall asks about Java, allow it on private networks.
+Everyone needs the same pack synced, and you must be on the same network. If Windows Firewall asks about Java, allow it on private networks.
+
+**If someone joins and spawns as a brand-new player,** have them leave right away. Their real progress is still saved. Both players should fully quit Minecraft and the launcher, reopen, and rejoin. This happens when Minecraft can't verify the joining player's Microsoft sign-in.

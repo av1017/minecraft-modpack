@@ -1,0 +1,183 @@
+{
+  "minecraft": "1.21.1",
+  "game_dir": ".minecraft-cobblemon",
+  "loader": {
+    "type": "fabric",
+    "version": "0.19.5",
+    "version_id": "fabric-loader-0.19.5-1.21.1",
+    "sha1": "cdb246c076b049271a79b30320d8fa50bfa0fc1f",
+    "source": "https://meta.fabricmc.net/v2/versions/loader/1.21.1/0.19.5/profile/json"
+  },
+  "profile": {
+    "key": "fabric-1.21.1-cobblemon",
+    "name": "Cobblemon 1.21.1",
+    "icon": "Furnace"
+  },
+  "mods": [
+    {
+      "name": "Cloth Config API",
+      "slug": "cloth-config",
+      "project_id": "9s6osm5g",
+      "version_id": "HpMb5wGb",
+      "version": "15.0.140+fabric",
+      "filename": "cloth-config-15.0.140-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/9s6osm5g/versions/HpMb5wGb/cloth-config-15.0.140-fabric.jar",
+      "sha1": "5d82342a2df53fd6df712bfdd583a811572918a4",
+      "side": "both"
+    },
+    {
+      "name": "Cobblemon",
+      "slug": "cobblemon",
+      "project_id": "MdwFAVRL",
+      "version_id": "GJ2a1b8O",
+      "version": "1.8.2",
+      "filename": "Cobblemon-fabric-1.8.2+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/MdwFAVRL/versions/GJ2a1b8O/Cobblemon-fabric-1.8.2%2B1.21.1.jar",
+      "sha1": "1a8ec812b2e7b392ac60801c910d3128d0bbb432",
+      "side": "both"
+    },
+    {
+      "name": "Collective",
+      "slug": "collective",
+      "project_id": "e0M1UDsY",
+      "version_id": "jSut2GCG",
+      "version": "1.21.1-8.47-fabric+forge+neo",
+      "filename": "collective-1.21.1-8.47.jar",
+      "url": "https://cdn.modrinth.com/data/e0M1UDsY/versions/jSut2GCG/collective-1.21.1-8.47.jar",
+      "sha1": "7f16f8dc3c4fcfd09280eb0ce4fdec83c07de45d",
+      "side": "both"
+    },
+    {
+      "name": "Fabric API",
+      "slug": "fabric-api",
+      "project_id": "P7dR8mSH",
+      "version_id": "Mys3P7lK",
+      "version": "0.116.17+1.21.1",
+      "filename": "fabric-api-0.116.17+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/Mys3P7lK/fabric-api-0.116.17%2B1.21.1.jar",
+      "sha1": "810b2b0195371a012906241d8b85a32a1d6de53c",
+      "side": "both"
+    },
+    {
+      "name": "Fabric Language Kotlin",
+      "slug": "fabric-language-kotlin",
+      "project_id": "Ha28R6CL",
+      "version_id": "SKW1BTL3",
+      "version": "1.14.2+kotlin.2.4.21",
+      "filename": "fabric-language-kotlin-1.14.2+kotlin.2.4.21.jar",
+      "url": "https://cdn.modrinth.com/data/Ha28R6CL/versions/SKW1BTL3/fabric-language-kotlin-1.14.2%2Bkotlin.2.4.21.jar",
+      "sha1": "f1d4ab6ecd54d9782521333a87eb50724ecb03e0",
+      "side": "both"
+    },
+    {
+      "name": "Farmer's Delight Refabricated",
+      "slug": "farmers-delight-refabricated",
+      "project_id": "7vxePowz",
+      "version_id": "wbVXT4Ua",
+      "version": "1.21.1-3.3.6",
+      "filename": "FarmersDelight-1.21.1-3.3.6+refabricated.jar",
+      "url": "https://cdn.modrinth.com/data/7vxePowz/versions/wbVXT4Ua/FarmersDelight-1.21.1-3.3.6%2Brefabricated.jar",
+      "sha1": "6d75a472d56c7cf0e9abc7e654861076e8eff389",
+      "side": "both"
+    },
+    {
+      "name": "Rustic Delight",
+      "slug": "rustic-delight",
+      "project_id": "foa4fGIH",
+      "version_id": "VAEiChba",
+      "version": "1.7.1",
+      "filename": "rusticdelight-fabric-1.21.1-1.7.1.jar",
+      "url": "https://cdn.modrinth.com/data/foa4fGIH/versions/VAEiChba/rusticdelight-fabric-1.21.1-1.7.1.jar",
+      "sha1": "ba071c28fc3827590725921a2a0380d23bf22b95",
+      "side": "both"
+    },
+    {
+      "name": "Text Placeholder API",
+      "slug": "placeholder-api",
+      "project_id": "eXts2L7r",
+      "version_id": "U5bhVym2",
+      "version": "2.4.2+1.21",
+      "filename": "placeholder-api-2.4.2+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/eXts2L7r/versions/U5bhVym2/placeholder-api-2.4.2%2B1.21.jar",
+      "sha1": "aa1b9a49f9f190dfe4825c502b150817dd2998c3",
+      "side": "both"
+    },
+    {
+      "name": "Wool Tweaks",
+      "slug": "wool-tweaks",
+      "project_id": "lqQsKUma",
+      "version_id": "vnt74jsV",
+      "version": "1.21.1-4.1-fabric+forge+neo",
+      "filename": "wooltweaks-1.21.1-4.1.jar",
+      "url": "https://cdn.modrinth.com/data/lqQsKUma/versions/vnt74jsV/wooltweaks-1.21.1-4.1.jar",
+      "sha1": "5f36bddec7d03cdd4275df23092b7d92edded09a",
+      "side": "both"
+    },
+    {
+      "name": "Xaero's Minimap",
+      "slug": "xaeros-minimap",
+      "project_id": "1bokaNcj",
+      "version_id": "W4dcLcUs",
+      "version": "fabric-1.21.1-26.6.0",
+      "filename": "xaerominimap-fabric-1.21.1-26.6.0.jar",
+      "url": "https://cdn.modrinth.com/data/1bokaNcj/versions/W4dcLcUs/xaerominimap-fabric-1.21.1-26.6.0.jar",
+      "sha1": "5fbb03dd3f22c0c3d5466d1366222d7d277a8df3",
+      "side": "both"
+    },
+    {
+      "name": "Xaero's World Map",
+      "slug": "xaeros-world-map",
+      "project_id": "NcUtCpym",
+      "version_id": "XIR7GzC3",
+      "version": "fabric-1.21.1-1.47.0",
+      "filename": "xaeroworldmap-fabric-1.21.1-1.47.0.jar",
+      "url": "https://cdn.modrinth.com/data/NcUtCpym/versions/XIR7GzC3/xaeroworldmap-fabric-1.21.1-1.47.0.jar",
+      "sha1": "db7ad23fe512dbc13a8286844fd9277c08a7ef5a",
+      "side": "both"
+    },
+    {
+      "name": "Inventory Profiles Next",
+      "slug": "inventory-profiles-next",
+      "project_id": "O7RBXm3n",
+      "version_id": "h1db7jG7",
+      "version": "fabric-1.21.1-2.2.6",
+      "filename": "InventoryProfilesNext-fabric-1.21.1-2.2.6.jar",
+      "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/h1db7jG7/InventoryProfilesNext-fabric-1.21.1-2.2.6.jar",
+      "sha1": "a99471cb13f2c3c355ab3a61483580ccfa0d3693",
+      "side": "client"
+    },
+    {
+      "name": "libIPN",
+      "slug": "libipn",
+      "project_id": "onSQdWhM",
+      "version_id": "PSscYPRs",
+      "version": "fabric-1.21.1-6.6.3",
+      "filename": "libIPN-fabric-1.21.1-6.6.3.jar",
+      "url": "https://cdn.modrinth.com/data/onSQdWhM/versions/PSscYPRs/libIPN-fabric-1.21.1-6.6.3.jar",
+      "sha1": "0fdc425d1fc0ad8703256f43deadcadee4328eea",
+      "side": "client"
+    },
+    {
+      "name": "Mod Menu",
+      "slug": "modmenu",
+      "project_id": "mOgUt4GM",
+      "version_id": "6lgOkclV",
+      "version": "11.0.5",
+      "filename": "modmenu-11.0.5.jar",
+      "url": "https://cdn.modrinth.com/data/mOgUt4GM/versions/6lgOkclV/modmenu-11.0.5.jar",
+      "sha1": "2321d890a25b5985eba576d7cd8fe9a9c136e33d",
+      "side": "client"
+    },
+    {
+      "name": "Mouse Tweaks",
+      "slug": "mouse-tweaks",
+      "project_id": "aC3cM3Vq",
+      "version_id": "ylmBQ38A",
+      "version": "1.21-2.26-fabric",
+      "filename": "MouseTweaks-fabric-mc1.21-2.26.jar",
+      "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/ylmBQ38A/MouseTweaks-fabric-mc1.21-2.26.jar",
+      "sha1": "ee81af33a5606ef2cd057e075833d7c69836c210",
+      "side": "client"
+    }
+  ]
+}
