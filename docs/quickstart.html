@@ -488,11 +488,15 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .hotbar a { transition: none; }
 }
+
+/* Step text flows as one paragraph (inline bold text stays inline); number pinned left. */
+ol.steps li { display: block; position: relative; padding-left: 40px; min-height: 26px; }
+ol.steps li::before { position: absolute; left: 0; top: 0; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <p style="font-family: 'Space Mono', monospace; font-size: 0.78rem; margin: 0 0 18px;"><a href="index.html" style="color: inherit;">&larr; Back to the guide</a></p>
+  <p class="crumb" style="font-family: 'Space Mono', monospace; font-size: 0.78rem; margin: 0 0 18px;"><a href="index.html" style="color: inherit;">&larr; Back to the guide</a></p>
 
   <div class="hero">
     <div class="eyebrow"><span class="pip"></span>Java Edition &middot; Survival Route</div>

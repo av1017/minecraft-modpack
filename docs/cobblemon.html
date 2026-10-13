@@ -96,6 +96,10 @@ ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-col
 li.done .checkbox { background: var(--amber); }
 footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Step text flows as one paragraph (inline bold text and key badges stay inline); number pinned left. */
+ol.flow li { display: block; position: relative; padding-left: 50px; }
+ol.flow li::before { position: absolute; left: 13px; top: 11px; }
 </style>
 </head>
 <body>

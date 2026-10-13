@@ -32,7 +32,17 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - Add `-AllowBeta` for projects that only publish betas (Fresh Animations does).
 
 ## Guide website
-`docs/` is a static HTML site published by GitHub Pages at https://av1017.github.io/minecraft-modpack/ (branch `main`, folder `/docs`). `index.html` is the hub, and each topic is its own page, linked with relative links like `controls.html`. Pages are self-contained: inline CSS/JS, Google Fonts, no build step. Checklist progress is stored in each visitor's browser (`localStorage`).
+`docs/` is a static HTML site published by GitHub Pages at https://av1017.github.io/minecraft-modpack/ (branch `main`, folder `/docs`). Pages are self-contained: inline CSS/JS, Google Fonts, no build step. Checklist progress is stored in each visitor's browser (`localStorage`).
+- **Layout:** `index.html` is the frame: a left sidebar plus a main area (an iframe) that shows one page. The address hash picks the page (`#cobblemon`), so links and the back button work. On phones the sidebar becomes a drawer.
+- **To add a page:**
+  1. Create `docs/<name>.html` as a full standalone page.
+  2. Add an entry to the `GROUPS` list in `index.html`.
+  3. Link it from `overview.html` (the Home page) if it belongs there.
+- **What the frame handles:**
+  - It hides each page's `.crumb` back link when shown inside it.
+  - It keeps relative links between pages inside the layout.
+  - It counts each page's `<li data-id>` checklist items for the sidebar progress. Pages save under the localStorage key `mc-guide-<page>-progress-fallback`.
+- **Numbered steps** (`ol.flow` / `ol.steps`) use block layout with an absolutely positioned number. Don't use `display: flex` on those `li`s: inline bold text and key badges would split into columns.
 - **When the mods change, update the matching guide pages in the same commit:** `mods.html` for Our World mods, `cobblemon.html` for the Cobblemon pack, and `controls.html` for keybinds and texture packs.
 - **Verify facts before writing them.** Read recipes and text from the installed jars, and read keybinds from the pack's `options.txt` after a launch.
 - **Keep every page working on a phone:** keep the viewport meta, don't use fixed widths, and wrap wide tables in an `overflow-x: auto` container.
