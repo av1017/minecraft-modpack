@@ -125,6 +125,17 @@
       "side": "both"
     },
     {
+      "name": "YetAnotherConfigLib (YACL)",
+      "slug": "yacl",
+      "project_id": "1eAoo2KR",
+      "version_id": "s9SjoFu1",
+      "version": "3.9.7+26.3-fabric",
+      "filename": "yet_another_config_lib_v3-3.9.7+26.3-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/1eAoo2KR/versions/s9SjoFu1/yet_another_config_lib_v3-3.9.7%2B26.3-fabric.jar",
+      "sha1": "e54d86dd4a78f95cd6ec0309d96fae01e661c00d",
+      "side": "both"
+    },
+    {
       "name": "[EMF] Entity Model Features",
       "slug": "entity-model-features",
       "project_id": "4I1XuqiY",
@@ -202,6 +213,17 @@
       "side": "client"
     },
     {
+      "name": "Skyboxify",
+      "slug": "skyboxify",
+      "project_id": "DWuwk8aA",
+      "version_id": "LSewIGOo",
+      "version": "3.4",
+      "filename": "skyboxify-3.4+26.3-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/DWuwk8aA/versions/LSewIGOo/skyboxify-3.4%2B26.3-fabric.jar",
+      "sha1": "b24b18f87c6301aef4812f6d0e769b2d7c7bbd1f",
+      "side": "client"
+    },
+    {
       "name": "Sodium",
       "slug": "sodium",
       "project_id": "AANobbMI",
@@ -246,6 +268,17 @@
       "filename": "Fast Better Grass.zip",
       "url": "https://cdn.modrinth.com/data/dspVZXKP/versions/Alviiov6/Fast%20Better%20Grass.zip",
       "sha1": "ca670657742ed2f479877da9440547372e5f92b5",
+      "side": "client"
+    },
+    {
+      "name": "Dramatic Skys",
+      "slug": "dramatic-skys",
+      "project_id": "2YyNMled",
+      "version_id": "4MZQy9nc",
+      "version": "1.5.3.36.6",
+      "filename": "Dramatic Skys Demo 1.5.3.36.6.zip",
+      "url": "https://cdn.modrinth.com/data/2YyNMled/versions/4MZQy9nc/Dramatic%20Skys%20Demo%201.5.3.36.6.zip",
+      "sha1": "8953223ba4d04261917b2e29bdcc1841297a5efa",
       "side": "client"
     },
     {
