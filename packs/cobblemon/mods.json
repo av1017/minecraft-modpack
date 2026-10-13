@@ -585,6 +585,20 @@
       "side": "client"
     }
   ],
+  "keybinds": [
+    {
+      "key": "key_iris.keybind.reload",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.unknown",
+      "why": "R is Cobblemon's 'throw Pokémon'; Iris's reload-shaders on R froze the game on every throw"
+    },
+    {
+      "key": "key_iris.keybind.shaderPackSelection",
+      "from": "key.keyboard.o",
+      "to": "key.keyboard.unknown",
+      "why": "O is Cobblemon's 'hide party'; the shader menu is still in Options > Video Settings > Shader Packs"
+    }
+  ],
   "host_world_datapacks": [
     {
       "note": "Data pack for the HOST's world only (put in <world>/datapacks). Not installed by sync.ps1.",

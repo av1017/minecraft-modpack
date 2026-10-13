@@ -136,7 +136,27 @@ $srcOptions = Join-Path $MinecraftDir "options.txt"
 $dstOptions = Join-Path $gameDir "options.txt"
 $needOptions = ($gameDir -ne $MinecraftDir) -and (Test-Path $srcOptions) -and -not (Test-Path $dstOptions)
 
+# Keybind fixes for clashes between mods. Each entry moves "key" from its clashing default ("from") to "to".
+# It only acts if the key isn't in options.txt yet (game hasn't saved it) or still equals "from",
+# so a key a player changed on purpose is never touched.
+$keyFixes = @()
+if ($m.PSObject.Properties.Name -contains "keybinds") { $keyFixes = @($m.keybinds | Where-Object { $_ }) }
+$keyChanges = @()
+$keyOptionsFile = $dstOptions
+if (-not (Test-Path $keyOptionsFile) -and $needOptions) { $keyOptionsFile = $srcOptions }   # will be copied in first
+if ($keyFixes.Count -gt 0 -and (Test-Path $keyOptionsFile)) {
+  $current = @{}
+  foreach ($l in [System.IO.File]::ReadAllLines($keyOptionsFile)) { if ($l -match '^(key_[^:]+):(.*)$') { $current[$Matches[1]] = $Matches[2] } }
+  foreach ($k in $keyFixes) {
+    $has = $current.ContainsKey($k.key)
+    if ((-not $has) -or $current[$k.key] -eq $k.from) {
+      if (-not ($has -and $current[$k.key] -eq $k.to)) { $keyChanges += $k }
+    }
+  }
+}
+
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
+foreach ($k in $keyChanges)  { Plan "Keybind fix: $($k.key) -> $($k.to) ($($k.why))" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
 foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
 foreach ($sp in $spToInstall) { Plan "Install shader pack: $($sp.name) $($sp.version)" }
@@ -151,7 +171,7 @@ if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpLis
 
 if ($spList.Count -gt 0) { Ok "$($spList.Count - $spToInstall.Count) of $($spList.Count) shader packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -235,12 +255,33 @@ if ($needOptions) {
   Ok "Copied game settings and keybinds"
 }
 
+# Apply keybind fixes (worked out above).
+if ($keyChanges.Count -gt 0) {
+  if (-not (Test-Path $dstOptions)) {
+    Note "No options.txt yet; keybind fixes will apply on the next sync after your first launch."
+  } else {
+    $optBackup = Join-Path $backupDir "options.txt"
+    if (-not (Test-Path $optBackup)) { Copy-Item -LiteralPath $dstOptions -Destination $optBackup }
+    $raw = [System.IO.File]::ReadAllText($dstOptions)
+    $nl = "`n"; if ($raw.Contains("`r`n")) { $nl = "`r`n" }
+    $lines = [System.Collections.ArrayList]@($raw.TrimEnd("`r", "`n") -split [regex]::Escape($nl))
+    foreach ($k in $keyChanges) {
+      $idx = -1
+      for ($i = 0; $i -lt $lines.Count; $i++) { if ($lines[$i] -like ($k.key + ":*")) { $idx = $i } }
+      if ($idx -ge 0) { $lines[$idx] = $k.key + ":" + $k.to } else { [void]$lines.Add($k.key + ":" + $k.to) }
+    }
+    [System.IO.File]::WriteAllText($dstOptions, (($lines -join $nl) + $nl), $utf8NoBom)
+    Ok "Applied $($keyChanges.Count) keybind fix(es)"
+  }
+}
+
 # Switch on resource packs installed for the first time (later entries load on top).
 if ($rpNew.Count -gt 0) {
   if (-not (Test-Path $dstOptions)) {
     Note "No options.txt yet; turn the new resource packs on in Options > Resource Packs after your first launch."
   } else {
-    Copy-Item -LiteralPath $dstOptions -Destination (Join-Path $backupDir "options.txt")
+    $optBackup = Join-Path $backupDir "options.txt"
+    if (-not (Test-Path $optBackup)) { Copy-Item -LiteralPath $dstOptions -Destination $optBackup }   # keep the original
     $lines = [System.Collections.ArrayList]@([System.IO.File]::ReadAllLines($dstOptions))
     $idx = -1
     for ($i = 0; $i -lt $lines.Count; $i++) { if ($lines[$i] -like "resourcePacks:*") { $idx = $i } }
