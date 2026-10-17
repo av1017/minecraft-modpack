@@ -143,6 +143,11 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       </div>
       <div class="verdict fixed" data-world="cobblemon">
         <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Zoom: <span class="kbd">C</span> &rarr; <span class="kbd">`</span></span>
+        <span class="why">C is now the vehicle button, so zoom in the Cobblemon world moved to backtick, the key under Esc. Our World still zooms with C.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
         <span class="what">Plane mouse steering: <span class="kbd">`</span> &rarr; <span class="kbd">Right Alt</span></span>
         <span class="why">Backtick is the zoom key in this profile.</span>
       </div>
@@ -303,7 +308,8 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <tr><td class="k"><span class="note">not set</span></td><td>Sort backpack, special ability, toggle each upgrade slot. Assign keys in Controls if you want them.</td><td><span class="src inv">BACKPACK</span></td></tr>
         <tr data-world="cobblemon"><td class="k"><span class="kbd">J</span> <span class="note">after the sync</span></td><td>Portal gun menu: destination, waypoints, settings. Hold the gun first. Cobblemon world only.</td><td><span class="src cob">PORTAL GUN</span></td></tr>
         <tr><td class="k"><span class="kbd">F6</span></td><td>Turn First-person Model on/off (see your own arms, body, and legs when you look down). Both worlds.</td><td><span class="src van">FIRST-PERSON</span></td></tr>
-        <tr><td class="k"><span class="kbd">C</span> (hold)</td><td>Zoom. In the Cobblemon world (Zoomify), scroll while holding to zoom further. To use a different key (Avery uses <span class="kbd">`</span>), change it in Controls.</td><td><span class="src van">ZOOM</span></td></tr>
+        <tr data-world="cobblemon"><td class="k"><span class="kbd">`</span> (hold) <span class="note">after the sync</span></td><td>Zoom in the Cobblemon world (Zoomify): the key under Esc. Scroll while holding to zoom further. It moved off C, which is the vehicle button there.</td><td><span class="src van">ZOOM</span></td></tr>
+        <tr data-world="ourworld"><td class="k"><span class="kbd">C</span> (hold)</td><td>Zoom in Our World (Logical Zoom)</td><td><span class="src van">ZOOM</span></td></tr>
         <tr><td class="k"><span class="kbd">N</span></td><td>AutoSwitch on/off: swaps to the best tool in your hotbar when you start mining.</td><td><span class="src van">AUTOSWITCH</span></td></tr>
         <tr><td class="k"><span class="kbd">Shift</span> (hold)</td><td>More detail in the Jade popup at the top of the screen.</td><td><span class="src van">JADE</span></td></tr>
         <tr data-world="cobblemon"><td class="k">Left / right click</td><td>Portal Device: open blue / orange portal. Hold <span class="kbd">Left Alt</span> + click to close that one; sneak + right-click closes both. See <a href="twinportals.html">Portal Device</a>.</td><td><span class="src cob">PORTAL DEVICE</span></td></tr>
@@ -365,7 +371,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       <thead><tr><th>Key</th><th>Action</th></tr></thead>
       <tbody>
         <tr><td class="k"><span class="kbd">L</span></td><td>Advancements. Farmer's Delight and Cobblemon use them as built-in guides.</td></tr>
-        <tr><td class="k"><span class="kbd">V</span> / <span class="kbd">F5</span></td><td>Change camera view: V in both worlds (C is zoom); F5 is Minecraft's default</td></tr>
+        <tr><td class="k"><span class="kbd">V</span> / <span class="kbd">F5</span></td><td>Change camera view: V in both worlds; F5 is Minecraft's default</td></tr>
         <tr><td class="k"><span class="kbd">F3</span></td><td>Coordinates and debug info. F3 combos (F3+G for chunk borders, etc.) only fire while F3 is held, so they never clash with normal keys.</td></tr>
         <tr><td class="k"><span class="kbd">F2</span></td><td>Screenshot</td></tr>
         <tr><td class="k"><span class="kbd">Esc</span> &rarr; Open to LAN</td><td>Lets the other player join your world</td></tr>

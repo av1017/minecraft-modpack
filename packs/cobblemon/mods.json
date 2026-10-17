@@ -966,6 +966,12 @@
       "why": "F6 is First-person Model's toggle; Zoomify's secondary (cinematic) zoom is left unbound"
     },
     {
+      "key": "key_zoomify.key.zoom",
+      "from": "key.keyboard.c",
+      "to": "key.keyboard.grave.accent",
+      "why": "C is the vehicle button (ship sail, plane boost, bike bell), so zoom moves to backtick, the key the host already uses"
+    },
+    {
       "key": "key_key.smallships.ship_sail",
       "from": "key.keyboard.r",
       "to": "key.keyboard.c",
