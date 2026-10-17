@@ -17,6 +17,28 @@
   },
   "mods": [
     {
+      "name": "Accessories",
+      "slug": "accessories",
+      "project_id": "jtmvUHXj",
+      "version_id": "YZ9RWTNl",
+      "version": "1.1.0-beta.54+1.21.1",
+      "filename": "accessories-fabric-1.1.0-beta.54+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/jtmvUHXj/versions/YZ9RWTNl/accessories-fabric-1.1.0-beta.54%2B1.21.1.jar",
+      "sha1": "e1165f3d5b31d4296f932ec1bc428f2a832c5def",
+      "side": "both"
+    },
+    {
+      "name": "Accessories Compatibility Layer",
+      "slug": "accessories-compat-layer",
+      "project_id": "ySnjMzLg",
+      "version_id": "COsm5f44",
+      "version": "0.1.13",
+      "filename": "accessories_compat_layer-fabric-0.1.13+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/ySnjMzLg/versions/COsm5f44/accessories_compat_layer-fabric-0.1.13%2B1.21.1.jar",
+      "sha1": "3915dd272b7f0da0db8e168ec862149c8323bd50",
+      "side": "both"
+    },
+    {
       "name": "Another Furniture",
       "slug": "another-furniture",
       "project_id": "ulloLmqG",
@@ -94,6 +116,17 @@
       "side": "both"
     },
     {
+      "name": "CICADA",
+      "slug": "cicada",
+      "project_id": "IwCkru1D",
+      "version_id": "ulZDYpW0",
+      "version": "0.14.3+1.21-1.21.1",
+      "filename": "cicada-lib-0.14.3+1.21-1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/IwCkru1D/versions/ulZDYpW0/cicada-lib-0.14.3%2B1.21-1.21.1.jar",
+      "sha1": "eeed84e999045dada698454a845202289ca54977",
+      "side": "both"
+    },
+    {
       "name": "Cloth Config API",
       "slug": "cloth-config",
       "project_id": "9s6osm5g",
@@ -102,6 +135,17 @@
       "filename": "cloth-config-15.0.140-fabric.jar",
       "url": "https://cdn.modrinth.com/data/9s6osm5g/versions/HpMb5wGb/cloth-config-15.0.140-fabric.jar",
       "sha1": "5d82342a2df53fd6df712bfdd583a811572918a4",
+      "side": "both"
+    },
+    {
+      "name": "Cobbled Armor & Tool Trims - Cobblemon",
+      "slug": "cobbled-armour-trims",
+      "project_id": "Ui0aohNY",
+      "version_id": "mdjvOQWG",
+      "version": "3.2",
+      "filename": "cobbled-armour-trims-3.2.jar",
+      "url": "https://cdn.modrinth.com/data/Ui0aohNY/versions/mdjvOQWG/cobbled-armour-trims-3.2.jar",
+      "sha1": "f214d0e589ac089dc5bfee10558e81fe7193ee08",
       "side": "both"
     },
     {
@@ -124,6 +168,17 @@
       "filename": "Cobblemon-fabric-1.8.2+1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/MdwFAVRL/versions/GJ2a1b8O/Cobblemon-fabric-1.8.2%2B1.21.1.jar",
       "sha1": "1a8ec812b2e7b392ac60801c910d3128d0bbb432",
+      "side": "both"
+    },
+    {
+      "name": "Cobblemon Armors",
+      "slug": "cobblemon-armors",
+      "project_id": "WwDbGW1s",
+      "version_id": "bbuLGt1k",
+      "version": "1.6.0+1.8.2",
+      "filename": "cobblemon-armors-1.6.0+1.8.2.jar",
+      "url": "https://cdn.modrinth.com/data/WwDbGW1s/versions/bbuLGt1k/cobblemon-armors-1.6.0%2B1.8.2.jar",
+      "sha1": "f1c1926921db00e949c3ca073581289d10abe83f",
       "side": "both"
     },
     {
@@ -160,6 +215,17 @@
       "side": "both"
     },
     {
+      "name": "Craftable Smithing Templates (Armor Trims)",
+      "slug": "craftable-smithing-templates",
+      "project_id": "HxvFN3sd",
+      "version_id": "pvmJLvg3",
+      "version": "1.2",
+      "filename": "craftable-smitihing-templates-fabric-1.2.jar",
+      "url": "https://cdn.modrinth.com/data/HxvFN3sd/versions/pvmJLvg3/craftable-smitihing-templates-fabric-1.2.jar",
+      "sha1": "167317728c594797d846229fd081956f6b070ad0",
+      "side": "both"
+    },
+    {
       "name": "Distant Horizons",
       "slug": "distanthorizons",
       "project_id": "uCdwusMi",
@@ -168,6 +234,17 @@
       "filename": "DistantHorizons-3.3.3-1.21.1-fabric-neoforge.jar",
       "url": "https://cdn.modrinth.com/data/uCdwusMi/versions/9w34y8ai/DistantHorizons-3.3.3-1.21.1-fabric-neoforge.jar",
       "sha1": "4357b4d19fab818780c94f0e43dad1cc931634b2",
+      "side": "both"
+    },
+    {
+      "name": "Epic Knights: Shields Armor and Weapons",
+      "slug": "epic-knights-shields-armor-and-weapons",
+      "project_id": "L6jvzao4",
+      "version_id": "dLYqLDl7",
+      "version": "10.16",
+      "filename": "epic-knights-1.21.1-fabric-10.16.jar",
+      "url": "https://cdn.modrinth.com/data/L6jvzao4/versions/dLYqLDl7/epic-knights-1.21.1-fabric-10.16.jar",
+      "sha1": "12209bc7999029727c916703b84f644cc574ceed",
       "side": "both"
     },
     {
@@ -256,6 +333,17 @@
       "filename": "immersive_aircraft-fabric-1.7.0+1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/x3HZvrj6/versions/xOnNs6dK/immersive_aircraft-fabric-1.7.0%2B1.21.1.jar",
       "sha1": "b2c60b1f10a97c0ccc997b0c4f6c1619ed79341b",
+      "side": "both"
+    },
+    {
+      "name": "Immersive Armors",
+      "slug": "immersive-armors",
+      "project_id": "eE2Db4YU",
+      "version_id": "4m0lwLNO",
+      "version": "1.7.6+1.21.1",
+      "filename": "immersive_armors-1.7.6+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/eE2Db4YU/versions/4m0lwLNO/immersive_armors-1.7.6%2B1.21.1-fabric.jar",
+      "sha1": "0e0636fc11a0a58a65ba8a932d51316fe2150f00",
       "side": "both"
     },
     {
@@ -360,6 +448,39 @@
       "pinned_reason": "Paired with the pinned Supplementaries 3.6.7 (Moonlight from the same month, May 2026); unpin together with Supplementaries."
     },
     {
+      "name": "oωo (owo-lib)",
+      "slug": "owo-lib",
+      "project_id": "ccKDOlHs",
+      "version_id": "JB1fLQnc",
+      "version": "0.12.15.4+1.21",
+      "filename": "owo-lib-0.12.15.4+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/ccKDOlHs/versions/JB1fLQnc/owo-lib-0.12.15.4%2B1.21.jar",
+      "sha1": "45725e6d33b624e565a7a6e5d3627af40814288d",
+      "side": "both"
+    },
+    {
+      "name": "Patchouli",
+      "slug": "patchouli",
+      "project_id": "nU0bVIaL",
+      "version_id": "XIjNwQkI",
+      "version": "1.21.1-93-fabric",
+      "filename": "Patchouli-1.21.1-93-FABRIC.jar",
+      "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/XIjNwQkI/Patchouli-1.21.1-93-FABRIC.jar",
+      "sha1": "693eb5235ccbcef67569bd62d6c5dd34c4d73459",
+      "side": "both"
+    },
+    {
+      "name": "Poke Clothing",
+      "slug": "poke-clothing",
+      "project_id": "enyi2m8u",
+      "version_id": "bmLnQ5iN",
+      "version": "1.21.1-1.2.2",
+      "filename": "poke-clothing-1.2.2.jar",
+      "url": "https://cdn.modrinth.com/data/enyi2m8u/versions/bmLnQ5iN/poke-clothing-1.2.2.jar",
+      "sha1": "195201a8ddb31f21b7224cb68cb3ca9893e8e34a",
+      "side": "both"
+    },
+    {
       "name": "PokeBike [Cobblemon & Pixelmon Addon]",
       "slug": "pokebike",
       "project_id": "8eqU62OI",
@@ -459,6 +580,28 @@
       "side": "both"
     },
     {
+      "name": "Show Me Your Skin!",
+      "slug": "show-me-your-skin",
+      "project_id": "bD7YqcA3",
+      "version_id": "qnCeuBkc",
+      "version": "1.11.3+1.21",
+      "filename": "show-me-your-skin-1.11.3+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/bD7YqcA3/versions/qnCeuBkc/show-me-your-skin-1.11.3%2B1.21.jar",
+      "sha1": "23572afad7366a6b584a6cb1001e41cc61941ebe",
+      "side": "both"
+    },
+    {
+      "name": "Simple Hats",
+      "slug": "simple-hats",
+      "project_id": "iSkQCp6b",
+      "version_id": "nV0q5j3l",
+      "version": "1.21.1-0.4.0",
+      "filename": "simplehats-fabric-1.21.1-0.4.0.jar",
+      "url": "https://cdn.modrinth.com/data/iSkQCp6b/versions/nV0q5j3l/simplehats-fabric-1.21.1-0.4.0.jar",
+      "sha1": "f5ccce6c497bf8376b2c56f04d5e14c52bb72cb1",
+      "side": "both"
+    },
+    {
       "name": "Small Ships",
       "slug": "small-ships",
       "project_id": "rGWEHQrP",
@@ -527,6 +670,17 @@
       "side": "both"
     },
     {
+      "name": "Trinkets",
+      "slug": "trinkets",
+      "project_id": "5aaWibi9",
+      "version_id": "JagCscwi",
+      "version": "3.10.0",
+      "filename": "trinkets-3.10.0.jar",
+      "url": "https://cdn.modrinth.com/data/5aaWibi9/versions/JagCscwi/trinkets-3.10.0.jar",
+      "sha1": "f54756f938c7c273713b9f97d4a987eec551e892",
+      "side": "both"
+    },
+    {
       "name": "Twin Portals (our own mod)",
       "slug": "twinportals",
       "project_id": "twinportals-local",
@@ -538,6 +692,17 @@
       "side": "both",
       "pinned": true,
       "pinned_reason": "Our own mod (source: minecraftServer/portal-gun-mod, not on Modrinth). Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
+      "name": "Weavers Paradise",
+      "slug": "weavers-paradise",
+      "project_id": "Q5xngUCT",
+      "version_id": "fdfGrTdg",
+      "version": "1.6.2.2-fabric",
+      "filename": "weaversparadise-1.6.2.2-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/Q5xngUCT/versions/fdfGrTdg/weaversparadise-1.6.2.2-fabric.jar",
+      "sha1": "5539d664f384f944ff4e0d9afb9ab5a2bbe99c25",
+      "side": "both"
     },
     {
       "name": "Wool Tweaks",
@@ -702,6 +867,17 @@
       "filename": "MouseTweaks-fabric-mc1.21-2.26.jar",
       "url": "https://cdn.modrinth.com/data/aC3cM3Vq/versions/ylmBQ38A/MouseTweaks-fabric-mc1.21-2.26.jar",
       "sha1": "ee81af33a5606ef2cd057e075833d7c69836c210",
+      "side": "client"
+    },
+    {
+      "name": "MouseTweaks x Accessories Fix",
+      "slug": "mousetweaks-x-accessories-fix",
+      "project_id": "bFBJU91s",
+      "version_id": "znY5vYq7",
+      "version": "1.4.0",
+      "filename": "mousetweaks-x-accessories-fix-1.4.0.jar",
+      "url": "https://cdn.modrinth.com/data/bFBJU91s/versions/znY5vYq7/mousetweaks-x-accessories-fix-1.4.0.jar",
+      "sha1": "4d47eea1921f4f2b2b8967487f287df0f3b26cfe",
       "side": "client"
     },
     {
@@ -970,6 +1146,30 @@
       "from": "key.keyboard.c",
       "to": "key.keyboard.grave.accent",
       "why": "C is the vehicle button (ship sail, plane boost, bike bell), so zoom moves to backtick, the key the host already uses"
+    },
+    {
+      "key": "key_accessories.key.open_accessories_screen",
+      "from": "key.keyboard.h",
+      "to": "key.keyboard.unknown",
+      "why": "H swaps the backpack's tools; the Accessories screen (hats, trinkets) has its own button in the inventory"
+    },
+    {
+      "key": "key_key.showmeyourskin.open_settings",
+      "from": "key.keyboard.k",
+      "to": "key.keyboard.unknown",
+      "why": "K toggles shaders; Show Me Your Skin's settings are under Mods on the pause menu"
+    },
+    {
+      "key": "key_key.showmeyourskin.global_toggle",
+      "from": "key.keyboard.j",
+      "to": "key.keyboard.unknown",
+      "why": "J is Rick's portal gun menu; the on/off switch is in Show Me Your Skin's settings"
+    },
+    {
+      "key": "key_weaversparadise.keybind.trinket_sound",
+      "from": "key.keyboard.x",
+      "to": "key.keyboard.unknown",
+      "why": "X is the second vehicle button; the choker jingle can be given a key in Controls"
     },
     {
       "key": "key_key.smallships.ship_sail",

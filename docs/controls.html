@@ -156,6 +156,11 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <span class="what">MCA skin library: <span class="kbd">U</span> &rarr; <span class="kbd">F7</span></span>
         <span class="why">U is Xaero's waypoint list. Every letter is already taken in this profile, and the skin library is rarely needed.</span>
       </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC &middot; ARMOR &amp; CLOTHES</span>
+        <span class="what">Accessories <span class="kbd">H</span>, Show Me Your Skin! <span class="kbd">K</span> / <span class="kbd">J</span>, choker jingle <span class="kbd">X</span> &rarr; no key</span>
+        <span class="why">They landed on the backpack tool swap, shaders, the portal gun menu, and a vehicle button. Open Accessories with the button in your inventory, and Show Me Your Skin! from Mods on the pause menu. Give the choker a key in Controls if you want it.</span>
+      </div>
       <div class="verdict ok" data-world="cobblemon">
         <span class="tag">WORKS WITH KEYBIND FIX</span>
         <span class="what"><span class="kbd">Left Alt</span> Riding free look / Portal Device close / plane free look</span>
@@ -342,6 +347,44 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       </tbody>
     </table></div>
     <p class="note">Inventory Profiles Next keeps its keys in its own settings rather than Minecraft's Key Binds screen; change them with R+C. Its defaults come from its documentation.</p>
+  </section>
+
+  <!-- FIND ITEMS -->
+  <section class="panel" id="find">
+    <h2>Finding a mod's items</h2>
+    <p class="sub">In the REI search box (bottom of any inventory), type <span class="kbd">@</span> and part of a mod's name to show only that mod's items. It matches the <strong>mod's</strong> name, not the creative tab's: Epic Knights' tab is called "Medieval Weapons", but <code>@med</code> finds nothing, while <code>@epic</code> works.</p>
+    <div class="table-scroll"><table class="keys">
+      <thead><tr><th>Type</th><th>Mod</th><th>What's in it</th></tr></thead>
+      <tbody>
+        <tr data-world="cobblemon"><td class="k"><code>@cobblemon</code></td><td>Cobblemon and its add-ons</td><td>Pok&eacute; Balls, berries, evolution items, plus the armor, badge, and trainer add-ons</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@cobbreeding</code></td><td>Cobbreeding</td><td>Pok&eacute;mon eggs</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@badges</code></td><td>Cobblemon Pokemon Badges</td><td>Gym badges</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@cobblemonarmors</code></td><td>Cobblemon Armors</td><td>Team Rocket, Aqua, Magma, Galactic&hellip; armor</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@immersive_armors</code></td><td>Immersive Armors</td><td>40 special armor pieces</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@epic</code></td><td>Epic Knights</td><td>Medieval armor, shields, weapons (its tabs are "Medieval &hellip;")</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@poke-clothing</code></td><td>Poke Clothing</td><td>Trainer outfits</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@weavers</code></td><td>Weaver's Paradise</td><td>Thread, fabric, clothes, dyes</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@simplehats</code></td><td>Simple Hats</td><td>Hats and grab bags</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@smallships</code></td><td>Small Ships</td><td>Ships, Dockyard, cannons</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@immersive_aircraft</code></td><td>Immersive Aircraft</td><td>Planes, airships, parts, upgrades</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@pokebike</code></td><td>PokeBike</td><td>Bikes, Bike Wrench</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@automobility</code></td><td>Automobility</td><td>Car parts, ready-made cars, track blocks</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@mca</code></td><td>Minecraft Comes Alive</td><td>Rings, bouquets, cribs, the Whistle</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@twin</code> / <code>@rick</code></td><td>Twin Portals / Rick's Portal Gun</td><td>The Portal Device / Rick's portal gun</td></tr>
+        <tr><td class="k"><code>@macaw</code></td><td>Macaw's Furniture, Windows, Lights</td><td>All three Macaw's mods</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>@handcrafted</code>, <code>@another</code>, <code>@cobblefurnies</code>, <code>@supplementaries</code>, <code>@botany</code></td><td>Decoration mods</td><td>Furniture, plants in pots, and more. See <a href="decorate.html">Making It Home</a>.</td></tr>
+        <tr><td class="k"><code>@beautify</code>, <code>@storage</code></td><td>Beautify, Storage Delight</td><td>Decorations, cabinets</td></tr>
+        <tr><td class="k"><code>@delight</code></td><td>Farmer's, Rustic &amp; Storage Delight</td><td>Food, crops, kitchen</td></tr>
+        <tr><td class="k"><code>@backpack</code></td><td>Traveler's Backpack</td><td>Backpacks and upgrades</td></tr>
+        <tr data-world="cobblemon"><td class="k"><code>template</code></td><td>(plain word)</td><td>Every smithing template. Words without <code>@</code> search item names. See <a href="gear.html#templates">Armor, Weapons &amp; Style</a>.</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><strong>Which mod is this from?</strong> Hover any item: the mod's name is in blue at the bottom of the tooltip.</li>
+      <li><strong>Mix searches:</strong> <code>@epic helmet</code> shows only Epic Knights helmets; a minus hides things, like <code>@cobblemon -ball</code>.</li>
+      <li><strong>Group the whole list by mod:</strong> click the gear next to the search box, find <strong>Ordering</strong>, and choose <strong>By Groups</strong>. The list then follows the creative tabs, so each mod's items sit together.</li>
+      <li><strong>Every installed mod</strong> is listed under <strong>Mods</strong> on the title screen or pause menu.</li>
+    </ul>
   </section>
 
   <!-- TEXTURE PACKS -->
