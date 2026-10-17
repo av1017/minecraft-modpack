@@ -879,6 +879,54 @@
       "find": "(?m)^(minecraft!creeper[ \\t]*=[ \\t]*)minecraft:flint_and_steel(?=\\r?$)",
       "replace": "${1}",
       "why": "AutoSwitch swapped to flint and steel when right-clicking a creeper, which lights it"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*lodChunkRenderDistanceRadius = )256(?=[ \\t]*\\r?$)",
+      "replace": "${1}48",
+      "why": "Distant Horizons: far terrain 256 -> 48 chunks; 256 maxed out the host's graphics"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*maxHorizontalResolution = )\"BLOCK\"(?=[ \\t]*\\r?$)",
+      "replace": "${1}\"FOUR_BLOCKS\"",
+      "why": "Distant Horizons: 16x fewer far-terrain pieces near the edge of view"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*horizontalQuality = )\"MEDIUM\"(?=[ \\t]*\\r?$)",
+      "replace": "${1}\"LOW\"",
+      "why": "Distant Horizons: lighter detail falloff"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*verticalQuality = )\"MEDIUM\"(?=[ \\t]*\\r?$)",
+      "replace": "${1}\"LOW\"",
+      "why": "Distant Horizons: simpler far-off overhangs and caves"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*enableSsao = )true(?=[ \\t]*\\r?$)",
+      "replace": "${1}false",
+      "why": "Distant Horizons: no extra full-screen shading pass (shaders shade anyway)"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*enableCloudRendering = )true(?=[ \\t]*\\r?$)",
+      "replace": "${1}false",
+      "why": "Distant Horizons: no far-off clouds (vanilla clouds are off too)"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*transparency = )\"COMPLETE\"(?=[ \\t]*\\r?$)",
+      "replace": "${1}\"DISABLED\"",
+      "why": "Distant Horizons: far-off water drawn solid, saving a pass"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*generatorPlan = )\"SURFACE_THEN_CHUNKS\"(?=[ \\t]*\\r?$)",
+      "replace": "${1}\"SURFACE_ONLY\"",
+      "why": "Distant Horizons: build only the rough surface for far terrain, not full chunks"
     }
   ],
   "host_world_datapacks": [
