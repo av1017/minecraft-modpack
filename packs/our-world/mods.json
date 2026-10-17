@@ -16,6 +16,17 @@
   },
   "mods": [
     {
+      "name": "Architectury API",
+      "slug": "architectury-api",
+      "project_id": "lhGA9TYQ",
+      "version_id": "1pMaB6So",
+      "version": "22.0.5+fabric",
+      "filename": "architectury-fabric-22.0.5.jar",
+      "url": "https://cdn.modrinth.com/data/lhGA9TYQ/versions/1pMaB6So/architectury-fabric-22.0.5.jar",
+      "sha1": "8c5f566e32bd47fbb80be4932b9be1cfa97c4e3a",
+      "side": "both"
+    },
+    {
       "name": "Cloth Config API",
       "slug": "cloth-config",
       "project_id": "9s6osm5g",
@@ -104,6 +115,17 @@
       "side": "both"
     },
     {
+      "name": "Jade 🔍",
+      "slug": "jade",
+      "project_id": "nvQzSEkH",
+      "version_id": "71CTWqdE",
+      "version": "26.3.5+fabric",
+      "filename": "Jade-mc26.3-Fabric-26.3.5.jar",
+      "url": "https://cdn.modrinth.com/data/nvQzSEkH/versions/71CTWqdE/Jade-mc26.3-Fabric-26.3.5.jar",
+      "sha1": "da61413c586c8918c14e2bbfdc808ce2d56ea9df",
+      "side": "both"
+    },
+    {
       "name": "Lithium",
       "slug": "lithium",
       "project_id": "gvQqBUqZ",
@@ -112,6 +134,17 @@
       "filename": "lithium-fabric-0.26.2+mc26.3.jar",
       "url": "https://cdn.modrinth.com/data/gvQqBUqZ/versions/xS0Q8LSi/lithium-fabric-0.26.2%2Bmc26.3.jar",
       "sha1": "dd5a4ec2c68d7601d8bce9076f789c55a5f8bef3",
+      "side": "both"
+    },
+    {
+      "name": "Roughly Enough Items (REI)",
+      "slug": "rei",
+      "project_id": "nfn13YXA",
+      "version_id": "rKsAE6bX",
+      "version": "26.3.824+fabric",
+      "filename": "RoughlyEnoughItems-26.3.824.jar",
+      "url": "https://cdn.modrinth.com/data/nfn13YXA/versions/rKsAE6bX/RoughlyEnoughItems-26.3.824.jar",
+      "sha1": "b7bfe27288f68027fab7277f4cf84b9d243f8978",
       "side": "both"
     },
     {
@@ -192,6 +225,17 @@
       "side": "client"
     },
     {
+      "name": "AutoSwitch",
+      "slug": "autoswitch",
+      "project_id": "uSdcnlts",
+      "version_id": "psVHvP54",
+      "version": "17.0.0",
+      "filename": "autoswitch-fabric-17.0.0.jar",
+      "url": "https://cdn.modrinth.com/data/uSdcnlts/versions/psVHvP54/autoswitch-fabric-17.0.0.jar",
+      "sha1": "b8ad22848058b7758694002e608d5b9785d8e465",
+      "side": "client"
+    },
+    {
       "name": "First-person Model",
       "slug": "first-person-model",
       "project_id": "H5XMjpHi",
@@ -233,6 +277,17 @@
       "filename": "libIPN-fabric-26.3-6.9.0.jar",
       "url": "https://cdn.modrinth.com/data/onSQdWhM/versions/aKBFonyQ/libIPN-fabric-26.3-6.9.0.jar",
       "sha1": "f989cd24ace83f73db6bfcf704cab99ad6d53d10",
+      "side": "client"
+    },
+    {
+      "name": "Logical Zoom",
+      "slug": "logical-zoom",
+      "project_id": "8bOImuGU",
+      "version_id": "NG757h5m",
+      "version": "0.0.37",
+      "filename": "logical_zoom-0.0.37.jar",
+      "url": "https://cdn.modrinth.com/data/8bOImuGU/versions/NG757h5m/logical_zoom-0.0.37.jar",
+      "sha1": "4d6409d93a9aa5d0887b3f2c14fb038abe0ea78d",
       "side": "client"
     },
     {
