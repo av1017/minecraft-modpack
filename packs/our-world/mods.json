@@ -423,6 +423,12 @@
       "from": "key.keyboard.o",
       "to": "key.keyboard.unknown",
       "why": "O is 26.3's Friends key; the shader menu is still in Options > Video Settings > Shader Packs"
+    },
+    {
+      "key": "key_key.autoswitch.toggle",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.n",
+      "why": "R is Cobblemon's throw Pokémon and Iris's reload; N is free in both profiles"
     }
   ]
 }
