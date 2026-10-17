@@ -15,13 +15,16 @@ The repo stores **lists** of mods, not the mod files. The sync script downloads 
 Each pack has its own game folder, with its own worlds, mods, and settings, so they never interfere with each other. Exact versions are in `packs/<pack>/mods.json`.
 
 ### our-world
-- **Mods:** Wool Tweaks, Farmer's Delight, Rustic Delight, inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu), EMF + ETF for animated mobs, and performance mods (Sodium, Lithium, FerriteCore), Distant Horizons (far view distance), and Traveler's Backpack, plus the libraries they need. The profile gets 4 GB of memory.
+- **Mods:** Wool Tweaks, Farmer's Delight, Rustic Delight, inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu), EMF + ETF for animated mobs, and performance mods (Sodium, Lithium, FerriteCore), Distant Horizons (far view distance), Traveler's Backpack, First-person Model, REI (item list and recipes), Jade (what am I looking at), Logical Zoom, AutoSwitch, and decoration mods (Macaw's Furniture, Windows, and Lights; Beautify; Storage Delight), plus the libraries they need. The profile gets 4 GB of memory.
 - **Texture pack:** Fresh Animations.
 
 ### cobblemon
 - **Cobblemon:** catch, battle, evolve, and ride Pokémon. A fan-made mod with original models.
 - **Xaero's Minimap + Xaero's World Map:** a corner minimap, a full-screen map, and waypoints.
-- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, performance mods (Sodium, Lithium, FerriteCore), Distant Horizons (far view distance), Traveler's Backpack, and libraries. The profile gets 6 GB of memory.
+- **Trainers and gyms:** Radical Cobblemon Trainers (trainers, level caps, Trainer Card), Radical Gyms & Structures (Kanto gyms and League), Cobblemon Pokemon Badges, CobbleFurnies. The host's world also has the RCT badge data pack (`host_world_datapacks`).
+- **Terralith:** about 95 new biomes and bigger terrain in unexplored land.
+- **Twin Portals (our own mod):** a blue/orange portal device. Source in the host's `minecraftServer/portal-gun-mod`; the jar is a GitHub release on this repo. Also Rick's Portal Gun.
+- **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, performance mods (Sodium, Lithium, FerriteCore), Distant Horizons, Traveler's Backpack, First-person Model, REI, Jade, Zoomify, AutoSwitch, decoration mods (Macaw's, Beautify, Storage Delight, Handcrafted, Another Furniture, Supplementaries, Botany Pots), and libraries. The profile gets 8 GB of memory (capped at a third of the PC's RAM).
 - **Texture packs:** Cobblemon Interface (+ Modded), E19 Cobblemon Minimap Icons, Fresh Animations.
 
 ### Look: Faithful 32x and shaders
@@ -37,6 +40,7 @@ The sync installs each pack's texture packs into its `resourcepacks` folder and 
 2. **Clone this repo:** `git clone https://github.com/av1017/minecraft-modpack.git`
 3. **Run the sync** for each pack you want: double-click `Sync Our World.bat` and/or `Sync Cobblemon.bat`. Or open Claude Code in the folder and say *"Read CLAUDE.md and sync my Minecraft mods."*
 4. **Play:** in the launcher, pick the pack's profile and press Play. A pack's first launch is slower, because the launcher downloads that Minecraft version.
+5. **Sync once more after that first launch.** Some fixes (REI's keys, AutoSwitch, Distant Horizons' lighter settings) edit files the mods only create when the game first runs.
 
 ## After someone changes the mods
 Close Minecraft, then `git pull` in the repo folder and run the sync file for the pack that changed. The sync makes the pack's mods folder match its list exactly. Anything it removes goes to `.minecraft\setup-backups\`.

@@ -230,9 +230,10 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     <p class="sub">Shows land far past your normal render distance as simplified terrain, so mountains and coastlines stay visible on the horizon. Both worlds have it. It only changes what you see: the world itself is unchanged.</p>
     <ol class="flow">
       <li><strong>The first visit is busy.</strong> It builds the far terrain in the background as you play, so expect more fan noise and a slow fill-in at first. It's saved after that, so returning to an area is fast.</li>
-      <li><strong>Settings:</strong> pause menu &rarr; <strong>Mods &rarr; Distant Horizons</strong>. The main dial is how far it draws; lower it if frame rate drops.</li>
+      <li><strong>Settings:</strong> pause menu &rarr; <strong>Mods &rarr; Distant Horizons</strong>. The sync sets a light profile: 48 chunks, surface-only generation, low quality, and Distant Horizons' own shading and clouds off.</li>
       <li><strong>It works with Complementary.</strong> The shader has its own settings for blending the far terrain into the fog.</li>
     </ol>
+    <div class="callout warn"><strong>This is the biggest performance cost in the pack.</strong> At its default 256 chunks with full detail, it maxed out the host laptop's graphics even with shaders off; with the light profile it runs smoothly with shaders on. If things get choppy, lower its distance (48 &rarr; 32) before touching anything else, and leave its SSAO, clouds, and finest detail off.</div>
     <div class="callout"><strong>Playing on LAN:</strong> the player who joins builds far terrain only from land they've loaded themselves, so their horizon fills in more slowly than the host's.</div>
     <ul class="tasks">
       <li data-id="far-1"><span class="checkbox"></span><span class="task-text">Climb a hill and check the horizon</span></li>

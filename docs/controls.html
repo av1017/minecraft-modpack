@@ -134,7 +134,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
   <!-- OVERLAPS -->
   <section class="panel" id="overlaps">
     <h2>Do any keys clash?</h2>
-    <p class="sub">I checked every binding in both profiles, plus the default keys inside each new mod, for keys used twice. Five real clashes turned up. The sync fixes them automatically: it moves the mod's key, but only if you haven't already changed it yourself.</p>
+    <p class="sub">I checked every binding in both profiles, plus the default keys inside each new mod, for keys used twice. Nine real clashes turned up. The sync fixes them automatically: it moves the mod's key, but only if you haven't already changed it yourself.</p>
     <div class="verdicts">
       <div class="verdict fixed" data-world="cobblemon">
         <span class="tag">FIXED BY THE SYNC</span>
@@ -161,6 +161,21 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <span class="what">Portal gun menu: <span class="kbd">V</span> &rarr; <span class="kbd">J</span></span>
         <span class="why">V is the camera key in the Cobblemon world. The portal gun menu opens with J.</span>
       </div>
+      <div class="verdict fixed">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Show recipe: <span class="kbd">R</span> &rarr; <span class="kbd">Y</span></span>
+        <span class="why">REI's "show recipe" on R also made the sorting mod sort your inventory. Recipes are on Y now, next to U for uses; R only sorts.</span>
+      </div>
+      <div class="verdict fixed">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">AutoSwitch on/off: <span class="kbd">R</span> &rarr; <span class="kbd">N</span></span>
+        <span class="why">R throws your Pok&eacute;mon. AutoSwitch also no longer swaps to flint and steel when you right-click a creeper.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Cinematic zoom: <span class="kbd">F6</span> &rarr; off</span>
+        <span class="why">F6 is First-person Model's toggle. Zoomify's second, cinematic zoom mode is left without a key.</span>
+      </div>
       <div class="verdict ok" data-world="cobblemon">
         <span class="tag">WORKS AS-IS</span>
         <span class="what"><span class="kbd">R</span> Send out Pokémon / sort inventory</span>
@@ -171,10 +186,10 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <span class="what"><span class="kbd">R</span>+<span class="kbd">C</span> Sorting settings</span>
         <span class="why">Pressing R+C out in the world also sends out your Pokémon, since R goes first. Open sorting settings from inside your inventory instead, or through <strong>Mods</strong> on the pause menu.</span>
       </div>
-      <div class="verdict ok" data-world="ourworld">
-        <span class="tag">ONLY IN CREATIVE &middot; OUR WORLD</span>
-        <span class="what"><span class="kbd">C</span> Camera view / save hotbar</span>
-        <span class="why">In Our World, C changes your camera view (Minecraft's default is F5; C came from your own settings). C is also "save toolbar", which only works in creative. In survival, C just switches the camera.</span>
+      <div class="verdict fixed" data-world="ourworld">
+        <span class="tag">FIXED BY THE SYNC &middot; OUR WORLD</span>
+        <span class="what">Camera view: <span class="kbd">C</span> &rarr; <span class="kbd">V</span></span>
+        <span class="why">C is the zoom key now, so Our World's camera view moved to V, the same as the Cobblemon world.</span>
       </div>
       <div class="verdict ok" data-world="ourworld">
         <span class="tag">WORKS AS-IS &middot; OUR WORLD</span>
@@ -228,7 +243,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
 
   <!-- NEW MODS -->
   <section class="panel" id="newmods">
-    <h2>Shaders, backpack, portal gun &amp; camera</h2>
+    <h2>Zoom, recipes, portals, backpack &amp; more</h2>
     <p class="sub">Keys for the mods added in October. Keys marked <strong>after the sync</strong> are the moved ones from the clash list above.</p>
     <div class="table-scroll"><table class="keys">
       <thead><tr><th>Key</th><th>Action</th><th>From</th></tr></thead>
@@ -242,6 +257,10 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <tr><td class="k"><span class="note">not set</span></td><td>Sort backpack, special ability, toggle each upgrade slot. Assign keys in Controls if you want them.</td><td><span class="src inv">BACKPACK</span></td></tr>
         <tr data-world="cobblemon"><td class="k"><span class="kbd">J</span> <span class="note">after the sync</span></td><td>Portal gun menu: destination, waypoints, settings. Hold the gun first. Cobblemon world only.</td><td><span class="src cob">PORTAL GUN</span></td></tr>
         <tr><td class="k"><span class="kbd">F6</span></td><td>Turn First-person Model on/off (see your own arms, body, and legs when you look down). Both worlds.</td><td><span class="src van">FIRST-PERSON</span></td></tr>
+        <tr><td class="k"><span class="kbd">C</span> (hold)</td><td>Zoom. In the Cobblemon world (Zoomify), scroll while holding to zoom further. To use a different key (Avery uses <span class="kbd">`</span>), change it in Controls.</td><td><span class="src van">ZOOM</span></td></tr>
+        <tr><td class="k"><span class="kbd">N</span></td><td>AutoSwitch on/off: swaps to the best tool in your hotbar when you start mining.</td><td><span class="src van">AUTOSWITCH</span></td></tr>
+        <tr><td class="k"><span class="kbd">Shift</span> (hold)</td><td>More detail in the Jade popup at the top of the screen.</td><td><span class="src van">JADE</span></td></tr>
+        <tr data-world="cobblemon"><td class="k">Left / right click</td><td>Portal Device: open blue / orange portal. Hold <span class="kbd">Left Alt</span> + click to close that one; sneak + right-click closes both. See <a href="twinportals.html">Portal Device</a>.</td><td><span class="src cob">PORTAL DEVICE</span></td></tr>
         <tr><td class="k"><span class="note">Mods menu</span></td><td>Distant Horizons has no keys. Settings: pause menu &rarr; Mods &rarr; Distant Horizons.</td><td><span class="src van">DISTANT HORIZONS</span></td></tr>
       </tbody>
     </table></div>
@@ -257,6 +276,10 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       <thead><tr><th>Input</th><th>Action</th><th>From</th></tr></thead>
       <tbody>
         <tr><td class="k"><span class="kbd">R</span></td><td>Sort the inventory under your cursor. The sort buttons beside the inventory do the same.</td><td><span class="src inv">IPN</span></td></tr>
+        <tr><td class="k">Hover + <span class="kbd">Y</span></td><td>REI: show that item's recipe (or click it in REI's list)</td><td><span class="src inv">REI</span></td></tr>
+        <tr><td class="k">Hover + <span class="kbd">U</span></td><td>REI: show what it's used in (or right-click it in REI's list)</td><td><span class="src inv">REI</span></td></tr>
+        <tr><td class="k">Hover + <span class="kbd">A</span></td><td>REI: favorite it, so it stays pinned</td><td><span class="src inv">REI</span></td></tr>
+        <tr><td class="k"><span class="kbd">Ctrl</span> + <span class="kbd">O</span></td><td>REI: hide or show the item list</td><td><span class="src inv">REI</span></td></tr>
         <tr><td class="k"><span class="kbd">R</span>+<span class="kbd">C</span></td><td>Sorting settings (hotkeys, slot locking, auto-refill)</td><td><span class="src inv">IPN</span></td></tr>
         <tr><td class="k"><span class="kbd">R</span>+<span class="kbd">Y</span></td><td>Gear profiles: save and swap armor/tool sets</td><td><span class="src inv">IPN</span></td></tr>
         <tr><td class="k">Hold <span class="kbd">RMB</span> + drag</td><td>Drop one item into each slot you pass over</td><td><span class="src inv">Mouse Tweaks</span></td></tr>
@@ -296,7 +319,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       <thead><tr><th>Key</th><th>Action</th></tr></thead>
       <tbody>
         <tr><td class="k"><span class="kbd">L</span></td><td>Advancements. Farmer's Delight and Cobblemon use them as built-in guides.</td></tr>
-        <tr><td class="k"><span class="kbd">V</span> / <span class="kbd">C</span> <span class="note">(yours)</span> / <span class="kbd">F5</span></td><td>Change camera view: V in the Cobblemon world, C in Our World (both from your own settings; F5 is Minecraft's default)</td></tr>
+        <tr><td class="k"><span class="kbd">V</span> / <span class="kbd">F5</span></td><td>Change camera view: V in both worlds (C is zoom); F5 is Minecraft's default</td></tr>
         <tr><td class="k"><span class="kbd">F3</span></td><td>Coordinates and debug info. F3 combos (F3+G for chunk borders, etc.) only fire while F3 is held, so they never clash with normal keys.</td></tr>
         <tr><td class="k"><span class="kbd">F2</span></td><td>Screenshot</td></tr>
         <tr><td class="k"><span class="kbd">Esc</span> &rarr; Open to LAN</td><td>Lets the other player join your world</td></tr>

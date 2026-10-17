@@ -18,7 +18,8 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `resourcepacks`: optional; texture packs in load order (later entries load on top). `"enabled": false` means installed but not switched on (e.g. an alternative to compare).
   - `shaderpacks`: optional; Iris shader packs. Installed into `<game folder>\shaderpacks` and never switched on by the sync, because graphics cards differ.
   - `keybinds`: optional; keybind fixes for clashes between mods, as `{key, from, to, why}` using `options.txt` names (`key_<translation key>`, `key.keyboard.<x>`; `key.keyboard.unknown` = unbound). The sync applies one only if that line is missing or still equals `from`, so a key the player changed is never touched.
-  - Any mod entry can have `"pinned": true` plus `pinned_reason`; `add-mod.ps1` won't update it. Cobblemon's Sodium is pinned to 0.6.x because Iris for 1.21.1 requires Sodium 0.6.x. Unpin only when an Iris build for 1.21.1 accepts a newer Sodium (check its `fabric.mod.json`).
+  - `config_fixes`: optional; edits to mods' own config files for settings not in `options.txt`, as `{file, find, replace, why}`. `find` is a regex that matches only the mod's unfixed default, so a player's own change is never touched. The file is backed up first. Mods create their configs on first launch, so on a new PC these apply on the sync after the first launch. Current fixes: REI recipe key R → Y, the AutoSwitch creeper rule, and a light Distant Horizons profile. DH's defaults (256 chunks, full-chunk generation, SSAO, LOD clouds) maxed out the host laptop's GPU.
+- Any mod entry can have `"pinned": true` plus `pinned_reason`; `add-mod.ps1` won't update it. Cobblemon's Sodium is pinned to 0.6.x because Iris for 1.21.1 requires Sodium 0.6.x. Unpin only when an Iris build for 1.21.1 accepts a newer Sodium (check its `fabric.mod.json`).
 - **`loader/<version_id>.json`** is the launcher version file for each Fabric/Minecraft pair, checksummed in the pack's `mods.json`.
 - **`sync.ps1 -Pack <pack>`** makes the PC match the pack:
   - downloads mods from Modrinth into a temp folder and verifies SHA-1 before touching anything
@@ -27,7 +28,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - creates or updates the launcher profile, including `gameDir` for packs with their own folder
   - on first setup of a separate game folder, copies `options.txt` so settings and keybinds carry over
   - installs listed texture packs into `<game folder>\resourcepacks`. It switches a pack on in `options.txt` only the first time it installs it, keeping Minecraft's CRLF line endings and the existing entries, and backs up `options.txt` first. It never deletes texture packs it didn't install, and never re-enables a pack the player turned off.
-  - applies the pack's `keybinds` fixes to `options.txt` (same CRLF handling and backup)
+  - applies the pack's `keybinds` fixes to `options.txt` (same CRLF handling and backup), then its `config_fixes`
   - backs up `launcher_profiles.json` before changing anything
 
   It supports `-DryRun` and `-MinecraftDir`, and running it twice is safe. If the pack's Minecraft version isn't downloaded yet, it prints a note; the launcher downloads it on first launch.
@@ -110,3 +111,14 @@ If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `lau
 ## Troubleshooting
 - **Crash:** read `logs\latest.log` and the newest `crash-reports\` file in the pack's **game folder**. Look for the mod ID in "Incompatible mods", "requires", or the top of the stack trace. Re-run `sync.ps1 -Pack <pack> -DryRun` to confirm files are intact. Roll back with git history and sync.
 - **A LAN player spawns as a new character:** their join line in the host's log shows "Failed to verify username but will let them in anyway!" Their real data is still in the world's `players/data/<real-uuid>.dat`, untouched. Both players should fully quit Minecraft and the launcher, reopen, and rejoin.
+
+## Twin Portals (our own mod)
+The `twinportals-local` entry in `packs/cobblemon/mods.json` is our own mod, not a Modrinth project. Its jar is a GitHub release asset on this repo (tag `twinportals-vX.Y.Z`), and the entry is `pinned`, so `add-mod.ps1` never touches it. The source lives on the host PC (`minecraftServer/portal-gun-mod`).
+
+To ship a new version:
+1. Build it there; GameTests run as part of the build.
+2. Create the GitHub release with the jar.
+3. Edit the entry's `version`, `filename`, `url`, and `sha1`.
+4. Push.
+
+Never push a manifest whose release asset doesn't exist yet: every other PC's sync would fail to download it.
