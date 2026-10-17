@@ -17,6 +17,17 @@
   },
   "mods": [
     {
+      "name": "Architectury API",
+      "slug": "architectury-api",
+      "project_id": "lhGA9TYQ",
+      "version_id": "Pzc2FP5K",
+      "version": "13.0.11+fabric",
+      "filename": "architectury-13.0.11-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/lhGA9TYQ/versions/Pzc2FP5K/architectury-13.0.11-fabric.jar",
+      "sha1": "18200609d4c3571c4237b50884966f6fd82431ea",
+      "side": "both"
+    },
+    {
       "name": "Cardinal Components API",
       "slug": "cardinal-components-api",
       "project_id": "K01OU20C",
@@ -127,6 +138,17 @@
       "side": "both"
     },
     {
+      "name": "Jade 🔍",
+      "slug": "jade",
+      "project_id": "nvQzSEkH",
+      "version_id": "adpNvTZS",
+      "version": "15.10.6+fabric",
+      "filename": "Jade-1.21.1-Fabric-15.10.6.jar",
+      "url": "https://cdn.modrinth.com/data/nvQzSEkH/versions/adpNvTZS/Jade-1.21.1-Fabric-15.10.6.jar",
+      "sha1": "bed67c605cbc991f474b270581cfa04ed48228df",
+      "side": "both"
+    },
+    {
       "name": "Lithium",
       "slug": "lithium",
       "project_id": "gvQqBUqZ",
@@ -146,6 +168,17 @@
       "filename": "ricksportalgun-fabric-1.21.1-1.4.5.jar",
       "url": "https://cdn.modrinth.com/data/okWylF5O/versions/HojX5KCi/ricksportalgun-fabric-1.21.1-1.4.5.jar",
       "sha1": "61677e7f75ceb1cf9f8db2e03ebb4824b989a92d",
+      "side": "both"
+    },
+    {
+      "name": "Roughly Enough Items (REI)",
+      "slug": "rei",
+      "project_id": "nfn13YXA",
+      "version_id": "aWzTESNC",
+      "version": "16.0.799+fabric",
+      "filename": "RoughlyEnoughItems-16.0.799-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/nfn13YXA/versions/aWzTESNC/RoughlyEnoughItems-16.0.799-fabric.jar",
+      "sha1": "ea0efe8b13a52e9d8d5a18d062810117a7efec0f",
       "side": "both"
     },
     {
@@ -215,6 +248,17 @@
       "side": "both"
     },
     {
+      "name": "YetAnotherConfigLib (YACL)",
+      "slug": "yacl",
+      "project_id": "1eAoo2KR",
+      "version_id": "o3cDn8Vp",
+      "version": "3.8.2+1.21.1-fabric",
+      "filename": "yet_another_config_lib_v3-3.8.2+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/1eAoo2KR/versions/o3cDn8Vp/yet_another_config_lib_v3-3.8.2%2B1.21.1-fabric.jar",
+      "sha1": "e075503382f70715ab9fc6f66d603397a86eb3e0",
+      "side": "both"
+    },
+    {
       "name": "[EMF] Entity Model Features",
       "slug": "entity-model-features",
       "project_id": "4I1XuqiY",
@@ -234,6 +278,17 @@
       "filename": "entity_texture_features-7.2.5-1.21-fabric.jar",
       "url": "https://cdn.modrinth.com/data/BVzZfTc1/versions/OVZ7HJXt/entity_texture_features-7.2.5-1.21-fabric.jar",
       "sha1": "726958e34edf7b424d7254d73d214caeedd15737",
+      "side": "client"
+    },
+    {
+      "name": "AutoSwitch",
+      "slug": "autoswitch",
+      "project_id": "uSdcnlts",
+      "version_id": "K4NFO7bc",
+      "version": "9.1.2",
+      "filename": "autoswitch-9.1.2.jar",
+      "url": "https://cdn.modrinth.com/data/uSdcnlts/versions/K4NFO7bc/autoswitch-9.1.2.jar",
+      "sha1": "bede73f41889920dc670d44e5ad834a2f6525952",
       "side": "client"
     },
     {
@@ -336,6 +391,17 @@
       "side": "client",
       "pinned": true,
       "pinned_reason": "Iris for 1.21.1 requires Sodium 0.6.x"
+    },
+    {
+      "name": "Zoomify (Zoom)",
+      "slug": "zoomify",
+      "project_id": "w7ThoJFB",
+      "version_id": "6jrMC48Z",
+      "version": "2.15.2+1.21.1",
+      "filename": "zoomify-2.15.2+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/w7ThoJFB/versions/6jrMC48Z/zoomify-2.15.2%2B1.21.1.jar",
+      "sha1": "9ec9c47e1d3465ea0cbd595b6d9d12227239c9a6",
+      "side": "client"
     }
   ],
   "resourcepacks": [
