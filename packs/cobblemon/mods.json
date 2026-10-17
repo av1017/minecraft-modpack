@@ -362,6 +362,19 @@
       "side": "both"
     },
     {
+      "name": "Twin Portals (our own mod)",
+      "slug": "twinportals",
+      "project_id": "twinportals-local",
+      "version_id": "twinportals-0.1.0",
+      "version": "0.1.0",
+      "filename": "twinportals-0.1.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/twinportals-v0.1.0/twinportals-0.1.0.jar",
+      "sha1": "c255c633a6afa0a3f8b1d90468271e230601ad2c",
+      "side": "both",
+      "pinned": true,
+      "pinned_reason": "Our own mod (source: minecraftServer/portal-gun-mod, not on Modrinth). Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
       "name": "Wool Tweaks",
       "slug": "wool-tweaks",
       "project_id": "lqQsKUma",
