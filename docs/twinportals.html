@@ -232,12 +232,8 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
 <script>
 (function () {
   var R = {
-    bench: [
-      { name: "Portal Gun Workbench", note: "Normal crafting table. Everything else is made in this.", grid: [null,"Copper Block",null,"Redstone","Crafting Table","Redstone",null,"Smithing Table",null], out: "Workbench" }
-    ],
-    blocks: [
-      { name: "Portal Dispenser", note: "Uses up a portal gun.", grid: ["Cobble","Cobble","Cobble","Cobble","Portal Gun","Cobble","Cobble","Redstone","Cobble"], out: "Dispenser" },
-      { name: "Sub-Ether Barrier", note: "Needs redstone power to work.", grid: ["Portal Fluid","Observer","Portal Fluid","Circuit Board","Redstone","Circuit Board","Iron Block","Iron Block","Iron Block"], out: "Barrier" }
+    device: [
+      { name: "Portal Device", note: "Iron, glass, ender pearls, a diamond, and a block of redstone.", grid: ["Iron Ingot","Glass","Iron Ingot","Ender Pearl","Diamond","Ender Pearl","Iron Ingot","Redstone Block","Iron Ingot"], out: "Portal Device" }
     ]
   };
   function slot(label) { var d = document.createElement("div"); d.className = "cslot"; if (label) d.textContent = label; return d; }

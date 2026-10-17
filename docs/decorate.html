@@ -207,15 +207,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
 
 <script>
 (function () {
-  var R = {
-    bench: [
-      { name: "Portal Gun Workbench", note: "Normal crafting table. Everything else is made in this.", grid: [null,"Copper Block",null,"Redstone","Crafting Table","Redstone",null,"Smithing Table",null], out: "Workbench" }
-    ],
-    blocks: [
-      { name: "Portal Dispenser", note: "Uses up a portal gun.", grid: ["Cobble","Cobble","Cobble","Cobble","Portal Gun","Cobble","Cobble","Redstone","Cobble"], out: "Dispenser" },
-      { name: "Sub-Ether Barrier", note: "Needs redstone power to work.", grid: ["Portal Fluid","Observer","Portal Fluid","Circuit Board","Redstone","Circuit Board","Iron Block","Iron Block","Iron Block"], out: "Barrier" }
-    ]
-  };
+  var R = {};
   function slot(label) { var d = document.createElement("div"); d.className = "cslot"; if (label) d.textContent = label; return d; }
   document.querySelectorAll("[data-recipes]").forEach(function (host) {
     (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
