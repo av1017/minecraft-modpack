@@ -284,12 +284,14 @@
       "name": "Moonlight Lib",
       "slug": "moonlight",
       "project_id": "twkfQtEc",
-      "version_id": "fWlk6YEB",
-      "version": "1.21.1-3.7.2",
-      "filename": "moonlight-1.21.1-3.7.2-fabric.jar",
-      "url": "https://cdn.modrinth.com/data/twkfQtEc/versions/fWlk6YEB/moonlight-1.21.1-3.7.2-fabric.jar",
-      "sha1": "7db7c0999fb29579790edae83292622cee933e20",
-      "side": "both"
+      "version_id": "T0ihXBHE",
+      "version": "1.21.1-3.0.14",
+      "filename": "moonlight-fabric-1.21.1-3.0.14.jar",
+      "url": "https://cdn.modrinth.com/data/twkfQtEc/versions/T0ihXBHE/moonlight-fabric-1.21.1-3.0.14.jar",
+      "sha1": "939c686a02ef0eefc9468f37e47155599312ceb8",
+      "side": "both",
+      "pinned": true,
+      "pinned_reason": "Paired with the pinned Supplementaries 3.6.7 (Moonlight from the same month, May 2026); unpin together with Supplementaries."
     },
     {
       "name": "Prickle",
@@ -394,12 +396,14 @@
       "name": "Supplementaries",
       "slug": "supplementaries",
       "project_id": "fFEIiSDQ",
-      "version_id": "CjTooKpp",
-      "version": "1.21.1-4.0.2",
-      "filename": "supplementaries-1.21.1-4.0.2-fabric.jar",
-      "url": "https://cdn.modrinth.com/data/fFEIiSDQ/versions/CjTooKpp/supplementaries-1.21.1-4.0.2-fabric.jar",
-      "sha1": "761a561938ced83d5e38da50cdc44899b5052f3e",
-      "side": "both"
+      "version_id": "Exz712sl",
+      "version": "1.21.1-3.6.7",
+      "filename": "supplementaries-fabric-1.21.1-3.6.7.jar",
+      "url": "https://cdn.modrinth.com/data/fFEIiSDQ/versions/Exz712sl/supplementaries-fabric-1.21.1-3.6.7.jar",
+      "sha1": "bca7d0c98fc16d32227b441f7f0310a243ea77dd",
+      "side": "both",
+      "pinned": true,
+      "pinned_reason": "Supplementaries 3.9+ (Jun 2026 on) declares breaks sodium<0.8.12, but Iris 1.8.8 for 1.21.1 needs Sodium 0.6.x; 3.6.7 is the last release before that rule. Unpin when a stable Iris for 1.21.1 supports Sodium 0.8."
     },
     {
       "name": "Terralith",
