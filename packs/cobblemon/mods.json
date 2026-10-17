@@ -600,6 +600,26 @@
       "from": "key.keyboard.r",
       "to": "key.keyboard.n",
       "why": "R is Cobblemon's throw Pokémon and Iris's reload; N is free in both profiles"
+    },
+    {
+      "key": "key_zoomify.key.zoom.secondary",
+      "from": "key.keyboard.f6",
+      "to": "key.keyboard.unknown",
+      "why": "F6 is First-person Model's toggle; Zoomify's secondary (cinematic) zoom is left unbound"
+    }
+  ],
+  "config_fixes": [
+    {
+      "file": "config/roughlyenoughitems/config.json5",
+      "find": "(\"recipeKeybind\"\\s*:\\s*\\{\\s*\"keyCode\"\\s*:\\s*)\"key\\.keyboard\\.r\"",
+      "replace": "${1}\"key.keyboard.y\"",
+      "why": "REI's 'show recipe' on R also triggered Inventory Profiles Next's sort; recipe moves to Y, next to REI's U for uses"
+    },
+    {
+      "file": "config/autoswitchUseAction.cfg",
+      "find": "(?m)^(minecraft!creeper[ \\t]*=[ \\t]*)minecraft:flint_and_steel(?=\\r?$)",
+      "replace": "${1}",
+      "why": "AutoSwitch swapped to flint and steel when right-clicking a creeper, which lights it"
     }
   ]
 }
