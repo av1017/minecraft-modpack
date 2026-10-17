@@ -134,8 +134,28 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
   <!-- OVERLAPS -->
   <section class="panel" id="overlaps">
     <h2>Do any keys clash?</h2>
-    <p class="sub">I checked every binding in both profiles, plus the default keys inside each new mod, for keys used twice. Nine real clashes turned up. The sync fixes them automatically: it moves the mod's key, but only if you haven't already changed it yourself.</p>
+    <p class="sub">I checked every binding in both profiles, plus the default keys inside each new mod, for keys used twice. The sync fixes each real clash automatically: it moves the mod's key, but only if you haven't already changed it yourself.</p>
     <div class="verdicts">
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC &middot; VEHICLES</span>
+        <span class="what">Ship, plane &amp; bike buttons &rarr; <span class="kbd">C</span> and <span class="kbd">X</span></span>
+        <span class="why">Small Ships, Immersive Aircraft, and PokeBike put their keys on R, I, O, B, and F, which already throw Pok&eacute;mon, open your party, make waypoints, and swap your offhand. Now every vehicle uses C and X (see the table below). Each mod only reacts while you ride its own vehicle, so they never fire together.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">Plane mouse steering: <span class="kbd">`</span> &rarr; <span class="kbd">Right Alt</span></span>
+        <span class="why">Backtick is the zoom key in this profile.</span>
+      </div>
+      <div class="verdict fixed" data-world="cobblemon">
+        <span class="tag">FIXED BY THE SYNC</span>
+        <span class="what">MCA skin library: <span class="kbd">U</span> &rarr; <span class="kbd">F7</span></span>
+        <span class="why">U is Xaero's waypoint list. Every letter is already taken in this profile, and the skin library is rarely needed.</span>
+      </div>
+      <div class="verdict ok" data-world="cobblemon">
+        <span class="tag">WORKS WITH KEYBIND FIX</span>
+        <span class="what"><span class="kbd">Left Alt</span> Riding free look / Portal Device close / plane free look</span>
+        <span class="why">Plain Minecraft lets only one action use a key; the others silently do nothing. That's why Alt+click on the Portal Device didn't work before. The <strong>Keybind Fix</strong> mod lets every action on a key work, and these three never overlap: one is for riding Pok&eacute;mon, one is for clicking with the Portal Device, one is for flying.</span>
+      </div>
       <div class="verdict fixed" data-world="cobblemon">
         <span class="tag">FIXED BY THE SYNC</span>
         <span class="what"><span class="kbd">R</span> Throw Pokémon / reload shaders</span>
@@ -200,6 +220,32 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     <div class="callout" data-world="cobblemon">
       <strong>No clash on M:</strong> Xaero's World Map uses <span class="kbd">M</span>, and Cobblemon's Summary is on <span class="kbd">I</span>, not M.
     </div>
+    <div class="callout" data-world="cobblemon">
+      <strong>Red keys in Controls are expected.</strong> Options &rarr; Controls marks C, X, and Left Alt in red because several actions share them. Thanks to Keybind Fix they all work, each in its own situation. C and X are also Minecraft's creative "save/load hotbar" keys, which only do anything in Creative mode while you also press a number.
+    </div>
+  </section>
+
+  <!-- VEHICLES -->
+  <section class="panel" data-world="cobblemon" id="vehicles">
+    <h2>Ships, planes, cars &amp; bikes</h2>
+    <p class="sub">Cobblemon world only. <span class="kbd">C</span> and <span class="kbd">X</span> are the two "vehicle buttons" on anything you ride. Full guides: <a href="ships.html">Ships</a>, <a href="aircraft.html">Planes &amp; Airships</a>, <a href="wheels.html">Cars &amp; Bikes</a>.</p>
+    <div class="table-scroll"><table class="keys">
+      <thead><tr><th>Key</th><th>Ship</th><th>Plane / airship</th><th>Bike</th><th>Car</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="kbd">C</span></td><td>Set / furl the sail</td><td>Boost (needs boost rockets)</td><td>Bell</td><td></td></tr>
+        <tr><td class="k"><span class="kbd">X</span></td><td>Climb into a ground cannon</td><td>Get out (press twice in the air)</td><td>Headlight</td><td></td></tr>
+        <tr><td class="k"><span class="kbd">W</span> <span class="kbd">S</span></td><td>More / less sail; W rows with the sail down</td><td>Nose down / up (airships: forward / back)</td><td>Ride</td><td>Accelerate / brake &amp; reverse</td></tr>
+        <tr><td class="k"><span class="kbd">A</span> <span class="kbd">D</span></td><td>Steer</td><td>Turn</td><td>Steer</td><td>Steer</td></tr>
+        <tr><td class="k"><span class="kbd">Space</span></td><td>Fire cannons (while aiming)</td><td>Throttle up / rise</td><td></td><td>Drift (hold while turning)</td></tr>
+        <tr><td class="k"><span class="kbd">Left Shift</span></td><td>Get off</td><td>Throttle down / sink</td><td>Get off</td><td>Get out</td></tr>
+        <tr><td class="k"><span class="kbd">Left Ctrl</span></td><td></td><td>+ <span class="kbd">1</span>&ndash;<span class="kbd">9</span>: switch seats</td><td></td><td>Horn</td></tr>
+        <tr><td class="k"><span class="kbd">Left Alt</span> (hold)</td><td></td><td>Look around</td><td></td><td></td></tr>
+        <tr><td class="k"><span class="kbd">Right Alt</span></td><td></td><td>Mouse steering on/off</td><td></td><td></td></tr>
+        <tr><td class="k"><span class="kbd">E</span></td><td>Cargo hold</td><td colspan="3">Sneak + right-click the plane for its inventory; sneak + right-click a bike picks it up</td></tr>
+        <tr><td class="k">Right-click</td><td>Board; hold to aim cannons</td><td>Get in; fire weapon in flight</td><td>Place and ride</td><td>Get in; add attachments</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Default keys were read from inside each mod's files. <span class="kbd">F7</span> opens MCA's skin library; see <a href="villagers.html">Villagers &amp; Family</a>.</p>
   </section>
 
   <!-- COBBLEMON -->
@@ -214,7 +260,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
         <tr><td class="k"><span class="kbd">R</span></td><td>Throw selected Pokémon</td><td>Sends out the selected party Pokémon. Throw it at a wild Pokémon to start a battle; press again to call it back.</td></tr>
         <tr><td class="k"><span class="kbd">&uarr;</span> <span class="kbd">&darr;</span></td><td>Party shift up / down</td><td>Picks which party Pokémon R sends out.</td></tr>
         <tr><td class="k"><span class="kbd">O</span></td><td>Hide party overlay</td><td>Hides the party list on the left of the screen.</td></tr>
-        <tr><td class="k"><span class="kbd">Left Alt</span></td><td>Riding freelook</td><td>While riding a Pokémon, look around without steering.</td></tr>
+        <tr><td class="k"><span class="kbd">Left Alt</span></td><td>Riding freelook</td><td>While riding a Pokémon, look around without steering. Shares Left Alt with the Portal Device's close key and plane free look; Keybind Fix makes all three work.</td></tr>
         <tr><td class="k"><span class="note">not set</span></td><td>Toggle riding stats, portrait scale/position</td><td>Optional. Assign a key in Controls if you want them.</td></tr>
       </tbody>
     </table></div>

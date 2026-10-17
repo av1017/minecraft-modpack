@@ -23,6 +23,9 @@ Each pack has its own game folder, with its own worlds, mods, and settings, so t
 - **Xaero's Minimap + Xaero's World Map:** a corner minimap, a full-screen map, and waypoints.
 - **Trainers and gyms:** Radical Cobblemon Trainers (trainers, level caps, Trainer Card), Radical Gyms & Structures (Kanto gyms and League), Cobblemon Pokemon Badges, CobbleFurnies. The host's world also has the RCT badge data pack (`host_world_datapacks`).
 - **Terralith:** about 95 new biomes and bigger terrain in unexplored land.
+- **Getting around:** Small Ships (7 sailing ships, built at a Dockyard), Immersive Aircraft (airships, biplanes, copters), PokeBike (bikes), and Automobility + Momentum (build-your-own cars). The vehicle keys are moved to C and X.
+- **Life:** MCA Reborn (villagers with names, jobs, and families; dating, marriage, and kids) and Cobbreeding (Pokémon eggs from the Pasture Block).
+- **Keybind Fix:** lets several actions share one key, so the vehicle buttons and Left Alt all work.
 - **Twin Portals (our own mod):** a blue/orange portal device. Source in the host's `minecraftServer/portal-gun-mod`; the jar is a GitHub release on this repo. Also Rick's Portal Gun.
 - **Also included:** Farmer's Delight, Rustic Delight, Wool Tweaks, the same inventory sorting mods, EMF + ETF, performance mods (Sodium, Lithium, FerriteCore), Distant Horizons, Traveler's Backpack, First-person Model, REI, Jade, Zoomify, AutoSwitch, decoration mods (Macaw's, Beautify, Storage Delight, Handcrafted, Another Furniture, Supplementaries, Botany Pots), and libraries. The profile gets 8 GB of memory (capped at a third of the PC's RAM).
 - **Texture packs:** Cobblemon Interface (+ Modded), E19 Cobblemon Minimap Icons, Fresh Animations.

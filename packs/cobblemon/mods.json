@@ -39,6 +39,17 @@
       "side": "both"
     },
     {
+      "name": "Automobility",
+      "slug": "automobility",
+      "project_id": "rqIsPf9F",
+      "version_id": "vvzu2A6h",
+      "version": "0.5.0.h",
+      "filename": "automobility-0.5.0.h+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/rqIsPf9F/versions/vvzu2A6h/automobility-0.5.0.h%2B1.21.1-fabric.jar",
+      "sha1": "e75acfb15ed700ebed1798b5db3fff157ad750bb",
+      "side": "both"
+    },
+    {
       "name": "Beautify: Refabricated",
       "slug": "beautify-refabricated",
       "project_id": "DhSSvaxs",
@@ -127,6 +138,17 @@
       "side": "both"
     },
     {
+      "name": "Cobbreeding",
+      "slug": "cobbreeding",
+      "project_id": "ItmVb4zY",
+      "version_id": "QEX1BKMf",
+      "version": "2.4.1",
+      "filename": "Cobbreeding-fabric-2.4.1.jar",
+      "url": "https://cdn.modrinth.com/data/ItmVb4zY/versions/QEX1BKMf/Cobbreeding-fabric-2.4.1.jar",
+      "sha1": "4de6e86541ab2d94b1327ce68a26771e8f33f030",
+      "side": "both"
+    },
+    {
       "name": "Collective",
       "slug": "collective",
       "project_id": "e0M1UDsY",
@@ -204,6 +226,17 @@
       "side": "both"
     },
     {
+      "name": "Geckolib",
+      "slug": "geckolib",
+      "project_id": "8BmcQJ2H",
+      "version_id": "tmxM7U4W",
+      "version": "4.9.3",
+      "filename": "geckolib-fabric-1.21.1-4.9.3.jar",
+      "url": "https://cdn.modrinth.com/data/8BmcQJ2H/versions/tmxM7U4W/geckolib-fabric-1.21.1-4.9.3.jar",
+      "sha1": "b3a6aff6ffff34d20ffde1faa640bcf17ff4b646",
+      "side": "both"
+    },
+    {
       "name": "Handcrafted",
       "slug": "handcrafted",
       "project_id": "pJmCFF0p",
@@ -212,6 +245,17 @@
       "filename": "handcrafted-fabric-1.21.1-4.0.3.jar",
       "url": "https://cdn.modrinth.com/data/pJmCFF0p/versions/f0pKpUWd/handcrafted-fabric-1.21.1-4.0.3.jar",
       "sha1": "a9579fecd7ed429c282be21d5c921d220197acc6",
+      "side": "both"
+    },
+    {
+      "name": "Immersive Aircraft",
+      "slug": "immersive-aircraft",
+      "project_id": "x3HZvrj6",
+      "version_id": "xOnNs6dK",
+      "version": "1.7.0+1.21.1",
+      "filename": "immersive_aircraft-fabric-1.7.0+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/x3HZvrj6/versions/xOnNs6dK/immersive_aircraft-fabric-1.7.0%2B1.21.1.jar",
+      "sha1": "b2c60b1f10a97c0ccc997b0c4f6c1619ed79341b",
       "side": "both"
     },
     {
@@ -281,6 +325,28 @@
       "side": "both"
     },
     {
+      "name": "MCA Reborn",
+      "slug": "minecraft-comes-alive-reborn",
+      "project_id": "1W98a849",
+      "version_id": "eUYBilCG",
+      "version": "7.7.36+1.21.1",
+      "filename": "mca-fabric-7.7.36-beta.3+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/1W98a849/versions/eUYBilCG/mca-fabric-7.7.36-beta.3%2B1.21.1.jar",
+      "sha1": "0e2eb7b0fdf75ff0563b5d1ee4f91f22a62d230f",
+      "side": "both"
+    },
+    {
+      "name": "momentum for Automobility",
+      "slug": "momentum-for-automobility",
+      "project_id": "3NmCDOUV",
+      "version_id": "mBGI0baw",
+      "version": "0.1.5-1.21",
+      "filename": "momentum-0.1.5-1.21.jar",
+      "url": "https://cdn.modrinth.com/data/3NmCDOUV/versions/mBGI0baw/momentum-0.1.5-1.21.jar",
+      "sha1": "92843480620f666e2d2a4f76dd47184a666381db",
+      "side": "both"
+    },
+    {
       "name": "Moonlight Lib",
       "slug": "moonlight",
       "project_id": "twkfQtEc",
@@ -292,6 +358,17 @@
       "side": "both",
       "pinned": true,
       "pinned_reason": "Paired with the pinned Supplementaries 3.6.7 (Moonlight from the same month, May 2026); unpin together with Supplementaries."
+    },
+    {
+      "name": "PokeBike [Cobblemon & Pixelmon Addon]",
+      "slug": "pokebike",
+      "project_id": "8eqU62OI",
+      "version_id": "Us8koRQY",
+      "version": "3.0",
+      "filename": "pokebike-fabric-3.0.jar",
+      "url": "https://cdn.modrinth.com/data/8eqU62OI/versions/Us8koRQY/pokebike-fabric-3.0.jar",
+      "sha1": "93b844d695d171da4d41c6afeb08ba476538a930",
+      "side": "both"
     },
     {
       "name": "Prickle",
@@ -379,6 +456,17 @@
       "filename": "rusticdelight-fabric-1.21.1-1.7.1.jar",
       "url": "https://cdn.modrinth.com/data/foa4fGIH/versions/VAEiChba/rusticdelight-fabric-1.21.1-1.7.1.jar",
       "sha1": "ba071c28fc3827590725921a2a0380d23bf22b95",
+      "side": "both"
+    },
+    {
+      "name": "Small Ships",
+      "slug": "small-ships",
+      "project_id": "rGWEHQrP",
+      "version_id": "vJnFZ5fQ",
+      "version": "2.0.2-fabric-1.21.1",
+      "filename": "smallships-fabric-1.21.1-2.0.2-fabric-1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/rGWEHQrP/versions/vJnFZ5fQ/smallships-fabric-1.21.1-2.0.2-fabric-1.21.1.jar",
+      "sha1": "13d47d358c29a98500826f8408f8553c9576c5aa",
       "side": "both"
     },
     {
@@ -570,6 +658,17 @@
       "filename": "iris-fabric-1.8.8+mc1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/YL57xq9U/versions/zsoi0dso/iris-fabric-1.8.8%2Bmc1.21.1.jar",
       "sha1": "4e0df4011503b4b36ba69877ea7247c1a47fea00",
+      "side": "client"
+    },
+    {
+      "name": "Keybind Fix Updated",
+      "slug": "keybind-fix-updated",
+      "project_id": "U1hgptta",
+      "version_id": "jDPZLqkE",
+      "version": "1.0.2",
+      "filename": "keybind_fix-1.0.2.jar",
+      "url": "https://cdn.modrinth.com/data/U1hgptta/versions/jDPZLqkE/keybind_fix-1.0.2.jar",
+      "sha1": "99e5947db1bc8a85306ca8db985c8142841c09ea",
       "side": "client"
     },
     {
@@ -865,6 +964,54 @@
       "from": "key.keyboard.f6",
       "to": "key.keyboard.unknown",
       "why": "F6 is First-person Model's toggle; Zoomify's secondary (cinematic) zoom is left unbound"
+    },
+    {
+      "key": "key_key.smallships.ship_sail",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.c",
+      "why": "R is Cobblemon's throw Pokémon. C and X are the vehicle buttons; each mod only reacts in its own vehicle, and Keybind Fix lets shared keys all fire"
+    },
+    {
+      "key": "key_key.smallships.cannon_barrel_enter",
+      "from": "key.keyboard.f",
+      "to": "key.keyboard.x",
+      "why": "F is swap offhand; X is the second vehicle button (only acts on a ground cannon)"
+    },
+    {
+      "key": "key_key.immersive_aircraft.boost",
+      "from": "key.keyboard.b",
+      "to": "key.keyboard.c",
+      "why": "B is Xaero's new waypoint; C is the first vehicle button"
+    },
+    {
+      "key": "key_key.immersive_aircraft.dismount",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.x",
+      "why": "R is Cobblemon's throw Pokémon; X (exit) is the second vehicle button"
+    },
+    {
+      "key": "key_key.immersive_aircraft.mouse_control",
+      "from": "key.keyboard.grave.accent",
+      "to": "key.keyboard.right.alt",
+      "why": "Backtick is the zoom key in this profile; Right Alt pairs with Left Alt free look"
+    },
+    {
+      "key": "key_key.pokebike.bell",
+      "from": "key.keyboard.i",
+      "to": "key.keyboard.c",
+      "why": "I is Cobblemon's party summary; C is the first vehicle button"
+    },
+    {
+      "key": "key_key.pokebike.headlight",
+      "from": "key.keyboard.o",
+      "to": "key.keyboard.x",
+      "why": "O is Cobblemon's hide party; X is the second vehicle button"
+    },
+    {
+      "key": "key_key.mca.skin_library",
+      "from": "key.keyboard.u",
+      "to": "key.keyboard.f7",
+      "why": "U is Xaero's waypoint list; every letter is taken, and the skin library is rarely opened"
     }
   ],
   "config_fixes": [
@@ -879,6 +1026,12 @@
       "find": "(?m)^(minecraft!creeper[ \\t]*=[ \\t]*)minecraft:flint_and_steel(?=\\r?$)",
       "replace": "${1}",
       "why": "AutoSwitch swapped to flint and steel when right-clicking a creeper, which lights it"
+    },
+    {
+      "file": "config/mca.json",
+      "find": "(\"allowDestinyTeleportation\"\\s*:\\s*)true\\b",
+      "replace": "${1}false",
+      "why": "MCA's first-join 'Where will your journey start?' screen could teleport a player away from their base; the character creator still shows"
     },
     {
       "file": "config/DistantHorizons.toml",

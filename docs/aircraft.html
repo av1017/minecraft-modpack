@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes & Airships</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #2f7fd8; --accent-bg: #e2eefb;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.cslot.empty { background: var(--grid-slot); opacity: 0.55; }
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 8px; }
+.card { background: var(--slot); border: 2px solid var(--slot-border); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.card .cname { font-family: "Silkscreen", monospace; font-size: 0.95rem; }
+.card .ctag { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--accent); }
+.card p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.card ul { margin: 0; padding-left: 1.1em; font-size: 0.86rem; color: var(--ink-soft); }
+code { font-family: "Space Mono", monospace; font-size: 0.85em; background: var(--slot); border: 1px solid var(--slot-border); padding: 0 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- title: Planes & Airships -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Planes &amp; Airships</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world &middot; Immersive Aircraft mod</span>
+    <h1>Planes &amp; Airships</h1>
+    <p>Seven flying machines, from a pedal-powered copter to a flying warship. Build them from a few basic parts, fuel them with coal or wood, and bolt on upgrades and weapons. They work in the Overworld, the Nether, and the End.</p>
+    <div class="stats">
+      <div class="stat"><b>7</b><span>aircraft to build</span></div>
+      <div class="stat"><b>5 parts</b><span>hull, engine, boiler, sail, propeller</span></div>
+      <div class="stat"><b>Coal</b><span>or any furnace fuel; blaze powder lasts longest</span></div>
+      <div class="stat"><b><span class="kbd">X</span></b><span>gets you out (press twice in the air)</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#hangar">The Hangar</a>
+    <a href="#fly">Flying</a>
+    <a href="#build">Building</a>
+    <a href="#fuel">Fuel &amp; Repairs</a>
+    <a href="#upgrades">Upgrades &amp; Weapons</a>
+  </nav>
+
+  <!-- HANGAR -->
+  <section class="panel" id="hangar">
+    <h2>The Hangar</h2>
+    <p class="sub">In creative, they're in the <strong>Immersive Aircraft</strong> tab (click the arrows at the top right of the creative menu to reach later tab pages). To place one, right-click the item on open ground.</p>
+    <div class="lineup">
+      <div class="card"><span class="cname">Biplane</span><span class="ctag">fast &middot; needs a runway</span><p>Fast and fairly reliable. It needs a long, flat run to take off, and has a boost slot for rockets.</p></div>
+      <div class="card"><span class="cname">Airship</span><span class="ctag">slow &middot; easy</span><p>Slow but easy to handle. Rises and sinks straight up and down, so there's no runway needed. The best first aircraft.</p></div>
+      <div class="card"><span class="cname">Cargo Airship</span><span class="ctag">slow &middot; huge storage</span><p>An airship with chests built in: carries a whole storage room. Slow and burns a lot of fuel.</p></div>
+      <div class="card"><span class="cname">Warship</span><span class="ctag">flying fortress</span><p>Slow, tough, and heavily armed, with lots of upgrade and weapon slots.</p></div>
+      <div class="card"><span class="cname">Gyrodyne</span><span class="ctag">pedal power &middot; no fuel</span><p>A muscle-powered copter. Pedal until the rotor is up to speed (the screen counts up the %), then lift off. Uses your hunger instead of fuel.</p></div>
+      <div class="card"><span class="cname">Quadrocopter</span><span class="ctag">for building</span><p>A slow, steady little drone: hovers in place, which makes it perfect for building high up.</p></div>
+      <div class="card"><span class="cname">Bamboo Hopper</span><span class="ctag">3 seats &middot; lands on water</span><p>A chunky plane with three seats and pontoons, so it can land safely on water. Has a boost slot.</p></div>
+    </div>
+    <ul class="tasks">
+      <li data-id="hangar-airship"><span class="checkbox"></span><span class="task-text">Fly an Airship</span></li>
+      <li data-id="hangar-biplane"><span class="checkbox"></span><span class="task-text">Take off in a Biplane from a runway</span></li>
+      <li data-id="hangar-gyro"><span class="checkbox"></span><span class="task-text">Pedal a Gyrodyne into the air</span></li>
+    </ul>
+  </section>
+
+  <!-- FLY -->
+  <section class="panel" id="fly">
+    <h2>Flying</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Key</th><th>Planes (Biplane, Bamboo Hopper)</th><th>Airships &amp; copters</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Right-click</strong> it</td><td colspan="2">Get in. <strong>Sneak + right-click</strong> opens its inventory: fuel, upgrades, weapons, banner, dye.</td></tr>
+        <tr><td><span class="kbd">Space</span></td><td>Throttle up</td><td>Rise</td></tr>
+        <tr><td><span class="kbd">Left Shift</span></td><td>Throttle down</td><td>Sink</td></tr>
+        <tr><td><span class="kbd">W</span> / <span class="kbd">S</span></td><td>Nose down / nose up</td><td>Forward / back</td></tr>
+        <tr><td><span class="kbd">A</span> / <span class="kbd">D</span></td><td colspan="2">Turn</td></tr>
+        <tr><td><span class="kbd">X</span></td><td colspan="2">Get out. In the air it asks you to press again: you'll fall, so have a water bucket or be low.</td></tr>
+        <tr><td><span class="kbd">C</span></td><td colspan="2">Boost: fires the boost rockets in the booster slot (Biplane and Bamboo Hopper)</td></tr>
+        <tr><td>Hold <span class="kbd">Left Alt</span></td><td colspan="2">Look around without steering (same as riding a Pok&eacute;mon)</td></tr>
+        <tr><td><span class="kbd">Right Alt</span></td><td colspan="2">Mouse steering on/off: steer with the mouse instead of A/D and W/S</td></tr>
+        <tr><td><strong>Right-click</strong> in flight</td><td colspan="2">Fire the mounted weapon</td></tr>
+        <tr><td><span class="kbd">Ctrl</span> + <span class="kbd">1</span>&ndash;<span class="kbd">9</span></td><td colspan="2">Switch seats in a multi-seat aircraft</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">X, C, and Right Alt are our keys. The mod's defaults clashed with throwing Pok&eacute;mon, waypoints, and zoom; see <a href="controls.html">Every Key</a>.</p>
+    <div class="callout good"><strong>Crashing won't kill you.</strong> A hard crash damages the aircraft and makes a small explosion that doesn't break blocks or start fires.</div>
+  </section>
+
+  <!-- BUILD -->
+  <section class="panel" id="build">
+    <h2>Building</h2>
+    <p class="sub">Everything is made at a normal crafting table: first the parts, then the aircraft. Hover any of them in the REI list and press <span class="kbd">Y</span> to see these in-game.</p>
+    <h3>Parts</h3>
+    <div class="recipes" data-recipes="parts"></div>
+    <h3>Aircraft</h3>
+    <div class="recipes" data-recipes="aircraft"></div>
+    <ul class="tasks">
+      <li data-id="build-engine"><span class="checkbox"></span><span class="task-text">Craft an Engine (it needs a Boiler and a Blast Furnace)</span></li>
+      <li data-id="build-first"><span class="checkbox"></span><span class="task-text">Build your first aircraft in survival</span></li>
+    </ul>
+  </section>
+
+  <!-- FUEL -->
+  <section class="panel" id="fuel">
+    <h2>Fuel &amp; Repairs</h2>
+    <ol class="flow">
+      <li><strong>Fuel goes in the fuel slot</strong> (sneak + right-click the aircraft). Anything that burns in a furnace works: coal, charcoal, wood, and so on. <strong>Blaze powder</strong> lasts the longest. The Gyrodyne needs no fuel; it uses your hunger.</li>
+      <li><strong>The screen warns you</strong> when fuel is low and when you run out. Land before then.</li>
+      <li><strong>Repair by right-clicking</strong> a damaged aircraft while standing next to it. Each click fixes a little and costs a bit of hunger.</li>
+      <li><strong>To pick one up,</strong> hit it until it breaks. It drops as an item along with whatever was in its inventory.</li>
+    </ol>
+    <p class="note">In Creative mode, aircraft don't burn fuel.</p>
+  </section>
+
+  <!-- UPGRADES -->
+  <section class="panel" id="upgrades">
+    <h2>Upgrades &amp; Weapons</h2>
+    <p class="sub">Put upgrades in the aircraft's upgrade slots (sneak + right-click). Numbers are from the mod's own data.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Upgrade</th><th>Effect</th><th>Made from</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Enhanced Propeller</strong></td><td>+5% engine power, &minus;75% air friction</td><td>Propeller + 4 copper</td></tr>
+        <tr><td><strong>Sturdy Pipes</strong></td><td>+8% engine power</td><td>Copper and iron</td></tr>
+        <tr><td><strong>Steel Boiler</strong></td><td>+20% engine power, +50% fuel use</td><td>Boiler, blast furnace, iron</td></tr>
+        <tr><td><strong>Nether Engine</strong></td><td>+30% engine power, +30% fuel use</td><td>Engine, netherite ingot, blaze rods, magma cream, nether bricks</td></tr>
+        <tr><td><strong>Eco Engine</strong></td><td>&minus;20% engine power, &minus;75% fuel use</td><td>Engine, gold, slime balls, bricks</td></tr>
+        <tr><td><strong>Industrial Gears</strong></td><td>&minus;20% fuel use</td><td>Iron, copper, a lever</td></tr>
+        <tr><td><strong>Gyroscope</strong></td><td>Ignores wind, steadier flight</td><td>Compass + 2 comparators</td></tr>
+        <tr><td><strong>Advanced Gyroscope</strong></td><td>Gyroscope + a dial dashboard</td><td>Gyroscope, clocks, note block, lever</td></tr>
+        <tr><td><strong>Electronic Gyroscope</strong></td><td>Gyroscope + an on-screen dashboard</td><td>Gyroscope, redstone lamp, glass, gold</td></tr>
+        <tr><td><strong>Hull Reinforcement</strong></td><td>Double durability</td><td>3 hulls + 6 iron</td></tr>
+        <tr><td><strong>Improved Landing Gear</strong></td><td>+75% takeoff speed</td><td>Iron and coal</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Weapons and extras</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Item</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Rotary Cannon</strong></td><td>Fast-firing gun that uses gunpowder</td></tr>
+        <tr><td><strong>Heavy Crossbow</strong></td><td>A big crossbow with a punch; uses arrows</td></tr>
+        <tr><td><strong>Bomb Bay</strong></td><td>Drops TNT that deals heavy damage but doesn't destroy blocks</td></tr>
+        <tr><td><strong>Telescope</strong></td><td>A bigger spyglass mounted on the aircraft</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="up-gyro"><span class="checkbox"></span><span class="task-text">Fit a Gyroscope so the wind stops pushing you around</span></li>
+      <li data-id="up-cargo"><span class="checkbox"></span><span class="task-text">Move a load of stuff with a Cargo Airship</span></li>
+    </ul>
+    <p class="note">Ships, cars, and bikes: see <a href="ships.html">Ships</a> and <a href="wheels.html">Cars &amp; Bikes</a>.</p>
+  </section>
+
+  <footer>Aircraft, recipes, and upgrade numbers from the Immersive Aircraft 1.7.0 files &middot; Oct 2026</footer>
+</div>
+
+<script>
+(function () {
+  var R = {
+  "parts": [
+    {
+      "name": "Hull",
+      "grid": [
+        "Log",
+        "Log",
+        "Log",
+        "Iron Ingot",
+        "Iron Ingot",
+        "Iron Ingot",
+        "Log",
+        "Log",
+        "Log"
+      ],
+      "out": "Hull"
+    },
+    {
+      "name": "Boiler",
+      "grid": [
+        "Copper Ingot",
+        "Copper Ingot",
+        "Copper Ingot",
+        "Copper Ingot",
+        "",
+        "Copper Ingot",
+        "Copper Ingot",
+        "Furnace",
+        "Copper Ingot"
+      ],
+      "out": "Boiler"
+    },
+    {
+      "name": "Engine",
+      "note": "Needs a Boiler first.",
+      "grid": [
+        "",
+        "Cobble-stone",
+        "",
+        "Piston",
+        "Blast Furnace",
+        "Piston",
+        "Cobble-stone",
+        "Boiler",
+        "Cobble-stone"
+      ],
+      "out": "Engine"
+    },
+    {
+      "name": "Sail",
+      "grid": [
+        "White Carpet",
+        "White Carpet",
+        "String",
+        "White Carpet",
+        "White Carpet",
+        "String",
+        "White Carpet",
+        "White Carpet",
+        "String"
+      ],
+      "out": "Sail"
+    },
+    {
+      "name": "Propeller",
+      "grid": [
+        "Iron Ingot",
+        "Iron Ingot",
+        "",
+        "",
+        "Iron Ingot",
+        "",
+        "",
+        "Iron Ingot",
+        "Iron Ingot"
+      ],
+      "out": "Propeller"
+    }
+  ],
+  "aircraft": [
+    {
+      "name": "Airship",
+      "grid": [
+        "Sail",
+        "Sail",
+        "Sail",
+        "Sail",
+        "Sail",
+        "Sail",
+        "Hull",
+        "Hull",
+        "Engine"
+      ],
+      "out": "Airship"
+    },
+    {
+      "name": "Biplane",
+      "grid": [
+        "",
+        "Hull",
+        "",
+        "Hull",
+        "Engine",
+        "Propeller",
+        "",
+        "Hull",
+        ""
+      ],
+      "out": "Biplane"
+    },
+    {
+      "name": "Gyrodyne",
+      "note": "No engine: you pedal it.",
+      "grid": [
+        "",
+        "Sail",
+        "",
+        "Hull",
+        "Propeller",
+        "Hull",
+        "",
+        "Sail",
+        ""
+      ],
+      "out": "Gyrodyne"
+    },
+    {
+      "name": "Quadrocopter",
+      "grid": [
+        "Propeller",
+        "Bamboo",
+        "Propeller",
+        "Bamboo",
+        "Engine",
+        "Bamboo",
+        "Propeller",
+        "Bamboo",
+        "Propeller"
+      ],
+      "out": "Quadro-copter"
+    },
+    {
+      "name": "Cargo Airship",
+      "note": "Made from an Airship.",
+      "grid": [
+        "Chest",
+        "Airship",
+        "Chest",
+        "Chest",
+        "Hull",
+        "Chest",
+        "",
+        "",
+        ""
+      ],
+      "out": "Cargo Airship"
+    },
+    {
+      "name": "Warship",
+      "note": "Made from a Cargo Airship.",
+      "grid": [
+        "Sail",
+        "Hull",
+        "Sail",
+        "Engine",
+        "Cargo Airship",
+        "Engine",
+        "Hull",
+        "Industrial Gears",
+        "Hull"
+      ],
+      "out": "Warship"
+    },
+    {
+      "name": "Bamboo Hopper",
+      "note": "Made from two Biplanes.",
+      "grid": [
+        "Biplane",
+        "Hull",
+        "Biplane",
+        "Bamboo Block",
+        "Engine",
+        "Bamboo Block",
+        "Bamboo Block",
+        "Bamboo Block",
+        "Bamboo Block"
+      ],
+      "out": "Bamboo Hopper"
+    }
+  ]
+};
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot" + (label ? "" : " empty"); if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "\u2192"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-aircraft-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "\u2713" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var fill = document.getElementById("progress-fill"), label = document.getElementById("progress-label");
+    if (fill) fill.style.width = pct + "%";
+    if (label) label.textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
