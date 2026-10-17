@@ -693,6 +693,12 @@
       "from": "key.keyboard.v",
       "to": "key.keyboard.j",
       "why": "V is this profile's camera-view key; J is free"
+    },
+    {
+      "key": "key_key.autoswitch.toggle",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.n",
+      "why": "R is Cobblemon's throw Pokémon and Iris's reload; N is free in both profiles"
     }
   ],
   "host_world_datapacks": [
