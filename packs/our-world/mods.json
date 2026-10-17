@@ -27,6 +27,17 @@
       "side": "both"
     },
     {
+      "name": "Beautify: Refabricated",
+      "slug": "beautify-refabricated",
+      "project_id": "DhSSvaxs",
+      "version_id": "1jFwqWDp",
+      "version": "3.0.0+26.3",
+      "filename": "beautify-fabric-3.0.0+26.3.jar",
+      "url": "https://cdn.modrinth.com/data/DhSSvaxs/versions/1jFwqWDp/beautify-fabric-3.0.0%2B26.3.jar",
+      "sha1": "bd431ce2b4d63382e5b1a5e352a1c838c37c0fb1",
+      "side": "both"
+    },
+    {
       "name": "Cloth Config API",
       "slug": "cloth-config",
       "project_id": "9s6osm5g",
@@ -137,6 +148,39 @@
       "side": "both"
     },
     {
+      "name": "Macaw's Furniture",
+      "slug": "macaws-furniture",
+      "project_id": "dtWC90iB",
+      "version_id": "8Z6HSCVW",
+      "version": "3.4.2",
+      "filename": "mcw-furniture-3.4.2-mc26.3fabric.jar",
+      "url": "https://cdn.modrinth.com/data/dtWC90iB/versions/8Z6HSCVW/mcw-furniture-3.4.2-mc26.3fabric.jar",
+      "sha1": "7d861470d63fdbf22e8080b21d8490143cc41d9e",
+      "side": "both"
+    },
+    {
+      "name": "Macaw's Lights and Lamps",
+      "slug": "macaws-lights-and-lamps",
+      "project_id": "w4an97C2",
+      "version_id": "LolTDv3X",
+      "version": "1.1.5",
+      "filename": "mcw-lights-1.1.5-mc26.3fabric.jar",
+      "url": "https://cdn.modrinth.com/data/w4an97C2/versions/LolTDv3X/mcw-lights-1.1.5-mc26.3fabric.jar",
+      "sha1": "0bee69eb0cd2e491c64252d1a6f7df8b8dcc8eb1",
+      "side": "both"
+    },
+    {
+      "name": "Macaw's Windows",
+      "slug": "macaws-windows",
+      "project_id": "C7I0BCni",
+      "version_id": "GIK1xDxr",
+      "version": "2.4.2",
+      "filename": "mcw-windows-2.4.2-mc26.3fabric.jar",
+      "url": "https://cdn.modrinth.com/data/C7I0BCni/versions/GIK1xDxr/mcw-windows-2.4.2-mc26.3fabric.jar",
+      "sha1": "d0982e89cf577682361f1e43435be4605c198894",
+      "side": "both"
+    },
+    {
       "name": "Roughly Enough Items (REI)",
       "slug": "rei",
       "project_id": "nfn13YXA",
@@ -156,6 +200,17 @@
       "filename": "rusticdelight-fabric-26.3-1.7.0.jar",
       "url": "https://cdn.modrinth.com/data/foa4fGIH/versions/ietejMuZ/rusticdelight-fabric-26.3-1.7.0.jar",
       "sha1": "eeccaad85c330367c33dcbef4366f8f6f0d45804",
+      "side": "both"
+    },
+    {
+      "name": "Storage Delight",
+      "slug": "storage-delight",
+      "project_id": "LTTvOp5L",
+      "version_id": "Dvt58c6k",
+      "version": "26.10.05-26.3-fabric",
+      "filename": "storagedelight-26.10.05-26.3-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/LTTvOp5L/versions/Dvt58c6k/storagedelight-26.10.05-26.3-fabric.jar",
+      "sha1": "7e1e048af05081d2fc9677e5c6209988670ced00",
       "side": "both"
     },
     {
@@ -429,6 +484,26 @@
       "from": "key.keyboard.r",
       "to": "key.keyboard.n",
       "why": "R is Cobblemon's throw Pokémon and Iris's reload; N is free in both profiles"
+    },
+    {
+      "key": "key_key.togglePerspective",
+      "from": "key.keyboard.c",
+      "to": "key.keyboard.v",
+      "why": "C is now zoom (Logical Zoom); camera view moves to V, matching the Cobblemon world"
+    }
+  ],
+  "config_fixes": [
+    {
+      "file": "config/roughlyenoughitems/config.json5",
+      "find": "(\"recipeKeybind\"\\s*:\\s*\\{\\s*\"keyCode\"\\s*:\\s*)\"key\\.keyboard\\.r\"",
+      "replace": "${1}\"key.keyboard.y\"",
+      "why": "REI's 'show recipe' on R also triggered Inventory Profiles Next's sort; recipe moves to Y, next to REI's U for uses"
+    },
+    {
+      "file": "config/autoswitchUseAction.cfg",
+      "find": "(?m)^(minecraft!creeper[ \\t]*=[ \\t]*)minecraft:flint_and_steel(?=\\r?$)",
+      "replace": "${1}",
+      "why": "AutoSwitch swapped to flint and steel when right-clicking a creeper, which lights it"
     }
   ]
 }

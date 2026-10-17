@@ -158,8 +158,22 @@ if ($keyFixes.Count -gt 0 -and (Test-Path $keyOptionsFile)) {
   }
 }
 
+# Fixes inside mods' own config files, for settings that aren't in options.txt (REI's keys, AutoSwitch's rules).
+# "find" is a regex that only matches the unfixed default, so a setting the player changed is left alone.
+# A mod writes its config on first launch; until the file exists, the fix waits for a later sync.
+$cfgFixes = @()
+if ($m.PSObject.Properties.Name -contains "config_fixes") { $cfgFixes = @($m.config_fixes | Where-Object { $_ }) }
+$cfgChanges = @(); $cfgPending = @()
+foreach ($c in $cfgFixes) {
+  $cfgPath = Join-Path $gameDir $c.file
+  if (-not (Test-Path -LiteralPath $cfgPath)) { $cfgPending += $c; continue }
+  if ([regex]::IsMatch([System.IO.File]::ReadAllText($cfgPath), $c.find)) { $cfgChanges += $c }
+}
+
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($k in $keyChanges)  { Plan "Keybind fix: $($k.key) -> $($k.to) ($($k.why))" }
+foreach ($c in $cfgChanges)  { Plan "Config fix: $($c.file) ($($c.why))" }
+foreach ($c in $cfgPending)  { Note "Config fix waits for the mod's first launch: $($c.file) ($($c.why))" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
 foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
 foreach ($sp in $spToInstall) { Plan "Install shader pack: $($sp.name) $($sp.version)" }
@@ -174,7 +188,7 @@ if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpLis
 
 if ($spList.Count -gt 0) { Ok "$($spList.Count - $spToInstall.Count) of $($spList.Count) shader packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $cfgChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -277,6 +291,17 @@ if ($keyChanges.Count -gt 0) {
     Ok "Applied $($keyChanges.Count) keybind fix(es)"
   }
 }
+
+# Apply config-file fixes (worked out above), backing up each file's original first.
+foreach ($c in $cfgChanges) {
+  $cfgPath = Join-Path $gameDir $c.file
+  $cfgBackup = Join-Path $backupDir ("config-fixes\" + ($c.file -replace '[\\/:]', '_'))
+  New-Item -ItemType Directory -Force -Path (Split-Path $cfgBackup) | Out-Null
+  if (-not (Test-Path -LiteralPath $cfgBackup)) { Copy-Item -LiteralPath $cfgPath -Destination $cfgBackup }
+  $raw = [System.IO.File]::ReadAllText($cfgPath)
+  [System.IO.File]::WriteAllText($cfgPath, [regex]::Replace($raw, $c.find, $c.replace), $utf8NoBom)
+}
+if ($cfgChanges.Count -gt 0) { Ok "Applied $($cfgChanges.Count) config fix(es)" }
 
 # Switch on resource packs installed for the first time (later entries load on top).
 if ($rpNew.Count -gt 0) {
