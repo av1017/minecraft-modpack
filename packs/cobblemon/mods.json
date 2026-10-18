@@ -215,6 +215,19 @@
       "side": "both"
     },
     {
+      "name": "REI Craftable Fix (our own)",
+      "slug": "reicraftablefix",
+      "project_id": "reicraftablefix-local",
+      "version_id": "reicraftablefix-1.0.0",
+      "version": "1.0.0",
+      "filename": "reicraftablefix-1.0.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/reicraftablefix-v1.0.0/reicraftablefix-1.0.0.jar",
+      "sha1": "8191db9434e8461ac906ec0e1d852e2df4550e01",
+      "side": "client",
+      "pinned": true,
+      "pinned_reason": "Our own client mod (source: minecraftServer/rei-craftable-fix on the host PC). Stops REI 16's craftable-only list from rebuilding every 5 ticks (tooltip flicker) when only an item's component hash changed. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
       "name": "Craftable Templates (our own)",
       "slug": "avtemplates",
       "project_id": "avtemplates-local",

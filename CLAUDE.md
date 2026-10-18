@@ -123,6 +123,9 @@ To ship a new version:
 
 Never push a manifest whose release asset doesn't exist yet: every other PC's sync would fail to download it.
 
+## REI Craftable Fix (our own client mod)
+The `reicraftablefix-local` entry (side `client`) is a tiny mixin mod. REI 16 runs `CraftableFilter.tick()` every 5 ticks and compares inventory maps keyed by each stack's full component hash, so a mod component with an unstable hash made REI re-run its search 4×/s and hovered tooltips flickered in craftable-only mode. The mod cancels that tick unless item ids, counts, or the open menu changed. Source: `minecraftServer/rei-craftable-fix` on the host PC (Loom, same versions as Twin Portals; build with JDK 25). Release tag `reicraftablefix-vX.Y.Z`; ship updates the same way as Twin Portals. If REI updates, check the mixin still applies (it fails soft: `required: false`).
+
 ## Craftable Templates (our own recipe mod)
 The `avtemplates-local` entry is a data-only mod with a crafting recipe for every smithing template (7 diamonds + a themed item + the copy block). Its source is `tools/craftable-templates/build.py`, and the jar is a GitHub release asset (tag `avtemplates-vX.Y.Z`). It replaces Craftable Smithing Templates 1.2 from Modrinth, whose recipes use the 1.21.2+ format and fail to load on 1.21.1 ("Parsing error loading recipe craftabletrims:…" in the log).
 
