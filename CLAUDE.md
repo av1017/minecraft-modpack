@@ -122,3 +122,8 @@ To ship a new version:
 4. Push.
 
 Never push a manifest whose release asset doesn't exist yet: every other PC's sync would fail to download it.
+
+## Craftable Templates (our own recipe mod)
+The `avtemplates-local` entry is a data-only mod with a crafting recipe for every smithing template (7 diamonds + a themed item + the copy block). Its source is `tools/craftable-templates/build.py`, and the jar is a GitHub release asset (tag `avtemplates-vX.Y.Z`). It replaces Craftable Smithing Templates 1.2 from Modrinth, whose recipes use the 1.21.2+ format and fail to load on 1.21.1 ("Parsing error loading recipe craftabletrims:…" in the log).
+
+To ship a change: edit `RECIPES` (and bump `VERSION`), run `python tools/craftable-templates/build.py <dir>`, create the GitHub release with the jar, update the entry's `version`, `filename`, `url`, and `sha1`, then push.

@@ -215,15 +215,17 @@
       "side": "both"
     },
     {
-      "name": "Craftable Smithing Templates (Armor Trims)",
-      "slug": "craftable-smithing-templates",
-      "project_id": "HxvFN3sd",
-      "version_id": "pvmJLvg3",
-      "version": "1.2",
-      "filename": "craftable-smitihing-templates-fabric-1.2.jar",
-      "url": "https://cdn.modrinth.com/data/HxvFN3sd/versions/pvmJLvg3/craftable-smitihing-templates-fabric-1.2.jar",
-      "sha1": "167317728c594797d846229fd081956f6b070ad0",
-      "side": "both"
+      "name": "Craftable Templates (our own)",
+      "slug": "avtemplates",
+      "project_id": "avtemplates-local",
+      "version_id": "avtemplates-1.0.0",
+      "version": "1.0.0",
+      "filename": "avtemplates-1.0.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/avtemplates-v1.0.0/avtemplates-1.0.0.jar",
+      "sha1": "d7e63aade5011586a9f4a1c2588bc433184bd6de",
+      "side": "both",
+      "pinned": true,
+      "pinned_reason": "Our own recipe-only mod (source: tools/craftable-templates/build.py). Replaces Craftable Smithing Templates 1.2, whose recipes don't load on 1.21.1. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
     },
     {
       "name": "Distant Horizons",
