@@ -26,6 +26,7 @@ Each pack has its own game folder, with its own worlds, mods, and settings, so t
 - **Getting around:** Small Ships (7 sailing ships, built at a Dockyard), Immersive Aircraft (airships, biplanes, copters), PokeBike (bikes), and Automobility + Momentum (build-your-own cars). The vehicle keys are moved to C and X.
 - **Life:** MCA Reborn (villagers with names, jobs, and families; dating, marriage, and kids) and Cobbreeding (Pokémon eggs from the Pasture Block).
 - **Armor, weapons & style:** Immersive Armors, Epic Knights, Cobblemon Armors, Cobbled Armor Trims, Craftable Templates & More (our own recipe mod: smithing templates, saddles, slime-free leads; source in tools/craftable-templates), Poke Clothing, Weaver's Paradise, Simple Hats, and Show Me Your Skin! (hide armor, keep its protection). Extra slots come from Accessories, with Trinkets routed into it by Accessories Compat Layer.
+- **e4mc:** when the host opens the world to LAN, it also gets a public address, so friends elsewhere can join with Direct Connection. Only the host needs it to do anything. See the guide's "Playing From Anywhere" page.
 - **REI Craftable Fix (our own):** stops REI's craftable-only list from flickering tooltips. Client-only.
 - **Keybind Fix:** lets several actions share one key, so the vehicle buttons and Left Alt all work.
 - **Twin Portals (our own mod):** a blue/orange portal device. Source in the host's `minecraftServer/portal-gun-mod`; the jar is a GitHub release on this repo. Also Rick's Portal Gun.
@@ -68,6 +69,6 @@ Then run the sync, **test in-game**, and commit and push.
 1. The host opens the world on the pack's profile, presses Esc, clicks **Open to LAN**, then **Start LAN World**.
 2. Everyone else opens the **same profile**, goes to **Multiplayer**, and finds the world under **LAN World(s)**.
 
-Everyone needs the same pack synced, and you must be on the same network. If Windows Firewall asks about Java, allow it on private networks.
+Everyone needs the same pack synced. On the same network, use LAN World(s). In the Cobblemon world, friends elsewhere can join with **Multiplayer > Direct Connection** and the public address e4mc shows in the host's chat. If Windows Firewall asks about Java, allow it on private networks.
 
 **If someone joins and spawns as a brand-new player,** have them leave right away. Their real progress is still saved. Both players should fully quit Minecraft and the launcher, reopen, and rejoin. This happens when Minecraft can't verify the joining player's Microsoft sign-in.

@@ -215,19 +215,6 @@
       "side": "both"
     },
     {
-      "name": "REI Craftable Fix (our own)",
-      "slug": "reicraftablefix",
-      "project_id": "reicraftablefix-local",
-      "version_id": "reicraftablefix-1.0.0",
-      "version": "1.0.0",
-      "filename": "reicraftablefix-1.0.0.jar",
-      "url": "https://github.com/av1017/minecraft-modpack/releases/download/reicraftablefix-v1.0.0/reicraftablefix-1.0.0.jar",
-      "sha1": "8191db9434e8461ac906ec0e1d852e2df4550e01",
-      "side": "client",
-      "pinned": true,
-      "pinned_reason": "Our own client mod (source: minecraftServer/rei-craftable-fix on the host PC). Stops REI 16's craftable-only list from rebuilding every 5 ticks (tooltip flicker) when only an item's component hash changed. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
-    },
-    {
       "name": "Craftable Templates & More (our own)",
       "slug": "avtemplates",
       "project_id": "avtemplates-local",
@@ -249,6 +236,17 @@
       "filename": "DistantHorizons-3.3.3-1.21.1-fabric-neoforge.jar",
       "url": "https://cdn.modrinth.com/data/uCdwusMi/versions/9w34y8ai/DistantHorizons-3.3.3-1.21.1-fabric-neoforge.jar",
       "sha1": "4357b4d19fab818780c94f0e43dad1cc931634b2",
+      "side": "both"
+    },
+    {
+      "name": "e4mc",
+      "slug": "e4mc",
+      "project_id": "qANg5Jrr",
+      "version_id": "8wsUJ306",
+      "version": "6.2.3-fabric",
+      "filename": "e4mc-fabric-6.2.3.jar",
+      "url": "https://cdn.modrinth.com/data/qANg5Jrr/versions/8wsUJ306/e4mc-fabric-6.2.3.jar",
+      "sha1": "5420209f8560df548625f1defc24ebb94682f0fd",
       "side": "both"
     },
     {
@@ -907,6 +905,19 @@
       "side": "client"
     },
     {
+      "name": "REI Craftable Fix (our own)",
+      "slug": "reicraftablefix",
+      "project_id": "reicraftablefix-local",
+      "version_id": "reicraftablefix-1.0.0",
+      "version": "1.0.0",
+      "filename": "reicraftablefix-1.0.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/reicraftablefix-v1.0.0/reicraftablefix-1.0.0.jar",
+      "sha1": "8191db9434e8461ac906ec0e1d852e2df4550e01",
+      "side": "client",
+      "pinned": true,
+      "pinned_reason": "Our own client mod (source: minecraftServer/rei-craftable-fix on the host PC). Stops REI 16's craftable-only list from rebuilding every 5 ticks (tooltip flicker) when only an item's component hash changed. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
       "name": "Skyboxify",
       "slug": "skyboxify",
       "project_id": "DWuwk8aA",
@@ -1312,7 +1323,7 @@
   ],
   "host_world_datapacks": [
     {
-      "note": "Data pack for the HOST's world only (put in <world>/datapacks). Not installed by sync.ps1.",
+      "note": "Data pack for the HOST's world only (put in <world>/datapacks). Not installed by sync.ps1. Installed in Reajustiene (the main world, added 2026-10-18) and Catch em All!. A new world needs it copied in by hand.",
       "name": "RCT Badges - Cobblemon Pokemon Badges",
       "slug": "rct-badges-cobblemonpokemonbadges",
       "version": "1.1.2",
