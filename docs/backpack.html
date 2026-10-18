@@ -110,7 +110,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     <h1>Traveler's Backpack</h1>
     <p>A backpack you wear on your back. Beyond extra storage, it carries two fluid tanks, a sleeping bag, tool slots, and upgrade slots that add a crafting grid, furnace, magnet, auto-feeding, and more. Upgrade it through five tiers, from leather to netherite, or craft a themed backpack with its own special ability.</p>
     <div class="stats">
-      <div class="stat"><b>27 &rarr; 63</b><span>storage slots, leather to netherite</span></div>
+      <div class="stat"><b>27 &rarr; 99</b><span>storage slots, leather to netherite (Cobblemon world)</span></div>
       <div class="stat"><b>2 tanks</b><span>of water, lava, or other fluids</span></div>
       <div class="stat"><b>G / B</b><span>open it: G in Cobblemon, B in Our World</span></div>
       <div class="stat"><b>Kept on death</b><span>left as a block where you died, with its coordinates</span></div>
@@ -122,8 +122,11 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
   </div>
 
   <nav class="jump" aria-label="Jump to section">
+    <a href="#how">How It Works</a>
     <a href="#first">Your First Backpack</a>
+    <a href="#choose">Which One?</a>
     <a href="#wear">Wearing It</a>
+    <a href="#screen">The Screen</a>
     <a href="#tiers">Tiers</a>
     <a href="#upgrades">Upgrades</a>
     <a href="#tools">Tools &amp; Hose</a>
@@ -131,6 +134,26 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     <a href="#themed">Themed Backpacks</a>
     <a href="#death">If You Die</a>
   </nav>
+
+  <!-- HOW -->
+  <section class="panel" id="how">
+    <h2>How Backpacks Work</h2>
+    <p class="sub">A backpack is a portable chest that keeps everything inside it wherever it goes: on your back, in your inventory, or placed on the ground. What it can do depends on where it is.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Where it is</th><th>How to open it</th><th>What works</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Worn</strong> (on your back)</td><td><span class="kbd">G</span> in the Cobblemon world, <span class="kbd">B</span> in Our World, or the backpack icon in your inventory</td><td><strong>Everything:</strong> storage, upgrades (magnet, feeding, pickup&hellip;), the themed ability, tool swapping with <span class="kbd">H</span>, the hose</td></tr>
+        <tr><td><strong>Carried</strong> (an item in your inventory)</td><td>Hold it in your main hand and right-click</td><td>Storage, and you can rearrange upgrades. Most upgrades and abilities wait until you wear it ("Equip the backpack to use the upgrade").</td></tr>
+        <tr><td><strong>Placed</strong> (a block on the ground)</td><td>Right-click it</td><td>A chest with tanks. You can sleep in its sleeping bag, and a few themed abilities work as a block (Bookshelf, Redstone). Break it to pick it up with everything still inside.</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><strong>You can wear one at a time.</strong> Carry extras as items or place them as blocks.</li>
+      <li><strong>Everything stays inside</strong> when you take it off, upgrade its tier, or place it down.</li>
+      <li><strong>A dropped backpack can't be destroyed</strong> by lava, fire, or anything else, and it never despawns. If you die in the void (falling off the End), it floats just above the void for you to fetch.</li>
+      <li><strong>No storage inside storage:</strong> shulker boxes and other items with their own inventory, like another backpack, can't go inside.</li>
+    </ul>
+  </section>
 
   <!-- FIRST -->
   <section class="panel" id="first">
@@ -143,6 +166,22 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       <li data-id="first-tanks"><span class="checkbox"></span><span class="task-text">Craft 2 Backpack Tanks</span></li>
       <li data-id="first-pack"><span class="checkbox"></span><span class="task-text">Craft the Traveler's Backpack</span></li>
     </ul>
+  </section>
+
+  <!-- CHOOSE -->
+  <section class="panel" id="choose">
+    <h2>Which Backpack Should I Make?</h2>
+    <p class="sub">There are three kinds of backpack, and every one of them can be upgraded through the same five tiers.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Kind</th><th>What you get</th><th>Make it if&hellip;</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong></td><td>Storage, 2 fluid tanks, and a sleeping bag</td><td>You want the full thing. <strong>Start here.</strong></td></tr>
+        <tr><td><strong>No tanks</strong></td><td>Storage and a sleeping bag (a chest goes where the tanks would)</td><td>You're short on glass and iron. Add tanks later with the Tanks upgrade.</td></tr>
+        <tr><td><strong>No sleeping bag</strong></td><td>Storage and tanks</td><td>You never sleep away from home.</td></tr>
+        <tr><td><strong>Themed</strong> (Creeper, Spider, Blaze, Bee&hellip;)</td><td>A standard backpack surrounded by themed items: a new look, and often a <a href="#themed">special ability</a></td><td>You want an ability. The Creeper saves you from one death, the Spider climbs walls, the Blaze stops fall damage.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout good"><strong>The tier matters more than the kind.</strong> Each tier in the Cobblemon world adds 2 rows of storage, 1 upgrade slot, and 1 tool slot, and makes the tanks bigger: a netherite backpack holds 99 items, 11 buckets per tank, and 6 upgrades. Details are in <a href="#tiers">Tiers</a>.</div>
   </section>
 
   <!-- WEAR -->
@@ -166,18 +205,42 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
     </ul>
   </section>
 
+  <!-- SCREEN -->
+  <section class="panel" id="screen">
+    <h2>The Backpack Screen</h2>
+    <p class="sub">What everything around the storage grid does. Hover any button in-game for its name.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Part</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><strong>The big grid</strong></td><td>Storage: 3 rows on a leather backpack, more with each tier.</td></tr>
+        <tr><td><strong>Gear</strong> (top right)</td><td><strong>Backpack Settings.</strong> Pick slots that sorting skips, reserve slots for one item each (so your torches always land in the same spot), and show or hide the backpack on your back. Only the owner can change these.</td></tr>
+        <tr><td><strong>Dashed squares</strong> (right side)</td><td><strong>Upgrade slots</strong>: 2 on leather, one more per tier. Drop an <a href="#upgrades">upgrade</a> in to add a crafting grid, furnace, magnet, and so on. Upgrades with filters (Pickup, Magnet, Feeding, Refill, Void) open their own little settings panel. Most only run while you wear the backpack.</td></tr>
+        <tr><td><strong>Tool slots</strong> (left side)</td><td>Turn them on with "Show Tool Slots": 2 on leather, one more per tier. Keep your pickaxe, axe, shovel, and sword here, and swap them into your hand with <span class="kbd">H</span> while wearing the backpack.</td></tr>
+        <tr><td><strong>Tall bars</strong> (sides, on backpacks with tanks)</td><td>The two <strong>fluid tanks</strong>. Fill and empty them with buckets or the <a href="#tools">hose</a>.</td></tr>
+        <tr><td><strong>Sort</strong></td><td>Tidies the backpack. Hold <span class="kbd">Shift</span> and click to change how: by category, name, or count.</td></tr>
+        <tr><td><strong>Quick stack</strong></td><td>Moves items you already have in the backpack out of your inventory and into it. With <span class="kbd">Shift</span>, your hotbar too.</td></tr>
+        <tr><td><strong>Transfer</strong> (two arrow buttons)</td><td>Moves <em>everything</em> from your inventory into the backpack, or from the backpack into your inventory. <span class="kbd">Shift</span> includes your hotbar.</td></tr>
+        <tr><td><strong>Three dots</strong></td><td>"Show More Buttons": use the sleeping bag, and hide or show the backpack on your back.</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="screen-reserve"><span class="checkbox"></span><span class="task-text">Reserve a slot for torches in Backpack Settings</span></li>
+      <li data-id="screen-tools"><span class="checkbox"></span><span class="task-text">Put your tools in the tool slots and swap with <span class="kbd">H</span></span></li>
+    </ul>
+  </section>
+
   <!-- TIERS -->
   <section class="panel" id="tiers">
     <h2>Tiers</h2>
-    <p class="sub">Each tier adds a row of 9 storage slots, plus more upgrade and tool slots. Tank space grows with it: 1 bucket per storage row.</p>
+    <p class="sub">In the Cobblemon world, each tier adds 2 rows of storage (18 slots), 1 upgrade slot, and 1 tool slot. Tanks hold 1 bucket per storage row, so they grow too.</p>
     <div class="table-scroll"><table class="spec">
-      <thead><tr><th>Tier</th><th>Storage</th><th>Each tank holds</th><th>Tier upgrade recipe</th></tr></thead>
+      <thead><tr><th>Tier</th><th>Storage</th><th>Each tank</th><th>Upgrade slots</th><th>Tool slots</th><th>Tier upgrade recipe</th></tr></thead>
       <tbody>
-        <tr><td><strong>Leather</strong></td><td>27 slots (3 rows)</td><td>3 buckets</td><td>Where every backpack starts</td></tr>
-        <tr><td><strong>Iron</strong></td><td>36 slots</td><td>4 buckets</td><td>8 iron ingots around a Blank Upgrade</td></tr>
-        <tr><td><strong>Gold</strong></td><td>45 slots</td><td>5 buckets</td><td>8 gold ingots around a Blank Upgrade</td></tr>
-        <tr><td><strong>Diamond</strong></td><td>54 slots</td><td>6 buckets</td><td>8 diamonds around a Blank Upgrade</td></tr>
-        <tr><td><strong>Netherite</strong></td><td>63 slots</td><td>7 buckets</td><td>Smithing table: netherite upgrade template + Blank Upgrade + netherite ingot</td></tr>
+        <tr><td><strong>Leather</strong></td><td>27 (3 rows)</td><td>3 buckets</td><td>2</td><td>2</td><td>Where every backpack starts</td></tr>
+        <tr><td><strong>Iron</strong></td><td>45 (5 rows)</td><td>5 buckets</td><td>3</td><td>3</td><td>8 iron ingots around a Blank Upgrade</td></tr>
+        <tr><td><strong>Gold</strong></td><td>63 (7 rows)</td><td>7 buckets</td><td>4</td><td>4</td><td>8 gold ingots around a Blank Upgrade</td></tr>
+        <tr><td><strong>Diamond</strong></td><td>81 (9 rows)</td><td>9 buckets</td><td>5</td><td>5</td><td>8 diamonds around a Blank Upgrade</td></tr>
+        <tr><td><strong>Netherite</strong></td><td>99 (11 rows)</td><td>11 buckets</td><td>6</td><td>6</td><td>Smithing table: netherite upgrade template + Blank Upgrade + netherite ingot</td></tr>
       </tbody>
     </table></div>
     <h3>Applying a tier</h3>
@@ -186,7 +249,7 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
       <li>Turn it into the next tier's upgrade (table above). Tiers go in order: leather &rarr; iron &rarr; gold &rarr; diamond &rarr; netherite.</li>
       <li>At a <strong>smithing table</strong>, put <strong>leather</strong> in the template slot, your <strong>backpack</strong> in the middle, and the <strong>tier upgrade</strong> last. Your items stay inside.</li>
     </ol>
-    <p class="note">Storage and tanks are read from the mod's config (27 slots at leather, one row per tier, 1 bucket per row). Exact upgrade and tool slot counts per tier show in-game.</p>
+    <p class="note">Numbers are from the Cobblemon world's backpack settings file. Our World runs a newer version of the mod, so its numbers may differ; the backpack screen always shows the real count.</p>
     <ul class="tasks">
       <li data-id="tier-iron"><span class="checkbox"></span><span class="task-text">Upgrade to Iron</span></li>
       <li data-id="tier-diamond"><span class="checkbox"></span><span class="task-text">Upgrade to Diamond</span></li>
