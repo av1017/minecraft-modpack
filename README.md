@@ -25,7 +25,7 @@ Each pack has its own game folder, with its own worlds, mods, and settings, so t
 - **Terralith:** about 95 new biomes and bigger terrain in unexplored land.
 - **Getting around:** Small Ships (7 sailing ships, built at a Dockyard), Immersive Aircraft (airships, biplanes, copters), PokeBike (bikes), and Automobility + Momentum (build-your-own cars). The vehicle keys are moved to C and X.
 - **Life:** MCA Reborn (villagers with names, jobs, and families; dating, marriage, and kids) and Cobbreeding (Pokémon eggs from the Pasture Block).
-- **Armor, weapons & style:** Immersive Armors, Epic Knights, Cobblemon Armors, Cobbled Armor Trims, Craftable Templates (our own recipe mod; source in tools/craftable-templates), Poke Clothing, Weaver's Paradise, Simple Hats, and Show Me Your Skin! (hide armor, keep its protection). Extra slots come from Accessories, with Trinkets routed into it by Accessories Compat Layer.
+- **Armor, weapons & style:** Immersive Armors, Epic Knights, Cobblemon Armors, Cobbled Armor Trims, Craftable Templates & More (our own recipe mod: smithing templates, saddles, slime-free leads; source in tools/craftable-templates), Poke Clothing, Weaver's Paradise, Simple Hats, and Show Me Your Skin! (hide armor, keep its protection). Extra slots come from Accessories, with Trinkets routed into it by Accessories Compat Layer.
 - **REI Craftable Fix (our own):** stops REI's craftable-only list from flickering tooltips. Client-only.
 - **Keybind Fix:** lets several actions share one key, so the vehicle buttons and Left Alt all work.
 - **Twin Portals (our own mod):** a blue/orange portal device. Source in the host's `minecraftServer/portal-gun-mod`; the jar is a GitHub release on this repo. Also Rick's Portal Gun.

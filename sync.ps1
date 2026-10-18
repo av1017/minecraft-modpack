@@ -170,10 +170,24 @@ foreach ($c in $cfgFixes) {
   if ([regex]::IsMatch([System.IO.File]::ReadAllText($cfgPath), $c.find)) { $cfgChanges += $c }
 }
 
+# Whole config files we ship from the repo (e.g. an Inventory Profiles Next button hint for a mod's screen).
+# Each entry copies "source" (a path in this repo) to "file" (a path in the game folder) when it's missing
+# or different. Only use file names we own, so a player's own files are never overwritten.
+$cfgFiles = @()
+if ($m.PSObject.Properties.Name -contains "config_files") { $cfgFiles = @($m.config_files | Where-Object { $_ }) }
+$cfgFileChanges = @()
+foreach ($c in $cfgFiles) {
+  $src = Join-Path $repo $c.source
+  if (-not (Test-Path -LiteralPath $src)) { Fail "mods.json lists config file $($c.source), but it isn't in the repo." }
+  $dst = Join-Path $gameDir $c.file
+  if (-not (Test-Path -LiteralPath $dst) -or (Sha1Of $dst) -ne (Sha1Of $src)) { $cfgFileChanges += $c }
+}
+
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($k in $keyChanges)  { Plan "Keybind fix: $($k.key) -> $($k.to) ($($k.why))" }
 foreach ($c in $cfgChanges)  { Plan "Config fix: $($c.file) ($($c.why))" }
 foreach ($c in $cfgPending)  { Note "Config fix waits for the mod's first launch: $($c.file) ($($c.why))" }
+foreach ($c in $cfgFileChanges) { Plan "Config file: $($c.file) ($($c.why))" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
 foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
 foreach ($sp in $spToInstall) { Plan "Install shader pack: $($sp.name) $($sp.version)" }
@@ -188,7 +202,7 @@ if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpLis
 
 if ($spList.Count -gt 0) { Ok "$($spList.Count - $spToInstall.Count) of $($spList.Count) shader packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $cfgChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $cfgChanges.Count + $cfgFileChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -302,6 +316,19 @@ foreach ($c in $cfgChanges) {
   [System.IO.File]::WriteAllText($cfgPath, [regex]::Replace($raw, $c.find, $c.replace), $utf8NoBom)
 }
 if ($cfgChanges.Count -gt 0) { Ok "Applied $($cfgChanges.Count) config fix(es)" }
+
+# Place shipped config files (worked out above), backing up any older copy first.
+foreach ($c in $cfgFileChanges) {
+  $dst = Join-Path $gameDir $c.file
+  if (Test-Path -LiteralPath $dst) {
+    $fileBackup = Join-Path $backupDir ("config-files\" + ($c.file -replace '[\\/:]', '_'))
+    New-Item -ItemType Directory -Force -Path (Split-Path $fileBackup) | Out-Null
+    Copy-Item -LiteralPath $dst -Destination $fileBackup -Force
+  }
+  New-Item -ItemType Directory -Force -Path (Split-Path $dst) | Out-Null
+  Copy-Item -LiteralPath (Join-Path $repo $c.source) -Destination $dst -Force
+}
+if ($cfgFileChanges.Count -gt 0) { Ok "Placed $($cfgFileChanges.Count) config file(s)" }
 
 # Switch on resource packs installed for the first time (later entries load on top).
 if ($rpNew.Count -gt 0) {

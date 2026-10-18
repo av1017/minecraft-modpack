@@ -5,12 +5,15 @@ the 1.21.2+ format and fail to load on 1.21.1.
 Each recipe is 7 diamonds + a themed item (top middle) + the template's usual copy block
 (center), the same layout as vanilla's copy recipe, but without needing a template.
 
+Version 1.1 also adds two recipes from newer Minecraft (26.x) that 1.21.1 lacks: a saddle
+(3 leather + 1 iron ingot) and a lead from 5 string with no slime ball.
+
 Usage: python build.py <output dir>   (writes avtemplates-<version>.jar and prints its sha1)
 Then upload it as a GitHub release and update the "avtemplates" entry in packs/cobblemon/mods.json.
 """
 import hashlib, io, json, os, sys, zipfile
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 MOD_ID = "avtemplates"
 
 # template id: (themed item, copy block). "#tag" means an item tag.
@@ -52,13 +55,32 @@ def recipe(template, themed, block):
     }
 
 
+# Recipes Minecraft added after 1.21.1 (copied from the 26.3 versions, in 1.21.1's JSON layout).
+EXTRA_RECIPES = {
+    "saddle": {
+        "type": "minecraft:crafting_shaped",
+        "category": "equipment",
+        "key": {"#": ingredient("iron_ingot"), "X": ingredient("leather")},
+        "pattern": [" X ", "X#X"],
+        "result": {"count": 1, "id": "minecraft:saddle"},
+    },
+    "lead_from_string": {
+        "type": "minecraft:crafting_shaped",
+        "category": "equipment",
+        "key": {"~": ingredient("string")},
+        "pattern": ["~~ ", "~~ ", "  ~"],
+        "result": {"count": 2, "id": "minecraft:lead"},
+    },
+}
+
+
 def build(out_dir):
     mod = {
         "schemaVersion": 1,
         "id": MOD_ID,
         "version": VERSION,
-        "name": "Craftable Templates (our own)",
-        "description": "Crafting recipes for every smithing template: 7 diamonds, a themed item, and the template's copy block.",
+        "name": "Craftable Templates & More (our own)",
+        "description": "Crafting recipes for every smithing template (7 diamonds, a themed item, and the template's copy block), plus the newer saddle and slime-free lead recipes.",
         "authors": ["Avery Thomas"],
         "contact": {"sources": "https://github.com/av1017/minecraft-modpack/tree/main/tools/craftable-templates"},
         "license": "MIT",
@@ -71,13 +93,15 @@ def build(out_dir):
         for template, (themed, block) in sorted(RECIPES.items()):
             name = template.replace("_armor_trim_smithing_template", "_trim").replace("_smithing_template", "")
             z.writestr(f"data/{MOD_ID}/recipe/{name}.json", json.dumps(recipe(template, themed, block), indent=2) + "\n")
+        for name, data in EXTRA_RECIPES.items():
+            z.writestr(f"data/{MOD_ID}/recipe/{name}.json", json.dumps(data, indent=2) + "\n")
     data = buf.getvalue()
     path = os.path.join(out_dir, f"{MOD_ID}-{VERSION}.jar")
     with open(path, "wb") as f:
         f.write(data)
     print(path)
     print("sha1", hashlib.sha1(data).hexdigest())
-    print("recipes", len(RECIPES))
+    print("recipes", len(RECIPES) + len(EXTRA_RECIPES))
 
 
 if __name__ == "__main__":

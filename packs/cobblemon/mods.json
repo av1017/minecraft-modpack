@@ -228,17 +228,17 @@
       "pinned_reason": "Our own client mod (source: minecraftServer/rei-craftable-fix on the host PC). Stops REI 16's craftable-only list from rebuilding every 5 ticks (tooltip flicker) when only an item's component hash changed. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
     },
     {
-      "name": "Craftable Templates (our own)",
+      "name": "Craftable Templates & More (our own)",
       "slug": "avtemplates",
       "project_id": "avtemplates-local",
-      "version_id": "avtemplates-1.0.0",
-      "version": "1.0.0",
-      "filename": "avtemplates-1.0.0.jar",
-      "url": "https://github.com/av1017/minecraft-modpack/releases/download/avtemplates-v1.0.0/avtemplates-1.0.0.jar",
-      "sha1": "d7e63aade5011586a9f4a1c2588bc433184bd6de",
+      "version_id": "avtemplates-1.1.0",
+      "version": "1.1.0",
+      "filename": "avtemplates-1.1.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/avtemplates-v1.1.0/avtemplates-1.1.0.jar",
+      "sha1": "285cda82dc2d4afde25cd41b279fe6f481b90b4e",
       "side": "both",
       "pinned": true,
-      "pinned_reason": "Our own recipe-only mod (source: tools/craftable-templates/build.py). Replaces Craftable Smithing Templates 1.2, whose recipes don't load on 1.21.1. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+      "pinned_reason": "Our own recipe-only mod (source: tools/craftable-templates/build.py): smithing templates, plus the 26.x saddle and slime-free lead recipes. Replaces Craftable Smithing Templates 1.2, whose recipes don't load on 1.21.1. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
     },
     {
       "name": "Distant Horizons",
@@ -1301,6 +1301,13 @@
       "find": "(?m)^(\\s*generatorPlan = )\"SURFACE_THEN_CHUNKS\"(?=[ \\t]*\\r?$)",
       "replace": "${1}\"SURFACE_ONLY\"",
       "why": "Distant Horizons: build only the rough surface for far terrain, not full chunks"
+    }
+  ],
+  "config_files": [
+    {
+      "file": "config/inventoryprofilesnext/integrationHints/travelersbackpack.json",
+      "source": "packs/cobblemon/config/inventoryprofilesnext/integrationHints/travelersbackpack.json",
+      "why": "Inventory Profiles Next's sort and move buttons sat on top of Traveler's Backpack's own buttons (its 'Move Matching Items' covered the backpack's three-dots button); they're hidden on the backpack screen only, and R still sorts"
     }
   ],
   "host_world_datapacks": [

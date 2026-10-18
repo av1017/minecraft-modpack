@@ -1,0 +1,16 @@
+{
+    "com.tiviacz.travelersbackpack.client.screens.BackpackScreen": {
+        "ignore":         false,
+        "playerSideOnly": false,
+        "force":          false,
+        "buttonHints":    {
+            "SORT":                { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true },
+            "SORT_COLUMNS":        { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true },
+            "SORT_ROWS":           { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true },
+            "MOVE_TO_CONTAINER":   { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true },
+            "MOVE_TO_PLAYER":      { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true },
+            "CONTINUOUS_CRAFTING": { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true },
+            "PROFILE_SELECTOR":    { "horizontalOffset": 0, "top": 0, "bottom": 0, "hide": true }
+        }
+    }
+}
