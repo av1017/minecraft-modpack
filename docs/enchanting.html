@@ -254,6 +254,7 @@ ol.steps li::before { position: absolute; left: 13px; top: 11px; }
     <a href="#basic">Basic — Enchanting Table</a>
     <a href="#priority">Priority Tiers</a>
     <a href="#intermediate">Intermediate — Trading Hall</a>
+    <a href="#anvil">Anvils</a>
     <a href="#expert">Expert — Zombie Discount &amp; Anvil Math</a>
   </nav>
 
@@ -325,6 +326,77 @@ ol.steps li::before { position: absolute; left: 13px; top: 11px; }
       <li data-id="inter-2"><span class="checkbox"></span><span class="task-text"><strong>Trading with a villager locks that trade forever</strong> — even buying a single cheap item locks it in, so trade once you're happy with what's offered, not before.</span></li>
       <li data-id="inter-3"><span class="checkbox"></span><span class="task-text">Structure your hall in three parts: an <strong>input</strong> (where new villagers arrive), <strong>cells</strong> (where they live/work), and an <strong>output</strong> (where you actually trade) — keeps the system easy to expand later.</span></li>
       <li data-id="inter-4"><span class="checkbox"></span><span class="task-text">Prioritize at minimum <strong>one Librarian and one Farmer</strong> — Librarian for enchanted books, Farmer for cheap/renewable emeralds to fund those book purchases.</span></li>
+    </ul>
+  </section>
+
+  <!-- ANVILS -->
+  <section class="panel" id="anvil">
+    <span class="tier-tag basic">EVERYONE NEEDS ONE</span>
+    <h2>Anvils: Repair, Combine, Rename</h2>
+    <p class="sub">An anvil is made from <strong>3 iron blocks</strong> on top and <strong>4 iron ingots</strong> below in an upside-down T: 31 iron in all. Every job costs XP levels. None of our mods change how anvils work, and the modded armor and weapons (Immersive Armors, Epic Knights) repair and enchant on one like vanilla gear.</p>
+
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>What an anvil does</caption>
+        <thead><tr><th>Job</th><th>Left slot + right slot</th><th>Result</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Repair</strong></td><td>Your item + its material</td><td>Each material repairs a quarter of the item's durability</td><td>1 level per material</td></tr>
+          <tr><td><strong>Combine</strong></td><td>Two of the same item</td><td>Durability adds up, plus a small bonus; enchantments merge</td><td>Depends on the enchantments</td></tr>
+          <tr><td><strong>Enchant</strong></td><td>Your item + an enchanted book</td><td>The book's enchantments go onto the item</td><td>Cheaper than combining two items</td></tr>
+          <tr><td><strong>Merge books</strong></td><td>Book + book</td><td>One book with both. Two of the same level make the next level (Sharpness IV + IV = V)</td><td>Cheap; do this first</td></tr>
+          <tr><td><strong>Rename</strong></td><td>Anything, then type a name</td><td>A named item, pet nametag, or tool</td><td>1 level, and no penalty (see below)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="font-size:0.85rem;color:var(--ink-soft);">The item in the <strong>left</strong> slot is the one you keep. Put your gear on the left and the book or material on the right.</p>
+
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Repair materials</caption>
+        <thead><tr><th>Item</th><th>Repair with</th></tr></thead>
+        <tbody>
+          <tr><td>Wooden tools, shields</td><td>Any planks</td></tr>
+          <tr><td>Stone tools</td><td>Cobblestone (or cobbled deepslate, blackstone)</td></tr>
+          <tr><td>Iron and chainmail gear</td><td>Iron ingots</td></tr>
+          <tr><td>Gold gear</td><td>Gold ingots</td></tr>
+          <tr><td>Diamond gear</td><td>Diamonds</td></tr>
+          <tr><td>Netherite gear</td><td>Netherite ingots</td></tr>
+          <tr><td>Leather armor</td><td>Leather</td></tr>
+          <tr><td>Turtle shell</td><td>Turtle scutes</td></tr>
+          <tr><td>Elytra</td><td>Phantom membranes</td></tr>
+          <tr><td>Mace</td><td>Breeze rods</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Silkscreen',monospace;font-size:0.88rem;margin:22px 0 10px;color:var(--ink-soft);">When enchantments merge</h3>
+    <ul>
+      <li><strong>Same enchantment, same level</strong> &rarr; one level higher, up to the maximum (Sharpness V, Protection IV, Efficiency V&hellip;).</li>
+      <li><strong>Same enchantment, different levels</strong> &rarr; you keep the higher one.</li>
+      <li><strong>Enchantments that can't go together</strong> (Sharpness / Smite / Bane of Arthropods; the four Protection types; Fortune / Silk Touch; Mending / Infinity on a bow) &rarr; the one from the right slot is dropped.</li>
+    </ul>
+
+    <div class="callout danger">
+      <strong>Every anvil job makes the next one cost more.</strong> Each time an item goes through an anvil, its "prior work" cost grows: +0, +1, +3, +7, +15, +31 levels after 0, 1, 2, 3, 4, 5 uses. Both items' costs count. Once a job would cost <strong>40 levels or more</strong>, the anvil says <strong>Too Expensive!</strong> and won't do it, however much XP you have.
+    </div>
+
+    <ol class="steps">
+      <li><strong>Merge books with each other first</strong>, then put one finished book on your gear in a single step. Fewer trips through the anvil means a cheaper item.</li>
+      <li><strong>Put the big ones on early</strong> (Mending, Protection IV, Sharpness V) while the item is still cheap to work on.</li>
+      <li><strong>Get Mending</strong> and you'll never repair at the anvil again: XP orbs you pick up repair the item instead.</li>
+      <li><strong>Rename whenever you like.</strong> Renaming on its own doesn't add to the cost.</li>
+      <li><strong>Hit "Too Expensive!"?</strong> A <strong>grindstone</strong> strips the enchantments (except curses), gives some XP back, and resets the cost, so you can start fresh.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Anvils wear out.</strong> Each use has about a 12% chance to damage it: Anvil &rarr; Chipped &rarr; Damaged &rarr; gone. They also fall like sand, and a falling anvil hurts whoever it lands on.
+    </div>
+
+    <ul class="tasks" data-group="ench-anvil" style="margin-top:16px;">
+      <li data-id="anvil-make"><span class="checkbox"></span><span class="task-text">Craft an anvil (3 iron blocks + 4 iron ingots)</span></li>
+      <li data-id="anvil-books"><span class="checkbox"></span><span class="task-text">Merge two books into a higher level (like two Sharpness IV into Sharpness V)</span></li>
+      <li data-id="anvil-mending"><span class="checkbox"></span><span class="task-text">Put Mending on your main pickaxe or sword</span></li>
+      <li data-id="anvil-name"><span class="checkbox"></span><span class="task-text">Name a tool, or name a pet with a nametag</span></li>
     </ul>
   </section>
 
