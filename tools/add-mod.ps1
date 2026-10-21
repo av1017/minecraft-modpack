@@ -104,7 +104,9 @@ foreach ($x in @($m.$listName)) { if ($x) { [void]$mods.Add($x) } }
 $changes = New-Object System.Collections.ArrayList
 $seen = @{}
 
-function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDependency) {
+# $parentSide: the side of the mod that requires this one. A library that a server-side ("both")
+# mod requires has to be on the server too, even when Modrinth calls it client-only.
+function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDependency, [string]$parentSide = "") {
   $project = Get-Api "$api/project/$(Enc $projectRef)"
   if ($seen.ContainsKey($project.id)) { return }
   $seen[$project.id] = $true
@@ -114,6 +116,10 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
     foreach ($x in $mods) {
       if ($x.project_id -eq $project.id) {
         Write-Host "   keep     $($project.title) $($x.version) (already in pack)" -ForegroundColor DarkGray
+        if ($parentSide -eq "both" -and $x.side -eq "client") {
+          $x.side = "both"
+          [void]$changes.Add("SIDE   $($project.title): client -> both (a server-side mod requires it)")
+        }
         return
       }
     }
@@ -144,6 +150,9 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
 
   $existing = $null; $idx = -1
   for ($i = 0; $i -lt $mods.Count; $i++) { if ($mods[$i].project_id -eq $project.id) { $existing = $mods[$i]; $idx = $i } }
+  if ($side -eq "client" -and -not ($ResourcePack -or $ShaderPack) -and ($parentSide -eq "both" -or ($existing -and $existing.side -eq "both"))) {
+    $side = "both"; $entry.side = "both"
+  }
   if ($existing -and ($existing.PSObject.Properties.Name -contains "pinned") -and $existing.pinned) {
     Write-Host "   pinned   $($project.title) $($existing.version) (not updated: $($existing.pinned_reason))" -ForegroundColor DarkYellow
   } elseif ($existing -and $existing.version_id -eq $version.id) {
@@ -159,10 +168,10 @@ function Resolve-Mod([string]$projectRef, [string]$pinnedVersionId, [bool]$isDep
   if ($ResourcePack -or $ShaderPack) { return }   # packs list mods they need as "dependencies"; add those with -Slug yourself
   foreach ($dep in $version.dependencies) {
     if ($dep.dependency_type -ne "required") { continue }
-    if ($dep.project_id) { Resolve-Mod $dep.project_id $null $true }
+    if ($dep.project_id) { Resolve-Mod $dep.project_id $null $true $side }
     elseif ($dep.version_id) {
       $dv = Get-Api "$api/version/$(Enc $dep.version_id)"
-      Resolve-Mod $dv.project_id $dep.version_id $true
+      Resolve-Mod $dv.project_id $dep.version_id $true $side
     }
   }
 }

@@ -14,7 +14,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - `game_dir`: optional; a folder next to `.minecraft` holding this pack's mods, worlds, and settings
   - `loader`: Fabric version, ID, and SHA-1
   - `profile`: launcher profile key, name, icon, and `memory_gb`. The sync writes `javaArgs` with `-Xmx` set to that amount, capped at a third of the PC's RAM and never below 2 GB, plus G1GC flags. Optional `gc_args` replaces the G1 flags (Cobblemon, on Java 21, uses `-XX:+UseZGC -XX:+ZGenerational`; on Java 23+ drop `-XX:+ZGenerational`, since generational mode is the default there).
-  - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`)
+  - `mods`: each mod's Modrinth project and version ID, file name, URL, SHA-1, and `side` (`both` or `client`). For `cobblemon`, `side: both` is also the **dedicated server's** mod list (homeserver, `/srv/homeserver/services/minecraft/update-mods.py`, minus `e4mc` and `distanthorizons`). A library a `both` mod requires must be `both` too, even if Modrinth calls it client-only, or the server won't start (Athena, for CobbleFurnies).
   - `resourcepacks`: optional; texture packs in load order (later entries load on top). `"enabled": false` means installed but not switched on (e.g. an alternative to compare).
   - `shaderpacks`: optional; Iris shader packs. Installed into `<game folder>\shaderpacks` and never switched on by the sync, because graphics cards differ.
   - `keybinds`: optional; keybind fixes for clashes between mods, as `{key, from, to, why}` using `options.txt` names (`key_<translation key>`, `key.keyboard.<x>`; `key.keyboard.unknown` = unbound). The sync applies one only if that line is missing or still equals `from`, so a key the player changed is never touched.
@@ -37,6 +37,7 @@ This repo defines the exact Minecraft mods for the worlds two people play togeth
   - Add `-ResourcePack` for texture packs. They keep the order given, and required mods aren't added automatically, so check the pack's page. Fresh Animations needs the `entity-model-features` and `entitytexturefeatures` mods.
   - Add `-AllowBeta` for projects that only publish betas (Fresh Animations does).
   - Add `-ShaderPack` for shader packs (Modrinth loader `iris`).
+  - `side` is `client` when Modrinth says `server_side: unsupported`, except that a required dependency of a `both` mod is promoted to `both` (printed as `SIDE`), and an entry already marked `both` stays `both`.
   - Before adding a mod that depends on Sodium (like Iris), read its `fabric.mod.json` `depends` and compare it with the pack's Sodium. A mismatch stops the game from launching.
 
 ## Guide website
