@@ -100,7 +100,7 @@ If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `lau
 6. **Only then commit and push:** `git add packs && git commit -m "<pack>: add <mod> <version>" && git push`
 7. **Remind the user** that every other PC must `git pull` and sync that pack before the next LAN session.
 8. **For `cobblemon`, also update the server and the friends' pack** (both read the pushed `mods.json`):
-   - Server (homeserver, over `ssh homeserver`): `cd /srv/homeserver/services/minecraft && ./update-mods.py` (dry run), then `docker compose stop && ./update-mods.py --apply && docker compose up -d`. Commit nothing there unless the compose file changes, but add a line to its `logs/YYYYMMDD.md`.
+   - Server (homeserver, over `ssh homeserver`): `cd /srv/homeserver/services/minecraft && ./update-mods.py` (dry run), then `sudo touch /var/lib/homeserver/watchdog/maintenance && docker compose stop && ./update-mods.py --apply && docker compose up -d`, and `sudo rm /var/lib/homeserver/watchdog/maintenance` once the log shows "Done". The flag stops the watchdog paging Avery's phone. Warn online players first with `docker exec minecraft rcon-cli say ...`. Commit nothing there unless the compose file changes, but add a line to its `logs/YYYYMMDD.md`.
    - Friends' pack: `python -I tools/build-friends-pack.py --upload`, then tell the user to let friends know (they re-import the file; see the guide's Playing From Anywhere page).
 
 ## Friends' pack (Modrinth App, no sync script)
