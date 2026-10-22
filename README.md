@@ -71,4 +71,10 @@ Then run the sync, **test in-game**, and commit and push.
 
 Everyone needs the same pack synced. On the same network, use LAN World(s). In the Cobblemon world, friends elsewhere can join with **Multiplayer > Direct Connection** and the public address e4mc shows in the host's chat. If Windows Firewall asks about Java, allow it on private networks.
 
+### Our server (Cobblemon)
+The Cobblemon world also runs on a dedicated home server (a test copy of Reajustiene until the real world moves over, about mid-November). At home, add the server `192.168.1.4`. Friends connect through Tailscale. The server runs this repo's `side: both` mods, minus e4mc and Distant Horizons.
+
+### Friends without Claude, or on a Mac
+Download [Reajustiene-Cobblemon.mrpack](https://github.com/av1017/minecraft-modpack/releases/download/friends-pack/Reajustiene-Cobblemon.mrpack) and import it into the free [Modrinth App](https://modrinth.com/app) (**+** → **From file**). It installs the same mods, texture packs, and key settings, and already lists the server under Multiplayer. Step-by-step: the guide's [Playing From Anywhere](https://av1017.github.io/minecraft-modpack/#online) page.
+
 **If someone joins and spawns as a brand-new player,** have them leave right away. Their real progress is still saved. Both players should fully quit Minecraft and the launcher, reopen, and rejoin. This happens when Minecraft can't verify the joining player's Microsoft sign-in.

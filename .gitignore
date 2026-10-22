@@ -1,3 +1,6 @@
 # Mod files are downloaded from Modrinth by sync.ps1, never committed (licenses forbid re-hosting).
 *.jar
 *.zip
+
+# Built by tools/build-friends-pack.py (uploaded to the friends-pack release, not committed)
+dist/

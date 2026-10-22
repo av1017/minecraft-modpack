@@ -99,6 +99,17 @@ If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `lau
 5. **Run the sync,** then ask the user to **launch and load the world** to confirm it works.
 6. **Only then commit and push:** `git add packs && git commit -m "<pack>: add <mod> <version>" && git push`
 7. **Remind the user** that every other PC must `git pull` and sync that pack before the next LAN session.
+8. **For `cobblemon`, also update the server and the friends' pack** (both read the pushed `mods.json`):
+   - Server (homeserver, over `ssh homeserver`): `cd /srv/homeserver/services/minecraft && ./update-mods.py` (dry run), then `docker compose stop && ./update-mods.py --apply && docker compose up -d`. Commit nothing there unless the compose file changes, but add a line to its `logs/YYYYMMDD.md`.
+   - Friends' pack: `python -I tools/build-friends-pack.py --upload`, then tell the user to let friends know (they re-import the file; see the guide's Playing From Anywhere page).
+
+## Friends' pack (Modrinth App, no sync script)
+Friends who can't run `sync.ps1` (Mac, or no Claude) import `Reajustiene-Cobblemon.mrpack` into the Modrinth App. It's built by `tools/build-friends-pack.py` from the cobblemon `mods.json` plus `packs/cobblemon/friends/`:
+- `pack.json`: name, `exclude` (e4mc), the Minecraft data version for `options.txt`, built-in resource packs to switch on, the Multiplayer server entries (`servers.dat`), and the release tag and asset name.
+- `overrides/`: config files copied into the instance as-is. Currently the host's REI config (recipe key Y), AutoSwitch's use-action rules (creeper fix), and Distant Horizons' light profile (radius 48). These replace `config_fixes`, which need a first launch. The pack's `config_files` are added automatically.
+- The generated `options.txt` holds only `version`, `resourcePacks` (the enabled texture packs in manifest order), and the `keybinds` fixes. Minecraft fills in defaults for everything else.
+
+The `.mrpack` lists download URLs and hashes only (no jars), so it respects mod licenses. `--upload` replaces the asset on the `friends-pack` GitHub release, so the download link in the guide never changes: `https://github.com/av1017/minecraft-modpack/releases/download/friends-pack/Reajustiene-Cobblemon.mrpack`. `dist/` is git-ignored.
 
 ## Task: add a new pack
 1. Create `packs/<name>/mods.json` with:
