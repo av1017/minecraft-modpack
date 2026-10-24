@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gear by Age · Cobble Valley</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #2f7fd8; --accent-bg: #e2eefb;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.cslot.empty { background: var(--grid-slot); opacity: 0.55; }
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 8px; }
+.card { background: var(--slot); border: 2px solid var(--slot-border); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.card .cname { font-family: "Silkscreen", monospace; font-size: 0.95rem; }
+.card .ctag { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--accent); }
+.card p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.card ul { margin: 0; padding-left: 1.1em; font-size: 0.86rem; color: var(--ink-soft); }
+code { font-family: "Space Mono", monospace; font-size: 0.85em; background: var(--slot); border: 1px solid var(--slot-border); padding: 0 4px; }
+
+.cv-age { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 2px 8px; border: 2px solid; white-space: nowrap; }
+.cv-age-wood { color: #8a4b1f; border-color: #a0522d; background: #f6e7da; }
+.cv-age-stone { color: #555; border-color: #8a8a8a; background: #ececec; }
+.cv-age-iron { color: #4d4d4d; border-color: #b8b8b8; background: #fafafa; }
+.cv-age-diamond { color: #116b62; border-color: #4aedd9; background: #e3fbf8; }
+.cv-age-nether { color: #8e2420; border-color: #b02e26; background: #f9e3e1; }
+.cv-age-end { color: #6a3d9a; border-color: #c77dff; background: #f3e8ff; }
+.cv-age-champion { color: #8a6d00; border-color: #ffd700; background: #fff8d6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cv-age { background: transparent; filter: brightness(1.6); } }
+:root[data-theme="dark"] .cv-age { background: transparent; filter: brightness(1.6); }
+details { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 12px; margin: 8px 0; }
+details > summary { cursor: pointer; font-size: 0.95rem; }
+details[open] > summary { margin-bottom: 6px; }
+h3 .cv-age { vertical-align: middle; }
+.lookup-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.lookup-bar input, .lookup-bar select { font: inherit; font-size: 0.95rem; padding: 8px 10px; background: var(--slot); color: var(--ink);
+  border: 2px solid var(--slot-border); min-width: 0; }
+.lookup-bar input { flex: 1 1 220px; }
+.lookup-bar select { flex: 0 1 160px; }
+#lookup-status { font-size: 0.85rem; color: var(--ink-faint); margin: 4px 0 8px; }
+.panel { min-width: 0; }
+.panel code, .panel h2, .panel h3 { overflow-wrap: anywhere; }
+.tree { max-width: 100%; box-sizing: border-box; font-family: "Space Mono", monospace; font-size: 0.8rem; background: var(--slot); border: 2px solid var(--slot-border); padding: 10px 12px;
+  overflow-x: auto; white-space: pre; line-height: 1.45; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- title: Gear by Age · Cobble Valley -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Gear by Age</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobble Valley &middot; vanilla, Epic Knights, Immersive Armors, Cobblemon Armors</span>
+    <h1>Gear by Age</h1>
+    <p>Every tool, weapon, armor piece and shield in the pack, sorted by the age it belongs to, with what its mastery quest asks for. For stats and which gear is best, see <a href="gear.html">Armor, Weapons &amp; Style</a>.</p>
+    <div class="stats">
+      <div class="stat"><b>Materials</b><span>decide the age: copper Stone, iron and steel Iron</span></div>
+      <div class="stat"><b>60%</b><span>skill with the tier below unlocks a quest</span></div>
+      <div class="stat"><b>Blacksmithing</b><span>for smithing templates</span></div>
+    </div>
+  </div>
+
+  <section class="panel" id="how">
+    <h2>How Our Armor &amp; Weapon Mods Fit</h2>
+    <div class="lineup">
+      <div class="card"><span class="cname">Epic Knights</span><span class="ctag">400+ weapons, armor, shields</span><p>Each weapon comes in wood, stone, copper, iron, gold, diamond and netherite, so it sorts itself by tier. <strong>Steel</strong> is made by blasting iron, so steel gear is Iron Age. Bronze, tin and silver have no source in our pack; if they ever turn up they're Stone (tin, bronze) and Iron (silver).</p></div>
+      <div class="card"><span class="cname">Immersive Armors</span><span class="ctag">sets with powers</span><p>Follow their materials: wooden and bone sets are early, warrior, heavy, steampunk and slime Iron, prismarine and divine Diamond, robe (blaze powder) and wither Nether.</p></div>
+      <div class="card"><span class="cname">Cobblemon Armors</span><span class="ctag">villain-team looks</span><p>Mostly leather-tier, placed by their recipes (one needing coal lands in the Stone Age).</p></div>
+      <div class="card"><span class="cname">Trims &amp; templates</span><span class="ctag">Blacksmithing</span><p>Smithing templates and the smithing table need Blacksmithing (Iron Age). Cobbled Armor Trims' gem trims work the same way.</p></div>
+      <div class="card"><span class="cname">Clothes &amp; hats</span><span class="ctag">not gear</span><p>Poke Clothing outfits and Weaver's Paradise clothes need Tailoring; they're cosmetic, so no skill. Simple Hats are cosmetic too.</p></div>
+    </div>
+  </section>
+
+  <section class="panel" id="list">
+    <h2>Every Piece</h2>
+    <p class="sub">Tap a mod to open its list. "Mastery quest needs" is what the (hidden or visible) quest asks for; "(or similar)" means any matching item works.</p>
+    <!-- generated by tools/pages/gen_cobblevalley.py: don't edit -->
+<nav class="jump" aria-label="Jump to age"><a href="#gear-wood">Wood Age (105)</a><a href="#gear-stone">Stone Age (64)</a><a href="#gear-iron">Iron Age (278)</a><a href="#gear-diamond">Diamond Age (44)</a><a href="#gear-nether">Nether Age (79)</a></nav>
+<h3 id="gear-wood"><span class="cv-age cv-age-wood">Wood Age</span> <span class="note">105 pieces</span></h3>
+<details><summary><strong>Vanilla</strong> <span class="note">16</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Leather Boots</td><td>Armor</td><td>4 Leather</td></tr>
+<tr><td>Leather Cap</td><td>Armor</td><td>5 Leather</td></tr>
+<tr><td>Leather Horse Armor</td><td>Armor</td><td>7 Leather</td></tr>
+<tr><td>Leather Pants</td><td>Armor</td><td>7 Leather</td></tr>
+<tr><td>Leather Tunic</td><td>Armor</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Turtle Shell</td><td>Armor</td><td>5 Turtle Scute</td></tr>
+<tr><td>Wolf Armor</td><td>Armor</td><td>6 Armadillo Scute</td></tr>
+<tr><td>Mace</td><td>Weapon</td><td>1 Heavy Core, 1 Breeze Rod</td></tr>
+<tr><td>Wooden Sword</td><td>Weapon</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Bow</td><td>Ranged</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Trident</td><td>Ranged</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Stone Axe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Wooden Axe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Wooden Hoe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Wooden Pickaxe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Wooden Shovel</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Cobblemon Armors</strong> <span class="note">25</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Butterfree Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Pep-Up Flower (or similar), 1 Spider Eye</td></tr>
+<tr><td>Butterfree Wings</td><td>Armor</td><td>1 Leather Tunic, 1 Pep-Up Flower (or similar), 1 Phantom Membrane</td></tr>
+<tr><td>Magikarp Hat</td><td>Armor</td><td>1 Leather Cap, 1 Tropical Fish</td></tr>
+<tr><td>Pikachu Hat</td><td>Armor</td><td>1 Leather Cap, 1 Glow Berries</td></tr>
+<tr><td>Slowking Hat</td><td>Armor</td><td>1 Leather Cap, 1 Nautilus Shell</td></tr>
+<tr><td>Team Aqua Boots</td><td>Armor</td><td>1 Leather Boots, 1 Prismarine Shard</td></tr>
+<tr><td>Team Aqua Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Prismarine Shard</td></tr>
+<tr><td>Team Aqua Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Prismarine Shard</td></tr>
+<tr><td>Team Aqua Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Prismarine Shard</td></tr>
+<tr><td>Team Rocket Boots</td><td>Armor</td><td>1 Leather Boots, 1 Gunpowder</td></tr>
+<tr><td>Team Rocket Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Gunpowder</td></tr>
+<tr><td>Team Rocket Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Gunpowder</td></tr>
+<tr><td>Team Rocket Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Gunpowder</td></tr>
+<tr><td>Team Skull Boots</td><td>Armor</td><td>1 Leather Boots, 1 Bone</td></tr>
+<tr><td>Team Skull Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Bone</td></tr>
+<tr><td>Team Skull Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Bone</td></tr>
+<tr><td>Team Skull Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Bone</td></tr>
+<tr><td>Team Yell Boots</td><td>Armor</td><td>1 Leather Boots, 1 Goat Horn</td></tr>
+<tr><td>Team Yell Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Goat Horn</td></tr>
+<tr><td>Team Yell Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Goat Horn</td></tr>
+<tr><td>Team Yell Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Goat Horn</td></tr>
+<tr><td>White Team Plasma Boots</td><td>Armor</td><td>1 Leather Boots, 1 Phantom Membrane, 1 Snowball</td></tr>
+<tr><td>White Team Plasma Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Phantom Membrane, 1 Snowball</td></tr>
+<tr><td>White Team Plasma Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Phantom Membrane, 1 Snowball</td></tr>
+<tr><td>White Team Plasma Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Phantom Membrane, 1 Snowball</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Epic Knights</strong> <span class="note">47</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Boots</td><td>Armor</td><td>2 Leather Strip, 2 Leather</td></tr>
+<tr><td>Cuirassier Boots</td><td>Armor</td><td>4 Leather Strip, 2 Leather</td></tr>
+<tr><td>Cuirassier Pantyhose</td><td>Armor</td><td>2 Leather, 5 Woolen Fabric</td></tr>
+<tr><td>Flowercrown Decoration</td><td>Armor</td><td>4 Allium (or similar)</td></tr>
+<tr><td>Gambeson</td><td>Armor</td><td>8 Woolen Fabric</td></tr>
+<tr><td>Gambeson Boots</td><td>Armor</td><td>2 Woolen Fabric, 2 Leather Strip, 2 Leather</td></tr>
+<tr><td>Pantyhose</td><td>Armor</td><td>7 Woolen Fabric</td></tr>
+<tr><td>Quilted Coif</td><td>Armor</td><td>5 Woolen Fabric</td></tr>
+<tr><td>Club</td><td>Weapon</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Stone Ahlspiess</td><td>Weapon</td><td>4 Cobbled Deepslate (or similar), 1 Pole</td></tr>
+<tr><td>Stone Bastard Sword</td><td>Weapon</td><td>1 Cobbled Deepslate (or similar), 1 Stone Short Sword</td></tr>
+<tr><td>Stone Claymore</td><td>Weapon</td><td>1 Cobbled Deepslate (or similar), 1 Stone Short Sword</td></tr>
+<tr><td>Stone Concave Edged Halberd</td><td>Weapon</td><td>4 Cobbled Deepslate (or similar), 1 Stick, 1 Pole</td></tr>
+<tr><td>Stone Estoc</td><td>Weapon</td><td>1 Cobbled Deepslate (or similar), 1 Stone Short Sword</td></tr>
+<tr><td>Stone Guisarme</td><td>Weapon</td><td>1 Cobbled Deepslate (or similar), 1 Stone Short Sword, 1 Pole</td></tr>
+<tr><td>Stone Heavy Mace</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Stone Heavy War Hammer</td><td>Weapon</td><td>4 Cobbled Deepslate (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Stone Katzbalger</td><td>Weapon</td><td>2 Cobbled Deepslate (or similar), 1 Hilt</td></tr>
+<tr><td>Stone Lance</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Pole, 1 Hilt</td></tr>
+<tr><td>Stone Lochaber Axe</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Pole</td></tr>
+<tr><td>Stone Lucerne Hammer</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Stone Morningstar</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Stone Pike</td><td>Weapon</td><td>1 Cobbled Deepslate (or similar), 1 Stick, 1 Pole</td></tr>
+<tr><td>Stone Ranseur</td><td>Weapon</td><td>1 Stone Short Sword, 1 Pole</td></tr>
+<tr><td>Stone Short Sword</td><td>Weapon</td><td>2 Cobbled Deepslate (or similar), 1 Hilt</td></tr>
+<tr><td>Stone Stiletto</td><td>Weapon</td><td>1 Cobbled Deepslate (or similar), 1 Hilt</td></tr>
+<tr><td>Stone Zweihander</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Stone Short Sword, 1 Hilt</td></tr>
+<tr><td>Wooden Ahlspiess</td><td>Weapon</td><td>4 Apricorn Planks (or similar), 1 Pole</td></tr>
+<tr><td>Wooden Bastard Sword</td><td>Weapon</td><td>1 Apricorn Planks (or similar), 1 Wooden Short Sword</td></tr>
+<tr><td>Wooden Claymore</td><td>Weapon</td><td>1 Apricorn Planks (or similar), 1 Wooden Short Sword</td></tr>
+<tr><td>Wooden Concave Edged Halberd</td><td>Weapon</td><td>4 Apricorn Planks (or similar), 1 Stick, 1 Pole</td></tr>
+<tr><td>Wooden Estoc</td><td>Weapon</td><td>1 Apricorn Planks (or similar), 1 Wooden Short Sword</td></tr>
+<tr><td>Wooden Guisarme</td><td>Weapon</td><td>1 Apricorn Planks (or similar), 1 Wooden Short Sword, 1 Pole</td></tr>
+<tr><td>Wooden Heavy Mace</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Wooden Heavy War Hammer</td><td>Weapon</td><td>4 Apricorn Planks (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Wooden Katzbalger</td><td>Weapon</td><td>2 Apricorn Planks (or similar), 1 Hilt</td></tr>
+<tr><td>Wooden Lance</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Pole, 1 Hilt</td></tr>
+<tr><td>Wooden Lochaber Axe</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Pole</td></tr>
+<tr><td>Wooden Lucerne Hammer</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Wooden Morningstar</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Stick, 1 Hilt</td></tr>
+<tr><td>Wooden Pike</td><td>Weapon</td><td>1 Apricorn Planks (or similar), 1 Stick, 1 Pole</td></tr>
+<tr><td>Wooden Ranseur</td><td>Weapon</td><td>1 Wooden Short Sword, 1 Pole</td></tr>
+<tr><td>Wooden Short Sword</td><td>Weapon</td><td>2 Apricorn Planks (or similar), 1 Hilt</td></tr>
+<tr><td>Wooden Stiletto</td><td>Weapon</td><td>1 Apricorn Planks (or similar), 1 Hilt</td></tr>
+<tr><td>Wooden Zweihander</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Wooden Short Sword, 1 Hilt</td></tr>
+<tr><td>Longbow</td><td>Ranged</td><td>4 Stick, 3 String, 1 Hilt; 60% skill with the Bow</td></tr>
+<tr><td>Corrupted Round Shield</td><td>Shield</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Immersive Armors</strong> <span class="note">16</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Bone Boots</td><td>Armor</td><td>4 Bone</td></tr>
+<tr><td>Bone Chestplate</td><td>Armor</td><td>8 Bone</td></tr>
+<tr><td>Bone Helmet</td><td>Armor</td><td>5 Bone</td></tr>
+<tr><td>Bone Leggings</td><td>Armor</td><td>7 Bone</td></tr>
+<tr><td>Prismarine Boots</td><td>Armor</td><td>2 Prismarine Crystals, 2 Prismarine Shard</td></tr>
+<tr><td>Prismarine Chestplate</td><td>Armor</td><td>7 Prismarine Shard, 1 Heart of the Sea</td></tr>
+<tr><td>Prismarine Helmet</td><td>Armor</td><td>4 Prismarine Shard, 1 Prismarine Crystals</td></tr>
+<tr><td>Prismarine Leggings</td><td>Armor</td><td>6 Prismarine Shard, 1 Prismarine Crystals</td></tr>
+<tr><td>Slime Boots</td><td>Armor</td><td>4 Slimeball</td></tr>
+<tr><td>Slime Chestplate</td><td>Armor</td><td>8 Slimeball</td></tr>
+<tr><td>Slime Helmet</td><td>Armor</td><td>5 Slimeball</td></tr>
+<tr><td>Slime Leggings</td><td>Armor</td><td>7 Slimeball</td></tr>
+<tr><td>Wooden Boots</td><td>Armor</td><td>4 Apricorn Log (or similar)</td></tr>
+<tr><td>Wooden Chestplate</td><td>Armor</td><td>8 Apricorn Log (or similar)</td></tr>
+<tr><td>Wooden Helmet</td><td>Armor</td><td>5 Apricorn Log (or similar)</td></tr>
+<tr><td>Wooden Leggings</td><td>Armor</td><td>7 Apricorn Log (or similar)</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Supplementaries</strong> <span class="note">1</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Slingshot</td><td>Ranged</td><td>2 String, 1 Rabbit Hide, 3 Stick, 1 Slimeball; 60% skill with the Bow</td></tr>
+</tbody>
+</table></div></details>
+<h3 id="gear-stone"><span class="cv-age cv-age-stone">Stone Age</span> <span class="note">64 pieces</span></h3>
+<details><summary><strong>Vanilla</strong> <span class="note">4</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Stone Sword</td><td>Weapon</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Stone Hoe</td><td>Tool</td><td>2 Andesite (or similar), 2 Stick; 60% skill with the Stone Pickaxe</td></tr>
+<tr><td>Stone Pickaxe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Stone Shovel</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Cobblemon Armors</strong> <span class="note">4</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Black Team Plasma Boots</td><td>Armor</td><td>1 Leather Boots, 1 Phantom Membrane, 1 Coal; 60% skill with the Leather Tunic</td></tr>
+<tr><td>Black Team Plasma Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Phantom Membrane, 1 Coal; 60% skill with the Leather Tunic</td></tr>
+<tr><td>Black Team Plasma Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Phantom Membrane, 1 Coal; 60% skill with the Leather Tunic</td></tr>
+<tr><td>Black Team Plasma Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Phantom Membrane, 1 Coal; 60% skill with the Leather Tunic</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Epic Knights</strong> <span class="note">54</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Bronze Ahlspiess</td><td>Weapon</td><td>4 Bronze Ingot, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Bastard Sword</td><td>Weapon</td><td>1 Bronze Ingot, 1 Bronze Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Claymore</td><td>Weapon</td><td>1 Bronze Ingot, 1 Bronze Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Concave Edged Halberd</td><td>Weapon</td><td>4 Bronze Ingot, 1 Stick, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Estoc</td><td>Weapon</td><td>1 Bronze Ingot, 1 Bronze Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Guisarme</td><td>Weapon</td><td>1 Bronze Ingot, 1 Bronze Short Sword, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Heavy Mace</td><td>Weapon</td><td>3 Bronze Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Heavy War Hammer</td><td>Weapon</td><td>4 Bronze Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Katzbalger</td><td>Weapon</td><td>2 Bronze Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Lance</td><td>Weapon</td><td>3 Bronze Ingot, 1 Pole, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Lochaber Axe</td><td>Weapon</td><td>3 Bronze Ingot, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Lucerne Hammer</td><td>Weapon</td><td>3 Bronze Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Morningstar</td><td>Weapon</td><td>3 Bronze Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Pike</td><td>Weapon</td><td>1 Bronze Ingot, 1 Stick, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Ranseur</td><td>Weapon</td><td>1 Bronze Short Sword, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Short Sword</td><td>Weapon</td><td>2 Bronze Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Stiletto</td><td>Weapon</td><td>1 Bronze Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Bronze Zweihander</td><td>Weapon</td><td>3 Bronze Ingot, 1 Bronze Short Sword, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Ahlspiess</td><td>Weapon</td><td>4 Copper Ingot, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Bastard Sword</td><td>Weapon</td><td>1 Copper Ingot, 1 Copper Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Claymore</td><td>Weapon</td><td>1 Copper Ingot, 1 Copper Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Concave Edged Halberd</td><td>Weapon</td><td>4 Copper Ingot, 1 Stick, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Estoc</td><td>Weapon</td><td>1 Copper Ingot, 1 Copper Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Guisarme</td><td>Weapon</td><td>1 Copper Ingot, 1 Copper Short Sword, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Heavy Mace</td><td>Weapon</td><td>3 Copper Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Heavy War Hammer</td><td>Weapon</td><td>4 Copper Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Katzbalger</td><td>Weapon</td><td>2 Copper Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Lance</td><td>Weapon</td><td>3 Copper Ingot, 1 Pole, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Lochaber Axe</td><td>Weapon</td><td>3 Copper Ingot, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Lucerne Hammer</td><td>Weapon</td><td>3 Copper Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Morningstar</td><td>Weapon</td><td>3 Copper Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Pike</td><td>Weapon</td><td>1 Copper Ingot, 1 Stick, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Ranseur</td><td>Weapon</td><td>1 Copper Short Sword, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Short Sword</td><td>Weapon</td><td>2 Copper Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Stiletto</td><td>Weapon</td><td>1 Copper Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Copper Zweihander</td><td>Weapon</td><td>3 Copper Ingot, 1 Copper Short Sword, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Ahlspiess</td><td>Weapon</td><td>4 Tin Ingot, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Bastard Sword</td><td>Weapon</td><td>1 Tin Ingot, 1 Tin Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Claymore</td><td>Weapon</td><td>1 Tin Ingot, 1 Tin Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Concave Edged Halberd</td><td>Weapon</td><td>4 Tin Ingot, 1 Stick, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Estoc</td><td>Weapon</td><td>1 Tin Ingot, 1 Tin Short Sword; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Guisarme</td><td>Weapon</td><td>1 Tin Ingot, 1 Tin Short Sword, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Heavy Mace</td><td>Weapon</td><td>3 Tin Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Heavy War Hammer</td><td>Weapon</td><td>4 Tin Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Katzbalger</td><td>Weapon</td><td>2 Tin Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Lance</td><td>Weapon</td><td>3 Tin Ingot, 1 Pole, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Lochaber Axe</td><td>Weapon</td><td>3 Tin Ingot, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Lucerne Hammer</td><td>Weapon</td><td>3 Tin Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Morningstar</td><td>Weapon</td><td>3 Tin Ingot, 1 Stick, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Pike</td><td>Weapon</td><td>1 Tin Ingot, 1 Stick, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Ranseur</td><td>Weapon</td><td>1 Tin Short Sword, 1 Pole; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Short Sword</td><td>Weapon</td><td>2 Tin Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Stiletto</td><td>Weapon</td><td>1 Tin Ingot, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+<tr><td>Tin Zweihander</td><td>Weapon</td><td>3 Tin Ingot, 1 Tin Short Sword, 1 Hilt; 60% skill with the Stone Sword</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Farmer&#x27;s Delight</strong> <span class="note">1</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Flint Knife</td><td>Tool</td><td>1 Flint, 1 Stick; 60% skill with the Stone Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Supplementaries</strong> <span class="note">1</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Wrench</td><td>Weapon</td><td>4 Copper Ingot; 60% skill with the Stone Sword</td></tr>
+</tbody>
+</table></div></details>
+<h3 id="gear-iron"><span class="cv-age cv-age-iron">Iron Age</span> <span class="note">278 pieces</span></h3>
+<details><summary><strong>Vanilla</strong> <span class="note">27</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Chainmail Boots</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Chainmail Chestplate</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Chainmail Helmet</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Chainmail Leggings</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Golden Boots</td><td>Armor</td><td>4 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Golden Chestplate</td><td>Armor</td><td>8 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Golden Helmet</td><td>Armor</td><td>5 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Golden Horse Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Golden Leggings</td><td>Armor</td><td>7 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Iron Boots</td><td>Armor</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Iron Chestplate</td><td>Armor</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Iron Helmet</td><td>Armor</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Iron Horse Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Iron Leggings</td><td>Armor</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Golden Sword</td><td>Weapon</td><td>2 Gold Ingot, 1 Stick; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Sword</td><td>Weapon</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Crossbow</td><td>Ranged</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Shield</td><td>Shield</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Golden Axe</td><td>Tool</td><td>3 Gold Ingot, 2 Stick; 60% skill with the Iron Pickaxe</td></tr>
+<tr><td>Golden Hoe</td><td>Tool</td><td>2 Gold Ingot, 2 Stick; 60% skill with the Iron Pickaxe</td></tr>
+<tr><td>Golden Pickaxe</td><td>Tool</td><td>3 Gold Ingot, 2 Stick; 60% skill with the Iron Pickaxe</td></tr>
+<tr><td>Golden Shovel</td><td>Tool</td><td>1 Gold Ingot, 2 Stick; 60% skill with the Iron Pickaxe</td></tr>
+<tr><td>Iron Axe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Iron Hoe</td><td>Tool</td><td>2 Iron Ingot, 2 Stick; 60% skill with the Iron Pickaxe</td></tr>
+<tr><td>Iron Pickaxe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Iron Shovel</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Shears</td><td>Tool</td><td>2 Iron Ingot; 60% skill with the Iron Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Cobblemon Armors</strong> <span class="note">6</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Dawn Hat</td><td>Armor</td><td>1 Leather Cap, 1 Amethyst Shard; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Lyra Hat</td><td>Armor</td><td>1 Leather Cap, 1 Note Block; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Team Flare Boots</td><td>Armor</td><td>1 Leather Boots, 1 Flint and Steel; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Team Flare Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Flint and Steel; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Team Flare Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Flint and Steel; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Team Flare Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Flint and Steel; 60% skill with the Iron Chestplate</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Epic Knights</strong> <span class="note">229</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Armet</td><td>Armor</td><td>3 Steel Plate, 1 Barbute; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Barbute</td><td>Armor</td><td>3 Steel Ingot, 2 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Bascinet</td><td>Armor</td><td>2 Steel Plate, 1 Norman Helmet; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Brigandine</td><td>Armor</td><td>6 Leather, 2 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Burgonet</td><td>Armor</td><td>4 Steel Plate, 1 Steel Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Ceremonial Armet</td><td>Armor</td><td>1 Armet, 1 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Ceremonial Knight Armor</td><td>Armor</td><td>1 Knight Armor, 1 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Ceremonial Knight Boots</td><td>Armor</td><td>1 Knight Boots, 1 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Chainmail Armor</td><td>Armor</td><td>8 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Chainmail Helm</td><td>Armor</td><td>5 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Chainmail Horse Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Chainmail Leggings</td><td>Armor</td><td>7 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Crown Decoration</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Crusader Armor</td><td>Armor</td><td>7 Woolen Fabric, 1 Reinforced Chainmail Armor; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Crusader Boots</td><td>Armor</td><td>2 Steel Chainmail, 4 Leather; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Crusader Leggings</td><td>Armor</td><td>3 Steel Chainmail, 4 Steel Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Cuirass</td><td>Armor</td><td>5 Steel Ingot, 2 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Face Helmet</td><td>Armor</td><td>5 Small Steel Plate, 1 Shishak; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Frog-Mouth Helm</td><td>Armor</td><td>8 Steel Plate, 1 Barbute; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Gothic Armor</td><td>Armor</td><td>5 Steel Plate, 1 Half-Armor, 2 Steel Nugget; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Gothic Boots</td><td>Armor</td><td>4 Steel Plate, 2 Steel Nugget; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Gothic Leggings</td><td>Armor</td><td>7 Steel Plate, 2 Steel Nugget; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Grand Bascinet</td><td>Armor</td><td>5 Steel Plate, 1 Norman Helmet; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Greathelm</td><td>Armor</td><td>7 Steel Ingot, 1 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Half-Armor</td><td>Armor</td><td>6 Steel Ingot, 2 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Jousting Armor</td><td>Armor</td><td>8 Steel Plate, 1 Knight Armor; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Jousting Boots</td><td>Armor</td><td>4 Steel Plate, 1 Knight Boots; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Jousting Leggings</td><td>Armor</td><td>7 Steel Plate, 1 Knight Leggings; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Kasten-brust Armor</td><td>Armor</td><td>5 Steel Plate, 1 Half-Armor, 2 Small Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Kasten-brust Boots</td><td>Armor</td><td>4 Steel Plate, 2 Small Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Kasten-brust Leggings</td><td>Armor</td><td>7 Steel Plate, 2 Small Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Kettle Hat</td><td>Armor</td><td>3 Steel Ingot, 2 Steel Plate, 3 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Knight Armor</td><td>Armor</td><td>5 Steel Plate, 1 Half-Armor; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Knight Boots</td><td>Armor</td><td>4 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Knight Leggings</td><td>Armor</td><td>7 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Lamellar Armor</td><td>Armor</td><td>8 Lamellar Rows; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Lamellar Boots</td><td>Armor</td><td>2 Lamellar Rows, 2 Leather Strip, 2 Leather; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Minicrown</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Norman Helmet</td><td>Armor</td><td>5 Steel Ingot, 3 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Reinforced Chainmail Armor</td><td>Armor</td><td>2 Steel Ingot, 6 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Reinforced Chainmail Boots</td><td>Armor</td><td>2 Steel Ingot, 2 Leather Strip, 2 Leather; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Reinforced Chainmail Leggings</td><td>Armor</td><td>5 Steel Chainmail, 2 Steel Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Rusted Barbute</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Chainmail Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Chainmail Helm</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Chainmail Leggings</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Crusader Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Greathelm</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Half-Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Kettle Hat</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Norman Helmet</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Sallet</td><td>Armor</td><td>1 Barbute, 3 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Shabby Boots</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Shabby Crusader Boots</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Shishak</td><td>Armor</td><td>5 Steel Ingot, 1 Steel Nugget, 3 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Winged Hussar Armor</td><td>Armor</td><td>6 Feather, 1 Rabbit Hide, 1 Half-Armor, 1 Stick; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>XIV Century Knight Armor</td><td>Armor</td><td>5 Steel Plate, 3 Steel Chainmail; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>XIV Century Knight Boots</td><td>Armor</td><td>2 Steel Plate, 2 Leather; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>XIV Century Knight Leggings</td><td>Armor</td><td>3 Steel Chainmail, 4 Steel Plate; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Barbed Club</td><td>Weapon</td><td>4 Steel Nugget, 2 Steel Ingot, 1 Stick; 60% skill with the Iron Sword</td></tr>
+<tr><td>Blacksmith Hammer</td><td>Weapon</td><td>5 Steel Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Bronze Flail</td><td>Weapon</td><td>3 Bronze Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Copper Flail</td><td>Weapon</td><td>3 Copper Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Ahlspiess</td><td>Weapon</td><td>4 Gold Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Bastard Sword</td><td>Weapon</td><td>1 Gold Ingot, 1 Golden Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Claymore</td><td>Weapon</td><td>1 Gold Ingot, 1 Golden Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Concave Edged Halberd</td><td>Weapon</td><td>4 Gold Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Estoc</td><td>Weapon</td><td>1 Gold Ingot, 1 Golden Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Flail</td><td>Weapon</td><td>3 Gold Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Guisarme</td><td>Weapon</td><td>1 Gold Ingot, 1 Golden Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Heavy Mace</td><td>Weapon</td><td>3 Gold Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Heavy War Hammer</td><td>Weapon</td><td>4 Gold Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Katzbalger</td><td>Weapon</td><td>2 Gold Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Lance</td><td>Weapon</td><td>3 Gold Ingot, 1 Pole, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Lochaber Axe</td><td>Weapon</td><td>3 Gold Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Lucerne Hammer</td><td>Weapon</td><td>3 Gold Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Morningstar</td><td>Weapon</td><td>3 Gold Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Pike</td><td>Weapon</td><td>1 Gold Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Ranseur</td><td>Weapon</td><td>1 Golden Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Short Sword</td><td>Weapon</td><td>2 Gold Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Stiletto</td><td>Weapon</td><td>1 Gold Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Zweihander</td><td>Weapon</td><td>3 Gold Ingot, 1 Golden Short Sword, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Ahlspiess</td><td>Weapon</td><td>4 Iron Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Bastard Sword</td><td>Weapon</td><td>1 Iron Ingot, 1 Iron Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Claymore</td><td>Weapon</td><td>1 Iron Ingot, 1 Iron Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Concave Edged Halberd</td><td>Weapon</td><td>4 Iron Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Estoc</td><td>Weapon</td><td>1 Iron Ingot, 1 Iron Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Flail</td><td>Weapon</td><td>3 Iron Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Guisarme</td><td>Weapon</td><td>1 Iron Ingot, 1 Iron Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Heavy Mace</td><td>Weapon</td><td>3 Iron Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Heavy War Hammer</td><td>Weapon</td><td>4 Iron Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Katzbalger</td><td>Weapon</td><td>2 Iron Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Lance</td><td>Weapon</td><td>3 Iron Ingot, 1 Pole, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Lochaber Axe</td><td>Weapon</td><td>3 Iron Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Lucerne Hammer</td><td>Weapon</td><td>3 Iron Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Morningstar</td><td>Weapon</td><td>3 Iron Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Pike</td><td>Weapon</td><td>1 Iron Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Ranseur</td><td>Weapon</td><td>1 Iron Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Short Sword</td><td>Weapon</td><td>2 Iron Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Stiletto</td><td>Weapon</td><td>1 Iron Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Iron Zweihander</td><td>Weapon</td><td>3 Iron Ingot, 1 Iron Short Sword, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Messer</td><td>Weapon</td><td>1 Iron Ingot, 1 Iron Nugget, 1 Iron Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Noble Sword</td><td>Weapon</td><td>1 Iron Bastard Sword, 1 Gold Ingot; 60% skill with the Iron Sword</td></tr>
+<tr><td>Pitchfork</td><td>Weapon</td><td>2 Steel Ingot, 3 Stick; 60% skill with the Iron Sword</td></tr>
+<tr><td>Rusted Bastard Sword</td><td>Weapon</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Rusted Heavy Mace</td><td>Weapon</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Silver Ahlspiess</td><td>Weapon</td><td>4 Silver Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Bastard Sword</td><td>Weapon</td><td>1 Silver Ingot, 1 Silver Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Claymore</td><td>Weapon</td><td>1 Silver Ingot, 1 Silver Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Concave Edged Halberd</td><td>Weapon</td><td>4 Silver Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Estoc</td><td>Weapon</td><td>1 Silver Ingot, 1 Silver Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Flail</td><td>Weapon</td><td>3 Silver Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Guisarme</td><td>Weapon</td><td>1 Silver Ingot, 1 Silver Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Heavy Mace</td><td>Weapon</td><td>3 Silver Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Heavy War Hammer</td><td>Weapon</td><td>4 Silver Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Katzbalger</td><td>Weapon</td><td>2 Silver Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Lance</td><td>Weapon</td><td>3 Silver Ingot, 1 Pole, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Lochaber Axe</td><td>Weapon</td><td>3 Silver Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Lucerne Hammer</td><td>Weapon</td><td>3 Silver Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Morningstar</td><td>Weapon</td><td>3 Silver Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Pike</td><td>Weapon</td><td>1 Silver Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Ranseur</td><td>Weapon</td><td>1 Silver Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Short Sword</td><td>Weapon</td><td>2 Silver Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Stiletto</td><td>Weapon</td><td>1 Silver Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Silver Zweihander</td><td>Weapon</td><td>3 Silver Ingot, 1 Silver Short Sword, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Ahlspiess</td><td>Weapon</td><td>4 Steel Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Bastard Sword</td><td>Weapon</td><td>1 Steel Ingot, 1 Steel Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Claymore</td><td>Weapon</td><td>1 Steel Ingot, 1 Steel Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Concave Edged Halberd</td><td>Weapon</td><td>4 Steel Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Estoc</td><td>Weapon</td><td>1 Steel Ingot, 1 Steel Short Sword; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Flail</td><td>Weapon</td><td>3 Steel Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Guisarme</td><td>Weapon</td><td>1 Steel Ingot, 1 Steel Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Heavy Mace</td><td>Weapon</td><td>3 Steel Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Heavy War Hammer</td><td>Weapon</td><td>4 Steel Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Katzbalger</td><td>Weapon</td><td>2 Steel Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Lance</td><td>Weapon</td><td>3 Steel Ingot, 1 Pole, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Lochaber Axe</td><td>Weapon</td><td>3 Steel Ingot, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Lucerne Hammer</td><td>Weapon</td><td>3 Steel Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Morningstar</td><td>Weapon</td><td>3 Steel Ingot, 1 Stick, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Pike</td><td>Weapon</td><td>1 Steel Ingot, 1 Stick, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Ranseur</td><td>Weapon</td><td>1 Steel Short Sword, 1 Pole; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Short Sword</td><td>Weapon</td><td>2 Steel Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Stiletto</td><td>Weapon</td><td>1 Steel Ingot, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Steel Zweihander</td><td>Weapon</td><td>3 Steel Ingot, 1 Steel Short Sword, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Stone Flail</td><td>Weapon</td><td>3 Cobbled Deepslate (or similar), 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Tin Flail</td><td>Weapon</td><td>3 Tin Ingot, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Wooden Flail</td><td>Weapon</td><td>3 Apricorn Planks (or similar), 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Iron Sword</td></tr>
+<tr><td>Heavy Crossbow</td><td>Ranged</td><td>3 Steel Ingot, 2 String, 1 Tripwire Hook, 1 Pole; 60% skill with the Crossbow</td></tr>
+<tr><td>Bronze Buckler</td><td>Shield</td><td>4 Bronze Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Elliptical Shield</td><td>Shield</td><td>4 Bronze Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Heater Shield</td><td>Shield</td><td>4 Bronze Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Kite Shield</td><td>Shield</td><td>4 Bronze Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Pavise</td><td>Shield</td><td>4 Bronze Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Rondache</td><td>Shield</td><td>8 Bronze Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Round Shield</td><td>Shield</td><td>4 Bronze Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Targe</td><td>Shield</td><td>4 Bronze Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Bronze Tartsche</td><td>Shield</td><td>4 Bronze Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Copper Buckler</td><td>Shield</td><td>4 Copper Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Copper Elliptical Shield</td><td>Shield</td><td>4 Copper Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Copper Heater Shield</td><td>Shield</td><td>4 Copper Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Copper Kite Shield</td><td>Shield</td><td>4 Copper Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Copper Pavise</td><td>Shield</td><td>4 Copper Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Copper Rondache</td><td>Shield</td><td>8 Copper Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Copper Round Shield</td><td>Shield</td><td>4 Copper Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Copper Targe</td><td>Shield</td><td>4 Copper Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Copper Tartsche</td><td>Shield</td><td>4 Copper Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Golden Buckler</td><td>Shield</td><td>4 Gold Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Golden Elliptical Shield</td><td>Shield</td><td>4 Gold Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Golden Heater Shield</td><td>Shield</td><td>4 Gold Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Golden Kite Shield</td><td>Shield</td><td>4 Gold Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Golden Pavise</td><td>Shield</td><td>4 Gold Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Golden Rondache</td><td>Shield</td><td>8 Gold Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Golden Round Shield</td><td>Shield</td><td>4 Gold Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Golden Targe</td><td>Shield</td><td>4 Gold Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Golden Tartsche</td><td>Shield</td><td>4 Gold Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Iron Buckler</td><td>Shield</td><td>4 Iron Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Iron Elliptical Shield</td><td>Shield</td><td>4 Iron Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Iron Heater Shield</td><td>Shield</td><td>4 Iron Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Iron Kite Shield</td><td>Shield</td><td>4 Iron Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Iron Pavise</td><td>Shield</td><td>4 Iron Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Iron Rondache</td><td>Shield</td><td>8 Iron Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Iron Round Shield</td><td>Shield</td><td>4 Iron Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Iron Targe</td><td>Shield</td><td>4 Iron Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Iron Tartsche</td><td>Shield</td><td>4 Iron Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Silver Buckler</td><td>Shield</td><td>4 Silver Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Silver Elliptical Shield</td><td>Shield</td><td>4 Silver Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Silver Heater Shield</td><td>Shield</td><td>4 Silver Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Silver Kite Shield</td><td>Shield</td><td>4 Silver Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Silver Pavise</td><td>Shield</td><td>4 Silver Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Silver Rondache</td><td>Shield</td><td>8 Silver Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Silver Round Shield</td><td>Shield</td><td>4 Silver Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Silver Targe</td><td>Shield</td><td>4 Silver Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Silver Tartsche</td><td>Shield</td><td>4 Silver Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Steel Buckler</td><td>Shield</td><td>5 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Steel Elliptical Shield</td><td>Shield</td><td>4 Steel Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Steel Heater Shield</td><td>Shield</td><td>4 Steel Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Steel Kite Shield</td><td>Shield</td><td>4 Steel Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Steel Pavise</td><td>Shield</td><td>4 Steel Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Steel Rondache</td><td>Shield</td><td>8 Steel Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Steel Round Shield</td><td>Shield</td><td>4 Steel Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Steel Targe</td><td>Shield</td><td>5 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Steel Tartsche</td><td>Shield</td><td>4 Steel Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Stone Buckler</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Stone Elliptical Shield</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Stone Heater Shield</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Stone Kite Shield</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Stone Pavise</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Stone Rondache</td><td>Shield</td><td>8 Cobbled Deepslate (or similar), 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Stone Round Shield</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Stone Targe</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Stone Tartsche</td><td>Shield</td><td>4 Cobbled Deepslate (or similar), 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Tin Buckler</td><td>Shield</td><td>4 Tin Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Tin Elliptical Shield</td><td>Shield</td><td>4 Tin Ingot, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Tin Heater Shield</td><td>Shield</td><td>4 Tin Ingot, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Tin Kite Shield</td><td>Shield</td><td>4 Tin Ingot, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Tin Pavise</td><td>Shield</td><td>4 Tin Ingot, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Tin Rondache</td><td>Shield</td><td>8 Tin Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Tin Round Shield</td><td>Shield</td><td>4 Tin Ingot, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Tin Targe</td><td>Shield</td><td>4 Tin Ingot, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Tin Tartsche</td><td>Shield</td><td>4 Tin Ingot, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Buckler</td><td>Shield</td><td>4 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Elliptical Shield</td><td>Shield</td><td>7 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Heater Shield</td><td>Shield</td><td>6 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Kite Shield</td><td>Shield</td><td>6 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Pavise</td><td>Shield</td><td>8 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Rondache</td><td>Shield</td><td>8 Apricorn Planks (or similar), 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Round Shield</td><td>Shield</td><td>5 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Targe</td><td>Shield</td><td>4 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Wooden Tartsche</td><td>Shield</td><td>6 Apricorn Planks (or similar), 1 Steel Ingot; 60% skill with the Shield</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Farmer&#x27;s Delight</strong> <span class="note">3</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Skillet</td><td>Weapon</td><td>4 Iron Ingot, 1 Brick; 60% skill with the Iron Sword</td></tr>
+<tr><td>Golden Knife</td><td>Tool</td><td>1 Gold Ingot, 1 Stick; 60% skill with the Iron Pickaxe</td></tr>
+<tr><td>Iron Knife</td><td>Tool</td><td>1 Iron Ingot, 1 Stick; 60% skill with the Iron Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Immersive Armors</strong> <span class="note">12</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Heavy Boots</td><td>Armor</td><td>2 Iron Ingot, 2 Block of Iron; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Heavy Chestplate</td><td>Armor</td><td>4 Block of Iron, 4 Iron Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Heavy Helmet</td><td>Armor</td><td>3 Block of Iron, 2 Iron Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Heavy Leggings</td><td>Armor</td><td>4 Iron Ingot, 3 Block of Iron; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Steampunk Boots</td><td>Armor</td><td>2 Piston, 2 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Steampunk Chestplate</td><td>Armor</td><td>5 Gold Ingot, 1 Compass, 1 Clock, 1 Piston; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Steampunk Helmet</td><td>Armor</td><td>1 Redstone Torch, 2 White Stained Glass, 1 Gold Ingot; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Steampunk Leggings</td><td>Armor</td><td>5 Gold Ingot, 2 Piston; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Warrior Boots</td><td>Armor</td><td>2 Iron Ingot, 1 Leather Boots; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Warrior Chestplate</td><td>Armor</td><td>4 Iron Ingot, 1 Leather, 1 Leather Tunic; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Warrior Helmet</td><td>Armor</td><td>2 Bone, 3 Iron Ingot, 1 Leather Cap; 60% skill with the Iron Chestplate</td></tr>
+<tr><td>Warrior Leggings</td><td>Armor</td><td>6 Iron Ingot, 1 Leather Pants; 60% skill with the Iron Chestplate</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>MCA Reborn</strong> <span class="note">1</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Scythe</td><td>Weapon</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+</tbody>
+</table></div></details>
+<h3 id="gear-diamond"><span class="cv-age cv-age-diamond">Diamond Age</span> <span class="note">44 pieces</span></h3>
+<details><summary><strong>Vanilla</strong> <span class="note">10</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Diamond Boots</td><td>Armor</td><td>4 Diamond; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Diamond Chestplate</td><td>Armor</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Diamond Helmet</td><td>Armor</td><td>5 Diamond; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Diamond Horse Armor</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Diamond Leggings</td><td>Armor</td><td>7 Diamond; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Diamond Sword</td><td>Weapon</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Diamond Axe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Diamond Hoe</td><td>Tool</td><td>2 Diamond, 2 Stick; 60% skill with the Diamond Pickaxe</td></tr>
+<tr><td>Diamond Pickaxe</td><td>Tool</td><td>visible quest in the Cobble Valley tab</td></tr>
+<tr><td>Diamond Shovel</td><td>Tool</td><td>1 Diamond, 2 Stick; 60% skill with the Diamond Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Cobblemon Armors</strong> <span class="note">4</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Team Galactic Boots</td><td>Armor</td><td>1 Leather Boots, 1 Ender Pearl; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Team Galactic Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Ender Pearl; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Team Galactic Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Ender Pearl; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Team Galactic Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Ender Pearl; 60% skill with the Diamond Chestplate</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Epic Knights</strong> <span class="note">29</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Barding</td><td>Armor</td><td>practice or a teacher (no recipe to quest for)</td></tr>
+<tr><td>Diamond Ahlspiess</td><td>Weapon</td><td>4 Diamond, 1 Pole; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Bastard Sword</td><td>Weapon</td><td>1 Diamond, 1 Diamond Short Sword; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Claymore</td><td>Weapon</td><td>1 Diamond, 1 Diamond Short Sword; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Concave Edged Halberd</td><td>Weapon</td><td>4 Diamond, 1 Stick, 1 Pole; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Estoc</td><td>Weapon</td><td>1 Diamond, 1 Diamond Short Sword; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Flail</td><td>Weapon</td><td>3 Diamond, 1 Stick, 1 Steel Chain, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Guisarme</td><td>Weapon</td><td>1 Diamond, 1 Diamond Short Sword, 1 Pole; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Heavy Mace</td><td>Weapon</td><td>3 Diamond, 1 Stick, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Heavy War Hammer</td><td>Weapon</td><td>4 Diamond, 1 Stick, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Katzbalger</td><td>Weapon</td><td>2 Diamond, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Lance</td><td>Weapon</td><td>3 Diamond, 1 Pole, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Lochaber Axe</td><td>Weapon</td><td>3 Diamond, 1 Pole; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Lucerne Hammer</td><td>Weapon</td><td>3 Diamond, 1 Stick, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Morningstar</td><td>Weapon</td><td>3 Diamond, 1 Stick, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Pike</td><td>Weapon</td><td>1 Diamond, 1 Stick, 1 Pole; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Ranseur</td><td>Weapon</td><td>1 Diamond Short Sword, 1 Pole; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Short Sword</td><td>Weapon</td><td>2 Diamond, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Stiletto</td><td>Weapon</td><td>1 Diamond, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Zweihander</td><td>Weapon</td><td>3 Diamond, 1 Diamond Short Sword, 1 Hilt; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Diamond Buckler</td><td>Shield</td><td>4 Diamond, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Elliptical Shield</td><td>Shield</td><td>4 Diamond, 1 Wooden Elliptical Shield; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Heater Shield</td><td>Shield</td><td>4 Diamond, 1 Wooden Heater Shield; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Kite Shield</td><td>Shield</td><td>4 Diamond, 1 Wooden Kite Shield; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Pavise</td><td>Shield</td><td>4 Diamond, 1 Wooden Pavise; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Rondache</td><td>Shield</td><td>8 Diamond, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Round Shield</td><td>Shield</td><td>4 Diamond, 1 Wooden Round Shield; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Targe</td><td>Shield</td><td>4 Diamond, 1 Steel Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Diamond Tartsche</td><td>Shield</td><td>4 Diamond, 1 Wooden Tartsche; 60% skill with the Shield</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Farmer&#x27;s Delight</strong> <span class="note">1</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Diamond Knife</td><td>Tool</td><td>1 Diamond, 1 Stick; 60% skill with the Diamond Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<h3 id="gear-nether"><span class="cv-age cv-age-nether">Nether Age</span> <span class="note">79 pieces</span></h3>
+<details><summary><strong>Vanilla</strong> <span class="note">9</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Netherite Boots</td><td>Armor</td><td>1 Diamond Boots, 1 Netherite Ingot; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Netherite Chestplate</td><td>Armor</td><td>1 Diamond Chestplate, 1 Netherite Ingot; 60% skill with the Diamond Chestplate</td></tr>
+<tr><td>Netherite Helmet</td><td>Armor</td><td>1 Diamond Helmet, 1 Netherite Ingot; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Netherite Leggings</td><td>Armor</td><td>1 Diamond Leggings, 1 Netherite Ingot; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Netherite Sword</td><td>Weapon</td><td>1 Diamond Sword, 1 Netherite Ingot; 60% skill with the Diamond Sword</td></tr>
+<tr><td>Netherite Axe</td><td>Tool</td><td>1 Diamond Axe, 1 Netherite Ingot; 60% skill with the Netherite Pickaxe</td></tr>
+<tr><td>Netherite Hoe</td><td>Tool</td><td>1 Diamond Hoe, 1 Netherite Ingot; 60% skill with the Netherite Pickaxe</td></tr>
+<tr><td>Netherite Pickaxe</td><td>Tool</td><td>1 Diamond Pickaxe, 1 Netherite Ingot; 60% skill with the Diamond Pickaxe</td></tr>
+<tr><td>Netherite Shovel</td><td>Tool</td><td>1 Diamond Shovel, 1 Netherite Ingot; 60% skill with the Netherite Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Cobblemon Armors</strong> <span class="note">14</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Fennekin Hairband</td><td>Armor</td><td>1 Leather Cap, 1 Blaze Powder, 1 Black Wool (or similar); 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Fennekin Tail</td><td>Armor</td><td>1 Leather Tunic, 1 Blaze Powder, 1 Black Wool (or similar); 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Magma Boots</td><td>Armor</td><td>1 Leather Boots, 1 Magma Cream; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Magma Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Magma Cream; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Magma Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Magma Cream; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Magma Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Magma Cream; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Rainbow Rocket Boots</td><td>Armor</td><td>1 Leather Boots, 1 Gunpowder, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Rainbow Rocket Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Gunpowder, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Rainbow Rocket Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Gunpowder, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Rainbow Rocket Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Gunpowder, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Star Boots</td><td>Armor</td><td>1 Leather Boots, 1 Glowstone Dust; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Star Chestplate</td><td>Armor</td><td>1 Leather Tunic, 1 Glowstone Dust; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Star Helmet</td><td>Armor</td><td>1 Leather Cap, 1 Glowstone Dust; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Team Star Leggings</td><td>Armor</td><td>1 Leather Pants, 1 Glowstone Dust; 60% skill with the Netherite Chestplate</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Epic Knights</strong> <span class="note">43</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Maximilian Armor</td><td>Armor</td><td>1 Knight Armor, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Maximilian Boots</td><td>Armor</td><td>1 Knight Boots, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Maximilian Helm</td><td>Armor</td><td>1 Armet, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Maximilian Leggings</td><td>Armor</td><td>1 Knight Leggings, 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Bronze Flame-Bladed Sword</td><td>Weapon</td><td>1 Bronze Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Copper Flame-Bladed Sword</td><td>Weapon</td><td>1 Copper Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Diamond Flame-Bladed Sword</td><td>Weapon</td><td>1 Diamond Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Golden Flame-Bladed Sword</td><td>Weapon</td><td>1 Golden Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Iron Flame-Bladed Sword</td><td>Weapon</td><td>1 Iron Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Ahlspiess</td><td>Weapon</td><td>1 Diamond Ahlspiess, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Bastard Sword</td><td>Weapon</td><td>1 Diamond Bastard Sword, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Claymore</td><td>Weapon</td><td>1 Diamond Claymore, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Concave Edged Halberd</td><td>Weapon</td><td>1 Diamond Concave Edged Halberd, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Estoc</td><td>Weapon</td><td>1 Diamond Estoc, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Flail</td><td>Weapon</td><td>1 Diamond Flail, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Flame-Bladed Sword</td><td>Weapon</td><td>1 Diamond Flame-Bladed Sword, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Guisarme</td><td>Weapon</td><td>1 Diamond Guisarme, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Heavy Mace</td><td>Weapon</td><td>1 Diamond Heavy Mace, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Heavy War Hammer</td><td>Weapon</td><td>1 Diamond Heavy War Hammer, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Katzbalger</td><td>Weapon</td><td>1 Diamond Katzbalger, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Lance</td><td>Weapon</td><td>1 Diamond Lance, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Lochaber Axe</td><td>Weapon</td><td>1 Diamond Lochaber Axe, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Lucerne Hammer</td><td>Weapon</td><td>1 Diamond Lucerne Hammer, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Morningstar</td><td>Weapon</td><td>1 Diamond Morningstar, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Pike</td><td>Weapon</td><td>1 Diamond Pike, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Ranseur</td><td>Weapon</td><td>1 Diamond Ranseur, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Short Sword</td><td>Weapon</td><td>1 Diamond Short Sword, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Stiletto</td><td>Weapon</td><td>1 Diamond Stiletto, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Zweihander</td><td>Weapon</td><td>1 Diamond Zweihander, 1 Netherite Ingot; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Silver Flame-Bladed Sword</td><td>Weapon</td><td>1 Silver Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Steel Flame-Bladed Sword</td><td>Weapon</td><td>1 Steel Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Stone Flame-Bladed Sword</td><td>Weapon</td><td>1 Stone Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Tin Flame-Bladed Sword</td><td>Weapon</td><td>1 Tin Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Wooden Flame-Bladed Sword</td><td>Weapon</td><td>1 Wooden Zweihander, 1 Blaze Powder; 60% skill with the Netherite Sword</td></tr>
+<tr><td>Netherite Buckler</td><td>Shield</td><td>1 Diamond Buckler, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Elliptical Shield</td><td>Shield</td><td>1 Diamond Elliptical Shield, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Heater Shield</td><td>Shield</td><td>1 Diamond Heater Shield, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Kite Shield</td><td>Shield</td><td>1 Diamond Kite Shield, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Pavise</td><td>Shield</td><td>1 Diamond Pavise, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Rondache</td><td>Shield</td><td>1 Diamond Rondache, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Round Shield</td><td>Shield</td><td>1 Diamond Round Shield, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Targe</td><td>Shield</td><td>1 Diamond Targe, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+<tr><td>Netherite Tartsche</td><td>Shield</td><td>1 Diamond Tartsche, 1 Netherite Ingot; 60% skill with the Shield</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Farmer&#x27;s Delight</strong> <span class="note">1</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Netherite Knife</td><td>Tool</td><td>1 Diamond Knife, 1 Netherite Ingot; 60% skill with the Netherite Pickaxe</td></tr>
+</tbody>
+</table></div></details>
+<details><summary><strong>Immersive Armors</strong> <span class="note">12</span></summary><div class="table-scroll"><table class="spec">
+<thead><tr><th>Piece</th><th>Type</th><th>Mastery quest needs</th></tr></thead>
+<tbody>
+<tr><td>Divine Boots</td><td>Armor</td><td>2 Gold Ingot, 1 Robe Boots; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Divine Chestplate</td><td>Armor</td><td>6 Gold Ingot, 1 Totem of Undying, 1 Robe Chestplate; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Divine Helmet</td><td>Armor</td><td>4 Gold Ingot, 1 Emerald, 1 Robe Helmet; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Divine Leggings</td><td>Armor</td><td>6 Gold Ingot, 1 Robe Leggings; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Robe Boots</td><td>Armor</td><td>2 Blaze Powder, 2 Black Wool (or similar); 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Robe Chestplate</td><td>Armor</td><td>7 Black Wool (or similar), 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Robe Helmet</td><td>Armor</td><td>4 Black Wool (or similar), 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Robe Leggings</td><td>Armor</td><td>6 Black Wool (or similar), 1 Blaze Powder; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Wither Boots</td><td>Armor</td><td>4 Nether Brick, 1 Bone Boots; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Wither Chestplate</td><td>Armor</td><td>7 Nether Brick, 1 Bone Chestplate; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Wither Helmet</td><td>Armor</td><td>5 Nether Brick, 1 Bone Helmet; 60% skill with the Netherite Chestplate</td></tr>
+<tr><td>Wither Leggings</td><td>Armor</td><td>6 Nether Brick, 1 Bone Leggings; 60% skill with the Netherite Chestplate</td></tr>
+</tbody>
+</table></div></details>
+  </section>
+
+  <footer>Cobble Valley Ages v0.1 &middot; list generated from the full pack</footer>
+</div>
+
+<script>
+(function () {
+  var R = {};
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot" + (label ? "" : " empty"); if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "\u2192"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-cv-gear-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "\u2713" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var fill = document.getElementById("progress-fill"), label = document.getElementById("progress-label");
+    if (fill) fill.style.width = pct + "%";
+    if (label) label.textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

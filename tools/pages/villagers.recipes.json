@@ -1,0 +1,13 @@
+{
+  "love": [
+    { "name": "Bouquet", "note": "Any small flowers.", "grid": ["Flower","Flower","Flower","Flower","","Flower","","",""], "out": "Bouquet" },
+    { "name": "Engagement Ring", "grid": ["Gold Ingot","Diamond","Gold Ingot","Gold Ingot","","Gold Ingot","Gold Ingot","Gold Ingot","Gold Ingot"], "out": "Engagement Ring" },
+    { "name": "Wedding Ring", "grid": ["Gold Ingot","Gold Ingot","Gold Ingot","Gold Ingot","","Gold Ingot","Gold Ingot","Gold Ingot","Gold Ingot"], "out": "Wedding Ring" },
+    { "name": "Matchmaker's Ring", "grid": ["Iron Ingot","Iron Ingot","Iron Ingot","Iron Ingot","","Iron Ingot","Iron Ingot","Iron Ingot","Iron Ingot"], "out": "Matchmaker's Ring" }
+  ],
+  "tools": [
+    { "name": "Needle and Thread", "grid": ["Iron Ingot","","","String","Iron Ingot","","String","","Iron Ingot"], "out": "Needle and Thread" },
+    { "name": "Comb", "grid": ["Iron Bars","Iron Ingot","","","Iron Bars","Iron Ingot","","","Iron Ingot"], "out": "Comb" },
+    { "name": "Villager Tracker", "grid": ["Rose Gold Ingot","Eye of Ender","Rose Gold Ingot","Rose Gold Ingot","Compass","Rose Gold Ingot","Rose Gold Ingot","Rose Gold Ingot","Rose Gold Ingot"], "out": "Villager Tracker" }
+  ]
+}

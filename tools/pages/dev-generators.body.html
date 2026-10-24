@@ -1,0 +1,69 @@
+<!-- title: Dev: Generators · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Generators</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; the scripts that write the data and the wiki</span>
+    <h1>Dev: Generators</h1>
+    <p>Most of the mod's data and this whole Cobble Valley section are generated, so they stay true to the real pack. The rule: <strong>edit the script's tables, never the output</strong>. Run every script from its repo's root with <code>python -I</code>.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#mod">In the Mod</a>
+    <a href="#dump">The Dump</a>
+    <a href="#wiki">The Wiki</a>
+    <a href="#order">Full Regeneration</a>
+  </nav>
+
+  <section class="panel" id="mod">
+    <h2>In the Mod (cobble-valley-ages/tools/)</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Script</th><th>Reads</th><th>Writes</th></tr></thead>
+      <tbody>
+        <tr><td><code>gen_data.py</code></td><td>Its own tables: AGES, SEEDS, COBBLEMON_RULES, DECOR_BOOK_RULES, DISCIPLINES, MUST_LEARN, CRATES, CRATE_EXTRAS, TUNING, LANG</td><td>ages, seeds, item_rules, tags, disciplines, badge map, tuning, crate and reward loot, bushcraft recipes, item models, <code>en_us.json</code></td></tr>
+        <tr><td><code>gen_quests.py</code></td><td>QUESTS, AGE_TEXT, ANALOG, and <code>tools/gear.json</code></td><td>The Cobble Valley advancement tab, reward functions (visible quests + one hidden quest per gear item)</td></tr>
+        <tr><td><code>gen_books.py</code></td><td><code>tools/age_dump.csv</code></td><td><code>data/cvages/cvages/books/&lt;mod&gt;/*.json</code></td></tr>
+        <tr><td><code>test_server.py</code></td><td>The pack's mods.json</td><td>A local full-pack server; runs commands on it (<a href="dev-testing.html">Testing</a>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Generators delete their old output first (files only, because OneDrive locks folders), so renamed things don't linger. Hand-made quests go in <code>advancement/custom/</code>, hand-made books in <code>books/custom/</code>.</p>
+  </section>
+
+  <section class="panel" id="dump">
+    <h2>The Dump</h2>
+    <p><code>gear.json</code> and <code>age_dump.csv</code> must come from a server with the <strong>whole pack</strong>, because ages depend on every mod's recipes:</p>
+<pre class="tree">python -I tools/test_server.py run &lt;dir&gt;          # runs "cvages age" and "cvages dump"
+cp &lt;dir&gt;/config/cvages/age_dump.csv &lt;dir&gt;/config/cvages/gear.json tools/
+python -I tools/gen_quests.py
+python -I tools/gen_books.py
+./gradlew build</pre>
+    <p>Redo this after any change to the pack's mods or to seeds and rules.</p>
+  </section>
+
+  <section class="panel" id="wiki">
+    <h2>The Wiki (modpack/tools/pages/)</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>File</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>make.py</code></td><td>Runs everything below in order. Usually all you need.</td></tr>
+        <tr><td><code>gen_cobblevalley.py</code></td><td>Copies the mod's data into <code>modpack/data/cvages/</code> (dump, gear list, ages, disciplines, tuning, books, quests, crate loot, the chest table parsed from LootInjection.java), writes <code>generated/*.html</code> fragments, and writes the "In Cobble Valley" box into every existing page (between <code>&lt;!-- cv-box --&gt;</code> markers). The <code>PAGES</code> table says what each page's box shows.</td></tr>
+        <tr><td><code>build.py</code></td><td>Turns <code>&lt;name&gt;.body.html</code> (+ optional <code>&lt;name&gt;.recipes.json</code>) into <code>docs/&lt;name&gt;.html</code> with the site's look. <code>&lt;!-- include: generated/x.html --&gt;</code> pulls in a fragment.</td></tr>
+        <tr><td><code>cv-*.body.html</code>, <code>dev-*.body.html</code></td><td>The hand-written pages. Edit these.</td></tr>
+        <tr><td><code>generated/</code></td><td>Output only; regenerated every run.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Pages without a body file (most of the older guide) are edited directly in <code>docs/</code>; only their box is generated. A new page also needs an entry in the <code>GROUPS</code> list in <code>docs/index.html</code>.</p>
+  </section>
+
+  <section class="panel" id="order">
+    <h2>Full Regeneration</h2>
+<pre class="tree"># in cobble-valley-ages/
+python -I tools/gen_data.py
+python -I tools/test_server.py run &lt;dir&gt;   # then copy the dump into tools/
+python -I tools/gen_quests.py
+python -I tools/gen_books.py
+./gradlew build
+# in modpack/
+python -I tools/pages/make.py               # reads ../cobble-valley-ages by default</pre>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

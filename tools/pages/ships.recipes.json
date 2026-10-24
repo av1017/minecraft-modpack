@@ -1,0 +1,17 @@
+{
+  "dockyard": [
+    { "name": "Dockyard", "note": "Paper, string, iron, wool, two leads, a barrel, and a crafting table.", "grid": ["String","Paper","String","Iron Ingot","Crafting Table","White Wool","Lead","Barrel","Lead"], "out": "Dockyard" }
+  ],
+  "upgrades": [
+    { "name": "Iron Scantlings", "grid": ["Iron Ingot","","Iron Ingot","","Iron Block","","Iron Ingot","","Iron Ingot"], "out": "Iron Scantlings" },
+    { "name": "Copper Plating", "grid": ["","Copper Ingot","","Copper Ingot","Copper Block","Copper Ingot","","Copper Ingot",""], "out": "Copper Plating" },
+    { "name": "Cotton Sails", "grid": ["White Wool","White Wool","White Wool","White Wool","Lead","White Wool","White Wool","String","White Wool"], "out": "Cotton Sails" }
+  ],
+  "cannons": [
+    { "name": "Ship Cannon", "note": "Three iron blocks on two logs.", "grid": ["","","String","Iron Block","Iron Block","Iron Block","","Log","Log"], "out": "Ship Cannon" },
+    { "name": "Cannon Ball", "note": "Makes 2.", "grid": ["","Iron Nugget","","Iron Nugget","Gun-powder","Iron Nugget","","Iron Nugget",""], "out": "Cannon Ball x2" },
+    { "name": "Grape Shot", "grid": ["Iron Nugget","Iron Nugget","Iron Nugget","Iron Nugget","Gun-powder","Iron Nugget","Iron Nugget","Iron Nugget","Iron Nugget"], "out": "Grape Shot" },
+    { "name": "Chained Shot", "note": "Makes 2.", "grid": ["Cannon Ball","","Cannon Ball","","Chain","","Cannon Ball","","Cannon Ball"], "out": "Chained Shot x2" },
+    { "name": "Fine-Grain Powder", "note": "Shapeless, any arrangement. Makes 3.", "grid": ["Bone Meal","Gun-powder","Charcoal","","","","","",""], "out": "Fine-Grain Powder x3" }
+  ]
+}

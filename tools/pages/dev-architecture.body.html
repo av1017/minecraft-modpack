@@ -1,0 +1,102 @@
+<!-- title: Dev: Architecture · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Architecture</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; how the pieces fit</span>
+    <h1>Dev: Architecture</h1>
+    <p>Data comes in as JSON, the server turns recipes into an age for every item, players' knowledge lives in two save files, and a handful of hooks (events and mixins) apply it everywhere a player crafts, mines, fights or travels. Clients get a copy of the age table and their own knowledge for tooltips and prediction.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#flow">Data Flow</a>
+    <a href="#resolver">The Age Resolver</a>
+    <a href="#state">Saved State</a>
+    <a href="#hooks">Every Hook</a>
+    <a href="#client">Client Side</a>
+  </nav>
+
+  <section class="panel" id="flow">
+    <h2>Data Flow</h2>
+<pre class="tree">datapack JSON (data/*/cvages/...)          recipes (every mod)
+        |  AgesData reload listener               |
+        v                                         v
+  ages, seeds, rules, disciplines,  ---&gt;  AgeResolver.resolve()  (on server start and /reload)
+  books, badge map, tuning                        |
+                                                  v
+                                   ItemTable.server: Item -&gt; ItemInfo(age, category, policy, discipline, why)
+                                                  |  Sync (AgeTablePayload on join and reload)
+                                                  v
+                                   ItemTable.client (tooltips, Strange Object names, prediction)
+
+player actions --&gt; hooks (events, mixins) --&gt; Knowledge (read/change) --&gt; PlayerKnowledgeData
+                                                  |  Sync (KnowledgePayload, batched; urgent on big changes)
+                                                  v
+                                           ClientState (the local player's knowledge)</pre>
+  </section>
+
+  <section class="panel" id="resolver">
+    <h2>The Age Resolver</h2>
+    <ol class="flow">
+      <li><strong>Seeds</strong> pin key materials to an age (cobblestone Stone, iron ingot Iron, diamond Diamond...). Recipes that <em>make</em> a seeded item are ignored so loops can't drag it down.</li>
+      <li>Every recipe becomes "result needs ingredients" (each ingredient is a list of options; the cheapest option counts). Smithing recipes are read through an accessor because they hide their inputs.</li>
+      <li><strong>Recycling is skipped:</strong> smelting gear back into nuggets doesn't tie iron to iron armor.</li>
+      <li><strong>Recipe loops</strong> (ingot &harr; block &harr; nugget) are found as strongly connected components (iterative Tarjan) and solved together: a loop's age is its cheapest way in from outside. A loop with no way in is natural, age 0.</li>
+      <li>An item's age is the cheapest of its recipes, where a recipe's age is its most advanced ingredient.</li>
+      <li>Gear without a recipe falls back to its repair material; anything else without a recipe is age 0 ("default").</li>
+      <li><strong>Tags</strong> set the base policy (<code>#cvages:must_learn</code>, <code>#cvages:exempt</code>), then <strong>item rules</strong> apply in file order, later ones winning.</li>
+    </ol>
+    <p><code>/cvages why &lt;item&gt;</code> prints the reason and each recipe's ingredient ages. <code>/cvages dump</code> writes the whole table.</p>
+  </section>
+
+  <section class="panel" id="state">
+    <h2>Saved State</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>File (world/data/)</th><th>Holds</th></tr></thead>
+      <tbody>
+        <tr><td><code>cvages_players.dat</code></td><td>Per player UUID, per item or discipline key: <code>craft</code> (NONE / NOTES / TAUGHT / MASTER), <code>skill</code> 0-100, <code>discovered</code>, <code>discovery</code> points, <code>discoveryHold</code>, <code>questMastered</code>. Keys are strings, so removing a mod never loses data.</td></tr>
+        <tr><td><code>cvages_world.dat</code></td><td>Unlocked ages, the group's badges (leader keys), completed group quests.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Discipline knowledge uses keys like <code>cvages:discipline/cooking</code> in the same player data. Item stacks carry <code>cvages:quality</code>, <code>cvages:crafter</code>, and for our items <code>cvages:book</code> / <code>cvages:crate_age</code>.</p>
+  </section>
+
+  <section class="panel" id="hooks">
+    <h2>Every Hook</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Hook</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td>CraftingMenuMixin</td><td>The shared crafting result (2&times;2, crafting table, Visual Workbench): runs CraftGate, stamps quality, hides refused results. Patches all three places vanilla loads the result (store, remote copy, packet).</td></tr>
+        <tr><td>ResultSlotMixin / Accessor</td><td>Taking a result: charges the planned extra ingredients, records the craft (practice).</td></tr>
+        <tr><td>SlotMixin</td><td>Backstop for grids that skip the vanilla path (backpack crafting): only free, full-quality crafts pass.</td></tr>
+        <tr><td>TransientCraftingContainerMixin</td><td>Remembers the extra-ingredient plan on the crafting grid between showing the result and taking it.</td></tr>
+        <tr><td>SmithingMenuMixin</td><td>Upgrades need the result known; Blacksmithing for the table; quality can't rise above the base item.</td></tr>
+        <tr><td>EnchantmentMenuMixin</td><td>Enchanting table (vanilla and Easy Magic): Enchanting discipline + mastered item.</td></tr>
+        <tr><td>ItemCombinerMenuMixin / Accessor, AbstractContainerMenuMixin</td><td>Anvils (vanilla and Easy Anvils): no new enchantments without the discipline and mastery; refuses taking a blocked result.</td></tr>
+        <tr><td>ItemStackMixin</td><td>Quality lowers max durability at runtime.</td></tr>
+        <tr><td>PlayerMixin</td><td>Mining speed scales with skill (both sides); Strange Object tools drop nothing.</td></tr>
+        <tr><td>ProjectileWeaponItemMixin, TridentItemMixin</td><td>Unskilled shots and throws fly slower and less accurately.</td></tr>
+        <tr><td>ServerPlayerMixin, EntityMixin</td><td>Locked dimensions: portals, /tp, Twin Portals, the portal gun, and vehicles carrying players.</td></tr>
+        <tr><td>PlayerAdvancementsMixin</td><td>Gym badges and group quests count for the group the moment anyone earns them.</td></tr>
+        <tr><td>SmithingTransformRecipeAccessor</td><td>Lets the resolver read smithing inputs.</td></tr>
+        <tr><td>SkillEffects (tick, every 5 ticks)</td><td>Transient attribute modifiers scale weapon damage and armor/toughness by effectiveness.</td></tr>
+        <tr><td>Practice (block break, after damage, shoot)</td><td>Skill gain, or discovery for Strange Objects.</td></tr>
+        <tr><td>Discovery.holdTick (every second)</td><td>Held and worn Strange Objects slowly reveal themselves.</td></tr>
+        <tr><td>Lessons (UseEntityCallback + tick)</td><td>Crouch + right-click teaching, boss bar, cancel rules.</td></tr>
+        <tr><td>Disciplines (UseBlockCallback)</td><td>Locked stations refuse to open, with a message.</td></tr>
+        <tr><td>EntityElytraEvents.ALLOW</td><td>No gliding before the End Age.</td></tr>
+        <tr><td>LootTableEvents.MODIFY</td><td>Prize Crates in structure chests and trainer loot; leaves drop by hand.</td></tr>
+        <tr><td>Criteria <code>cvages:age_reached</code>, <code>cvages:skill_reached</code></td><td>Drive the quest tab.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="client">
+    <h2>Client Side</h2>
+    <ul>
+      <li><code>ClientState</code> applies the two payloads; <code>Knowledge.clientView</code> reads it, so shared code (mining speed, effectiveness) predicts correctly.</li>
+      <li><code>CvAgesClient</code> adds the tooltip lines (skill, recipe status, discipline, quality, discovery bar).</li>
+      <li><code>ItemStackNameMixin</code> shows "Strange Object", only on the client thread (a LAN host's integrated server never sees the fake name).</li>
+    </ul>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

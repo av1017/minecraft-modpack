@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ages & Badges · Cobble Valley</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #2f7fd8; --accent-bg: #e2eefb;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.cslot.empty { background: var(--grid-slot); opacity: 0.55; }
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 8px; }
+.card { background: var(--slot); border: 2px solid var(--slot-border); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.card .cname { font-family: "Silkscreen", monospace; font-size: 0.95rem; }
+.card .ctag { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--accent); }
+.card p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.card ul { margin: 0; padding-left: 1.1em; font-size: 0.86rem; color: var(--ink-soft); }
+code { font-family: "Space Mono", monospace; font-size: 0.85em; background: var(--slot); border: 1px solid var(--slot-border); padding: 0 4px; }
+
+.cv-age { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 2px 8px; border: 2px solid; white-space: nowrap; }
+.cv-age-wood { color: #8a4b1f; border-color: #a0522d; background: #f6e7da; }
+.cv-age-stone { color: #555; border-color: #8a8a8a; background: #ececec; }
+.cv-age-iron { color: #4d4d4d; border-color: #b8b8b8; background: #fafafa; }
+.cv-age-diamond { color: #116b62; border-color: #4aedd9; background: #e3fbf8; }
+.cv-age-nether { color: #8e2420; border-color: #b02e26; background: #f9e3e1; }
+.cv-age-end { color: #6a3d9a; border-color: #c77dff; background: #f3e8ff; }
+.cv-age-champion { color: #8a6d00; border-color: #ffd700; background: #fff8d6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cv-age { background: transparent; filter: brightness(1.6); } }
+:root[data-theme="dark"] .cv-age { background: transparent; filter: brightness(1.6); }
+details { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 12px; margin: 8px 0; }
+details > summary { cursor: pointer; font-size: 0.95rem; }
+details[open] > summary { margin-bottom: 6px; }
+h3 .cv-age { vertical-align: middle; }
+.lookup-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.lookup-bar input, .lookup-bar select { font: inherit; font-size: 0.95rem; padding: 8px 10px; background: var(--slot); color: var(--ink);
+  border: 2px solid var(--slot-border); min-width: 0; }
+.lookup-bar input { flex: 1 1 220px; }
+.lookup-bar select { flex: 0 1 160px; }
+#lookup-status { font-size: 0.85rem; color: var(--ink-faint); margin: 4px 0 8px; }
+.panel { min-width: 0; }
+.panel code, .panel h2, .panel h3 { overflow-wrap: anywhere; }
+.tree { max-width: 100%; box-sizing: border-box; font-family: "Space Mono", monospace; font-size: 0.8rem; background: var(--slot); border: 2px solid var(--slot-border); padding: 10px 12px;
+  overflow-x: auto; white-space: pre; line-height: 1.45; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- title: Ages & Badges · Cobble Valley -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Ages &amp; Badges</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobble Valley &middot; group progress</span>
+    <h1>Ages &amp; Badges</h1>
+    <p>The whole group shares one age. Reaching a new one makes its items recognizable and craftable for everybody, opens dimensions, and hands everyone a Prize Crate. Gym badges are the engine: every different leader anyone beats counts.</p>
+    <div class="stats">
+      <div class="stat"><b>1 / 3 / 5 / 8</b><span>badges for Iron / Diamond / Nether / End</span></div>
+      <div class="stat"><b>Shared</b><span>one player's badge counts for all</span></div>
+      <div class="stat"><b>Nether &amp; End</b><span>stay shut until their ages</span></div>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#ages">The Ages</a>
+    <a href="#badges">How Badges Count</a>
+    <a href="#reach">When an Age Arrives</a>
+    <a href="#strange">Ahead of Your Time</a>
+    <a href="#mods">Every Mod by Age</a>
+  </nav>
+
+  <section class="panel" id="ages">
+    <h2>The Ages</h2>
+    <!-- generated by tools/pages/gen_cobblevalley.py: don't edit -->
+<div class="table-scroll"><table class="spec">
+<thead><tr><th>Age</th><th>The group needs</th><th>Opens</th><th>Items</th><th>Gear</th><th>Book-only</th></tr></thead>
+<tbody>
+<tr><td><span class="cv-age cv-age-wood">Wood Age</span></td><td>where everyone starts</td><td></td><td>5,117</td><td>105</td><td>1551</td></tr>
+<tr><td><span class="cv-age cv-age-stone">Stone Age</span></td><td>the First Steps quest</td><td></td><td>379</td><td>64</td><td>118</td></tr>
+<tr><td><span class="cv-age cv-age-iron">Iron Age</span></td><td>1 different gym badge</td><td></td><td>1,158</td><td>278</td><td>430</td></tr>
+<tr><td><span class="cv-age cv-age-diamond">Diamond Age</span></td><td>3 different gym badges</td><td></td><td>187</td><td>44</td><td>0</td></tr>
+<tr><td><span class="cv-age cv-age-nether">Nether Age</span></td><td>5 different gym badges</td><td>opens the Nether</td><td>446</td><td>79</td><td>183</td></tr>
+<tr><td><span class="cv-age cv-age-end">End Age</span></td><td>8 different gym badges</td><td>opens the End</td><td>31</td><td>0</td><td>3</td></tr>
+<tr><td><span class="cv-age cv-age-champion">Champion Age</span></td><td>8 different gym badges + beat every Champion</td><td></td><td>0</td><td>0</td><td>0</td></tr>
+</tbody>
+</table></div>
+    <p class="note">"Items" counts everything in the pack that belongs to that age, worked out from every recipe: an item's age is the age of its cheapest way to make it. Gear without a recipe takes the age of its repair material.</p>
+    <div class="lineup">
+      <div class="card"><span class="cname">Wood</span><span class="ctag">start</span><p>Wood, leaves, sticks, wooden tools, leaf beds and torches, Pok&eacute; Balls, the Healing Machine and PC. Most furniture books.</p></div>
+      <div class="card"><span class="cname">Stone</span><span class="ctag">First Steps quest</span><p>Stone tools, coal, copper, flint, furnaces (learned), Cooking and Tailoring.</p></div>
+      <div class="card"><span class="cname">Iron</span><span class="ctag">1 badge</span><p>Iron, gold, redstone and lapis; iron and steel gear; buckets, shields, Great and Ultra Balls (learned); Blacksmithing.</p></div>
+      <div class="card"><span class="cname">Diamond</span><span class="ctag">3 badges</span><p>Diamonds, emeralds, obsidian, ender pearls; diamond gear; the enchanting table; Enchanting.</p></div>
+      <div class="card"><span class="cname">Nether</span><span class="ctag">5 badges</span><p>The Nether opens. Netherite, blaze rods, nether wart, quartz, glowstone; Brewing.</p></div>
+      <div class="card"><span class="cname">End</span><span class="ctag">8 badges</span><p>The End opens. Elytra (no gliding before this), shulker shells, chorus fruit.</p></div>
+      <div class="card"><span class="cname">Champion</span><span class="ctag">beat every Champion</span><p>No new items: the bragging rights age, and a Champion Prize Crate for everyone.</p></div>
+    </div>
+  </section>
+
+  <section class="panel" id="badges">
+    <h2>How Badges Count</h2>
+    <ul>
+      <li>A badge is a <strong>different gym leader</strong> beaten by <strong>anyone</strong> in the group. Two people beating Brock is still one badge; Brock and Misty are two.</li>
+      <li>All the gym leaders in our pack count: the 8 Kanto leaders, the 8 Sinnoh leaders, and the 8 Radical Gyms leaders. That's 24 possible badges, and you need 8.</li>
+      <li>Sinnoh leaders have two fights (a first and a rematch); either one counts, once.</li>
+      <li>The <strong>Champion Age</strong> needs anyone to have beaten every Champion (the trainer mod's "defeat all Champions" advancement).</li>
+      <li>Badges won before you joined, or while you were offline, are counted when you log in.</li>
+    </ul>
+    <div class="callout">Ops can check or fix the count: <code>/cvages badges</code>, <code>/cvages badges add brock</code>.</div>
+  </section>
+
+  <section class="panel" id="reach">
+    <h2>When an Age Arrives</h2>
+    <ol class="flow">
+      <li>Everyone online sees the age's name as a title, with a fanfare.</li>
+      <li>Its items stop being Strange Objects for everyone. Gear you'd already figured out keeps the skill you built.</li>
+      <li>Its items become craftable (once learned, if they need it) and its quests open in the quest book.</li>
+      <li>Each player gets that age's milestone in the Cobble Valley tab, and a <strong>Prize Crate</strong> of that age.</li>
+      <li>The Nether Age and End Age open their dimensions. Before then, portals don't take you there ("You can't go there until the Nether Age").</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="strange">
+    <h2>Ahead of Your Time</h2>
+    <p>You can find later-age things early: loot, trades, a diamond in a cave. Until your group reaches their age they're <strong>Strange Objects</strong>: the name is hidden, gear works at 5%, and a pickaxe you don't understand can't harvest ore.</p>
+    <p>Carry them and use them and you'll figure them out (<a href="cv-skill.html#discovery">Discovery</a>). Once figured out, they work a little (10% rising to about 40%) and you can practice up to 25% skill, but you still can't craft them until the age arrives. Their tooltip says <em>From the Iron Age, ahead of its time</em>.</p>
+  </section>
+
+  <section class="panel" id="mods">
+    <h2>Every Mod by Age</h2>
+    <p class="sub">How many of each mod's items belong to each age, from the full pack.</p>
+    <!-- generated by tools/pages/gen_cobblevalley.py: don't edit -->
+<div class="table-scroll"><table class="spec">
+<thead><tr><th>Mod</th><th>Wood</th><th>Stone</th><th>Iron</th><th>Diamond</th><th>Nether</th><th>End</th><th>Champion</th></tr></thead>
+<tbody>
+<tr><td>Vanilla</td><td>966</td><td>114</td><td>99</td><td>33</td><td>101</td><td>19</td><td></td></tr>
+<tr><td>Cobblemon</td><td>546</td><td>50</td><td>122</td><td>18</td><td>19</td><td>2</td><td></td></tr>
+<tr><td>Macaw&#x27;s Furniture</td><td>266</td><td></td><td>326</td><td></td><td>62</td><td></td><td></td></tr>
+<tr><td>Epic Knights</td><td>92</td><td>56</td><td>244</td><td>29</td><td>43</td><td></td><td></td></tr>
+<tr><td>CobbleFurnies</td><td>366</td><td></td><td>1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Cobbreeding</td><td>326</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Macaw&#x27;s Windows</td><td>250</td><td>29</td><td>9</td><td></td><td>25</td><td>2</td><td></td></tr>
+<tr><td>Simple Hats</td><td>311</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Mega Showdown</td><td>141</td><td>3</td><td>35</td><td>85</td><td>41</td><td>1</td><td></td></tr>
+<tr><td>Handcrafted</td><td>249</td><td>15</td><td>15</td><td></td><td>6</td><td></td><td></td></tr>
+<tr><td>Supplementaries</td><td>163</td><td>13</td><td>63</td><td>1</td><td>11</td><td>1</td><td></td></tr>
+<tr><td>MCA Reborn</td><td>204</td><td>9</td><td>13</td><td>4</td><td>1</td><td>1</td><td></td></tr>
+<tr><td>Farmer&#x27;s Delight</td><td>158</td><td>1</td><td>24</td><td>1</td><td>1</td><td></td><td></td></tr>
+<tr><td>Botany Pots</td><td>104</td><td>8</td><td>56</td><td></td><td>12</td><td>3</td><td></td></tr>
+<tr><td>Another Furniture</td><td>158</td><td></td><td>1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Rustic Delight</td><td>153</td><td></td><td>1</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Storage Delight</td><td>88</td><td>55</td><td></td><td></td><td>11</td><td></td><td></td></tr>
+<tr><td>Weaver&#x27;s Paradise</td><td>128</td><td>6</td><td>7</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Macaw&#x27;s Lights</td><td>28</td><td>8</td><td>38</td><td></td><td>66</td><td></td><td></td></tr>
+<tr><td>Poke Clothing</td><td>110</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Small Ships</td><td>79</td><td>1</td><td>6</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Traveler&#x27;s Backpack</td><td>45</td><td>2</td><td>16</td><td>7</td><td>8</td><td>2</td><td></td></tr>
+<tr><td>Beautify</td><td>32</td><td>2</td><td>18</td><td></td><td>4</td><td></td><td></td></tr>
+<tr><td>Pokémon Badges</td><td>56</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Cobblemon Armors</td><td>25</td><td>4</td><td>6</td><td>4</td><td>14</td><td></td><td></td></tr>
+<tr><td>Immersive Armors</td><td>16</td><td></td><td>12</td><td></td><td>12</td><td></td><td></td></tr>
+<tr><td>Rick&#x27;s Portal Gun</td><td>28</td><td></td><td>2</td><td></td><td>1</td><td></td><td></td></tr>
+<tr><td>Immersive Aircraft</td><td>1</td><td>1</td><td>21</td><td></td><td>4</td><td></td><td></td></tr>
+<tr><td>PokeBike</td><td></td><td></td><td>19</td><td>2</td><td>2</td><td></td><td></td></tr>
+<tr><td>Automobility</td><td>12</td><td>2</td><td>3</td><td>1</td><td>2</td><td></td><td></td></tr>
+<tr><td>Leaf Beds</td><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Radical Cobblemon Trainers</td><td>1</td><td></td><td>1</td><td>1</td><td></td><td></td><td></td></tr>
+<tr><td>Cobble Valley Ages</td><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Twin Portals</td><td></td><td></td><td></td><td>1</td><td></td><td></td><td></td></tr>
+</tbody>
+</table></div>
+  </section>
+
+  <footer>Cobble Valley Ages v0.1 &middot; numbers generated from the mod's data</footer>
+</div>
+
+<script>
+(function () {
+  var R = {};
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot" + (label ? "" : " empty"); if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "\u2192"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-cv-ages-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "\u2713" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var fill = document.getElementById("progress-fill"), label = document.getElementById("progress-label");
+    if (fill) fill.style.width = pct + "%";
+    if (label) label.textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

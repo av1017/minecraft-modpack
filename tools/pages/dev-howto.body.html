@@ -1,0 +1,111 @@
+<!-- title: Dev: How-Tos · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: How-Tos</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; recipes for common changes</span>
+    <h1>Dev: How-Tos</h1>
+    <p>Step-by-step for the changes you'll actually make. Each ends the same way: rebuild, test, regenerate the wiki, commit. Paths are relative to <code>cobble-valley-ages/</code> unless they say <code>modpack/</code>.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#move">Move an Item's Age</a>
+    <a href="#policy">Must-Learn / Book / Free</a>
+    <a href="#number">Change a Number</a>
+    <a href="#age">Retune an Age</a>
+    <a href="#quest">Add a Quest</a>
+    <a href="#discipline">Add a Discipline</a>
+    <a href="#book">Change Books</a>
+    <a href="#crate">Change Crate Loot</a>
+    <a href="#mod">Add a Mod to the Pack</a>
+    <a href="#live">Fix Something Live</a>
+  </nav>
+
+  <section class="panel" id="move">
+    <h2>Move an Item to Another Age</h2>
+    <ol class="flow">
+      <li>Find out why it's where it is: <code>/cvages why mod:item</code> (needs op) or look it up in <code>tools/age_dump.csv</code>.</li>
+      <li>If a key material is wrong, fix it at the source: add it to <code>SEEDS</code> in <code>tools/gen_data.py</code> (everything made from it follows).</li>
+      <li>For one item or a mod, add a rule to <code>COBBLEMON_RULES</code> (or a new list written to its own <code>item_rules</code> file): <code>{"match": "mod:item", "age": "iron"}</code>.</li>
+      <li><code>python -I tools/gen_data.py</code>, <code>./gradlew build</code>, then check with <code>/cvages why</code> on the test server.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="policy">
+    <h2>Make Something Must-Learn, Book-Only or Free</h2>
+    <ul>
+      <li><strong>Must-learn:</strong> add the id to <code>MUST_LEARN</code> (a tag) or a rule with <code>"policy": "must_learn"</code>. Give it a visible quest in <code>QUESTS</code> (gen_quests.py) so players can learn it.</li>
+      <li><strong>Book-only:</strong> add a match to <code>DECOR_BOOK_RULES</code>, then rerun the dump and <code>gen_books.py</code> so a book teaches it.</li>
+      <li><strong>Free again:</strong> a later rule with <code>"policy": "auto"</code> (exceptions go after the rule they except).</li>
+      <li><strong>Never gated at all:</strong> <code>"policy": "exempt"</code>.</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="number">
+    <h2>Change a Number</h2>
+    <p>Edit <code>TUNING</code> in gen_data.py, regenerate, rebuild. To try a value on a live server first, put a datapack with <code>data/cvages/cvages/tuning.json</code> in the world's <code>datapacks/</code> and <code>/reload</code>. Every field is explained on <a href="dev-data.html#tuning">Data Files</a>. For "everyone learns faster/slower" use the gamerule: <code>/gamerule cvagesPracticeRate 150</code>.</p>
+  </section>
+
+  <section class="panel" id="age">
+    <h2>Retune an Age</h2>
+    <p>Change badges, group quests or dimensions in <code>AGES</code> (gen_data.py), and the matching text in <code>AGE_TEXT</code> (gen_quests.py). Adding a whole new age means a new row in both, a <code>cvages.age.&lt;id&gt;</code> name (automatic), crate tables (<code>CRATES</code>, <code>CRATE_EXTRAS</code>), and CSS for its chip in <code>modpack/tools/pages/build.py</code>.</p>
+  </section>
+
+  <section class="panel" id="quest">
+    <h2>Add a Visible Quest</h2>
+    <ol class="flow">
+      <li>Add a row to <code>QUESTS</code> in <code>tools/gen_quests.py</code>: <code>(age, item_key, icon_or_None, title, {ingredient: count}, previous_tier_or_None)</code>. Ingredients can be <code>#tags</code> or <code>a|b|c</code> alternatives.</li>
+      <li><code>python -I tools/gen_quests.py</code>. It writes the advancement, the reward function and the crate reward.</li>
+      <li>Hand-made advancements (any shape) go in <code>data/cvages/advancement/custom/</code>; the generator never touches them.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="discipline">
+    <h2>Add a Discipline</h2>
+    <ol class="flow">
+      <li>Add it to <code>DISCIPLINES</code> in gen_data.py: name, age, proxy items, gated blocks.</li>
+      <li>To gate recipes too, add rules with <code>"discipline": "&lt;id&gt;"</code>.</li>
+      <li>Add its quest to <code>QUESTS</code> with the key <code>cvages:discipline/&lt;id&gt;</code>.</li>
+      <li>Regenerate both, rebuild. The wiki's discipline table updates itself.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="book">
+    <h2>Change Books</h2>
+    <p>Books are generated: change <code>MAX_FAMILIES</code>, <code>MAX_ITEMS</code>, the variant words or <code>MOD_NAMES</code> in <code>tools/gen_books.py</code> and rerun it. To hand-make a book, put a JSON in <code>data/cvages/cvages/books/custom/</code> and remove those items from the generated ones (or they'll be in two books, which is harmless).</p>
+  </section>
+
+  <section class="panel" id="crate">
+    <h2>Change Crate Loot or Odds</h2>
+    <ul>
+      <li>Contents: <code>CRATES</code> and <code>CRATE_EXTRAS</code> in gen_data.py (books rolled, supplies, Pok&eacute;mon extras).</li>
+      <li>Hidden-quest chance: <code>HIDDEN_QUEST_CRATE_CHANCE</code>.</li>
+      <li>Structure and trainer odds: the table at the top of <code>content/LootInjection.java</code> (rebuild needed).</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="mod">
+    <h2>Add a Mod to the Pack</h2>
+    <ol class="flow">
+      <li>In <code>modpack/</code>: <code>tools/add-mod.ps1 -Pack cobblemon -Slug &lt;slug&gt;</code>. Check its keys (modpack CLAUDE.md).</li>
+      <li><code>python -I tools/test_server.py setup &lt;dir&gt;</code> picks it up; <code>run &lt;dir&gt;</code> dumps the new table.</li>
+      <li>Copy <code>&lt;dir&gt;/config/cvages/age_dump.csv</code> and <code>gear.json</code> into <code>tools/</code>.</li>
+      <li>Read the new mod's rows: anything in the wrong age gets a seed or rule; decor gets a BOOK rule; then <code>gen_data.py</code>, <code>gen_quests.py</code> (hidden gear quests), <code>gen_books.py</code>.</li>
+      <li>Rebuild, rerun the test server (zero errors), then <code>python -I tools/pages/make.py</code> in modpack/ and add the mod to the right "In Cobble Valley" box in <code>gen_cobblevalley.py</code> if it has a page.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="live">
+    <h2>Fix Something Live</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Problem</th><th>Command (op)</th></tr></thead>
+      <tbody>
+        <tr><td>Someone is stuck on a recipe</td><td><code>/cvages teach &lt;player&gt; mod:item lesson</code> or <code>/cvages master &lt;player&gt; mod:item</code></td></tr>
+        <tr><td>A badge didn't count</td><td><code>/cvages badges add &lt;leader&gt;</code></td></tr>
+        <tr><td>The group should be in an age</td><td><code>/cvages age unlock iron</code></td></tr>
+        <tr><td>A lesson is stuck</td><td><code>/cvages lesson cancel &lt;player&gt;</code></td></tr>
+        <tr><td>Turn the whole system off</td><td><code>/gamerule cvagesEnabled false</code></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

@@ -1,0 +1,52 @@
+<!-- title: Dev: Troubleshooting · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Troubleshooting</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; things that went wrong before</span>
+    <h1>Dev: Troubleshooting</h1>
+    <p>Problems we've actually hit building this mod, and what fixed them.</p>
+  </div>
+
+  <section class="panel" id="build">
+    <h2>Building</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>"Unable to delete directory" / file in use during a build</td><td>OneDrive locks build output. The build dir is set to <code>~/.gradle-builds/cvages</code> in build.gradle; keep it there. Generators delete files, not folders, for the same reason.</td></tr>
+        <tr><td>Gradle says the Java version is unsupported</td><td>Loom 1.18 needs JDK 25 to run Gradle: <code>export JAVA_HOME="/c/Users/thoma/.jdks/jdk-25.0.4.1+1"</code>. The code still targets Java 21.</td></tr>
+        <tr><td>A Python one-liner breaks on an apostrophe in Git Bash</td><td>Put the script in a file (heredocs mangle quotes and backslashes here).</td></tr>
+        <tr><td>PowerShell can't open long Loom cache paths</td><td>MAX_PATH; use Git Bash or copies in <code>~/.gradle/caches/modules-2</code>.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="game">
+    <h2>In Game</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Symptom</th><th>Cause and fix</th></tr></thead>
+      <tbody>
+        <tr><td>An item is in a weird age</td><td><code>/cvages why &lt;item&gt;</code>. Usual causes: a recycling recipe, a loop with a cheap way in, a seed missing. Fix with a seed or rule (<a href="dev-howto.html#move">How-To</a>).</td></tr>
+        <tr><td>Crafting result flickers or a "ghost" result appears</td><td>The client and server disagree about the result. All three result loads in CraftingMenuMixin must be patched; a mod with its own crafting grid falls to the SlotMixin backstop (free, full-quality crafts only).</td></tr>
+        <tr><td>Nothing seems to apply when testing</td><td>You're in creative or spectator (they bypass everything), or <code>cvagesEnabled</code> is false.</td></tr>
+        <tr><td>Armor shows no penalty</td><td>Armor stats come from item defaults; SkillEffects reads them through <code>forEachModifier</code>. A new armor mod with odd attributes may need a look.</td></tr>
+        <tr><td>Badges not counting</td><td>The leader's advancement id isn't in badge_sources.json (check the RCT jar's <code>data/rctmod/advancement/trainers/</code>). Quick fix: <code>/cvages badges add &lt;leader&gt;</code>.</td></tr>
+        <tr><td>A furniture item has no book</td><td>It has no recipe (books only cover craftable items), or the dump is older than the mod. Re-dump and rerun gen_books.py.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="data">
+    <h2>Data and Loading</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Symptom</th><th>Cause and fix</th></tr></thead>
+      <tbody>
+        <tr><td>"Found validation problem ... Unknown loot table cvages:prize_crates/extras/..."</td><td>Normal without Cobblemon (GameTests): the extras tables only load with it. On the real server it must not appear.</td></tr>
+        <tr><td>Advancement errors about unknown items on the server</td><td>A hidden quest names an item from a mod that's gone. Generated auto quests carry <code>fabric:load_conditions</code>; regenerate after removing a mod.</td></tr>
+        <tr><td>"Mixin apply failed" at startup</td><td>A Minecraft/mod update moved a method. Check the target and descriptor; the failing mixin is named in the log.</td></tr>
+        <tr><td>Data changes don't show up</td><td>Built-in JSON is in the jar: rebuild. Datapack overrides need <code>/reload</code>. The age table rebuilds on reload and syncs to players.</td></tr>
+        <tr><td>Test server won't start: "You need to agree to the EULA"</td><td><code>test_server.py setup &lt;dir&gt; --accept-eula</code>.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

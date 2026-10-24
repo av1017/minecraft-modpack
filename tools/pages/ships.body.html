@@ -1,0 +1,170 @@
+<!-- title: Ships -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Ships</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world &middot; Small Ships mod</span>
+    <h1>Ships</h1>
+    <p>Real sailing ships that catch the wind, carry cargo, and fire cannons. There are only <strong>seven ships</strong>, but each comes in 11 kinds of wood, so the creative menu shows 77 of them. The wood only changes the look. In survival you build them at a <strong>Dockyard</strong>.</p>
+    <div class="stats">
+      <div class="stat"><b>7 ships</b><span>&times; 11 woods = 77 items in creative</span></div>
+      <div class="stat"><b>Dockyard</b><span>the block that builds, upgrades, and repairs them</span></div>
+      <div class="stat"><b>10 cannons</b><span>on the biggest ship, the Galleon</span></div>
+      <div class="stat"><b><span class="kbd">C</span></b><span>raises and lowers the sail</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#find">Finding Them</a>
+    <a href="#fleet">The Seven Ships</a>
+    <a href="#build">Building One</a>
+    <a href="#sail">Sailing</a>
+    <a href="#upgrade">Upgrades &amp; Cannons</a>
+    <a href="#try">Things to Try</a>
+  </nav>
+
+  <!-- FIND -->
+  <section class="panel" id="find">
+    <h2>Finding Them in Creative</h2>
+    <p class="sub">We have so many mods that the creative menu has <strong>more than one page of tabs</strong>.</p>
+    <ol class="flow">
+      <li>Open the creative inventory and click the <strong>small arrows at the top right</strong>, next to the tabs, until you see the <strong>SmallShips Mod</strong> tab.</li>
+      <li>Or use the <strong>Search</strong> tab (the compass) and type a ship's name: <code>cog</code>, <code>brigg</code>, <code>galley</code>, <code>drakkar</code>, <code>galleon</code>, <code>caravel</code>, or <code>dhow</code>.</li>
+      <li>Or type <code>@smallships</code> in the REI item list on the right of any inventory to see everything the mod adds.</li>
+    </ol>
+    <p class="note">Old videos show a Rowing Boat and a War Galley. Those aren't in this version; the seven below are the whole fleet.</p>
+  </section>
+
+  <!-- FLEET -->
+  <section class="panel" id="fleet">
+    <h2>The Seven Ships</h2>
+    <p class="sub">From the ship descriptions inside the mod. A <strong>tail wind</strong> blows from behind you, a <strong>side wind</strong> from the side, and a <strong>head wind</strong> into your face. The white lines on the water and the banner on the mast show which way it's blowing.</p>
+    <div class="lineup">
+      <div class="card"><span class="cname">Galley</span><span class="ctag">1 mast + oars &middot; 2 cannons &middot; warm seas</span><p>Row at nearly full speed in any wind with the sail down; a side wind gives it a strong boost under sail. <strong>Can ram other ships</strong> without hurting its own hull.</p></div>
+      <div class="card"><span class="cname">Drakkar</span><span class="ctag">1 mast + oars &middot; no cannons &middot; cold seas</span><p>A Viking longship. Rows at about &frac34; speed in any wind. Hang up to <strong>10 shields</strong> along the sides to take less damage, and it <strong>breaks through ice</strong>.</p></div>
+      <div class="card"><span class="cname">Cog</span><span class="ctag">1 mast &middot; 4 cannons &middot; cold seas</span><p>A simple sturdy sailing ship. Fast with a tail wind, a little help from a side wind.</p></div>
+      <div class="card"><span class="cname">Dhow</span><span class="ctag">2 masts &middot; 4 cannons &middot; warm seas</span><p>Likes a side wind, and <strong>keeps full speed with a full cargo hold</strong>, so it's the trading ship.</p></div>
+      <div class="card"><span class="cname">Caravel</span><span class="ctag">2 masts &middot; 4 cannons &middot; any sea</span><p>The only ship that can <strong>sail into the wind</strong>: head and side winds both speed it up. Same speed in every biome.</p></div>
+      <div class="card"><span class="cname">Brigg</span><span class="ctag">2 masts &middot; 6 cannons &middot; cold seas</span><p>A bigger warship. Strong tail-wind boost, moderate side-wind boost.</p></div>
+      <div class="card"><span class="cname">Galleon</span><span class="ctag">3 masts &middot; 10 cannons &middot; any sea</span><p>The flagship. Keeps full speed even with all 10 cannons mounted. Strong tail-wind boost; same speed in every biome.</p></div>
+    </div>
+    <h3>Quick picks</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>If you want to&hellip;</th><th>Take a</th></tr></thead>
+      <tbody>
+        <tr><td>Explore rivers and coasts whatever the wind does</td><td><strong>Galley</strong> or <strong>Drakkar</strong> (you can row)</td></tr>
+        <tr><td>Sail snowy, icy oceans</td><td><strong>Drakkar</strong> (breaks ice)</td></tr>
+        <tr><td>Haul lots of cargo at full speed</td><td><strong>Dhow</strong></td></tr>
+        <tr><td>Go where you want without waiting for wind</td><td><strong>Caravel</strong></td></tr>
+        <tr><td>A big ship with lots of cannons</td><td><strong>Galleon</strong></td></tr>
+      </tbody>
+    </table></div>
+    <h3>Woods</h3>
+    <div class="chips"><span class="chip">Oak</span><span class="chip">Spruce</span><span class="chip">Birch</span><span class="chip">Jungle</span><span class="chip">Acacia</span><span class="chip">Dark Oak</span><span class="chip">Mangrove</span><span class="chip">Cherry</span><span class="chip">Bamboo</span><span class="chip">Crimson</span><span class="chip">Warped</span></div>
+    <ul class="tasks">
+      <li data-id="fleet-row"><span class="checkbox"></span><span class="task-text">Row a Galley or Drakkar with the sail down</span></li>
+      <li data-id="fleet-galleon"><span class="checkbox"></span><span class="task-text">Sail a Galleon</span></li>
+    </ul>
+  </section>
+
+  <!-- BUILD -->
+  <section class="panel" id="build">
+    <h2>Building One (Survival)</h2>
+    <p class="sub">Ships aren't crafted in a crafting table. You craft a <strong>Dockyard</strong>, place it by the water, and it builds the ship for you.</p>
+    <div class="recipes" data-recipes="dockyard"></div>
+    <ol class="flow">
+      <li><strong>Place the Dockyard next to open water</strong> that's deep enough. If it isn't, the Dockyard tells you how deep the ship needs.</li>
+      <li><strong>Open it, go to the Build tab,</strong> and pick the ship and the wood.</li>
+      <li><strong>Bring the materials</strong> from the table below. The Dockyard lists anything you're missing.</li>
+      <li><strong>Click Build ship.</strong> It works for a few minutes, then the ship appears on the water.</li>
+    </ol>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Ship</th><th>Planks</th><th>White wool</th><th>String</th><th>Iron</th><th>Build time</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dhow</strong></td><td>96</td><td>48</td><td>48</td><td>none</td><td>~2 min</td></tr>
+        <tr><td><strong>Galley</strong></td><td>96</td><td>24</td><td>12</td><td>18 nuggets</td><td>~2 min</td></tr>
+        <tr><td><strong>Drakkar</strong></td><td>96</td><td>24</td><td>12</td><td>36 nuggets</td><td>~2 min</td></tr>
+        <tr><td><strong>Caravel</strong></td><td>120</td><td>48</td><td>24</td><td>30 nuggets</td><td>~2&frac14; min</td></tr>
+        <tr><td><strong>Cog</strong></td><td>192</td><td>24</td><td>12</td><td>48 nuggets</td><td>~3 min</td></tr>
+        <tr><td><strong>Brigg</strong></td><td>240</td><td>48</td><td>24</td><td>8 ingots</td><td>~3&frac12; min</td></tr>
+        <tr><td><strong>Galleon</strong></td><td>336</td><td>72</td><td>36</td><td>12 ingots</td><td>~4&frac12; min</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">96 planks is one and a half stacks: 24 logs. Wool Tweaks turns 1 wool into 4 string if you're short on string.</p>
+    <ul class="tasks">
+      <li data-id="build-dockyard"><span class="checkbox"></span><span class="task-text">Craft and place a Dockyard</span></li>
+      <li data-id="build-ship"><span class="checkbox"></span><span class="task-text">Build your first ship in survival</span></li>
+    </ul>
+  </section>
+
+  <!-- SAIL -->
+  <section class="panel" id="sail">
+    <h2>Sailing</h2>
+    <p class="sub">The game shows these hints on screen while you're aboard. The camera switches to third person and can circle the whole ship.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Do this</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Right-click</strong> the ship</td><td>Climb aboard. Ships seat a crew, so you can sail together.</td></tr>
+        <tr><td><span class="kbd">C</span></td><td>Set or furl the sail (moved here from R, which sends out your Pok&eacute;mon)</td></tr>
+        <tr><td><span class="kbd">W</span> / <span class="kbd">S</span></td><td>More or less sail. With the sail furled on a Galley or Drakkar, <span class="kbd">W</span> rows.</td></tr>
+        <tr><td><span class="kbd">A</span> / <span class="kbd">D</span></td><td>Steer</td></tr>
+        <tr><td><span class="kbd">E</span></td><td>Ship inventory (cargo)</td></tr>
+        <tr><td>Hold <strong>right-click</strong></td><td>Aim the cannons; <span class="kbd">Space</span> fires</td></tr>
+        <tr><td>Mouse wheel</td><td>Zoom the camera in or out (and switch ammo while aiming)</td></tr>
+        <tr><td><span class="kbd">Left Shift</span></td><td>Get off</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>Speed depends on the wind.</strong> Turn so the wind fills your sail the way your ship likes it (see the cards above), and pick a ship that suits the water: cold-sea ships are faster up north, warm-sea ships in the tropics.</div>
+    <ul class="tasks">
+      <li data-id="sail-wind"><span class="checkbox"></span><span class="task-text">Catch a tail wind and feel the speed boost</span></li>
+      <li data-id="sail-cargo"><span class="checkbox"></span><span class="task-text">Load the cargo hold with <span class="kbd">E</span></span></li>
+    </ul>
+  </section>
+
+  <!-- UPGRADE -->
+  <section class="panel" id="upgrade">
+    <h2>Upgrades, Cannons &amp; Style</h2>
+    <p class="sub">Sail within 16 blocks of a Dockyard and open its <strong>Modify</strong> tab. From there you can add upgrades, mount cannons, repair the hull and sails, dye the sails, hang banners, name your ship, and hang shields on a Drakkar.</p>
+    <h3>Upgrades</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Upgrade</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Iron Scantlings</strong></td><td>A tougher hull: more durability</td></tr>
+        <tr><td><strong>Copper Plating</strong></td><td>Turns more sharply</td></tr>
+        <tr><td><strong>Cotton Sails</strong></td><td>Faster</td></tr>
+      </tbody>
+    </table></div>
+    <div class="recipes" data-recipes="upgrades"></div>
+    <h3>Cannons &amp; ammo</h3>
+    <p>Craft a <strong>Ship Cannon</strong> and mount it at the Dockyard (one per cannon slot). Carry ammo aboard.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Ammo</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cannon Ball</strong></td><td>Standard shot. 2 per craft.</td></tr>
+        <tr><td><strong>Grape Shot</strong></td><td>Short range, devastating against crews</td></tr>
+        <tr><td><strong>Chained Shot</strong></td><td>25% less range and damage, but shreds sails</td></tr>
+        <tr><td><strong>Fine-Grain Powder</strong></td><td>Used up on reload for +50% range</td></tr>
+      </tbody>
+    </table></div>
+    <div class="recipes" data-recipes="cannons"></div>
+    <ul class="tasks">
+      <li data-id="up-cannon"><span class="checkbox"></span><span class="task-text">Mount a cannon and fire it</span></li>
+      <li data-id="up-style"><span class="checkbox"></span><span class="task-text">Dye your sails and name your ship</span></li>
+    </ul>
+  </section>
+
+  <!-- TRY -->
+  <section class="panel" id="try">
+    <h2>Things to Try</h2>
+    <ul class="tasks">
+      <li data-id="try-harbor"><span class="checkbox"></span><span class="task-text">Build a harbor around your Dockyard</span></li>
+      <li data-id="try-voyage"><span class="checkbox"></span><span class="task-text">Sail to a new continent and plant a waypoint (<span class="kbd">B</span>)</span></li>
+      <li data-id="try-race"><span class="checkbox"></span><span class="task-text">Race each other: one Galley, one Caravel</span></li>
+    </ul>
+    <p class="note">Planes, airships, cars, and bikes: see <a href="aircraft.html">Planes &amp; Airships</a> and <a href="wheels.html">Cars &amp; Bikes</a>.</p>
+  </section>
+
+  <footer>Ship stats, materials, and controls from the Small Ships 2.0.2 files &middot; Oct 2026</footer>

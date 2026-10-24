@@ -1,0 +1,182 @@
+<!-- title: Cars & Bikes -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Cars &amp; Bikes</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world &middot; PokeBike, Automobility + Momentum</span>
+    <h1>Cars &amp; Bikes</h1>
+    <p>Pok&eacute;mon-style bikes with a bell and a headlight, and cars you design yourself from a body, an engine, and wheels: karts in every color, tractors, rickshaws, a shopping cart, even a pineapple. Plus boost pads, ramps, and launch gel for building a race track.</p>
+    <div class="stats">
+      <div class="stat"><b>22 bikes</b><span>16 colors, 5 metals, and a rainbow</span></div>
+      <div class="stat"><b>33 car bodies</b><span>plus 9 kinds of wheels and 5 engines</span></div>
+      <div class="stat"><b><span class="kbd">C</span> / <span class="kbd">X</span></b><span>bike bell / headlight</span></div>
+      <div class="stat"><b><span class="kbd">Space</span></b><span>drift in a car</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#bikes">Bikes</a>
+    <a href="#cars">How Cars Work</a>
+    <a href="#parts">Car Parts</a>
+    <a href="#drive">Driving</a>
+    <a href="#extras">Attachments</a>
+    <a href="#track">Track Blocks</a>
+  </nav>
+
+  <!-- BIKES -->
+  <section class="panel" id="bikes">
+    <h2>Bikes</h2>
+    <p class="sub">In creative: the <strong>PokeBike</strong> tab. In survival, craft one at a crafting table.</p>
+    <div class="recipes" data-recipes="bikes"></div>
+    <h3>Riding</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Do this</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Right-click</strong> the ground with a bike</td><td>Places it and hops you on</td></tr>
+        <tr><td><span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span></td><td>Ride. The bike leans into turns.</td></tr>
+        <tr><td><span class="kbd">C</span></td><td>Ring the bell</td></tr>
+        <tr><td><span class="kbd">X</span></td><td>Headlight on/off: it really lights up the ground at night</td></tr>
+        <tr><td><span class="kbd">Left Shift</span></td><td>Get off</td></tr>
+        <tr><td><strong>Sneak + right-click</strong> the bike</td><td>Pick it back up</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Wear and repair</h3>
+    <ul>
+      <li>A bike has 100 durability. It loses 1 point every 100 blocks, and 10 for a fall of more than 4 blocks.</li>
+      <li>Below 25 it rides 15% slower. At 0 it's broken until repaired.</li>
+      <li><strong>Lava destroys a bike instantly.</strong></li>
+      <li>To repair, hold a <strong>Bike Wrench</strong> and right-click the bike. The wrench wears down by as much as it repairs.</li>
+    </ul>
+    <p class="note">Either of you can ride or pick up any bike. The bike's look (Style A or B) is in the PokeBike settings under <strong>Mods</strong> on the pause menu.</p>
+    <ul class="tasks">
+      <li data-id="bike-ride"><span class="checkbox"></span><span class="task-text">Craft a bike and ring the bell</span></li>
+      <li data-id="bike-night"><span class="checkbox"></span><span class="task-text">Ride at night with the headlight on</span></li>
+      <li data-id="bike-rainbow"><span class="checkbox"></span><span class="task-text">Earn the Rainbow Bike (it takes a Nether Star)</span></li>
+    </ul>
+  </section>
+
+  <!-- CARS -->
+  <section class="panel" id="cars">
+    <h2>How Cars Work</h2>
+    <p class="sub">Every car is three things: a <strong>frame</strong> (the body), an <strong>engine</strong>, and a set of <strong>wheels</strong>. In creative, the <strong>Automobility: Prefabs</strong> tab has ready-made cars; just right-click one onto the ground.</p>
+    <div class="recipes" data-recipes="stations"></div>
+    <ol class="flow">
+      <li><strong>Craft an Auto Mechanic Table</strong> and open it. It has tabs for Frames, Engines, Wheels, and Attachments. Click a part to make it; it shows the ingredients you need.</li>
+      <li><strong>Place an Automobile Assembler</strong> and right-click it with a <strong>frame</strong>, then an <strong>engine</strong>, then <strong>wheels</strong>. Keep adding wheels until every wheel spot is filled.</li>
+      <li><strong>The finished car appears on the assembler.</strong> Right-click it to get in.</li>
+      <li><strong>Changing parts:</strong> a <strong>Crowbar</strong> takes parts and attachments back off.</li>
+    </ol>
+    <div class="callout"><strong>Compare before you build:</strong> hover a car or part and hold <span class="kbd">Shift</span> to see its stats: acceleration, comfortable speed, handling, and grip. Heavier frames are slower to get going; bigger wheels and better engines are faster.</div>
+    <ul class="tasks">
+      <li data-id="car-build"><span class="checkbox"></span><span class="task-text">Build a car on the Automobile Assembler</span></li>
+    </ul>
+  </section>
+
+  <!-- PARTS -->
+  <section class="panel" id="parts">
+    <h2>Car Parts</h2>
+    <p class="sub">All made at the Auto Mechanic Table. It shows exact amounts; this is what each one takes.</p>
+    <h3>Frames (the body)</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Frames</th><th>Main ingredients</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong>, in all 16 colors</td><td>Iron, a copper block, leather, calcite, and the dye for the color</td></tr>
+        <tr><td><strong>Motorcars</strong>: Wooden, Copper, Steel, Golden, Bejeweled</td><td>Leather and redstone, plus planks / copper / iron blocks / gold blocks / a diamond block</td></tr>
+        <tr><td><strong>Rickshaws</strong>: Amethyst, Quartz, Prismarine, Echo</td><td>The matching block and shard (the Echo one needs an echo shard from an Ancient City)</td></tr>
+        <tr><td><strong>Tractors</strong>: Red, Yellow, Green, Blue</td><td>Iron, iron bars, a copper block, and dye</td></tr>
+        <tr><td><strong>Shopping Cart</strong></td><td>Iron, iron bars, copper</td></tr>
+        <tr><td><strong>Pineapple</strong></td><td>A carved pumpkin, flowers, blaze powder</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Engines</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Engine</th><th>Main ingredients</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Stone</strong></td><td>Furnace, coal, logs, stone</td></tr>
+        <tr><td><strong>Copper</strong></td><td>Furnace, copper, coal</td></tr>
+        <tr><td><strong>Iron</strong></td><td>Furnace, iron block, redstone block</td></tr>
+        <tr><td><strong>Gold</strong></td><td>Furnace, gold block, redstone block</td></tr>
+        <tr><td><strong>Diamond</strong></td><td>Furnace, diamonds, obsidian, redstone block</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Wheels</h3>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Wheels</th><th>Ingredients</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong></td><td>Black wool, iron nugget</td></tr>
+        <tr><td><strong>Carriage</strong></td><td>Planks, stick</td></tr>
+        <tr><td><strong>Plated</strong></td><td>Logs, copper</td></tr>
+        <tr><td><strong>Street</strong></td><td>Cobbled deepslate, iron</td></tr>
+        <tr><td><strong>Tractor</strong></td><td>Black wool, gold nugget</td></tr>
+        <tr><td><strong>Off-Road</strong></td><td>Black wool, iron block (makes 2)</td></tr>
+        <tr><td><strong>Steel</strong></td><td>Gray wool, iron (makes 2)</td></tr>
+        <tr><td><strong>Gilded</strong></td><td>Nether bricks, gold</td></tr>
+        <tr><td><strong>Bejeweled</strong></td><td>Obsidian, diamond</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">A few parts (the Creative engine, Convertible wheels, and the c:arr: and DaBaby frames) only exist in creative.</p>
+  </section>
+
+  <!-- DRIVE -->
+  <section class="panel" id="drive">
+    <h2>Driving</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Key</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><span class="kbd">W</span></td><td>Accelerate</td></tr>
+        <tr><td><span class="kbd">S</span></td><td>Brake; keep holding to reverse</td></tr>
+        <tr><td><span class="kbd">A</span> / <span class="kbd">D</span></td><td>Steer</td></tr>
+        <tr><td>Hold <span class="kbd">Space</span> while turning</td><td>Drift. A good drift gives you a burst of speed when you let go.</td></tr>
+        <tr><td><span class="kbd">Left Ctrl</span></td><td>Honk the horn (it's the sprint key, so letting go of sprint stops the honking)</td></tr>
+        <tr><td><span class="kbd">Left Shift</span></td><td>Get out</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout good"><strong>Momentum</strong> makes driving feel more real: smooth acceleration, coasting when you let off, softer brakes, and a speedometer at the bottom of the screen. Steering gets heavier at high speed, so brake or drift for tight corners.</div>
+    <ul class="tasks">
+      <li data-id="drive-drift"><span class="checkbox"></span><span class="task-text">Pull off a drift boost</span></li>
+    </ul>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="panel" id="extras">
+    <h2>Attachments</h2>
+    <p class="sub">Made at the Auto Mechanic Table. <strong>Right-click a car with one</strong> to put it on; the Crowbar takes it off. A car has one front and one rear slot.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Slot</th><th>Attachments</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Rear</strong></td><td><strong>Passenger Seat</strong> (bring each other along), Chest, Ender Chest, Saddled Barrel, Crafting Table, Loom, Cartography Table, Smithing Table, Grindstone, Stonecutter, Auto Mechanic Table, Banner Post, <strong>Backhoe</strong> (a hoe on wheels), <strong>Paver</strong> (a shovel on wheels)</td></tr>
+        <tr><td><strong>Front</strong></td><td><strong>Grass Cutter</strong>, <strong>Crop Harvester</strong>, Mob Controller, <strong>Autopilot</strong> (follows Autopilot Signs)</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="extra-seat"><span class="checkbox"></span><span class="task-text">Add a Passenger Seat and go for a drive together</span></li>
+      <li data-id="extra-harvest"><span class="checkbox"></span><span class="task-text">Harvest a field with a Crop Harvester tractor</span></li>
+    </ul>
+  </section>
+
+  <!-- TRACK -->
+  <section class="panel" id="track">
+    <h2>Track Blocks</h2>
+    <p class="sub">Build roads and race tracks. These are made at a normal crafting table.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Block</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dash Panel</strong> (also sloped and steep)</td><td>A boost pad: drive over it for a burst of speed</td></tr>
+        <tr><td><strong>Slope</strong>, <strong>Steep Slope</strong></td><td>Ramps for driving up a level</td></tr>
+        <tr><td><strong>Launch Gel</strong></td><td>Bounces your car into the air</td></tr>
+        <tr><td><strong>Off-road blocks</strong>: grass, dirt, sand, snow</td><td>Bumpy track surfaces</td></tr>
+        <tr><td><strong>Automobile Pressure Plate</strong></td><td>Sends a redstone signal when a car drives over it</td></tr>
+        <tr><td><strong>Autopilot Sign</strong></td><td>Steers cars that have the Autopilot attachment</td></tr>
+      </tbody>
+    </table></div>
+    <div class="recipes" data-recipes="track"></div>
+    <ul class="tasks">
+      <li data-id="track-build"><span class="checkbox"></span><span class="task-text">Build a race track with boost pads and a jump</span></li>
+    </ul>
+    <p class="note">More ways to travel: <a href="ships.html">Ships</a>, <a href="aircraft.html">Planes &amp; Airships</a>, and the <a href="twinportals.html">Portal Device</a>.</p>
+  </section>
+
+  <footer>Bikes, parts, recipes, and controls from the PokeBike 3.0, Automobility 0.5.0.h, and Momentum 0.1.5 files &middot; Oct 2026</footer>

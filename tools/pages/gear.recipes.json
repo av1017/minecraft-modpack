@@ -1,0 +1,7 @@
+{
+  "templates": [
+    { "name": "Netherite Upgrade (craft)", "note": "Our mod's recipe: no template needed.", "grid": ["Diamond","Netherite Ingot","Diamond","Diamond","Netherrack","Diamond","Diamond","Diamond","Diamond"], "out": "Netherite Upgrade" },
+    { "name": "Copy a template (vanilla)", "note": "Makes 2: the one you put in, plus a copy. The block depends on the template.", "grid": ["Diamond","Template","Diamond","Diamond","Its block","Diamond","Diamond","Diamond","Diamond"], "out": "Template x2" },
+    { "name": "Sentry trim (craft)", "note": "Every trim follows this pattern; see the table.", "grid": ["Diamond","Iron Ingot","Diamond","Diamond","Cobble-stone","Diamond","Diamond","Diamond","Diamond"], "out": "Sentry Trim" }
+  ]
+}

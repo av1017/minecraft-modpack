@@ -1,0 +1,153 @@
+<!-- title: Playing From Anywhere -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Playing From Anywhere</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world &middot; our server</span>
+    <h1>Playing From Anywhere</h1>
+    <p>Our Cobblemon world runs on a home server that stays on all the time, so you can play whenever you like, even when Avery isn't online. Friends connect through <strong>Tailscale</strong>, a free app that links your computer privately to the server. The whole modpack is <strong>one file</strong> that you open in the free <strong>Modrinth App</strong>. It works on Windows and Mac, with no router settings and no command lines.</p>
+    <div class="stats">
+      <div class="stat"><b>Always on</b><span>play any time, host or not</span></div>
+      <div class="stat"><b>Tailscale</b><span>a private link to the server</span></div>
+      <div class="stat"><b>1 file</b><span>the whole modpack, for the Modrinth App</span></div>
+      <div class="stat"><b>16 GB</b><span>of RAM recommended on your computer</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <div class="callout good"><strong>New to all this?</strong> The short version, with just 4 steps and nothing technical, is <a href="join.html">Join in 4 Steps</a>.</div>
+
+  <div class="callout"><strong>Right now the server runs a test copy of our world.</strong> Come try it out, but anything you build there may be reset when the real world moves over (about mid-November). Until then, Avery still hosts the real world from their laptop: see <a href="#laptop">Laptop Hosting</a>.</div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#need">What You Need</a>
+    <a href="#tailscale">1. Tailscale</a>
+    <a href="#pack">2. The Modpack</a>
+    <a href="#join">3. Joining</a>
+    <a href="#updates">Updates</a>
+    <a href="#fixes">If Something's Wrong</a>
+    <a href="#home">Avery &amp; Erin</a>
+    <a href="#laptop">Laptop Hosting</a>
+  </nav>
+
+  <!-- NEED -->
+  <section class="panel" id="need">
+    <h2>What You Need</h2>
+    <ul>
+      <li><strong>Minecraft: Java Edition</strong> on a Microsoft account. The version on Xbox, Switch, PlayStation, and phones (Bedrock) can't join. PC Game Pass includes Java Edition.</li>
+      <li><strong>A Windows 10/11 PC or a Mac.</strong> 16 GB of RAM is recommended; this is a big modpack.</li>
+      <li>About <strong>2 GB</strong> of free disk space.</li>
+    </ul>
+    <p><strong>Send Avery two things</strong> before your first visit:</p>
+    <ol class="flow">
+      <li>Your <strong>Minecraft username</strong>, spelled exactly. It goes on the server's guest list (the whitelist). Nobody else can get in.</li>
+      <li>The <strong>email you'll use for Tailscale</strong> (step 1 below), so Avery can invite you.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="need-sent"><span class="checkbox"></span><span class="task-text">Sent Avery my Minecraft username and Tailscale email</span></li>
+    </ul>
+  </section>
+
+  <!-- TAILSCALE -->
+  <section class="panel" id="tailscale">
+    <h2>1. Tailscale (once)</h2>
+    <p class="sub">Tailscale makes the server reachable from your computer, and only from the computers of people Avery invites. The invite lets you reach the Minecraft server and nothing else on Avery's network.</p>
+    <ol class="flow">
+      <li><strong>Install Tailscale</strong> from <a href="https://tailscale.com/download">tailscale.com/download</a>. On a Mac, the Mac App Store version is fine. When your computer asks to allow a VPN configuration, click <strong>Allow</strong>.</li>
+      <li><strong>Sign in</strong> with a Google, Microsoft, Apple, or GitHub account. That creates your free Tailscale account. Use the email you sent Avery.</li>
+      <li><strong>Open the invite link</strong> Avery sends you and click <strong>Accept</strong>.</li>
+      <li>Check it worked: in the Tailscale menu (system tray on Windows, menu bar on a Mac), a machine called <strong>homeserver</strong> appears.</li>
+    </ol>
+    <div class="callout">Tailscale has to be <strong>connected</strong> whenever you play. If you switch it off, the server disappears.</div>
+    <ul class="tasks">
+      <li data-id="ts-installed"><span class="checkbox"></span><span class="task-text">Tailscale installed, signed in, invite accepted</span></li>
+      <li data-id="ts-homeserver"><span class="checkbox"></span><span class="task-text">I can see "homeserver" in Tailscale</span></li>
+    </ul>
+  </section>
+
+  <!-- PACK -->
+  <section class="panel" id="pack">
+    <h2>2. The Modpack (once)</h2>
+    <p class="sub">Everyone needs exactly the same mods to join. The pack file installs all of them (84 mods, plus our texture packs and key settings) straight from the mod authors' official downloads.</p>
+    <ol class="flow">
+      <li><strong>Install the Modrinth App</strong> from <a href="https://modrinth.com/app">modrinth.com/app</a> (free, Windows and Mac). It's a Minecraft launcher made for mods.</li>
+      <li><strong>Sign in</strong> in the Modrinth App with the Microsoft account that owns Minecraft.</li>
+      <li><strong>Download our pack:</strong> <a href="https://github.com/av1017/minecraft-modpack/releases/download/friends-pack/Reajustiene-Cobblemon.mrpack">Reajustiene-Cobblemon.mrpack</a>. Don't unzip it.</li>
+      <li>In the Modrinth App, click <strong>+</strong> (Create an instance) on the left, pick <strong>From file</strong>, and choose the file you downloaded. Dragging the file onto the app window works too.</li>
+      <li>Wait while it downloads everything. A new instance called <strong>Reajustiene (Cobblemon)</strong> appears.</li>
+      <li><strong>Give it more memory:</strong> open the instance, click <strong>Settings</strong> (the gear), then <strong>Java and memory</strong>. Turn on custom memory and set it to <strong>6144 MB</strong> (8192 MB if your computer has 32 GB of RAM). The default 2 GB is far too little for this pack and it will crash. With only 8&ndash;12 GB of RAM, use 4096 MB and turn off <strong>Faithful 32x</strong> in <strong>Options &rarr; Resource Packs</strong>; it will still be tight.</li>
+      <li>Click <strong>Play</strong>. The first start takes a few minutes. Wait for the main menu.</li>
+    </ol>
+    <div class="callout">Don't add, remove, or update mods in the instance. Joining only works when your mods match the server's exactly. To update, use the steps under <a href="#updates">Updates</a>.</div>
+    <ul class="tasks">
+      <li data-id="pack-imported"><span class="checkbox"></span><span class="task-text">Pack imported into the Modrinth App</span></li>
+      <li data-id="pack-memory"><span class="checkbox"></span><span class="task-text">Memory set to 6144 MB or more</span></li>
+      <li data-id="pack-menu"><span class="checkbox"></span><span class="task-text">The game reached the main menu</span></li>
+    </ul>
+  </section>
+
+  <!-- JOIN -->
+  <section class="panel" id="join">
+    <h2>3. Joining</h2>
+    <ol class="flow">
+      <li>Make sure <strong>Tailscale is connected</strong>.</li>
+      <li>Start <strong>Reajustiene (Cobblemon)</strong> in the Modrinth App.</li>
+      <li>Click <strong>Multiplayer</strong>. <strong>Reajustiene</strong> is already in the list. Pick it and click <strong>Join Server</strong>.</li>
+    </ol>
+    <p class="note">If <strong>Reajustiene</strong> shows "Can't connect", try <strong>Reajustiene (backup address)</strong> just below it. It's the same server, reached by number instead of name. If you ever need to type it: <code>homeserver.tail5e6af0.ts.net</code> or <code>100.66.188.58</code>.</p>
+    <p>New here? Start with <a href="cobblemon.html">Pok&eacute;mon Trail</a> (starters, catching, healing) and <a href="controls.html">Every Key</a>. The keys in this pack differ from plain Minecraft in a few places: <span class="kbd">C</span> and <span class="kbd">X</span> work anything you ride, and zoom is <span class="kbd">`</span>. On a Mac, the guide's <span class="kbd">Alt</span> is your <span class="kbd">Option</span> key.</p>
+    <ul class="tasks">
+      <li data-id="join-first"><span class="checkbox"></span><span class="task-text">Joined the server for the first time</span></li>
+    </ul>
+  </section>
+
+  <!-- UPDATES -->
+  <section class="panel" id="updates">
+    <h2>Updates</h2>
+    <p class="sub">When we change the mods, Avery will tell you. If you try to join with the old pack, the server turns you away with a message about mismatched or missing mods.</p>
+    <ol class="flow">
+      <li>Download the pack again from the <a href="https://github.com/av1017/minecraft-modpack/releases/download/friends-pack/Reajustiene-Cobblemon.mrpack">same link</a>. It always has the newest version.</li>
+      <li>In the Modrinth App, create a new instance <strong>From file</strong> with it, just like the first time, and set the memory again.</li>
+      <li>Play the new instance. Once it works, you can delete the old one: your character, items, and Pok&eacute;mon are saved on the server, not on your computer.</li>
+    </ol>
+    <p class="note"><strong>Keep your map (optional):</strong> before deleting the old instance, open its folder (instance menu &rarr; <strong>Open folder</strong>) and copy the <code>xaero</code> folder into the new instance's folder. Otherwise the minimap starts blank again.</p>
+  </section>
+
+  <!-- FIXES -->
+  <section class="panel" id="fixes">
+    <h2>If Something's Wrong</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>You see</th><th>What to do</th></tr></thead>
+      <tbody>
+        <tr><td><strong>"You are not white-listed on this server"</strong></td><td>Avery hasn't added you yet, or the name doesn't match. Send Avery your exact Minecraft username.</td></tr>
+        <tr><td><strong>"Can't connect to server", "Connection timed out", or "Unknown host"</strong></td><td>Check that Tailscale is connected and shows <strong>homeserver</strong>. Try the backup address. If both fail, the server may be down for maintenance: ask Avery.</td></tr>
+        <tr><td><strong>Mismatched, missing, or rejected mods</strong></td><td>Your pack is out of date (or a mod was added or removed by hand). Do the <a href="#updates">update steps</a>.</td></tr>
+        <tr><td><strong>The game crashes while loading, or freezes and closes</strong></td><td>Usually not enough memory. Set it to 6144 MB or more (step 2.6), or 4096 MB without Faithful 32x on a computer with 8&ndash;12 GB of RAM. Close Chrome and other big programs.</td></tr>
+        <tr><td><strong>Low frame rate</strong></td><td>Shaders are off by default; leave them off. In <strong>Options &rarr; Video Settings</strong>, lower Render Distance to 8. The far-away landscape (Distant Horizons) is already on a light setting.</td></tr>
+        <tr><td><strong>A key does nothing or the wrong thing</strong></td><td>Check <a href="controls.html">Every Key</a>. If you changed a key yourself, <strong>Options &rarr; Controls &rarr; Key Binds</strong> has a reset button.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- HOME -->
+  <section class="panel" id="home">
+    <h2>Avery &amp; Erin</h2>
+    <p>You keep syncing with <code>Sync Cobblemon.bat</code> as before; the server uses the same mod list. At home, add the server once with <strong>Multiplayer &rarr; Add Server</strong> and the address <code>192.168.1.4</code>. Away from home, Avery can use the Tailscale address above.</p>
+    <p class="note">Friends who use Claude Code on Windows can also set up with the sync script instead of the Modrinth App (see the <a href="https://github.com/av1017/minecraft-modpack">GitHub README</a>). Either way works on the server.</p>
+  </section>
+
+  <!-- LAPTOP -->
+  <section class="panel" id="laptop">
+    <h2>Laptop Hosting (until the real world moves)</h2>
+    <p class="sub">Until the server takes over, the real world opens only while Avery is playing it. The <strong>e4mc</strong> mod gives it a public address for the session.</p>
+    <ol class="flow">
+      <li><strong>Avery:</strong> open <strong>Reajustiene</strong>, press <span class="kbd">Esc</span> &rarr; <strong>Open to LAN</strong> &rarr; <strong>Start LAN World</strong>. Click the address in the chat line "Local game hosted on domain [&hellip;]" to copy it, and send it to your friend privately.</li>
+      <li><strong>Friend:</strong> start the pack, then go to <strong>Multiplayer</strong> &rarr; <strong>Direct Connection</strong>, paste the address, and click <strong>Join Server</strong>. Tailscale isn't needed for this.</li>
+      <li><strong>Avery:</strong> when you're done, click <strong>"(Click here to stop)"</strong> in that chat line, or quit the world.</li>
+    </ol>
+    <p class="note">Anyone with the address can join while it's open. Treat it like a password, and stop hosting when you're done. The address can change between sessions.</p>
+  </section>
+
+  <footer>Pack file: Reajustiene-Cobblemon.mrpack on GitHub &middot; server: Fabric 1.21.1 &middot; Oct 2026</footer>
