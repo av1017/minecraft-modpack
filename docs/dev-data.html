@@ -252,6 +252,21 @@ h3 .cv-age { vertical-align: middle; }
     <p>Gamerule <code>cvagesPracticeRate</code> (percent, default 100) multiplies all practice gain on a world.</p>
   </section>
 
+  <section class="panel" id="triggers">
+    <h2>Quest Triggers</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Trigger</th><th>Conditions</th><th>Fires</th></tr></thead>
+      <tbody>
+        <tr><td><code>cvages:age_reached</code></td><td><code>age</code></td><td>On join and whenever the group's age changes</td></tr>
+        <tr><td><code>cvages:skill_reached</code></td><td><code>item</code>, <code>min</code> (default 100)</td><td>Whenever skill changes</td></tr>
+        <tr><td><code>cvages:quest_done</code></td><td><code>advancement</code> (an id)</td><td>Whenever any advancement completes, and on join: true if the player has completed that advancement. Chains story steps.</td></tr>
+        <tr><td><code>cvages:chamber_complete</code></td><td><code>chamber</code> (1-8)</td><td>Stepping on a Chamber Exit block with that number</td></tr>
+      </tbody>
+    </table></div>
+    <p>The adventure tabs also use Cobblemon's triggers (<code>cobblemon:catch_pokemon</code> with <code>type</code>/<code>count</code>, <code>battles_won</code> with <code>battle_types</code> pvw/pvn/pvp, <code>pokemon_evolved</code>, <code>level_up</code>, <code>party</code>, <code>trade_pokemon</code>, <code>pick_starter</code>), RCT's <code>rctmod:defeat_count</code> (empty <code>trainer_ids</code> = any trainer) and vanilla <code>location</code> with <code>structures</code>.</p>
+    <p><strong>Blocks:</strong> <code>cvages:portal_proof_panel</code> (in <code>#twinportals:portal_proof</code>), <code>cvages:portal_panel</code>, <code>cvages:chamber_exit[chamber=1..8]</code>; all unbreakable. <strong>Structure:</strong> <code>cvages:puzzle_temple</code> (jigsaw, one template, structure set spacing 56 chunks).</p>
+  </section>
+
   <section class="panel" id="other">
     <h2>Loot, Recipes, Quests</h2>
     <ul>

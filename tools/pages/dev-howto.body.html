@@ -13,6 +13,7 @@
     <a href="#number">Change a Number</a>
     <a href="#age">Retune an Age</a>
     <a href="#quest">Add a Quest</a>
+    <a href="#story">Add a Story Step</a>
     <a href="#discipline">Add a Discipline</a>
     <a href="#book">Change Books</a>
     <a href="#crate">Change Crate Loot</a>
@@ -57,6 +58,11 @@
       <li><code>python -I tools/gen_quests.py</code>. It writes the advancement, the reward function and the crate reward.</li>
       <li>Hand-made advancements (any shape) go in <code>data/cvages/advancement/custom/</code>; the generator never touches them.</li>
     </ol>
+  </section>
+
+  <section class="panel" id="story">
+    <h2>Add a Story Step or Adventure</h2>
+    <p>Add a row to <code>STORY</code>, <code>PLACES</code> or the trainer lists in <code>tools/gen_adventures.py</code> and run it. Story steps automatically require the step before them (<code>cvages:quest_done</code>) and get a journal page from their text. To change a chamber, edit its builder in <code>tools/gen_trials.py</code> and run it: it refuses to write a temple whose checks fail.</p>
   </section>
 
   <section class="panel" id="discipline">
