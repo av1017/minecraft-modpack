@@ -448,6 +448,17 @@
       "side": "both"
     },
     {
+      "name": "Leaf Beds",
+      "slug": "leaf-beds",
+      "project_id": "eP1ifAcP",
+      "version_id": "F5tnuzGD",
+      "version": "1.1",
+      "filename": "leafbeds-1.1+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/eP1ifAcP/versions/F5tnuzGD/leafbeds-1.1%2B1.21.jar",
+      "sha1": "a5159262a9864407547a8cf7278f91cce8b6f32c",
+      "side": "both"
+    },
+    {
       "name": "Lithium",
       "slug": "lithium",
       "project_id": "gvQqBUqZ",
