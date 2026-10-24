@@ -80,10 +80,13 @@ def main():
     packs += ["file/" + x["filename"] for x in m.get("resourcepacks", []) if x.get("enabled", True)]
     options = [f"version:{cfg['data_version']}",
                "resourcePacks:" + json.dumps(packs, ensure_ascii=False, separators=(",", ":"))]
+    layout = []
     if m.get("key_layout"):   # the host's full key bindings, so friends' controls match
-        options += [l.strip() for l in (ROOT / m["key_layout"]["source"]).read_text(encoding="utf-8").splitlines() if l.startswith("key_")]
-    else:
-        options += [f"{k['key']}:{k['to']}" for k in m.get("keybinds", [])]
+        layout = [l.strip() for l in (ROOT / m["key_layout"]["source"]).read_text(encoding="utf-8").splitlines() if l.startswith("key_")]
+    options += layout
+    # Keybind fixes cover keys the layout doesn't have yet (mods added since the host last exported keys)
+    in_layout = {l.split(":", 1)[0] for l in layout}
+    options += [f"{k['key']}:{k['to']}" for k in m.get("keybinds", []) if k["key"] not in in_layout]
 
     commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
                             capture_output=True, text=True).stdout.strip() or "local"

@@ -259,6 +259,17 @@
       "side": "both"
     },
     {
+      "name": "Cool Rain",
+      "slug": "coolrain",
+      "project_id": "iDyqnQLT",
+      "version_id": "i2dHlstR",
+      "version": "1.4.0-1.21.1",
+      "filename": "coolrain-1.4.0-1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/iDyqnQLT/versions/i2dHlstR/coolrain-1.4.0-1.21.1.jar",
+      "sha1": "32271790c96dfcb71134f6a40e8a5bf8179375f3",
+      "side": "both"
+    },
+    {
       "name": "Craftable Templates & More (our own)",
       "slug": "avtemplates",
       "project_id": "avtemplates-local",
@@ -371,6 +382,17 @@
       "side": "both"
     },
     {
+      "name": "Fast Noise",
+      "slug": "zfastnoise",
+      "project_id": "OnlVIpq5",
+      "version_id": "73DMCY3S",
+      "version": "1.0.14+1.21",
+      "filename": "zfastnoise-1.0.14+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/OnlVIpq5/versions/73DMCY3S/zfastnoise-1.0.14%2B1.21.jar",
+      "sha1": "7e9ce65d3e1e92940449fcab815563cb1e7ca1a8",
+      "side": "both"
+    },
+    {
       "name": "FerriteCore",
       "slug": "ferrite-core",
       "project_id": "uXXizFIs",
@@ -390,6 +412,17 @@
       "filename": "ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
       "url": "https://cdn.modrinth.com/data/ohNO6lps/versions/N5qzq0XV/ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
       "sha1": "18bf1f21cd2db6dcd4e42db85eae54e2a49a48ee",
+      "side": "both"
+    },
+    {
+      "name": "Fzzy Config",
+      "slug": "fzzy-config",
+      "project_id": "hYykXjDp",
+      "version_id": "zFccjYag",
+      "version": "0.7.7+1.21",
+      "filename": "fzzy_config-0.7.7+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/hYykXjDp/versions/zFccjYag/fzzy_config-0.7.7%2B1.21.jar",
+      "sha1": "5e96a2f5b0a26417c7f10f5bdbeaa62ec4ec4cd9",
       "side": "both"
     },
     {
@@ -522,6 +555,17 @@
       "filename": "mca-fabric-7.7.36-beta.3+1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/1W98a849/versions/eUYBilCG/mca-fabric-7.7.36-beta.3%2B1.21.1.jar",
       "sha1": "0e2eb7b0fdf75ff0563b5d1ee4f91f22a62d230f",
+      "side": "both"
+    },
+    {
+      "name": "MidnightLib",
+      "slug": "midnightlib",
+      "project_id": "codAaoxh",
+      "version_id": "jQ0KXdpD",
+      "version": "1.10.0+1.21.1-fabric",
+      "filename": "midnightlib-fabric-1.10.0+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/codAaoxh/versions/jQ0KXdpD/midnightlib-fabric-1.10.0%2B1.21.1.jar",
+      "sha1": "3120b1329ab0d01b4af4e659495259bffee2ddae",
       "side": "both"
     },
     {
@@ -725,6 +769,17 @@
       "side": "both"
     },
     {
+      "name": "SleepWarp (Updated)",
+      "slug": "sleep-warp-updated",
+      "project_id": "DlSXkZVT",
+      "version_id": "LzlGw3Uq",
+      "version": "2.4.0+1.21.1",
+      "filename": "sleepwarp-2.4.0+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/DlSXkZVT/versions/LzlGw3Uq/sleepwarp-2.4.0%2B1.21.1.jar",
+      "sha1": "81e2fc02100a424418fdfb5e021975b9eb749be9",
+      "side": "both"
+    },
+    {
       "name": "Small Ships",
       "slug": "small-ships",
       "project_id": "rGWEHQrP",
@@ -894,6 +949,17 @@
       "side": "both"
     },
     {
+      "name": "ZConfig",
+      "slug": "zconfig",
+      "project_id": "4qmvXRB9",
+      "version_id": "yD19P1nG",
+      "version": "1.0.0+1.21.x",
+      "filename": "zconfig-1.0.0+1.21.x.jar",
+      "url": "https://cdn.modrinth.com/data/4qmvXRB9/versions/yD19P1nG/zconfig-1.0.0%2B1.21.x.jar",
+      "sha1": "cb9fe03e6f64b900317d7edf305c1d7d43412a60",
+      "side": "both"
+    },
+    {
       "name": "[EMF] Entity Model Features",
       "slug": "entity-model-features",
       "project_id": "4I1XuqiY",
@@ -949,6 +1015,39 @@
       "side": "client"
     },
     {
+      "name": "Chest Tracker",
+      "slug": "chest-tracker",
+      "project_id": "ni4SrKmq",
+      "version_id": "3MLcSYh8",
+      "version": "2.6.7+1.21.1",
+      "filename": "chesttracker-2.6.7+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/ni4SrKmq/versions/3MLcSYh8/chesttracker-2.6.7%2B1.21.1.jar",
+      "sha1": "587ada6947f32892fd410e918d52ac4f83638a15",
+      "side": "client"
+    },
+    {
+      "name": "Cinematic Respawn",
+      "slug": "cinematic-respawn",
+      "project_id": "CFJWaa89",
+      "version_id": "zEXeZBYh",
+      "version": "1.21.1-fabric-1.4.1",
+      "filename": "cinematic_respawn-1.21.1-fabric-1.4.1.jar",
+      "url": "https://cdn.modrinth.com/data/CFJWaa89/versions/zEXeZBYh/cinematic_respawn-1.21.1-fabric-1.4.1.jar",
+      "sha1": "3af26ac55416319984a1fef265726a460c477d84",
+      "side": "client"
+    },
+    {
+      "name": "Enhanced Block Entities",
+      "slug": "ebe",
+      "project_id": "OVuFYfre",
+      "version_id": "HBZAPs3u",
+      "version": "0.10.2+1.21",
+      "filename": "enhancedblockentities-0.10.2+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/OVuFYfre/versions/HBZAPs3u/enhancedblockentities-0.10.2%2B1.21.jar",
+      "sha1": "d81359d77fc7c5437f3e83e519dc2f869300f0cd",
+      "side": "client"
+    },
+    {
       "name": "Falling Leaves",
       "slug": "fallingleaves",
       "project_id": "WhbRG4iK",
@@ -968,6 +1067,17 @@
       "filename": "firstperson-fabric-2.7.3-mc1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/H5XMjpHi/versions/UowdyPMu/firstperson-fabric-2.7.3-mc1.21.1.jar",
       "sha1": "4a16bcb1084920b14628ba66609a67f1f92524f9",
+      "side": "client"
+    },
+    {
+      "name": "ImmediatelyFast",
+      "slug": "immediatelyfast",
+      "project_id": "5ZwdcRci",
+      "version_id": "aLnBqxFW",
+      "version": "1.6.15+1.21.1-fabric",
+      "filename": "ImmediatelyFast-Fabric-1.6.15+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/5ZwdcRci/versions/aLnBqxFW/ImmediatelyFast-Fabric-1.6.15%2B1.21.1.jar",
+      "sha1": "5067bdff1d5cc6d2dd89986f98bd8bd7ae62fb98",
       "side": "client"
     },
     {
@@ -993,6 +1103,17 @@
       "side": "client"
     },
     {
+      "name": "Inventory Tabs",
+      "slug": "inventory-tabs",
+      "project_id": "VD1aynYU",
+      "version_id": "kH13neOQ",
+      "version": "1.4.4+1.21",
+      "filename": "inventory-tabs-1.4.4+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/VD1aynYU/versions/kH13neOQ/inventory-tabs-1.4.4%2B1.21.jar",
+      "sha1": "c6e710dc1e1c35b8576aa0770c406f8cfff3f10c",
+      "side": "client"
+    },
+    {
       "name": "Iris Shaders",
       "slug": "iris",
       "project_id": "YL57xq9U",
@@ -1004,6 +1125,17 @@
       "side": "client"
     },
     {
+      "name": "Ji AFK Cinematic",
+      "slug": "ji-afk-cinematic",
+      "project_id": "NYveE6yC",
+      "version_id": "G8Mmx0PA",
+      "version": "2.3.1",
+      "filename": "ji-afk-cinematic-1.21-1.21.1-2.3.1.jar",
+      "url": "https://cdn.modrinth.com/data/NYveE6yC/versions/G8Mmx0PA/ji-afk-cinematic-1.21-1.21.1-2.3.1.jar",
+      "sha1": "d4aaf522e047cb3466073ba7e2b10ac9d5f8ec9f",
+      "side": "client"
+    },
+    {
       "name": "Keybind Fix Updated",
       "slug": "keybind-fix-updated",
       "project_id": "U1hgptta",
@@ -1012,6 +1144,17 @@
       "filename": "keybind_fix-1.0.2.jar",
       "url": "https://cdn.modrinth.com/data/U1hgptta/versions/jDPZLqkE/keybind_fix-1.0.2.jar",
       "sha1": "99e5947db1bc8a85306ca8db985c8142841c09ea",
+      "side": "client"
+    },
+    {
+      "name": "Keyboard Wizard CE",
+      "slug": "keyboard-wizard-ce",
+      "project_id": "K9lejUXc",
+      "version_id": "kGOeT84Q",
+      "version": "1.0.0",
+      "filename": "keyboard-wizard-ce-fabric-1.21.1-1.0.0.jar",
+      "url": "https://cdn.modrinth.com/data/K9lejUXc/versions/kGOeT84Q/keyboard-wizard-ce-fabric-1.21.1-1.0.0.jar",
+      "sha1": "602d74e0456f73c6b6e02c0afef0bc324c51ffa5",
       "side": "client"
     },
     {
@@ -1081,6 +1224,17 @@
       "side": "client"
     },
     {
+      "name": "Particle Core",
+      "slug": "particle-core",
+      "project_id": "RSeLon5O",
+      "version_id": "mau4pnKr",
+      "version": "0.3.3+1.21",
+      "filename": "particle_core-0.3.3+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/RSeLon5O/versions/mau4pnKr/particle_core-0.3.3%2B1.21.jar",
+      "sha1": "21134697c26b73cde41d1575c725ab30736d6b17",
+      "side": "client"
+    },
+    {
       "name": "Particle Rain",
       "slug": "particle-rain",
       "project_id": "nrikgvxm",
@@ -1089,6 +1243,17 @@
       "filename": "particlerain-4.0.2+1.21.1-fabric.jar",
       "url": "https://cdn.modrinth.com/data/nrikgvxm/versions/jquizTC2/particlerain-4.0.2%2B1.21.1-fabric.jar",
       "sha1": "b83113c0fec92573c5b676ea0b594f6cd9f8d2d0",
+      "side": "client"
+    },
+    {
+      "name": "Punchy!",
+      "slug": "punchy-fpa",
+      "project_id": "8aoMKplv",
+      "version_id": "tk9fLQfK",
+      "version": "2.8g",
+      "filename": "punchy-2.8g-fabric-1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/8aoMKplv/versions/tk9fLQfK/punchy-2.8g-fabric-1.21.1.jar",
+      "sha1": "a2b7563c56afd88251d1b1cc3f79a9e89f0b2303",
       "side": "client"
     },
     {
@@ -1356,6 +1521,108 @@
     }
   ],
   "keybinds": [
+    {
+      "key": "key_key.chesttracker.open_gui",
+      "from": "key.keyboard.grave.accent",
+      "to": "key.keyboard.semicolon",
+      "why": "Backtick is Zoomify's zoom in this profile; semicolon is free"
+    },
+    {
+      "key": "key_key.inventory_tabs.key.toggle_tabs",
+      "from": "key.keyboard.left.bracket",
+      "to": "key.keyboard.apostrophe",
+      "why": "[ is Weaver's Paradise's upper-wear menu; apostrophe is free"
+    },
+    {
+      "key": "key_key.punchy.inspect",
+      "from": "key.keyboard.i",
+      "to": "key.keyboard.backslash",
+      "why": "I is Cobblemon's Pokemon summary; backslash is free"
+    },
+    {
+      "key": "key_key.punchy.tuning.axis_x",
+      "from": "key.keyboard.keypad.4",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.axis_y",
+      "from": "key.keyboard.keypad.5",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.axis_z",
+      "from": "key.keyboard.keypad.6",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.toggle_mode",
+      "from": "key.keyboard.delete",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.target_arm_right",
+      "from": "key.keyboard.keypad.7",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.target_arm_left",
+      "from": "key.keyboard.keypad.8",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.target_item_right",
+      "from": "key.keyboard.keypad.9",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.target_item_left",
+      "from": "key.keyboard.keypad.0",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.increase",
+      "from": "key.keyboard.up",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.decrease",
+      "from": "key.keyboard.down",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.reset",
+      "from": "key.keyboard.r",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.print",
+      "from": "key.keyboard.keypad.enter",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.save_session",
+      "from": "key.keyboard.f6",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
+    {
+      "key": "key_key.punchy.tuning.toggle_pivot",
+      "from": "key.keyboard.f7",
+      "to": "key.keyboard.unknown",
+      "why": "Punchy's animation-tuning keys are for animation-pack authors and clash with Cobblemon (R, arrows), Jade (numpad), First-person Model (F6) and MCA (F7)"
+    },
     {
       "key": "key_iris.keybind.reload",
       "from": "key.keyboard.r",
