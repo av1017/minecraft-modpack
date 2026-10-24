@@ -2947,6 +2947,36 @@
    }
   },
   {
+   "id": "cvages:mastery/iron/cobblemon/great_ball",
+   "title": "Master: Great Ball",
+   "desc": "Gather 2 blue apricorn, 2 red apricorn, 1 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "icon": "cobblemon:great_ball",
+   "age": "iron",
+   "frame": "task",
+   "kind": "mastery",
+   "rewards": {
+    "function": "cvages:master/cobblemon/great_ball",
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   }
+  },
+  {
+   "id": "cvages:mastery/iron/cobblemon/ultra_ball",
+   "title": "Master: Ultra Ball",
+   "desc": "Gather 2 black apricorn, 2 yellow apricorn, 1 gold ingot. Reward: you master it, plus a Prize Crate.",
+   "icon": "cobblemon:ultra_ball",
+   "age": "iron",
+   "frame": "task",
+   "kind": "mastery",
+   "rewards": {
+    "function": "cvages:master/cobblemon/ultra_ball",
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   }
+  },
+  {
    "id": "cvages:mastery/iron/cvages/discipline/blacksmithing",
    "title": "Master: The Art of Blacksmithing",
    "desc": "Gather 1 anvil, 1 smithing table, 8 iron ingot. Reward: you master it, plus a Prize Crate.",
@@ -3211,6 +3241,21 @@
    "kind": "mastery",
    "rewards": {
     "function": "cvages:master/minecraft/furnace",
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   }
+  },
+  {
+   "id": "cvages:mastery/stone/minecraft/smoker",
+   "title": "Master: Smoker",
+   "desc": "Gather 1 furnace, 4 logs. Reward: you master it, plus a Prize Crate.",
+   "icon": "minecraft:smoker",
+   "age": "stone",
+   "frame": "task",
+   "kind": "mastery",
+   "rewards": {
+    "function": "cvages:master/minecraft/smoker",
     "loot": [
      "cvages:rewards/crate_stone"
     ]
