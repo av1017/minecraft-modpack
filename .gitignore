@@ -4,3 +4,4 @@
 
 # Built by tools/build-friends-pack.py (uploaded to the friends-pack release, not committed)
 dist/
+__pycache__/
