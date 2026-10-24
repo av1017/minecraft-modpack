@@ -6,7 +6,7 @@
     <h1>Dev: Testing</h1>
     <p>Three layers: <strong>GameTests</strong> (fast, every build, vanilla only), a <strong>full-pack test server</strong> (real recipes, real loot, catches data errors), and a <strong>playtest</strong> (does it feel right). Run all three before a release.</p>
     <div class="stats">
-      <div class="stat"><b>22</b><span>GameTests, about 5 seconds</span></div>
+      <div class="stat"><b>25</b><span>GameTests, about 6 seconds</span></div>
       <div class="stat"><b>77</b><span>server mods on the test server</span></div>
       <div class="stat"><b>0</b><span>loot/advancement errors allowed</span></div>
     </div>
@@ -40,6 +40,8 @@
         <tr><td>enchantingNeedsDisciplineAndMastery, disciplinesGateStationsAndRecipes</td><td>Discipline gates</td></tr>
         <tr><td>booksTeachAndAreUsedUp, prizeCratesRollBooksYouDontKnow, cratesAreInjectedAndRewarded</td><td>Books, crates, chest injection, quest reward tables</td></tr>
         <tr><td>leavesDropByHandForBushcraft</td><td>Leaves drop by hand sometimes; shears unchanged</td></tr>
+        <tr><td>storyStepsUnlockInOrder, chamberExitCompletesItsTrial</td><td>quest_done chains the story; the exit pad completes only its chamber</td></tr>
+        <tr><td>puzzleTempleBlocksAndRules</td><td>Panels tagged and unbreakable, temple rules, the template places with chamber 1 where gen_trials.py put it</td></tr>
         <tr><td>savedKnowledgeRoundTrips</td><td>Save files load back, even for removed mods</td></tr>
       </tbody>
     </table></div>
@@ -73,6 +75,8 @@ python -I tools/test_server.py run C:\cvtest "cvages age" "cvages dump" "cvages 
       <li data-id="pt9"><span class="checkbox"></span><span class="task-text">An iron ingot is a Strange Object in the Stone Age; carrying it reveals it.</span></li>
       <li data-id="pt10"><span class="checkbox"></span><span class="task-text">Beat a gym leader: badge counts, Iron Age unlocks, leader drops a crate.</span></li>
       <li data-id="pt11"><span class="checkbox"></span><span class="task-text">The Nether portal refuses before the Nether Age.</span></li>
+      <li data-id="pt11b"><span class="checkbox"></span><span class="task-text">Solve all six Trials chambers with the Portal Device (Twin Portals 0.5.0); note any that are too easy, too hard or broken.</span></li>
+      <li data-id="pt11c"><span class="checkbox"></span><span class="task-text">The first story steps: open a crate, sleep, pick a starter; read the journal pages.</span></li>
       <li data-id="pt12"><span class="checkbox"></span><span class="task-text">Skim <code>tools/age_dump.csv</code> (or Item Lookup) for items in a surprising age, and the BOOK list.</span></li>
     </ul>
   </section>

@@ -91,7 +91,8 @@ def snapshot(mod):
         age = a["criteria"].get("age", a["criteria"].get("reached", {})).get("conditions", {}).get("age")
         data["quests"].append({"id": "cvages:" + rel, "title": d["title"]["text"], "desc": d["description"]["text"],
                                "icon": d["icon"]["id"], "age": age, "frame": d.get("frame", "task"),
-                               "kind": rel.split("/")[0], "rewards": a.get("rewards", {})})
+                               "kind": rel.split("/")[0], "rewards": a.get("rewards", {}),
+                               "previous": a["criteria"].get("previous", {}).get("conditions", {}).get("advancement")})
     lt = os.path.join(res, "loot_table")
     for p in glob.glob(os.path.join(lt, "prize_crates", "*.json")):
         age = os.path.basename(p)[:-5]
@@ -297,6 +298,51 @@ def gen_quests(d):
     write("cv-hidden-quests.html", table(["Mod", "Quests"] + [esc(a["name"].replace(" Age", "")) for a in d.ages if a["id"] != "champion"], rows))
 
 
+CHAPTERS = [("prologue", "Prologue: The Wood Age"), ("stone", "Chapter 1: The Old Mine"), ("iron", "Chapter 2: Badges and Boats"),
+            ("diamond", "Chapter 3: The Keeper's Trials"), ("nether", "Chapter 4: The Burning Road"), ("end", "Chapter 5: Where She Went"),
+            ("epilogue", "Epilogue")]
+
+
+def tab_quests(d, kind):
+    return [q for q in d.quests if q["kind"] == kind and not q["id"].endswith("/root")]
+
+
+def strip_reward(desc):
+    for tail in (" Reward: journal page", " Reward: a Prize Crate.", " Reward: two Prize Crates."):
+        if tail in desc:
+            desc = desc[:desc.index(tail)]
+    return desc
+
+
+def gen_adventures(d):
+    story = tab_quests(d, "story")
+    # order the steps by their "previous" links: the first step has none
+    after = {q.get("previous"): q for q in story}
+    ordered, cur = [], after.get(None)
+    while cur and cur not in ordered:
+        ordered.append(cur)
+        cur = after.get(cur["id"])
+    out = []
+    n = 0
+    for key, title in CHAPTERS:
+        steps = [q for q in ordered if q["id"].split("/")[1] == key]
+        rows = []
+        for q in steps:
+            n += 1
+            rows.append([str(n), f'<strong>{esc(q["title"])}</strong>', esc(strip_reward(q["desc"]))])
+        if rows:
+            out.append(f"<h3>{esc(title)}</h3>" + table(["#", "Step", "Goal"], rows))
+    write("cv-story.html", "\n".join(out))
+    write("cv-story-count.html", str(len(story)))
+    for kind in ("explorer", "trainer"):
+        rows = [[f'<strong>{esc(q["title"])}</strong>', esc(strip_reward(q["desc"]))] for q in tab_quests(d, kind)]
+        write(f"cv-{kind}.html", table(["Quest", "Goal"], rows))
+        write(f"cv-{kind}-count.html", str(len(rows)))
+    rows = [[f'<strong>{esc(q["title"])}</strong>', esc(strip_reward(q["desc"]))]
+            for q in sorted(tab_quests(d, "trials"), key=lambda q: q["id"])]
+    write("cv-trials-list.html", table(["Quest", "Goal"], rows))
+
+
 def gen_disciplines(d):
     rows = []
     gated = {}
@@ -464,8 +510,10 @@ PAGES = {
         "Beating every Champion opens the Champion Age.",
         "Sinnoh leaders count once, whichever of their two fights you win. Badges earned while someone is offline still count when they log in.",
         "Every win against a gym leader, the Elite Four or a Champion also drops a <strong>Prize Crate</strong> for the group's current age."]},
-    "twinportals": {"sel": ["@twinportals"], "key": [], "notes": [
-        "The Portal Device's age comes from its recipe (see below). Strange Objects can't be used well until you figure them out."]},
+    "twinportals": {"sel": ["@twinportals"], "key": ["twinportals:portal_device"], "notes": [
+        "The Portal Device is <strong>Diamond Age</strong>. Before then it's a Strange Object.",
+        'It&#x27;s the key to <a href="cv-trials.html">The Keeper&#x27;s Trials</a>: a puzzle temple of six chambers where portals only stick to the white panels '
+        "(Twin Portals 0.5 adds portal-proof blocks)."]},
     "portalgun": {"sel": ["@ricksportalgun"], "key": [], "notes": ["The portal gun and its parts follow the ages of their ingredients."]},
     "backpack": {"sel": ["@travelersbackpack"], "key": ["travelersbackpack:standard", "travelersbackpack:backpack_tank"], "notes": [
         "Backpacks are crafted normally once their materials' age is reached; the fancy mob and material skins follow their ingredients."]},
@@ -512,7 +560,9 @@ PAGES = {
         "Structure chests can hold a <strong>Prize Crate</strong> matched to the structure: villages Wood, shipwrecks and mineshafts Stone, "
         "dungeons and temples Iron, strongholds, mansions and ancient cities Diamond, bastions and fortresses Nether, End cities End "
         '(<a href="cv-books.html">full table</a>).',
-        "The Nether and the End stay shut until the group reaches their ages."]},
+        "The Nether and the End stay shut until the group reaches their ages.",
+        'The Explorer tab has a quest for every kind of place, and a rare <strong>Puzzle Temple</strong> hides in plains and forests '
+        '(<a href="cv-story.html#explorer">Explorer</a>, <a href="cv-trials.html">The Keeper&#x27;s Trials</a>).']},
 }
 
 
@@ -610,6 +660,7 @@ def main(argv=None, boxes=True):
     gen_books(d)
     gen_gear(d)
     gen_lookup(d)
+    gen_adventures(d)
     if boxes:
         inject_boxes(d)
     print(f"generated: {len(os.listdir(GEN))} fragments from {len(d.items)} items")

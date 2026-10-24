@@ -1,0 +1,67 @@
+<!-- title: The Keeper's Trials · Cobble Valley -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>The Keeper's Trials</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobble Valley &middot; the Puzzle Temple &middot; Portal Device</span>
+    <h1>The Keeper's Trials</h1>
+    <p>Ada Thornwood's Puzzle Temple: six sealed chambers that only the <a href="twinportals.html">Portal Device</a> can solve. Portals stick to the <strong>white</strong> panels and never to the <strong>dark</strong> ones, so every chamber is about which white panels you can see, and how fast you're moving when you go through.</p>
+    <div class="stats">
+      <div class="stat"><b>6</b><span>chambers, easy to hard</span></div>
+      <div class="stat"><b>Diamond Age</b><span>when the Portal Device can be crafted</span></div>
+      <div class="stat"><b>Momentum</b><span>fall in fast, fly out fast</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#rules">The Rules</a>
+    <a href="#find">Finding It</a>
+    <a href="#chambers">The Chambers</a>
+    <a href="#tips">Tips</a>
+  </nav>
+
+  <section class="panel" id="rules">
+    <h2>The Rules</h2>
+    <ul>
+      <li><strong>White panels</strong> take portals. <strong>Dark panels</strong> refuse them (needs Twin Portals 0.5 or newer).</li>
+      <li>The temple is <strong>unbreakable</strong>, and inside it (in survival) you can't place blocks or fluids, break anything, throw ender pearls, eat chorus fruit, or use Rick's portal gun. The Portal Device is the only way through.</li>
+      <li>Step on a chamber's <strong>glowing green exit pad</strong> to complete it. You can always get back out: drop into the water and walk to the door.</li>
+      <li>No monsters spawn inside.</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="find">
+    <h2>Finding It</h2>
+    <p>Puzzle Temples generate rarely in plains, forests, taiga, meadows and savannas: roughly one every 900 blocks. A dark, square building with a door in the middle of its long side. The Explorer and Trials tabs both have a "find it" quest. At launch, Avery places one near spawn.</p>
+    <div class="callout">Ops: <code>/place structure cvages:puzzle_temple</code> builds one where you stand.</div>
+  </section>
+
+  <section class="panel" id="chambers">
+    <h2>The Chambers</h2>
+    <ul class="tasks">
+      <li data-id="t1"><span class="checkbox"></span><span class="task-text"><strong>1. First Light:</strong> a ledge you can't climb. Two white panels: one by the door, one high on the wall above the ledge.</span></li>
+      <li data-id="t2"><span class="checkbox"></span><span class="task-text"><strong>2. Over the Gap:</strong> a pit too wide to jump, and a white panel on the far side.</span></li>
+      <li data-id="t3"><span class="checkbox"></span><span class="task-text"><strong>3. Fling:</strong> no white panels across the pit. Climb the ladder. A white patch on the floor below, a white panel on a wall facing the pit... speedy thing goes in, speedy thing comes out.</span></li>
+      <li data-id="t4"><span class="checkbox"></span><span class="task-text"><strong>4. Up and Over:</strong> three ledges. Each ledge's panel can only be seen from the ledge below it.</span></li>
+      <li data-id="t5"><span class="checkbox"></span><span class="task-text"><strong>5. Rocket:</strong> a ledge too high to reach, a white strip on the floor right beside it, and a ladder to a high platform over another white patch.</span></li>
+      <li data-id="t6"><span class="checkbox"></span><span class="task-text"><strong>6. The Long Way:</strong> chamber 3 again, but there's no ladder: get up to the jump platform by sight first.</span></li>
+    </ul>
+    <h3>Quests and rewards</h3>
+    <!-- include: generated/cv-trials-list.html -->
+  </section>
+
+  <section class="panel" id="tips">
+    <h2>Tips</h2>
+    <ul>
+      <li>Left click fires blue, right click fires orange. You can keep one portal and move the other as often as you like.</li>
+      <li><strong>Speed carries through.</strong> Falling into a floor portal from high up shoots you out of the other one just as fast, sideways out of a wall or straight up out of the floor. Walking in barely gets you anywhere.</li>
+      <li>If you can see a white panel from where you stand, you can shoot it. If you can't, look for somewhere higher.</li>
+      <li>For the rocket: as you fly up past the ledge, hold forward to drift onto it.</li>
+      <li>Portals reset your fall: you don't take damage from the fall before the portal.</li>
+    </ul>
+  </section>
+
+  <footer>Cobble Valley Ages v0.1 &middot; chambers built and checked by tools/gen_trials.py</footer>

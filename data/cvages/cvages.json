@@ -2741,7 +2741,8 @@
     "loot": [
      "cvages:rewards/crate_champion"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:ages/diamond",
@@ -2755,7 +2756,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:ages/end",
@@ -2769,7 +2771,8 @@
     "loot": [
      "cvages:rewards/crate_end"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:ages/iron",
@@ -2783,7 +2786,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:ages/nether",
@@ -2797,7 +2801,8 @@
     "loot": [
      "cvages:rewards/crate_nether"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:ages/stone",
@@ -2811,7 +2816,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:ages/wood",
@@ -2825,7 +2831,439 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/ancient_city",
+   "title": "Shh",
+   "desc": "Find an ancient city. (Counts once your group reaches the Diamond Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:sculk",
+   "age": "diamond",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/bastion",
+   "title": "Piglin Gold",
+   "desc": "Find a bastion remnant. (Counts once your group reaches the Nether Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:gilded_blackstone",
+   "age": "nether",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/deep/bedrock",
+   "title": "Rock Bottom",
+   "desc": "Reach y -60. Reward: a Prize Crate.",
+   "icon": "minecraft:bedrock",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/deep/deepslate",
+   "title": "Going Deeper",
+   "desc": "Reach y -32. Reward: a Prize Crate.",
+   "icon": "minecraft:deepslate",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/deep/echo",
+   "title": "Echoes",
+   "desc": "Carry an echo shard from an ancient city. Reward: a Prize Crate.",
+   "icon": "minecraft:echo_shard",
+   "age": "diamond",
+   "frame": "goal",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/desert_pyramid",
+   "title": "Desert Secrets",
+   "desc": "Find a desert temple. (Counts once your group reaches the Iron Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:sandstone",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/end_city",
+   "title": "City in the Void",
+   "desc": "Find an End city. (Counts once your group reaches the End Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:purpur_block",
+   "age": "end",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_end"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/fortress",
+   "title": "Brick by Burning Brick",
+   "desc": "Find a Nether fortress. (Counts once your group reaches the Nether Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:nether_bricks",
+   "age": "nether",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/gym",
+   "title": "Gym Hunter",
+   "desc": "Find a gym building. Reward: a Prize Crate.",
+   "icon": "minecraft:iron_door",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/gym_tour",
+   "title": "Grand Tour",
+   "desc": "Visit all eight Kanto gyms. Reward: a Prize Crate.",
+   "icon": "minecraft:gold_block",
+   "age": null,
+   "frame": "goal",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/igloo",
+   "title": "Snowed In",
+   "desc": "Find an igloo. Reward: a Prize Crate.",
+   "icon": "minecraft:snow_block",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/jungle_pyramid",
+   "title": "Vines and Traps",
+   "desc": "Find a jungle temple. (Counts once your group reaches the Iron Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:mossy_cobblestone",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/mansion",
+   "title": "Lost in the Woods",
+   "desc": "Find a woodland mansion. (Counts once your group reaches the Diamond Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:dark_oak_log",
+   "age": "diamond",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/mineshaft",
+   "title": "Abandoned Rails",
+   "desc": "Find an abandoned mineshaft. Reward: a Prize Crate.",
+   "icon": "minecraft:rail",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/monument",
+   "title": "Under the Waves",
+   "desc": "Find an ocean monument. (Counts once your group reaches the Diamond Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:prismarine",
+   "age": "diamond",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/pillager_outpost",
+   "title": "Uninvited",
+   "desc": "Find a pillager outpost. (Counts once your group reaches the Iron Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:crossbow",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/puzzle_temple",
+   "title": "The Keeper's Temple",
+   "desc": "Find the Puzzle Temple. (Counts once your group reaches the Diamond Age.) Reward: a Prize Crate.",
+   "icon": "cvages:portal_panel",
+   "age": "diamond",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/root",
+   "title": "Explorer",
+   "desc": "Every corner of the valley, and beyond.",
+   "icon": "minecraft:compass",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {},
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/ruined_portal",
+   "title": "A Door to Nowhere",
+   "desc": "Find a ruined portal. Reward: a Prize Crate.",
+   "icon": "minecraft:crying_obsidian",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/sea/buried_treasure",
+   "title": "X Marks the Spot",
+   "desc": "Dig up a heart of the sea from buried treasure. Reward: a Prize Crate.",
+   "icon": "minecraft:heart_of_the_sea",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/sea/shipwright",
+   "title": "Shipwright",
+   "desc": "Build a sailing ship. Reward: a Prize Crate.",
+   "icon": "smallships:oak_cog",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/shipwreck",
+   "title": "Wreck Diver",
+   "desc": "Find a shipwreck. Reward: a Prize Crate.",
+   "icon": "minecraft:oak_boat",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/sky/aviator",
+   "title": "Aviator",
+   "desc": "Build an aircraft. Reward: a Prize Crate.",
+   "icon": "immersive_aircraft:biplane",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/sky/cloud_nine",
+   "title": "Cloud Nine",
+   "desc": "Fly above y 250. Reward: a Prize Crate.",
+   "icon": "minecraft:phantom_membrane",
+   "age": null,
+   "frame": "goal",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/stronghold",
+   "title": "The Library Below",
+   "desc": "Find a stronghold. (Counts once your group reaches the Diamond Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:ender_eye",
+   "age": "diamond",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/swamp_hut",
+   "title": "Something Bubbling",
+   "desc": "Find a witch's hut. Reward: a Prize Crate.",
+   "icon": "minecraft:cauldron",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/trail_ruins",
+   "title": "Dig Site",
+   "desc": "Find trail ruins. (Counts once your group reaches the Iron Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:brush",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/trial_chambers",
+   "title": "Trial by Copper",
+   "desc": "Find the trial chambers. (Counts once your group reaches the Iron Age.) Reward: a Prize Crate.",
+   "icon": "minecraft:copper_bulb",
+   "age": "iron",
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:explorer/village",
+   "title": "Neighbours",
+   "desc": "Find a village. Reward: a Prize Crate.",
+   "icon": "minecraft:bell",
+   "age": null,
+   "frame": "task",
+   "kind": "explorer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
   },
   {
    "id": "cvages:group/first_steps",
@@ -2839,7 +3277,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/diamond/cvages/discipline/enchanting",
@@ -2854,7 +3293,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/diamond/minecraft/diamond_axe",
@@ -2869,7 +3309,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/diamond/minecraft/diamond_chestplate",
@@ -2884,7 +3325,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/diamond/minecraft/diamond_pickaxe",
@@ -2899,7 +3341,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/diamond/minecraft/diamond_sword",
@@ -2914,7 +3357,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/diamond/minecraft/enchanting_table",
@@ -2929,7 +3373,8 @@
     "loot": [
      "cvages:rewards/crate_diamond"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/end/minecraft/beacon",
@@ -2944,7 +3389,8 @@
     "loot": [
      "cvages:rewards/crate_end"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/cobblemon/great_ball",
@@ -2959,7 +3405,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/cobblemon/ultra_ball",
@@ -2974,7 +3421,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/cvages/discipline/blacksmithing",
@@ -2989,7 +3437,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/anvil",
@@ -3004,7 +3453,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/blast_furnace",
@@ -3019,7 +3469,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/crossbow",
@@ -3034,7 +3485,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_axe",
@@ -3049,7 +3501,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_boots",
@@ -3064,7 +3517,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_chestplate",
@@ -3079,7 +3533,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_helmet",
@@ -3094,7 +3549,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_leggings",
@@ -3109,7 +3565,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_pickaxe",
@@ -3124,7 +3581,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_shovel",
@@ -3139,7 +3597,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/iron_sword",
@@ -3154,7 +3613,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/iron/minecraft/shield",
@@ -3169,7 +3629,8 @@
     "loot": [
      "cvages:rewards/crate_iron"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/nether/cvages/discipline/brewing",
@@ -3184,7 +3645,8 @@
     "loot": [
      "cvages:rewards/crate_nether"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/nether/minecraft/brewing_stand",
@@ -3199,7 +3661,8 @@
     "loot": [
      "cvages:rewards/crate_nether"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/cvages/discipline/cooking",
@@ -3214,7 +3677,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/cvages/discipline/tailoring",
@@ -3229,7 +3693,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/minecraft/furnace",
@@ -3244,7 +3709,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/minecraft/smoker",
@@ -3259,7 +3725,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/minecraft/stone_axe",
@@ -3274,7 +3741,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/minecraft/stone_pickaxe",
@@ -3289,7 +3757,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/minecraft/stone_shovel",
@@ -3304,7 +3773,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/stone/minecraft/stone_sword",
@@ -3319,7 +3789,8 @@
     "loot": [
      "cvages:rewards/crate_stone"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/bow",
@@ -3334,7 +3805,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/leather_chestplate",
@@ -3349,7 +3821,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/wooden_axe",
@@ -3364,7 +3837,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/wooden_hoe",
@@ -3379,7 +3853,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/wooden_pickaxe",
@@ -3394,7 +3869,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/wooden_shovel",
@@ -3409,7 +3885,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:mastery/wood/minecraft/wooden_sword",
@@ -3424,7 +3901,8 @@
     "loot": [
      "cvages:rewards/crate_wood"
     ]
-   }
+   },
+   "previous": null
   },
   {
    "id": "cvages:root",
@@ -3434,7 +3912,831 @@
    "age": null,
    "frame": "task",
    "kind": "root",
-   "rewards": {}
+   "rewards": {},
+   "previous": null
+  },
+  {
+   "id": "cvages:story/diamond/five_badges",
+   "title": "Five Badges",
+   "desc": "Reach the Nether Age (5 different badges). Reward: journal page 15 and a Prize Crate.",
+   "icon": "minecraft:netherrack",
+   "age": "nether",
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_15",
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": "cvages:story/diamond/the_trials"
+  },
+  {
+   "id": "cvages:story/diamond/her_device",
+   "title": "Her Device",
+   "desc": "Craft a Portal Device. Reward: journal page 13 and a Prize Crate.",
+   "icon": "twinportals:portal_device",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_13",
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": "cvages:story/diamond/the_temple"
+  },
+  {
+   "id": "cvages:story/diamond/the_temple",
+   "title": "The Temple",
+   "desc": "Find the Puzzle Temple. Reward: journal page 12 and a Prize Crate.",
+   "icon": "cvages:portal_panel",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_12",
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": "cvages:story/iron/three_badges"
+  },
+  {
+   "id": "cvages:story/diamond/the_trials",
+   "title": "The Trials",
+   "desc": "Complete all six chambers of the Keeper's Trials. Reward: journal page 14 and a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_14",
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": "cvages:story/diamond/her_device"
+  },
+  {
+   "id": "cvages:story/end/adas_last_page",
+   "title": "Ada's Last Page",
+   "desc": "Find an End city. Reward: journal page 23 and a Prize Crate.",
+   "icon": "minecraft:elytra",
+   "age": null,
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_23",
+     "cvages:rewards/crate_end"
+    ]
+   },
+   "previous": "cvages:story/end/the_dragon"
+  },
+  {
+   "id": "cvages:story/end/eyes_of_ender",
+   "title": "Eyes of Ender",
+   "desc": "Find a stronghold. Reward: journal page 20 and a Prize Crate.",
+   "icon": "minecraft:ender_eye",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_20",
+     "cvages:rewards/crate_end"
+    ]
+   },
+   "previous": "cvages:story/nether/eight_badges"
+  },
+  {
+   "id": "cvages:story/end/the_dragon",
+   "title": "The Dragon",
+   "desc": "Defeat the Ender Dragon. Reward: journal page 22 and a Prize Crate.",
+   "icon": "minecraft:dragon_head",
+   "age": null,
+   "frame": "challenge",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_22",
+     "cvages:rewards/crate_end"
+    ]
+   },
+   "previous": "cvages:story/end/the_other_side"
+  },
+  {
+   "id": "cvages:story/end/the_other_side",
+   "title": "The Other Side",
+   "desc": "Enter the End. Reward: journal page 21 and a Prize Crate.",
+   "icon": "minecraft:end_stone",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_21",
+     "cvages:rewards/crate_end"
+    ]
+   },
+   "previous": "cvages:story/end/eyes_of_ender"
+  },
+  {
+   "id": "cvages:story/epilogue/keeper_of_the_valley",
+   "title": "Keeper of the Valley",
+   "desc": "Defeat every Champion (the Champion Age). Reward: journal page 24 and a Prize Crate.",
+   "icon": "minecraft:nether_star",
+   "age": "champion",
+   "frame": "challenge",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_24",
+     "cvages:rewards/crate_champion"
+    ]
+   },
+   "previous": "cvages:story/end/adas_last_page"
+  },
+  {
+   "id": "cvages:story/iron/set_sail",
+   "title": "Set Sail",
+   "desc": "Find a shipwreck. Reward: journal page 10 and a Prize Crate.",
+   "icon": "minecraft:oak_boat",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_10",
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": "cvages:story/iron/trainers_road"
+  },
+  {
+   "id": "cvages:story/iron/three_badges",
+   "title": "Three Badges",
+   "desc": "Reach the Diamond Age (3 different badges). Reward: journal page 11 and a Prize Crate.",
+   "icon": "minecraft:diamond",
+   "age": "diamond",
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_11",
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": "cvages:story/iron/set_sail"
+  },
+  {
+   "id": "cvages:story/iron/trainers_road",
+   "title": "Trainer's Road",
+   "desc": "Defeat 10 trainers. Reward: journal page 9 and a Prize Crate.",
+   "icon": "minecraft:iron_sword",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_9",
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": "cvages:story/stone/the_first_badge"
+  },
+  {
+   "id": "cvages:story/nether/blaze_trail",
+   "title": "Blaze Trail",
+   "desc": "Carry 6 blaze rods. Reward: journal page 18 and a Prize Crate.",
+   "icon": "minecraft:blaze_rod",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_18",
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": "cvages:story/nether/fortress_notes"
+  },
+  {
+   "id": "cvages:story/nether/eight_badges",
+   "title": "Eight Badges",
+   "desc": "Reach the End Age (8 different badges). Reward: journal page 19 and a Prize Crate.",
+   "icon": "minecraft:ender_eye",
+   "age": "end",
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_19",
+     "cvages:rewards/crate_end"
+    ]
+   },
+   "previous": "cvages:story/nether/blaze_trail"
+  },
+  {
+   "id": "cvages:story/nether/fortress_notes",
+   "title": "Fortress Notes",
+   "desc": "Find a Nether fortress. Reward: journal page 17 and a Prize Crate.",
+   "icon": "minecraft:nether_bricks",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_17",
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": "cvages:story/nether/through_the_fire"
+  },
+  {
+   "id": "cvages:story/nether/through_the_fire",
+   "title": "Through the Fire",
+   "desc": "Enter the Nether. Reward: journal page 16 and a Prize Crate.",
+   "icon": "minecraft:obsidian",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_16",
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": "cvages:story/diamond/five_badges"
+  },
+  {
+   "id": "cvages:story/prologue/a_page_in_the_wind",
+   "title": "A Page in the Wind",
+   "desc": "Open your first Prize Crate and read the book inside. Reward: journal page 1 and a Prize Crate.",
+   "icon": "minecraft:paper",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_1",
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:story/prologue/adas_camp",
+   "title": "Ada's Camp",
+   "desc": "Sleep through a night in a bed. A leaf bed, like Ada's, is best. Reward: journal page 2 and a Prize Crate.",
+   "icon": "minecraft:oak_leaves",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_2",
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": "cvages:story/prologue/a_page_in_the_wind"
+  },
+  {
+   "id": "cvages:story/prologue/first_partner",
+   "title": "The First Partner",
+   "desc": "Choose your starter Pokémon. Reward: journal page 3 and a Prize Crate.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_3",
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": "cvages:story/prologue/adas_camp"
+  },
+  {
+   "id": "cvages:story/prologue/stepping_stones",
+   "title": "Stepping Stones",
+   "desc": "Bring the whole group into the Stone Age. Reward: journal page 4 and a Prize Crate.",
+   "icon": "minecraft:cobblestone",
+   "age": "stone",
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_4",
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": "cvages:story/prologue/first_partner"
+  },
+  {
+   "id": "cvages:story/root",
+   "title": "The Keeper's Journal",
+   "desc": "Ada Thornwood, the valley's first Keeper, left her journal in pieces. Follow it.",
+   "icon": "minecraft:writable_book",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {},
+   "previous": null
+  },
+  {
+   "id": "cvages:story/stone/copper_lanterns",
+   "title": "Copper Lanterns",
+   "desc": "Carry 16 raw copper. Reward: journal page 6 and a Prize Crate.",
+   "icon": "minecraft:raw_copper",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_6",
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": "cvages:story/stone/down_below"
+  },
+  {
+   "id": "cvages:story/stone/down_below",
+   "title": "Down Below",
+   "desc": "Find an abandoned mineshaft. Reward: journal page 5 and a Prize Crate.",
+   "icon": "minecraft:rail",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_5",
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": "cvages:story/prologue/stepping_stones"
+  },
+  {
+   "id": "cvages:story/stone/field_research",
+   "title": "Field Research",
+   "desc": "Catch 10 Pokémon. Reward: journal page 7 and a Prize Crate.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "task",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_7",
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": "cvages:story/stone/copper_lanterns"
+  },
+  {
+   "id": "cvages:story/stone/the_first_badge",
+   "title": "The First Badge",
+   "desc": "Earn the group's first gym badge (the Iron Age). Reward: journal page 8 and a Prize Crate.",
+   "icon": "minecraft:iron_ingot",
+   "age": "iron",
+   "frame": "goal",
+   "kind": "story",
+   "rewards": {
+    "loot": [
+     "cvages:journal/page_8",
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": "cvages:story/stone/field_research"
+  },
+  {
+   "id": "cvages:trainer/catch_1",
+   "title": "Gotcha!",
+   "desc": "Catch 1 Pokémon. Reward: a Prize Crate.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/catch_10",
+   "title": "Collector",
+   "desc": "Catch 10 Pokémon. Reward: a Prize Crate.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/catch_150",
+   "title": "Living Encyclopedia",
+   "desc": "Catch 150 Pokémon. Reward: a Prize Crate.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "challenge",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/catch_50",
+   "title": "Pokédex Pages",
+   "desc": "Catch 50 Pokémon. Reward: a Prize Crate.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "goal",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/every_type",
+   "title": "Every Type",
+   "desc": "Catch at least one Pokémon of every type (18). Reward: a Prize Crate.",
+   "icon": "cobblemon:ultra_ball",
+   "age": null,
+   "frame": "challenge",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/evolve_1",
+   "title": "Growing Up",
+   "desc": "Evolve 1 Pokémon. Reward: a Prize Crate.",
+   "icon": "minecraft:experience_bottle",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/evolve_10",
+   "title": "Evolution Expert",
+   "desc": "Evolve 10 Pokémon. Reward: a Prize Crate.",
+   "icon": "minecraft:experience_bottle",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/friendly_rivals",
+   "title": "Friendly Rivals",
+   "desc": "Win a battle against another player. Reward: a Prize Crate.",
+   "icon": "minecraft:golden_sword",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/full_party",
+   "title": "Full House",
+   "desc": "Have six Pokémon in your party. Reward: a Prize Crate.",
+   "icon": "cobblemon:pc",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_wood"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/level_100",
+   "title": "Maxed Out",
+   "desc": "Raise a Pokémon to level 100. Reward: a Prize Crate.",
+   "icon": "cobblemon:rare_candy",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/level_50",
+   "title": "Halfway There",
+   "desc": "Raise a Pokémon to level 50. Reward: a Prize Crate.",
+   "icon": "cobblemon:rare_candy",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/root",
+   "title": "Trainer",
+   "desc": "Catch them, raise them, battle them.",
+   "icon": "cobblemon:poke_ball",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {},
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/shiny",
+   "title": "Something Sparkly",
+   "desc": "Catch a shiny Pokémon. Reward: a Prize Crate.",
+   "icon": "minecraft:glowstone_dust",
+   "age": null,
+   "frame": "goal",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/trade",
+   "title": "Fair Trade",
+   "desc": "Trade a Pokémon with another player. Reward: a Prize Crate.",
+   "icon": "minecraft:emerald",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/trainers_100",
+   "title": "Legend of the Road",
+   "desc": "Defeat 100 trainers. Reward: a Prize Crate.",
+   "icon": "minecraft:leather_boots",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/trainers_25",
+   "title": "Road Warrior",
+   "desc": "Defeat 25 trainers. Reward: a Prize Crate.",
+   "icon": "minecraft:leather_boots",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/trainers_5",
+   "title": "On the Road",
+   "desc": "Defeat 5 trainers. Reward: a Prize Crate.",
+   "icon": "minecraft:leather_boots",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/wild_10",
+   "title": "Scrapper",
+   "desc": "Win 10 battles against wild Pokémon. Reward: a Prize Crate.",
+   "icon": "minecraft:iron_sword",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/wild_200",
+   "title": "Unstoppable",
+   "desc": "Win 200 battles against wild Pokémon. Reward: a Prize Crate.",
+   "icon": "minecraft:iron_sword",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trainer/wild_50",
+   "title": "Seasoned",
+   "desc": "Win 50 battles against wild Pokémon. Reward: a Prize Crate.",
+   "icon": "minecraft:iron_sword",
+   "age": null,
+   "frame": "task",
+   "kind": "trainer",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_iron"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/all",
+   "title": "Thinking with Portals",
+   "desc": "Complete all six chambers. Reward: two Prize Crates.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "challenge",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond",
+     "cvages:rewards/crate_nether"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/chamber_1",
+   "title": "Chamber 1: First Light",
+   "desc": "Two panels, two portals: reach the ledge. Step on the glowing exit pad. Reward: a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/chamber_2",
+   "title": "Chamber 2: Over the Gap",
+   "desc": "Cross the pit. Step on the glowing exit pad. Reward: a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/chamber_3",
+   "title": "Chamber 3: Fling",
+   "desc": "Speedy thing goes in, speedy thing comes out. Step on the glowing exit pad. Reward: a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/chamber_4",
+   "title": "Chamber 4: Up and Over",
+   "desc": "Climb by sight, one ledge at a time. Step on the glowing exit pad. Reward: a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/chamber_5",
+   "title": "Chamber 5: Rocket",
+   "desc": "Fall far enough and the floor sends you up. Step on the glowing exit pad. Reward: a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/chamber_6",
+   "title": "Chamber 6: The Long Way",
+   "desc": "No ladder this time. Everything you've learned. Step on the glowing exit pad. Reward: a Prize Crate.",
+   "icon": "cvages:chamber_exit",
+   "age": null,
+   "frame": "goal",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_diamond"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/find",
+   "title": "The Temple",
+   "desc": "Find the Puzzle Temple. Reward: a Prize Crate.",
+   "icon": "minecraft:compass",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {
+    "loot": [
+     "cvages:rewards/crate_stone"
+    ]
+   },
+   "previous": null
+  },
+  {
+   "id": "cvages:trials/root",
+   "title": "The Keeper's Trials",
+   "desc": "Ada's Puzzle Temple: six chambers that only a Portal Device can solve. White panels take portals; dark ones don't.",
+   "icon": "cvages:portal_panel",
+   "age": null,
+   "frame": "task",
+   "kind": "trials",
+   "rewards": {},
+   "previous": null
   }
  ],
  "auto_quests": {

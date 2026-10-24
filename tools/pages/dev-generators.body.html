@@ -21,6 +21,8 @@
       <tbody>
         <tr><td><code>gen_data.py</code></td><td>Its own tables: AGES, SEEDS, COBBLEMON_RULES, DECOR_BOOK_RULES, DISCIPLINES, MUST_LEARN, CRATES, CRATE_EXTRAS, TUNING, LANG</td><td>ages, seeds, item_rules, tags, disciplines, badge map, tuning, crate and reward loot, bushcraft recipes, item models, <code>en_us.json</code></td></tr>
         <tr><td><code>gen_quests.py</code></td><td>QUESTS, AGE_TEXT, ANALOG, and <code>tools/gear.json</code></td><td>The Cobble Valley advancement tab, reward functions (visible quests + one hidden quest per gear item)</td></tr>
+        <tr><td><code>gen_adventures.py</code></td><td>STORY (with journal page text), PLACES, GYMS, SHIPS, AIRCRAFT, TYPES, TRIALS</td><td>The Keeper's Journal, Explorer, Trainer and Trials tabs; journal page loot tables</td></tr>
+        <tr><td><code>gen_trials.py</code></td><td>The chamber builders</td><td>The Puzzle Temple template and worldgen files, after checking every chamber (not walkable, solvable, momentum where needed, climbs in order, always a way out). It exits with an error if a check fails.</td></tr>
         <tr><td><code>gen_books.py</code></td><td><code>tools/age_dump.csv</code></td><td><code>data/cvages/cvages/books/&lt;mod&gt;/*.json</code></td></tr>
         <tr><td><code>test_server.py</code></td><td>The pack's mods.json</td><td>A local full-pack server; runs commands on it (<a href="dev-testing.html">Testing</a>)</td></tr>
       </tbody>
@@ -61,6 +63,8 @@ python -I tools/gen_data.py
 python -I tools/test_server.py run &lt;dir&gt;   # then copy the dump into tools/
 python -I tools/gen_quests.py
 python -I tools/gen_books.py
+python -I tools/gen_adventures.py
+python -I tools/gen_trials.py
 ./gradlew build
 # in modpack/
 python -I tools/pages/make.py               # reads ../cobble-valley-ages by default</pre>
