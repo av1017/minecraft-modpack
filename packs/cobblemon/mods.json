@@ -1466,6 +1466,10 @@
       "why": "U is Xaero's waypoint list; every letter is taken, and the skin library is rarely opened"
     }
   ],
+  "key_layout": {
+    "source": "packs/cobblemon/keys.txt",
+    "why": "The host's own key bindings (saved with tools/export-keys.ps1), so every PC's controls match. Keys a PC lacks always get it; sync -MatchKeys or a first-time setup sets all of them"
+  },
   "config_fixes": [
     {
       "file": "config/simplehats.json5",

@@ -10,6 +10,9 @@
   -MinecraftDir  The launcher folder (default %APPDATA%\.minecraft). Packs with their own
                  game folder put it next to this one, e.g. %APPDATA%\.minecraft-cobblemon.
   -AllowRunning  Testing only: skip the "Minecraft must be closed" check.
+  -MatchKeys     Set every key binding to the pack's key layout (packs\<name>\keys.txt, the
+                 host's keys). Without it, only keys this PC doesn't have yet get the layout.
+                 A first-time setup always gets the whole layout.
 
   Mods are downloaded from Modrinth (as their authors require) and checked
   against the SHA-1 in mods.json before anything is changed.
@@ -18,7 +21,8 @@ param(
   [string]$Pack = "our-world",
   [switch]$DryRun,
   [string]$MinecraftDir = (Join-Path $env:APPDATA ".minecraft"),
-  [switch]$AllowRunning
+  [switch]$AllowRunning,
+  [switch]$MatchKeys
 )
 
 $ErrorActionPreference = "Stop"
@@ -158,6 +162,29 @@ if ($keyFixes.Count -gt 0 -and (Test-Path $keyOptionsFile)) {
   }
 }
 
+# The pack's key layout: the host's own bindings, saved by tools\export-keys.ps1 as packs\<pack>\keys.txt.
+# Keys this PC doesn't have yet (a new mod, a new PC) always get the layout's binding. With -MatchKeys, or on a
+# first-time setup, every key that differs is set to it, so everyone's controls match the host's.
+$layoutChanges = @()
+$layoutAll = $MatchKeys -or $needOptions
+if ($m.PSObject.Properties.Name -contains "key_layout" -and $m.key_layout) {
+  $layoutPath = Join-Path $repo $m.key_layout.source
+  if (-not (Test-Path -LiteralPath $layoutPath)) { Fail "mods.json lists key layout $($m.key_layout.source), but it isn't in the repo." }
+  if (Test-Path $keyOptionsFile) {
+    $now = @{}
+    foreach ($l in [System.IO.File]::ReadAllLines($keyOptionsFile)) { if ($l -match '^(key_[^:]+):(.*)$') { $now[$Matches[1]] = $Matches[2] } }
+    foreach ($l in [System.IO.File]::ReadAllLines($layoutPath)) {
+      if ($l -match '^(key_[^:]+):(.+)$') {
+        $k = $Matches[1]; $v = $Matches[2]
+        if (-not $now.ContainsKey($k) -or ($layoutAll -and $now[$k] -ne $v)) { $layoutChanges += [pscustomobject]@{ key = $k; to = $v } }
+      }
+    }
+    # The layout already includes the keybind fixes, so for any key it sets, it wins.
+    $layoutKeys = @{}; foreach ($c in $layoutChanges) { $layoutKeys[$c.key] = $true }
+    $keyChanges = @($keyChanges | Where-Object { -not $layoutKeys.ContainsKey($_.key) })
+  }
+}
+
 # Fixes inside mods' own config files, for settings that aren't in options.txt (REI's keys, AutoSwitch's rules).
 # "find" is a regex that only matches the unfixed default, so a setting the player changed is left alone.
 # A mod writes its config on first launch; until the file exists, the fix waits for a later sync.
@@ -185,6 +212,10 @@ foreach ($c in $cfgFiles) {
 
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($k in $keyChanges)  { Plan "Keybind fix: $($k.key) -> $($k.to) ($($k.why))" }
+if ($layoutChanges.Count -gt 0) {
+  $how = "add keys this PC doesn't have yet"; if ($layoutAll) { $how = "match the host's controls" }
+  Plan "Key layout: set $($layoutChanges.Count) key binding(s) to the pack's layout ($how)"
+}
 foreach ($c in $cfgChanges)  { Plan "Config fix: $($c.file) ($($c.why))" }
 foreach ($c in $cfgPending)  { Note "Config fix waits for the mod's first launch: $($c.file) ($($c.why))" }
 foreach ($c in $cfgFileChanges) { Plan "Config file: $($c.file) ($($c.why))" }
@@ -202,7 +233,7 @@ if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpLis
 
 if ($spList.Count -gt 0) { Ok "$($spList.Count - $spToInstall.Count) of $($spList.Count) shader packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $cfgChanges.Count + $cfgFileChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $layoutChanges.Count + $cfgChanges.Count + $cfgFileChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -286,7 +317,8 @@ if ($needOptions) {
   Ok "Copied game settings and keybinds"
 }
 
-# Apply keybind fixes (worked out above).
+# Apply keybind fixes and the key layout (worked out above).
+$keyChanges = @($keyChanges) + @($layoutChanges)
 if ($keyChanges.Count -gt 0) {
   if (-not (Test-Path $dstOptions)) {
     Note "No options.txt yet; keybind fixes will apply on the next sync after your first launch."
@@ -302,7 +334,7 @@ if ($keyChanges.Count -gt 0) {
       if ($idx -ge 0) { $lines[$idx] = $k.key + ":" + $k.to } else { [void]$lines.Add($k.key + ":" + $k.to) }
     }
     [System.IO.File]::WriteAllText($dstOptions, (($lines -join $nl) + $nl), $utf8NoBom)
-    Ok "Applied $($keyChanges.Count) keybind fix(es)"
+    Ok "Applied $($keyChanges.Count) key binding change(s)"
   }
 }
 

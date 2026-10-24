@@ -7,7 +7,7 @@ Modrinth App. Settings live in packs/cobblemon/friends/pack.json.
                                                       # GitHub release (needs gh, logged in)
 
 The .mrpack lists download URLs and hashes; it doesn't contain any mod files. It adds:
-options.txt (the pack's keybind fixes, texture packs switched on), servers.dat (the
+options.txt (the host's key layout, texture packs switched on), servers.dat (the
 server in the Multiplayer list), the pack's config_files, and friends/overrides/.
 """
 import argparse, hashlib, io, json, pathlib, struct, subprocess, sys, tempfile, time, urllib.request, zipfile
@@ -80,7 +80,10 @@ def main():
     packs += ["file/" + x["filename"] for x in m.get("resourcepacks", []) if x.get("enabled", True)]
     options = [f"version:{cfg['data_version']}",
                "resourcePacks:" + json.dumps(packs, ensure_ascii=False, separators=(",", ":"))]
-    options += [f"{k['key']}:{k['to']}" for k in m.get("keybinds", [])]
+    if m.get("key_layout"):   # the host's full key bindings, so friends' controls match
+        options += [l.strip() for l in (ROOT / m["key_layout"]["source"]).read_text(encoding="utf-8").splitlines() if l.startswith("key_")]
+    else:
+        options += [f"{k['key']}:{k['to']}" for k in m.get("keybinds", [])]
 
     commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
                             capture_output=True, text=True).stdout.strip() or "local"
