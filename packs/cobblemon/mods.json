@@ -1246,6 +1246,17 @@
       "side": "client"
     },
     {
+      "name": "Particular ✨",
+      "slug": "particular",
+      "project_id": "B1CcCd9h",
+      "version_id": "3dq7wTCR",
+      "version": "1.1.2+1.21",
+      "filename": "particular-1.1.2+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/B1CcCd9h/versions/3dq7wTCR/particular-1.1.2%2B1.21.jar",
+      "sha1": "aa59b31359c2211f4a2d401235c4926084d4f97e",
+      "side": "client"
+    },
+    {
       "name": "Punchy!",
       "slug": "punchy-fpa",
       "project_id": "8aoMKplv",
@@ -1324,6 +1335,17 @@
       "filename": "tooltipfix-1.1.1-1.20.jar",
       "url": "https://cdn.modrinth.com/data/2RKFTmiB/versions/B2L4LeMV/tooltipfix-1.1.1-1.20.jar",
       "sha1": "de704792c691e3d19316c87c21c9ad2bee6c66c3",
+      "side": "client"
+    },
+    {
+      "name": "Visuality",
+      "slug": "visuality",
+      "project_id": "rI0hvYcd",
+      "version_id": "dhKbgdIb",
+      "version": "0.7.7+1.21",
+      "filename": "visuality-0.7.7+1.21.jar",
+      "url": "https://cdn.modrinth.com/data/rI0hvYcd/versions/dhKbgdIb/visuality-0.7.7%2B1.21.jar",
+      "sha1": "8d239710c1c1983d780ad04686c3c3d0d1b1585e",
       "side": "client"
     },
     {
