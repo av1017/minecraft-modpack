@@ -106,7 +106,7 @@ If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `lau
 ## Friends' pack (Modrinth App, no sync script)
 Friends who can't run `sync.ps1` (Mac, or no Claude) import `Reajustiene-Cobblemon.mrpack` into the Modrinth App. It's built by `tools/build-friends-pack.py` from the cobblemon `mods.json` plus `packs/cobblemon/friends/`:
 - `pack.json`: name, `exclude` (e4mc), the Minecraft data version for `options.txt`, built-in resource packs to switch on, the Multiplayer server entries (`servers.dat`), and the release tag and asset name.
-- `overrides/`: config files copied into the instance as-is. Currently the host's REI config (recipe key Y), AutoSwitch's use-action rules (creeper fix), and Distant Horizons' light profile (radius 48). These replace `config_fixes`, which need a first launch. The pack's `config_files` are added automatically.
+- `overrides/`: config files copied into the instance as-is. Currently the host's REI config (recipe key Y), AutoSwitch's use-action rules (creeper fix), and Distant Horizons' profile (radius 128, renderer on). These replace `config_fixes`, which need a first launch. The pack's `config_files` are added automatically.
 - The generated `options.txt` holds only `version`, `resourcePacks` (the enabled texture packs in manifest order), and the `keybinds` fixes. Minecraft fills in defaults for everything else.
 
 The `.mrpack` lists download URLs and hashes only (no jars), so it respects mod licenses. `--upload` replaces the asset on the `friends-pack` GitHub release, so the download link in the guide never changes: `https://github.com/av1017/minecraft-modpack/releases/download/friends-pack/Reajustiene-Cobblemon.mrpack`. `dist/` is git-ignored.

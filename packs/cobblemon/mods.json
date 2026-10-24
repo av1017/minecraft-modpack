@@ -1494,8 +1494,14 @@
     {
       "file": "config/DistantHorizons.toml",
       "find": "(?m)^(\\s*lodChunkRenderDistanceRadius = )256(?=[ \\t]*\\r?$)",
-      "replace": "${1}48",
-      "why": "Distant Horizons: far terrain 256 -> 48 chunks; 256 maxed out the host's graphics"
+      "replace": "${1}128",
+      "why": "Distant Horizons defaults to 256 chunks of far terrain, which maxed out the host laptop's GPU. With C2ME, Lithium, and Sodium, 128 runs smoothly (tested 10/23/2026); 256 is still too far"
+    },
+    {
+      "file": "config/DistantHorizons.toml",
+      "find": "(?m)^(\\s*lodChunkRenderDistanceRadius = )48(?=[ \\t]*\\r?$)",
+      "replace": "${1}128",
+      "why": "Moves PCs that still have the pack's old 48-chunk setting up to the new 128. Any other value is a player's own choice and stays"
     },
     {
       "file": "config/DistantHorizons.toml",
