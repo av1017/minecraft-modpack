@@ -94,6 +94,17 @@
       "side": "both"
     },
     {
+      "name": "Better Than Mending",
+      "slug": "better-than-mending",
+      "project_id": "Lvv4SHrK",
+      "version_id": "xv5fSPWX",
+      "version": "2.2.0",
+      "filename": "BetterThanMending-2.2.0.jar",
+      "url": "https://cdn.modrinth.com/data/Lvv4SHrK/versions/xv5fSPWX/BetterThanMending-2.2.0.jar",
+      "sha1": "868135dde3fc2f33150870de4a0f1831b74b755a",
+      "side": "both"
+    },
+    {
       "name": "Bookshelf",
       "slug": "bookshelf-lib",
       "project_id": "uy4Cnpcm",
@@ -204,6 +215,17 @@
       "side": "both"
     },
     {
+      "name": "Cobblemon: Mega Showdown",
+      "slug": "cobblemon-mega-showdown",
+      "project_id": "SszvX85I",
+      "version_id": "RFWTLHyO",
+      "version": "1.3.2+1.8.2+1.21.1-release",
+      "filename": "mega_showdown-fabric-1.3.2+1.8.2+1.21.1-release.jar",
+      "url": "https://cdn.modrinth.com/data/SszvX85I/versions/RFWTLHyO/mega_showdown-fabric-1.3.2%2B1.8.2%2B1.21.1-release.jar",
+      "sha1": "78f05e982d9b73c4635be77bcc8e3ba3c6e01d02",
+      "side": "both"
+    },
+    {
       "name": "Cobbreeding",
       "slug": "cobbreeding",
       "project_id": "ItmVb4zY",
@@ -226,6 +248,17 @@
       "side": "both"
     },
     {
+      "name": "Concurrent Chunk Management Engine (Fabric)",
+      "slug": "c2me-fabric",
+      "project_id": "VSNURh3q",
+      "version_id": "KxcgERSN",
+      "version": "0.4.0-alpha.0.30+1.21.1",
+      "filename": "c2me-fabric-mc1.21.1-0.4.0-alpha.0.30.jar",
+      "url": "https://cdn.modrinth.com/data/VSNURh3q/versions/KxcgERSN/c2me-fabric-mc1.21.1-0.4.0-alpha.0.30.jar",
+      "sha1": "7ce266eb1d7ff617751ed1f0ebb203662ed641b3",
+      "side": "both"
+    },
+    {
       "name": "Craftable Templates & More (our own)",
       "slug": "avtemplates",
       "project_id": "avtemplates-local",
@@ -237,6 +270,17 @@
       "side": "both",
       "pinned": true,
       "pinned_reason": "Our own recipe-only mod (source: tools/craftable-templates/build.py): smithing templates, plus the 26.x saddle and slime-free lead recipes. Replaces Craftable Smithing Templates 1.2, whose recipes don't load on 1.21.1. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
+      "name": "CreativeCore",
+      "slug": "creativecore",
+      "project_id": "OsZiaDHq",
+      "version_id": "v7fZmKvM",
+      "version": "2.13.48",
+      "filename": "CreativeCore_FABRIC_v2.13.48_mc1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/OsZiaDHq/versions/v7fZmKvM/CreativeCore_FABRIC_v2.13.48_mc1.21.1.jar",
+      "sha1": "d134ccaf1030973e47f1b2eac7c834e438ae0ab6",
+      "side": "both"
     },
     {
       "name": "Distant Horizons",
@@ -258,6 +302,28 @@
       "filename": "e4mc-fabric-6.2.3.jar",
       "url": "https://cdn.modrinth.com/data/qANg5Jrr/versions/8wsUJ306/e4mc-fabric-6.2.3.jar",
       "sha1": "5420209f8560df548625f1defc24ebb94682f0fd",
+      "side": "both"
+    },
+    {
+      "name": "Easy Anvils",
+      "slug": "easy-anvils",
+      "project_id": "OZBR5JT5",
+      "version_id": "znaWBlgU",
+      "version": "v21.1.0-1.21.1-Fabric",
+      "filename": "EasyAnvils-v21.1.0-1.21.1-Fabric.jar",
+      "url": "https://cdn.modrinth.com/data/OZBR5JT5/versions/znaWBlgU/EasyAnvils-v21.1.0-1.21.1-Fabric.jar",
+      "sha1": "c07d01e04a29d4adcee8ffeb14eb3290a279627e",
+      "side": "both"
+    },
+    {
+      "name": "Easy Magic",
+      "slug": "easy-magic",
+      "project_id": "9hx3AbJM",
+      "version_id": "LLLfoeWJ",
+      "version": "v21.1.4-1.21.1-Fabric",
+      "filename": "EasyMagic-v21.1.4-1.21.1-Fabric.jar",
+      "url": "https://cdn.modrinth.com/data/9hx3AbJM/versions/LLLfoeWJ/EasyMagic-v21.1.4-1.21.1-Fabric.jar",
+      "sha1": "2131b964eafe376ff7e565cdae330a585e42d2e1",
       "side": "both"
     },
     {
@@ -472,6 +538,17 @@
       "pinned_reason": "Paired with the pinned Supplementaries 3.6.7 (Moonlight from the same month, May 2026); unpin together with Supplementaries."
     },
     {
+      "name": "MRU",
+      "slug": "mru",
+      "project_id": "SNVQ2c0g",
+      "version_id": "SkOpGlI6",
+      "version": "1.0.41+1.21.1-fabric",
+      "filename": "mru-1.0.41+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/SNVQ2c0g/versions/SkOpGlI6/mru-1.0.41%2B1.21.1-fabric.jar",
+      "sha1": "2a64171449fd4d05262a86e7ebafa4b40485fca4",
+      "side": "both"
+    },
+    {
       "name": "oωo (owo-lib)",
       "slug": "owo-lib",
       "project_id": "ccKDOlHs",
@@ -524,6 +601,17 @@
       "filename": "prickle-fabric-1.21.1-21.1.11.jar",
       "url": "https://cdn.modrinth.com/data/aaRl8GiW/versions/Ef7P6Rb7/prickle-fabric-1.21.1-21.1.11.jar",
       "sha1": "6d6032880be3b6469c5615fd2ea160bf5eb93ac2",
+      "side": "both"
+    },
+    {
+      "name": "Puzzles Lib",
+      "slug": "puzzles-lib",
+      "project_id": "QAGBst4M",
+      "version_id": "NiTMKi94",
+      "version": "21.1.65",
+      "filename": "puzzleslib-v21.1.65-mc1.21.1+fabric.jar",
+      "url": "https://cdn.modrinth.com/data/QAGBst4M/versions/NiTMKi94/puzzleslib-v21.1.65-mc1.21.1%2Bfabric.jar",
+      "sha1": "464f60d0e97cc4f1f9f1cfb026cc80a973e90497",
       "side": "both"
     },
     {
@@ -637,6 +725,17 @@
       "side": "both"
     },
     {
+      "name": "Sound Physics Remastered",
+      "slug": "sound-physics-remastered",
+      "project_id": "qyVF9oeo",
+      "version_id": "BYhL3BDk",
+      "version": "fabric-1.21.1-1.5.2",
+      "filename": "sound-physics-remastered-fabric-1.21.1-1.5.2.jar",
+      "url": "https://cdn.modrinth.com/data/qyVF9oeo/versions/BYhL3BDk/sound-physics-remastered-fabric-1.21.1-1.5.2.jar",
+      "sha1": "3b80027d2ed279b26b2d300b9545fe5b1c40ff60",
+      "side": "both"
+    },
+    {
       "name": "Storage Delight",
       "slug": "storage-delight",
       "project_id": "LTTvOp5L",
@@ -718,6 +817,17 @@
       "pinned_reason": "Our own mod (source: minecraftServer/portal-gun-mod, not on Modrinth). Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
     },
     {
+      "name": "Visual Workbench",
+      "slug": "visual-workbench",
+      "project_id": "kfqD1JRw",
+      "version_id": "HyTKHqxd",
+      "version": "21.1.2",
+      "filename": "VisualWorkbench-v21.1.2-1.21.1-Fabric.jar",
+      "url": "https://cdn.modrinth.com/data/kfqD1JRw/versions/HyTKHqxd/VisualWorkbench-v21.1.2-1.21.1-Fabric.jar",
+      "sha1": "5942f07bad473247692b28ce0e3dad46c8031fdc",
+      "side": "both"
+    },
+    {
       "name": "Weavers Paradise",
       "slug": "weavers-paradise",
       "project_id": "Q5xngUCT",
@@ -795,6 +905,28 @@
       "side": "client"
     },
     {
+      "name": "3D Skin Layers",
+      "slug": "3dskinlayers",
+      "project_id": "zV5r3pPn",
+      "version_id": "U5tvqtlF",
+      "version": "1.11.4",
+      "filename": "skinlayers3d-fabric-1.11.4-mc1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/zV5r3pPn/versions/U5tvqtlF/skinlayers3d-fabric-1.11.4-mc1.21.1.jar",
+      "sha1": "59b73891befcbd20a977a903eac8e212287a31f8",
+      "side": "client"
+    },
+    {
+      "name": "AmbientSounds",
+      "slug": "ambientsounds",
+      "project_id": "fM515JnW",
+      "version_id": "54u7eI2t",
+      "version": "6.3.11",
+      "filename": "AmbientSounds_FABRIC_v6.3.11_mc1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/fM515JnW/versions/54u7eI2t/AmbientSounds_FABRIC_v6.3.11_mc1.21.1.jar",
+      "sha1": "7573561c88aef4ca2f70366be8005bbd68874f74",
+      "side": "client"
+    },
+    {
       "name": "AutoSwitch",
       "slug": "autoswitch",
       "project_id": "uSdcnlts",
@@ -806,6 +938,17 @@
       "side": "client"
     },
     {
+      "name": "Falling Leaves",
+      "slug": "fallingleaves",
+      "project_id": "WhbRG4iK",
+      "version_id": "Y0zS16Bk",
+      "version": "1.17.1+1.21.1",
+      "filename": "fallingleaves-1.17.1+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/WhbRG4iK/versions/Y0zS16Bk/fallingleaves-1.17.1%2B1.21.1.jar",
+      "sha1": "5210b4cb359a95c53580b1399f98e51ab0967cc5",
+      "side": "client"
+    },
+    {
       "name": "First-person Model",
       "slug": "first-person-model",
       "project_id": "H5XMjpHi",
@@ -814,6 +957,17 @@
       "filename": "firstperson-fabric-2.7.3-mc1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/H5XMjpHi/versions/UowdyPMu/firstperson-fabric-2.7.3-mc1.21.1.jar",
       "sha1": "4a16bcb1084920b14628ba66609a67f1f92524f9",
+      "side": "client"
+    },
+    {
+      "name": "Inventory Particles",
+      "slug": "inventory-particles",
+      "project_id": "XYnKrsxH",
+      "version_id": "r73lLMRf",
+      "version": "3.2.0+1.21.1+fabric",
+      "filename": "InventoryParticles-3.2.0+1.21.1+fabric.jar",
+      "url": "https://cdn.modrinth.com/data/XYnKrsxH/versions/r73lLMRf/InventoryParticles-3.2.0%2B1.21.1%2Bfabric.jar",
+      "sha1": "764d5bc3bfb26b9038abc6894c4a696b20459ddb",
       "side": "client"
     },
     {
@@ -872,6 +1026,17 @@
       "side": "client"
     },
     {
+      "name": "MossyLib",
+      "slug": "mossylib",
+      "project_id": "ffLDUGbm",
+      "version_id": "mVqEaVMq",
+      "version": "1.6.0+1.21.1+fabric",
+      "filename": "MossyLib-1.6.0+1.21.1+fabric.jar",
+      "url": "https://cdn.modrinth.com/data/ffLDUGbm/versions/mVqEaVMq/MossyLib-1.6.0%2B1.21.1%2Bfabric.jar",
+      "sha1": "4133985607e8f8ac8263434b3c091ccaf6533d38",
+      "side": "client"
+    },
+    {
       "name": "Mouse Tweaks",
       "slug": "mouse-tweaks",
       "project_id": "aC3cM3Vq",
@@ -902,6 +1067,17 @@
       "filename": "notenoughanimations-fabric-1.12.6-mc1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/MPCX6s5C/versions/P5COwDnM/notenoughanimations-fabric-1.12.6-mc1.21.1.jar",
       "sha1": "ecef905897a8837ac1ca6a073e2533a94bf7590a",
+      "side": "client"
+    },
+    {
+      "name": "Particle Rain",
+      "slug": "particle-rain",
+      "project_id": "nrikgvxm",
+      "version_id": "jquizTC2",
+      "version": "v4.0.2+1.21.1-fabric",
+      "filename": "particlerain-4.0.2+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/nrikgvxm/versions/jquizTC2/particlerain-4.0.2%2B1.21.1-fabric.jar",
+      "sha1": "b83113c0fec92573c5b676ea0b594f6cd9f8d2d0",
       "side": "client"
     },
     {
@@ -940,6 +1116,28 @@
       "side": "client",
       "pinned": true,
       "pinned_reason": "Iris for 1.21.1 requires Sodium 0.6.x"
+    },
+    {
+      "name": "Sounds",
+      "slug": "sound",
+      "project_id": "ZouiUX7t",
+      "version_id": "ZpG2rY0c",
+      "version": "2.4.22+lts+1.21.1-fabric",
+      "filename": "sounds-2.4.22+lts+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/ZouiUX7t/versions/ZpG2rY0c/sounds-2.4.22%2Blts%2B1.21.1-fabric.jar",
+      "sha1": "d6cd1066115fc7e674d8f6a6250cbc5cfabba746",
+      "side": "client"
+    },
+    {
+      "name": "Spatial GUI",
+      "slug": "spatial-gui",
+      "project_id": "zLBn2IE4",
+      "version_id": "TZhu5jpi",
+      "version": "1.8-fabric+1.21.1",
+      "filename": "spatial-gui-1.8+1.21.1-fabric.jar",
+      "url": "https://cdn.modrinth.com/data/zLBn2IE4/versions/TZhu5jpi/spatial-gui-1.8%2B1.21.1-fabric.jar",
+      "sha1": "33c55f3e469fcc24153e4280a701914f35ed028d",
+      "side": "client"
     },
     {
       "name": "ToolTipFix",
@@ -1109,6 +1307,17 @@
       "url": "https://cdn.modrinth.com/data/Va3BanZa/versions/MAumPyhV/E19%20Cobblemon%20Minimap%20Icons.zip",
       "sha1": "77813d38002b43c9c243d694728479bd3879cf86",
       "side": "client"
+    },
+    {
+      "name": "Fresh Animations: Player Extension",
+      "slug": "fa-player-extension",
+      "project_id": "TAIMVZCL",
+      "version_id": "Wj7NeGjP",
+      "version": "1.1.0",
+      "filename": "FA+Player-v1.1.zip",
+      "url": "https://cdn.modrinth.com/data/TAIMVZCL/versions/Wj7NeGjP/FA%2BPlayer-v1.1.zip",
+      "sha1": "122e397af111e3dc5fb6b60004aad9464980f13a",
+      "side": "client"
     }
   ],
   "shaderpacks": [
@@ -1121,6 +1330,17 @@
       "filename": "ComplementaryReimagined_r5.9.3.zip",
       "url": "https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip",
       "sha1": "838139b54cddb56b2e83cd260d8efd960ac536d6",
+      "side": "client"
+    },
+    {
+      "name": "Solas Shader",
+      "slug": "solas-shader",
+      "project_id": "EpQFjzrQ",
+      "version_id": "XE9yh7pS",
+      "version": "3.8",
+      "filename": "Solas Shader V3.8.zip",
+      "url": "https://cdn.modrinth.com/data/EpQFjzrQ/versions/XE9yh7pS/Solas%20Shader%20V3.8.zip",
+      "sha1": "e2a5ded8e3061fa1bbf12e828a9992044c88fa62",
       "side": "client"
     }
   ],
@@ -1247,6 +1467,12 @@
     }
   ],
   "config_fixes": [
+    {
+      "file": "config/simplehats.json5",
+      "find": "(\"forceFirstPersonNoRender\"\\s*:\\s*)false",
+      "replace": "${1}true",
+      "why": "With First-person Model, a hat in the Accessories slot rendered stretched and untextured across your own first-person view (bobbing, motion sickness). Hides hats only in your own first-person view; they still show in third person and to other players"
+    },
     {
       "file": "config/roughlyenoughitems/config.json5",
       "find": "(\"recipeKeybind\"\\s*:\\s*\\{\\s*\"keyCode\"\\s*:\\s*)\"key\\.keyboard\\.r\"",
