@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dev: Data Files · Cobble Valley Ages</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #2f7fd8; --accent-bg: #e2eefb;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.cslot.empty { background: var(--grid-slot); opacity: 0.55; }
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 8px; }
+.card { background: var(--slot); border: 2px solid var(--slot-border); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.card .cname { font-family: "Silkscreen", monospace; font-size: 0.95rem; }
+.card .ctag { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--accent); }
+.card p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.card ul { margin: 0; padding-left: 1.1em; font-size: 0.86rem; color: var(--ink-soft); }
+code { font-family: "Space Mono", monospace; font-size: 0.85em; background: var(--slot); border: 1px solid var(--slot-border); padding: 0 4px; }
+
+.cv-age { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 2px 8px; border: 2px solid; white-space: nowrap; }
+.cv-age-wood { color: #8a4b1f; border-color: #a0522d; background: #f6e7da; }
+.cv-age-stone { color: #555; border-color: #8a8a8a; background: #ececec; }
+.cv-age-iron { color: #4d4d4d; border-color: #b8b8b8; background: #fafafa; }
+.cv-age-diamond { color: #116b62; border-color: #4aedd9; background: #e3fbf8; }
+.cv-age-nether { color: #8e2420; border-color: #b02e26; background: #f9e3e1; }
+.cv-age-end { color: #6a3d9a; border-color: #c77dff; background: #f3e8ff; }
+.cv-age-champion { color: #8a6d00; border-color: #ffd700; background: #fff8d6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cv-age { background: transparent; filter: brightness(1.6); } }
+:root[data-theme="dark"] .cv-age { background: transparent; filter: brightness(1.6); }
+details { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 12px; margin: 8px 0; }
+details > summary { cursor: pointer; font-size: 0.95rem; }
+details[open] > summary { margin-bottom: 6px; }
+h3 .cv-age { vertical-align: middle; }
+.lookup-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.lookup-bar input, .lookup-bar select { font: inherit; font-size: 0.95rem; padding: 8px 10px; background: var(--slot); color: var(--ink);
+  border: 2px solid var(--slot-border); min-width: 0; }
+.lookup-bar input { flex: 1 1 220px; }
+.lookup-bar select { flex: 0 1 160px; }
+#lookup-status { font-size: 0.85rem; color: var(--ink-faint); margin: 4px 0 8px; }
+.panel { min-width: 0; }
+.panel code, .panel h2, .panel h3 { overflow-wrap: anywhere; }
+.tree { max-width: 100%; box-sizing: border-box; font-family: "Space Mono", monospace; font-size: 0.8rem; background: var(--slot); border: 2px solid var(--slot-border); padding: 10px 12px;
+  overflow-x: auto; white-space: pre; line-height: 1.45; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- title: Dev: Data Files · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Data Files</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; every JSON the mod reads</span>
+    <h1>Dev: Data Files</h1>
+    <p>All of the mod's rules live in datapack JSON under <code>data/&lt;namespace&gt;/cvages/</code>, so any datapack (or another mod) can add to them. The built-in ones are written by <code>tools/gen_data.py</code>, <code>gen_quests.py</code> and <code>gen_books.py</code>: <strong>edit the tables in those scripts, not the JSON</strong>. After a change: rebuild, or for a datapack on a running server, <code>/reload</code>.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#ages">ages</a>
+    <a href="#seeds">seeds</a>
+    <a href="#rules">item_rules</a>
+    <a href="#tags">tags</a>
+    <a href="#disciplines">disciplines</a>
+    <a href="#books">books</a>
+    <a href="#badges">badge_sources</a>
+    <a href="#tuning">tuning</a>
+    <a href="#other">loot, recipes, quests</a>
+  </nav>
+
+  <section class="panel" id="ages">
+    <h2>cvages/ages/&lt;id&gt;.json</h2>
+<pre class="tree">{ "order": 2, "name": "Iron Age", "color": "#D8D8D8",
+  "badges": 1,                      distinct gym badges the group needs
+  "group_quests": [],               advancement ids; all needed, anyone can earn them
+  "dimensions": [] }                dimensions locked until this age</pre>
+    <p>Ages unlock in <code>order</code>; an age needs the previous one. Generated from <code>AGES</code> in gen_data.py.</p>
+  </section>
+
+  <section class="panel" id="seeds">
+    <h2>cvages/seeds/*.json</h2>
+<pre class="tree">{ "stone": ["minecraft:cobblestone", "minecraft:coal", ...],
+  "iron":  ["minecraft:iron_ingot", ...], ... }</pre>
+    <p>Items pinned to an age; every other age is worked out from recipes. Recipes that make a seed are ignored. From <code>SEEDS</code>.</p>
+  </section>
+
+  <section class="panel" id="rules">
+    <h2>cvages/item_rules/*.json</h2>
+<pre class="tree">{ "rules": [
+  { "match": "cobblemon:great_ball", "policy": "must_learn" },
+  { "match": "/cobblemon:.*_berry/", "age": "wood" },
+  { "match": "@poke-clothing", "category": "none", "discipline": "tailoring" },
+  { "match": "#minecraft:trim_templates", "discipline": "blacksmithing" } ] }</pre>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Field</th><th>Values</th></tr></thead>
+      <tbody>
+        <tr><td><code>match</code></td><td><code>ns:item</code>, <code>#ns:tag</code>, <code>@modid</code>, or <code>/regex/</code> (matched against the full id)</td></tr>
+        <tr><td><code>age</code></td><td>an age id: overrides the computed age</td></tr>
+        <tr><td><code>category</code></td><td><code>none</code>, <code>tool</code>, <code>melee</code>, <code>armor</code>, <code>ranged</code>, <code>shield</code>: overrides the gear classifier</td></tr>
+        <tr><td><code>policy</code></td><td><code>auto</code>, <code>must_learn</code>, <code>book</code>, <code>exempt</code></td></tr>
+        <tr><td><code>discipline</code></td><td>a discipline id (crafting needs it); <code>""</code> clears one</td></tr>
+      </tbody>
+    </table></div>
+    <p>Rules apply in file order and later rules win, so exceptions go after the rule they except. Built-in files: <code>cobblemon_essentials.json</code> (<code>COBBLEMON_RULES</code>) and <code>decor_books.json</code> (<code>DECOR_BOOK_RULES</code>).</p>
+  </section>
+
+  <section class="panel" id="tags">
+    <h2>Tags</h2>
+    <ul>
+      <li><code>#cvages:must_learn</code>: base policy must-learn (furnace, anvil, enchanting table...). From <code>MUST_LEARN</code>.</li>
+      <li><code>#cvages:exempt</code>: never gated (our book and crate items, the trainer card).</li>
+    </ul>
+    <p>Tags set the starting policy; item rules override them.</p>
+  </section>
+
+  <section class="panel" id="disciplines">
+    <h2>cvages/disciplines/&lt;id&gt;.json</h2>
+<pre class="tree">{ "name": "Cooking", "age": "stone",
+  "proxy_items": ["farmersdelight:cooking_pot", ...],   holding one lets a master teach it
+  "gated_blocks": ["farmersdelight:cooking_pot", ...] } these won't open until learned</pre>
+    <p>The knowledge key is <code>cvages:discipline/&lt;id&gt;</code>. Proxy items and blocks accept <code>#tags</code>; ids from missing mods are ignored. Enchanting has no gated blocks: its table and anvil checks are in mixins. From <code>DISCIPLINES</code>.</p>
+  </section>
+
+  <section class="panel" id="books">
+    <h2>cvages/books/&lt;mod&gt;/&lt;family&gt;.json</h2>
+<pre class="tree">{ "title": "Handcrafted: Chairs, Corner Trims &amp; Couches",
+  "age": "wood",                     earliest age it can be read
+  "items": ["handcrafted:acacia_chair", ...] }</pre>
+    <p>Book id = <code>&lt;namespace&gt;:&lt;path&gt;</code>. Items from missing mods are dropped; a book left empty is skipped. Generated by <code>gen_books.py</code> from the dump: every craftable BOOK item lands in exactly one book.</p>
+  </section>
+
+  <section class="panel" id="badges">
+    <h2>cvages/badge_sources.json</h2>
+<pre class="tree">{ "leaders": { "brock": ["rctmod:trainers/defeat_leader_brock"],
+               "roark": ["rctmod:trainers/defeat_gym_leader_roark_1", "..._roark_2"], ... } }</pre>
+    <p>Leader key &rarr; advancements meaning "beat this leader". Distinct keys earned by anyone count as group badges. From <code>leaders()</code>.</p>
+  </section>
+
+  <section class="panel" id="tuning">
+    <h2>cvages/tuning.json</h2>
+    <p>Every number. Missing fields use the built-in defaults (same values). From <code>TUNING</code>.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Field</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>recognizedBase, curveExponent</td><td>0.35, 0.8</td><td>Effectiveness = base + (1 - base) &times; (skill/100)^exponent</td></tr>
+        <tr><td>preAgeUndiscovered</td><td>0.05</td><td>Strange Object effectiveness</td></tr>
+        <tr><td>preAgeDiscoveredBase, preAgeSkillCap</td><td>0.10, 25</td><td>Discovered but ahead of its age: base, and the skill cap</td></tr>
+        <tr><td>gainTool, gainMelee, gainArmorPerPoint, gainRanged</td><td>0.08, 0.25, 0.05, 0.4</td><td>Skill per block (&times; hardness 0.5-3), per hit, per point of damage absorbed, per shot</td></tr>
+        <tr><td>gainCraftMustLearn, gainCraftGear</td><td>5, 1</td><td>Skill per craft</td></tr>
+        <tr><td>perMinuteCap, minGainFactor</td><td>2.0, 0.15</td><td>Max skill per item per minute; gains scale by max(minGainFactor, 1.15 - skill/100)</td></tr>
+        <tr><td>taughtGainMult, notesGainMult</td><td>1.5, 1.25</td><td>Faster learning when taught / from notes</td></tr>
+        <tr><td>discoveryThreshold</td><td>300</td><td>Points to figure out a Strange Object</td></tr>
+        <tr><td>discoveryHoldPerSecond, discoveryHoldCapFraction</td><td>1, 0.4</td><td>Points per second carried; gear can only get 40% of the threshold that way</td></tr>
+        <tr><td>discoveryMine, discoveryMineCorrect, discoveryHit, discoveryHurtWearing, discoveryShoot</td><td>2, 5, 5, 4, 5</td><td>Points per use</td></tr>
+        <tr><td>discoveryGroupBonus, discoveredMinSkill</td><td>2.0, 2</td><td>Multiplier if anyone else discovered it; skill floor on discovery</td></tr>
+        <tr><td>lessonBaseTicks, lessonPerAgeTicks</td><td>200, 40</td><td>Lesson length (20 ticks = 1 second)</td></tr>
+        <tr><td>lessonStartDistance, lessonMaxDistance</td><td>3, 6</td><td>Blocks</td></tr>
+        <tr><td>taughtMinSkill, notesMinSkill, lessonCooldownTicks</td><td>20, 10, 600</td><td>Starting skill when taught / from notes; repeat-lesson cooldown</td></tr>
+        <tr><td>taughtExtraFraction, notesExtraFraction, mustLearnExtraFraction</td><td>0.75, 1.0, 0.5</td><td>Extra ingredients = ceil(ingredient count &times; fraction &times; (1 - skill/100))</td></tr>
+        <tr><td>roughAt, fineAt</td><td>30, 70</td><td>Crafter skill for Rough and Fine quality</td></tr>
+      </tbody>
+    </table></div>
+    <p>Gamerule <code>cvagesPracticeRate</code> (percent, default 100) multiplies all practice gain on a world.</p>
+  </section>
+
+  <section class="panel" id="other">
+    <h2>Loot, Recipes, Quests</h2>
+    <ul>
+      <li><code>loot_table/prize_crates/&lt;age&gt;.json</code> (+ <code>extras/&lt;age&gt;.json</code>, loads only with Cobblemon) and <code>loot_table/rewards/crate_&lt;age&gt;.json</code>, <code>maybe_crate_&lt;age&gt;.json</code>: from <code>CRATES</code>, <code>CRATE_EXTRAS</code>, <code>HIDDEN_QUEST_CRATE_CHANCE</code>.</li>
+      <li>Loot functions: <code>cvages:random_book</code> (<code>age</code>: id or <code>current</code>) and <code>cvages:set_crate_age</code> (same).</li>
+      <li>Structure-chest and trainer crate odds are in Java (<code>content/LootInjection.java</code>), because loot tables load before our data.</li>
+      <li><code>recipe/bushcraft/*.json</code>: from <code>write_bushcraft()</code>; the leaf-bed ones load only with Leaf Beds.</li>
+      <li><code>advancement/</code> and <code>function/master/</code>: the quest tab, from gen_quests.py. Hand-made extras go in <code>advancement/custom/</code> (never deleted by the generator).</li>
+    </ul>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>
+</div>
+
+<script>
+(function () {
+  var R = {};
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot" + (label ? "" : " empty"); if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "\u2192"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-dev-data-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "\u2713" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var fill = document.getElementById("progress-fill"), label = document.getElementById("progress-label");
+    if (fill) fill.style.width = pct + "%";
+    if (label) label.textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest Book · Cobble Valley</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root {
+  --stone: #e8e5dc; --stone-deep: #d4cfc0; --ink: #241f16; --ink-soft: #4a4234; --ink-faint: #7a7161;
+  --panel: #f4f1e8; --panel-border: #b8ae95; --slot: #ffffff; --slot-border: #a89d80;
+  --grid-bg: #c6c6c6; --grid-slot: #8b8b8b; --grid-ink: #ffffff;
+  --amber: #b8720f; --amber-bright: #e8a33d; --accent: #2f7fd8; --accent-bg: #e2eefb;
+  --warn: #a8670f; --warn-bg: #f8ebd3; --bad: #a82f2f; --bad-bg: #fbe5e1;
+  --shadow: rgba(36, 31, 22, 0.18); --link: #2f5fa8;
+  --kbd: #f7f4ec; --kbd-edge: #8f8570;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+    --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+    --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+    --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+    --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+    --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+    --kbd: #34302a; --kbd-edge: #6d6452;
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #171410; --stone-deep: #0f0d0a; --ink: #ece6d6; --ink-soft: #b8ae98; --ink-faint: #8a8168;
+  --panel: #211d16; --panel-border: #4a4232; --slot: #2a251c; --slot-border: #5c5340;
+  --grid-bg: #3a3632; --grid-slot: #26231f; --grid-ink: #ece6d6;
+  --amber: #e8a33d; --amber-bright: #ffc466; --accent: #7fb8f0; --accent-bg: #182838;
+  --warn: #e8a33d; --warn-bg: #33270f; --bad: #e0605a; --bad-bg: #3a1c1a;
+  --shadow: rgba(0, 0, 0, 0.5); --link: #7fb0e0;
+  --kbd: #34302a; --kbd-edge: #6d6452;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: "Public Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; padding-inline: 16px; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 24px 90px; }
+h1, h2, h3 { text-wrap: balance; font-family: "Silkscreen", "Public Sans", monospace; }
+a { color: var(--link); }
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; font-family: "Space Mono", monospace; font-size: 0.78rem; color: var(--ink-faint); margin-bottom: 18px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-faint); }
+.hero { position: relative; border: 4px solid var(--panel-border); background: var(--panel); padding: 26px 24px; margin-bottom: 22px; box-shadow: 0 6px 0 var(--shadow); }
+.hero::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--panel-border); opacity: 0.5; pointer-events: none; }
+.eyebrow { display: block; font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+h1 { font-size: clamp(1.5rem, 4.2vw, 2.2rem); line-height: 1.35; margin: 0 0 12px; text-shadow: 2px 2px 0 var(--shadow); }
+.hero p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 16px; }
+.stat { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 10px; }
+.stat b { display: block; font-family: "Silkscreen", monospace; font-size: 1.05rem; color: var(--accent); }
+.stat span { font-size: 0.8rem; color: var(--ink-soft); }
+.progress-wrap { margin-top: 16px; display: flex; align-items: center; gap: 12px; font-family: "Space Mono", monospace; font-size: 0.75rem; color: var(--ink-soft); }
+.progress-track { flex: 1; height: 10px; background: var(--slot); border: 2px solid var(--slot-border); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+#progress-label { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jump { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.jump a { font-family: "Space Mono", monospace; font-size: 0.78rem; padding: 7px 13px; border: 2px solid var(--slot-border); background: var(--slot); color: var(--ink-soft); text-decoration: none; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--amber-bright); color: var(--ink); outline: none; }
+.panel { background: var(--panel); border: 3px solid var(--panel-border); padding: 22px 22px 26px; margin-bottom: 22px; box-shadow: 0 5px 0 var(--shadow); scroll-margin-top: 20px; }
+.panel h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.panel h3 { font-size: 0.88rem; margin: 22px 0 10px; color: var(--ink-soft); }
+.panel .sub { margin: 0 0 18px; color: var(--ink-soft); font-size: 0.95rem; max-width: 68ch; }
+.panel p { max-width: 68ch; }
+.kbd { display: inline-block; min-width: 1.8em; text-align: center; padding: 1px 6px; font-family: "Space Mono", monospace; font-size: 0.8rem; font-weight: 700; background: var(--kbd); border: 1px solid var(--kbd-edge); border-bottom-width: 3px; border-radius: 4px; color: var(--ink); }
+.callout { border-left: 5px solid var(--amber); background: var(--slot); padding: 12px 14px; margin: 14px 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.callout strong { color: var(--ink); }
+.callout.bad { border-left-color: var(--bad); background: var(--bad-bg); }
+.callout.good { border-left-color: var(--accent); background: var(--accent-bg); }
+ol.flow { list-style: none; counter-reset: s; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
+ol.flow li { counter-increment: s; display: block; position: relative; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px 11px 50px; font-size: 0.94rem; }
+ol.flow li::before { content: counter(s); position: absolute; left: 13px; top: 11px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: "Silkscreen", monospace; font-size: 0.75rem; background: var(--accent); color: var(--stone-deep); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; background: var(--slot); border: 1px solid var(--slot-border); padding: 2px 8px; font-size: 0.84rem; }
+.chip.made { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 6px; }
+.recipe { border: 2px solid var(--slot-border); background: var(--slot); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.recipe .rname { font-weight: 700; font-size: 0.92rem; }
+.recipe .rnote { font-size: 0.82rem; color: var(--ink-soft); }
+.craft { display: flex; align-items: center; gap: 10px; }
+.cgrid { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 3px; background: var(--grid-bg); padding: 5px; }
+.cslot { background: var(--grid-slot); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); padding: 2px; overflow: hidden; }
+.carrow { font-family: "Space Mono", monospace; font-size: 1.2rem; color: var(--ink-faint); }
+.cout { width: 58px; height: 58px; background: var(--grid-slot); border: 5px solid var(--grid-bg); display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Mono", monospace; font-size: 8.5px; line-height: 1.1; color: var(--grid-ink); }
+.table-scroll { overflow-x: auto; }
+table.spec { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 0.92rem; }
+table.spec th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.7rem; padding: 8px 10px; border-bottom: 3px solid var(--panel-border); color: var(--ink-soft); }
+table.spec td { padding: 9px 10px; border-bottom: 1px solid var(--panel-border); vertical-align: top; }
+table.spec tr:last-child td { border-bottom: none; }
+.note { font-size: 0.82rem; color: var(--ink-faint); }
+ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+ul.tasks li { display: flex; align-items: flex-start; gap: 12px; background: var(--slot); border: 2px solid var(--slot-border); padding: 11px 13px; font-size: 0.94rem; cursor: pointer; transition: border-color 0.12s ease; }
+ul.tasks li:hover, ul.tasks li:focus-visible { border-color: var(--amber-bright); outline: none; }
+ul.tasks li.done { opacity: 0.62; }
+ul.tasks li.done .task-text { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.checkbox { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; color: var(--stone); font-size: 12px; font-weight: 700; }
+li.done .checkbox { background: var(--amber); }
+footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono", monospace; font-size: 0.75rem; margin-top: 36px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.cslot.empty { background: var(--grid-slot); opacity: 0.55; }
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 8px; }
+.card { background: var(--slot); border: 2px solid var(--slot-border); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.card .cname { font-family: "Silkscreen", monospace; font-size: 0.95rem; }
+.card .ctag { font-family: "Space Mono", monospace; font-size: 0.72rem; color: var(--accent); }
+.card p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.card ul { margin: 0; padding-left: 1.1em; font-size: 0.86rem; color: var(--ink-soft); }
+code { font-family: "Space Mono", monospace; font-size: 0.85em; background: var(--slot); border: 1px solid var(--slot-border); padding: 0 4px; }
+
+.cv-age { display: inline-block; font-family: "Silkscreen", monospace; font-size: 0.72rem; padding: 2px 8px; border: 2px solid; white-space: nowrap; }
+.cv-age-wood { color: #8a4b1f; border-color: #a0522d; background: #f6e7da; }
+.cv-age-stone { color: #555; border-color: #8a8a8a; background: #ececec; }
+.cv-age-iron { color: #4d4d4d; border-color: #b8b8b8; background: #fafafa; }
+.cv-age-diamond { color: #116b62; border-color: #4aedd9; background: #e3fbf8; }
+.cv-age-nether { color: #8e2420; border-color: #b02e26; background: #f9e3e1; }
+.cv-age-end { color: #6a3d9a; border-color: #c77dff; background: #f3e8ff; }
+.cv-age-champion { color: #8a6d00; border-color: #ffd700; background: #fff8d6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cv-age { background: transparent; filter: brightness(1.6); } }
+:root[data-theme="dark"] .cv-age { background: transparent; filter: brightness(1.6); }
+details { background: var(--slot); border: 2px solid var(--slot-border); padding: 8px 12px; margin: 8px 0; }
+details > summary { cursor: pointer; font-size: 0.95rem; }
+details[open] > summary { margin-bottom: 6px; }
+h3 .cv-age { vertical-align: middle; }
+.lookup-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.lookup-bar input, .lookup-bar select { font: inherit; font-size: 0.95rem; padding: 8px 10px; background: var(--slot); color: var(--ink);
+  border: 2px solid var(--slot-border); min-width: 0; }
+.lookup-bar input { flex: 1 1 220px; }
+.lookup-bar select { flex: 0 1 160px; }
+#lookup-status { font-size: 0.85rem; color: var(--ink-faint); margin: 4px 0 8px; }
+.panel { min-width: 0; }
+.panel code, .panel h2, .panel h3 { overflow-wrap: anywhere; }
+.tree { max-width: 100%; box-sizing: border-box; font-family: "Space Mono", monospace; font-size: 0.8rem; background: var(--slot); border: 2px solid var(--slot-border); padding: 10px 12px;
+  overflow-x: auto; white-space: pre; line-height: 1.45; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- title: Quest Book · Cobble Valley -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Quest Book</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobble Valley &middot; the Cobble Valley advancement tab</span>
+    <h1>Quest Book</h1>
+    <p>Press <span class="kbd">L</span> (Advancements) and open the <strong>Cobble Valley</strong> tab. It's a tree: one node per age, and under each age the quests that become possible there. Quests complete by themselves when you have what they ask for. Everyone can do every quest, and each one pays out.</p>
+    <div class="stats">
+      <div class="stat"><b>Mastery</b><span>a quest makes you a master of its item</span></div>
+      <div class="stat"><b>Prize Crate</b><span>with every visible quest and age</span></div>
+      <div class="stat"><b><!-- generated by tools/pages/gen_cobblevalley.py: don't edit -->
+517</b><span>hidden quests for the rest of the gear</span></div>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#how">How Quests Work</a>
+    <a href="#list">Every Visible Quest</a>
+    <a href="#hidden">Hidden Gear Quests</a>
+  </nav>
+
+  <section class="panel" id="how">
+    <h2>How Quests Work</h2>
+    <ul>
+      <li><strong>Age milestones</strong> ("The Iron Age") are granted to everyone when the group reaches that age, each with a Prize Crate of the age.</li>
+      <li><strong>First Steps</strong> is the group quest: anyone holding a crafting table and a wooden pickaxe moves the whole group into the Stone Age.</li>
+      <li><strong>Mastery quests</strong> ask you to <em>have</em> things in your inventory (they aren't used up) and, for higher tiers, to reach <strong>60% skill</strong> with the tier below. The reward: you master the item (full strength, full quality, can teach) and get a Prize Crate.</li>
+      <li><strong>Discipline quests</strong> ("The Art of Cooking") teach a discipline the same way.</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="list">
+    <h2>Every Visible Quest</h2>
+    <!-- generated by tools/pages/gen_cobblevalley.py: don't edit -->
+<h3><span class="cv-age cv-age-wood">Wood Age</span></h3><div class="table-scroll"><table class="spec">
+<thead><tr><th>Quest</th><th>What you need</th><th>Reward</th></tr></thead>
+<tbody>
+<tr><td><strong>Bow</strong></td><td>Gather 3 string, 3 stick.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Leather Tunic</strong></td><td>Gather 8 leather.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Wooden Axe</strong></td><td>Gather 3 planks, 2 stick.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Wooden Hoe</strong></td><td>Gather 2 planks, 2 stick.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Wooden Pickaxe</strong></td><td>Gather 3 planks, 2 stick.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Wooden Shovel</strong></td><td>Gather 1 planks, 2 stick.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Wooden Sword</strong></td><td>Gather 2 planks, 1 stick.</td><td>master it + a Prize Crate</td></tr>
+</tbody>
+</table></div>
+<h3><span class="cv-age cv-age-stone">Stone Age</span></h3><div class="table-scroll"><table class="spec">
+<thead><tr><th>Quest</th><th>What you need</th><th>Reward</th></tr></thead>
+<tbody>
+<tr><td><strong>Furnace</strong></td><td>Gather 8 cobblestone.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Stone Axe</strong></td><td>Gather 3 cobblestone, 2 stick, and reach 60% skill with the wooden axe.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Stone Pickaxe</strong></td><td>Gather 3 cobblestone, 2 stick, and reach 60% skill with the wooden pickaxe.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Stone Shovel</strong></td><td>Gather 1 cobblestone, 2 stick, and reach 60% skill with the wooden shovel.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Stone Sword</strong></td><td>Gather 2 cobblestone, 1 stick, and reach 60% skill with the wooden sword.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>The Art of Cooking</strong></td><td>Gather 1 campfire, 8 cooked food, 4 bowl.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>The Art of Tailoring</strong></td><td>Gather 16 string, 8 leather, 8 wool.</td><td>master it + a Prize Crate</td></tr>
+</tbody>
+</table></div>
+<h3><span class="cv-age cv-age-iron">Iron Age</span></h3><div class="table-scroll"><table class="spec">
+<thead><tr><th>Quest</th><th>What you need</th><th>Reward</th></tr></thead>
+<tbody>
+<tr><td><strong>Anvil</strong></td><td>Gather 3 iron block, 4 iron ingot.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Blast Furnace</strong></td><td>Gather 5 iron ingot, 1 furnace, 3 smooth stone.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Crossbow</strong></td><td>Gather 1 iron ingot, 2 string, 3 stick, and reach 60% skill with the bow.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Axe</strong></td><td>Gather 3 iron ingot, 2 stick, and reach 60% skill with the stone axe.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Boots</strong></td><td>Gather 4 iron ingot.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Chestplate</strong></td><td>Gather 8 iron ingot, and reach 60% skill with the leather chestplate.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Helmet</strong></td><td>Gather 5 iron ingot.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Leggings</strong></td><td>Gather 7 iron ingot.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Pickaxe</strong></td><td>Gather 3 iron ingot, 2 stick, and reach 60% skill with the stone pickaxe.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Shovel</strong></td><td>Gather 1 iron ingot, 2 stick, and reach 60% skill with the stone shovel.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Iron Sword</strong></td><td>Gather 2 iron ingot, 1 stick, and reach 60% skill with the stone sword.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Shield</strong></td><td>Gather 6 planks, 1 iron ingot.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>The Art of Blacksmithing</strong></td><td>Gather 1 anvil, 1 smithing table, 8 iron ingot.</td><td>master it + a Prize Crate</td></tr>
+</tbody>
+</table></div>
+<h3><span class="cv-age cv-age-diamond">Diamond Age</span></h3><div class="table-scroll"><table class="spec">
+<thead><tr><th>Quest</th><th>What you need</th><th>Reward</th></tr></thead>
+<tbody>
+<tr><td><strong>Diamond Axe</strong></td><td>Gather 3 diamond, 2 stick, and reach 60% skill with the iron axe.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Diamond Chestplate</strong></td><td>Gather 8 diamond, and reach 60% skill with the iron chestplate.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Diamond Pickaxe</strong></td><td>Gather 3 diamond, 2 stick, and reach 60% skill with the iron pickaxe.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Diamond Sword</strong></td><td>Gather 2 diamond, 1 stick, and reach 60% skill with the iron sword.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>Enchanting Table</strong></td><td>Gather 2 diamond, 4 obsidian, 1 book.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>The Art of Enchanting</strong></td><td>Gather 1 enchanting table, 15 bookshelf, 16 lapis lazuli.</td><td>master it + a Prize Crate</td></tr>
+</tbody>
+</table></div>
+<h3><span class="cv-age cv-age-nether">Nether Age</span></h3><div class="table-scroll"><table class="spec">
+<thead><tr><th>Quest</th><th>What you need</th><th>Reward</th></tr></thead>
+<tbody>
+<tr><td><strong>Brewing Stand</strong></td><td>Gather 1 blaze rod, 3 cobblestone.</td><td>master it + a Prize Crate</td></tr>
+<tr><td><strong>The Art of Brewing</strong></td><td>Gather 1 brewing stand, 1 blaze rod, 4 nether wart.</td><td>master it + a Prize Crate</td></tr>
+</tbody>
+</table></div>
+<h3><span class="cv-age cv-age-end">End Age</span></h3><div class="table-scroll"><table class="spec">
+<thead><tr><th>Quest</th><th>What you need</th><th>Reward</th></tr></thead>
+<tbody>
+<tr><td><strong>Beacon</strong></td><td>Gather 1 nether star, 3 obsidian, 5 glass.</td><td>master it + a Prize Crate</td></tr>
+</tbody>
+</table></div>
+  </section>
+
+  <section class="panel" id="hidden">
+    <h2>Hidden Gear Quests</h2>
+    <p>Every other piece of gear with a recipe (Epic Knights, Immersive Armors, Cobblemon Armors, the rest of vanilla) has a <strong>hidden</strong> mastery quest. It doesn't show in the tab, but it completes the same way:</p>
+    <ol class="flow">
+      <li>Your group has reached the item's age.</li>
+      <li>You hold its ingredients (the amounts in its recipe).</li>
+      <li>You have 60% skill with the matching vanilla piece of that age: the stone/iron/diamond/netherite <strong>pickaxe</strong> for tools, <strong>sword</strong> for weapons, <strong>chestplate</strong> for armor (leather in the Stone Age), the <strong>shield</strong> for shields, the <strong>bow or crossbow</strong> for ranged weapons.</li>
+    </ol>
+    <p>Then you master it, with a <strong>15% chance</strong> of a Prize Crate. Each piece's exact requirement is on <a href="cv-gear.html">Gear by Age</a>.</p>
+    <!-- generated by tools/pages/gen_cobblevalley.py: don't edit -->
+<div class="table-scroll"><table class="spec">
+<thead><tr><th>Mod</th><th>Quests</th><th>Wood</th><th>Stone</th><th>Iron</th><th>Diamond</th><th>Nether</th><th>End</th></tr></thead>
+<tbody>
+<tr><td>Epic Knights</td><td>383</td><td>45</td><td>54</td><td>213</td><td>28</td><td>43</td><td></td></tr>
+<tr><td>Cobblemon Armors</td><td>53</td><td>25</td><td>4</td><td>6</td><td>4</td><td>14</td><td></td></tr>
+<tr><td>Immersive Armors</td><td>40</td><td>16</td><td></td><td>12</td><td></td><td>12</td><td></td></tr>
+<tr><td>Vanilla</td><td>33</td><td>7</td><td>1</td><td>11</td><td>5</td><td>9</td><td></td></tr>
+<tr><td>Farmer&#x27;s Delight</td><td>6</td><td></td><td>1</td><td>3</td><td>1</td><td>1</td><td></td></tr>
+<tr><td>Supplementaries</td><td>2</td><td>1</td><td>1</td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table></div>
+  </section>
+
+  <footer>Cobble Valley Ages v0.1 &middot; quest list generated from the mod's advancements</footer>
+</div>
+
+<script>
+(function () {
+  var R = {};
+  function slot(label) { var d = document.createElement("div"); d.className = "cslot" + (label ? "" : " empty"); if (label) d.textContent = label; return d; }
+  document.querySelectorAll("[data-recipes]").forEach(function (host) {
+    (R[host.getAttribute("data-recipes")] || []).forEach(function (r) {
+      var card = document.createElement("div"); card.className = "recipe";
+      var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = r.name; card.appendChild(nm);
+      var craft = document.createElement("div"); craft.className = "craft";
+      var g = document.createElement("div"); g.className = "cgrid";
+      for (var i = 0; i < 9; i++) g.appendChild(slot(r.grid[i] || null));
+      craft.appendChild(g);
+      var ar = document.createElement("span"); ar.className = "carrow"; ar.textContent = "\u2192"; craft.appendChild(ar);
+      var o = document.createElement("div"); o.className = "cout"; o.textContent = r.out; craft.appendChild(o);
+      card.appendChild(craft);
+      if (r.note) { var n = document.createElement("div"); n.className = "rnote"; n.textContent = r.note; card.appendChild(n); }
+      host.appendChild(card);
+    });
+  });
+
+  var STORAGE_KEY = "mc-guide-cv-quests-progress-fallback";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var items = document.querySelectorAll("ul.tasks li[data-id]"), done = 0;
+    items.forEach(function (li) {
+      var on = !!state[li.getAttribute("data-id")];
+      li.classList.toggle("done", on);
+      li.setAttribute("aria-checked", on ? "true" : "false");
+      li.querySelector(".checkbox").textContent = on ? "\u2713" : "";
+      if (on) done++;
+    });
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var fill = document.getElementById("progress-fill"), label = document.getElementById("progress-label");
+    if (fill) fill.style.width = pct + "%";
+    if (label) label.textContent = done + " / " + items.length + " checked";
+  }
+  function toggle(id) { state[id] = !state[id]; save(); render(); }
+  document.querySelectorAll("ul.tasks li[data-id]").forEach(function (li) {
+    li.setAttribute("tabindex", "0"); li.setAttribute("role", "checkbox");
+    li.addEventListener("click", function () { toggle(li.getAttribute("data-id")); });
+    li.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(li.getAttribute("data-id")); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!-- title: Dev: Overview · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Overview</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; for Avery &middot; Cobble Valley Ages</span>
+    <h1>Dev: Overview</h1>
+    <p>Everything you need to change, test and ship <strong>Cobble Valley Ages</strong> (mod id <code>cvages</code>), the Fabric mod behind the Cobble Valley world. Start here, then use the other Dev pages as reference.</p>
+    <div class="stats">
+      <div class="stat"><b>Fabric 1.21.1</b><span>loader 0.19.5, Fabric API 0.116.17</span></div>
+      <div class="stat"><b>Java 21</b><span>target; Gradle runs on JDK 25</span></div>
+      <div class="stat"><b>22</b><span>GameTests</span></div>
+      <div class="stat"><b>Data-driven</b><span>ages, rules, books, tuning in JSON</span></div>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#where">Where Things Live</a>
+    <a href="#layout">Repo Layout</a>
+    <a href="#build">Building</a>
+    <a href="#loop">The Change Loop</a>
+    <a href="#v02">What's Next</a>
+  </nav>
+
+  <section class="panel" id="where">
+    <h2>Where Things Live</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>What</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>The mod (own git repo)</td><td><code>minecraftServer/cobble-valley-ages/</code></td></tr>
+        <tr><td>The plan / PRD</td><td><code>savedPlans/cobble-valley-ages.md</code> (Part 1 rules, Part 2 additions)</td></tr>
+        <tr><td>The pack it ships in</td><td><code>minecraftServer/modpack/packs/cobblemon/mods.json</code> (Cobble Valley changes wait on the <code>cobble-valley</code> branch until launch)</td></tr>
+        <tr><td>This wiki</td><td><code>modpack/docs/</code>; generated parts from <code>modpack/tools/pages/</code></td></tr>
+        <tr><td>The wiki's data snapshot</td><td><code>modpack/data/cvages/</code> (copied from the mod by the generator)</td></tr>
+        <tr><td>Build output</td><td><code>~/.gradle-builds/cvages/libs/cvages-&lt;version&gt;.jar</code> (outside OneDrive on purpose)</td></tr>
+        <tr><td>The server</td><td>homeserver <code>/srv/homeserver/services/minecraft</code>, data in <code>/srv/data/minecraft</code></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="layout">
+    <h2>Repo Layout</h2>
+<pre class="tree">cobble-valley-ages/
+  build.gradle               Loom (remap), split source sets, build dir outside OneDrive
+  src/main/java/net/av1017/cvages/
+    CvAges.java              entrypoint: registers everything, server tick loop
+    CvAgesGameRules.java     cvagesEnabled, cvagesBlockDimensions, cvagesPracticeRate
+    age/                     Age, AgesData (reads the JSON), AgeManager (group age, badges), Discipline, BookDef
+    item/                    AgeResolver (recipes -&gt; ages), Classifier (gear?), ItemTable, ItemInfo, ItemPolicy
+    core/                    Knowledge (read/change what players know), Quality, Tuning, criteria triggers
+    data/                    PlayerKnowledgeData, WorldProgressData (SavedData), KnowledgeEntry, CraftLevel
+    gameplay/                CraftGate, SkillEffects, Practice, Discovery, Lessons, Enchanting, Disciplines
+    content/                 instruction book + Prize Crate items, loot functions, LootInjection
+    net/                     payloads + Sync (age table and knowledge to clients)
+    command/                 /cvages (and /ages)
+    mixin/                   18 hooks (see Architecture)
+  src/client/java/...        tooltips, client state, Strange Object names
+  src/main/resources/
+    data/cvages/cvages/      ages, seeds, item_rules, disciplines, books, badge_sources.json, tuning.json
+    data/cvages/advancement/ the Cobble Valley quest tab (generated)
+    data/cvages/loot_table/  prize crates and quest rewards (generated)
+    data/cvages/recipe/      bushcraft recipes (generated)
+  src/gametest/              GameTests + a tiny test datapack (cvagestest)
+  tools/                     gen_data.py, gen_quests.py, gen_books.py, test_server.py, gear.json, age_dump.csv</pre>
+  </section>
+
+  <section class="panel" id="build">
+    <h2>Building</h2>
+<pre class="tree">cd minecraftServer/cobble-valley-ages
+export JAVA_HOME="/c/Users/thoma/.jdks/jdk-25.0.4.1+1"   # Git Bash
+./gradlew build          # compiles, runs all GameTests, writes the jar
+./gradlew runGameTest    # just the tests
+./gradlew runClient      # a dev client with only this mod</pre>
+    <ul>
+      <li>The jar is <code>~/.gradle-builds/cvages/libs/cvages-0.1.0.jar</code>. The version is in <code>gradle.properties</code>.</li>
+      <li>The build folder lives outside OneDrive because OneDrive locks files mid-build.</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="loop">
+    <h2>The Change Loop</h2>
+    <ol class="flow">
+      <li><strong>Rules, numbers, books, quests:</strong> edit the tables in <code>tools/gen_*.py</code>, run the generator, rebuild. <a href="dev-howto.html">How-Tos</a></li>
+      <li><strong>Behaviour:</strong> edit Java; add or update a GameTest. <a href="dev-testing.html">Testing</a></li>
+      <li><code>./gradlew build</code> (all tests must pass).</li>
+      <li>Full-pack check: <code>python -I tools/test_server.py run &lt;dir&gt;</code>, then copy the new dump into <code>tools/</code> and regenerate quests and books.</li>
+      <li>Regenerate the wiki: <code>python -I tools/pages/make.py</code> in the modpack folder. <a href="dev-generators.html">Generators</a></li>
+      <li>Commit both repos, add a log entry, and release when ready. <a href="dev-releasing.html">Releasing</a></li>
+    </ol>
+  </section>
+
+  <section class="panel" id="v02">
+    <h2>What's Next (v0.2)</h2>
+    <p class="sub">Promised before the group reaches the Diamond Age.</p>
+    <ul>
+      <li>Enchantments really sleep below 100% (today only the tooltip warns).</li>
+      <li>Written notes: a master writes, a learner reads (start at 10%, learn 25% faster).</li>
+      <li>REI: hide or mark recipes you can't make yet.</li>
+      <li>A crafting hint overlay showing the extra ingredients.</li>
+      <li>Guard the vanilla Crafter block (it bypasses the craft gate).</li>
+      <li>A journal screen listing your skills and known recipes.</li>
+      <li>More bushcraft (see <a href="cv-bushcraft.html#later">ideas</a>).</li>
+    </ul>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

@@ -1,0 +1,101 @@
+<!-- title: Join in 4 Steps -->
+<style>
+.btn { display: inline-block; padding: 1px 9px; font-family: "Space Mono", monospace; font-size: 0.82rem; font-weight: 700; background: var(--accent-bg); border: 2px solid var(--accent); border-radius: 6px; color: var(--ink); white-space: nowrap; }
+.safe { border-left: 5px solid var(--grass, #4a7a2e); background: var(--slot); padding: 10px 14px; margin: 16px 0 4px; font-size: 0.9rem; color: var(--ink-soft); }
+.safe strong { color: var(--ink); }
+.big { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+.stepnum { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; margin-right: 10px; font-family: "Silkscreen", monospace; background: var(--accent); color: var(--stone-deep); vertical-align: middle; }
+.panel h2 { display: flex; align-items: center; }
+.os { font-size: 0.86rem; color: var(--ink-faint); }
+</style>
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Join in 4 Steps</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">For friends &middot; Windows or Mac &middot; about 20 minutes</span>
+    <h1>Join Our Server in 4 Steps</h1>
+    <p>You'll install two free, well-known apps, open one file Avery made, and click Join. No settings to figure out, no typing commands. Take it one step at a time, and if anything looks different from what's written here, <strong>stop and text Avery</strong>. That's totally fine and expected.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <section class="panel" id="before">
+    <h2>Before you start: text Avery two things</h2>
+    <ol class="flow">
+      <li>Your <strong>Minecraft name</strong> (the one you see when you play Java Edition). Avery puts it on the guest list, so the server lets you in and nobody else.</li>
+      <li>The <strong>email address</strong> you want to use for Tailscale in step 1. A Google, Microsoft, or Apple email all work. Avery uses it to send you an invite.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="texted"><span class="checkbox"></span><span class="task-text">Texted Avery my Minecraft name and email</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="step1">
+    <h2><span class="stepnum">1</span>Tailscale: the private link to the server</h2>
+    <ol class="flow">
+      <li>Go to <a href="https://tailscale.com/download"><strong>tailscale.com/download</strong></a>, download it for your computer, and install it.
+        <div class="os">Windows: if it asks "Do you want to allow this app to make changes?", click <span class="btn">Yes</span>. Mac: if it asks to add a VPN configuration, click <span class="btn">Allow</span>.</div></li>
+      <li>Open Tailscale and click <span class="btn">Log in</span>. Sign in with the <strong>same email you texted Avery</strong>.</li>
+      <li>Open the <strong>invite link Avery sends you</strong> and click <span class="btn">Accept</span>.</li>
+    </ol>
+    <p>That's it. Leave Tailscale running. It just needs to be on when you play.</p>
+    <div class="safe"><strong>Why this is safe:</strong> Tailscale is a free app from its official site, used by millions of people and companies. The invite connects you to <strong>Avery's Minecraft server and nothing else</strong>. Avery's server can't reach into your computer, and neither of you can see each other's files. Avery can remove the invite any time, and you can uninstall it any time.</div>
+    <ul class="tasks">
+      <li data-id="step1"><span class="checkbox"></span><span class="task-text">Tailscale installed, signed in, invite accepted</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="step2">
+    <h2><span class="stepnum">2</span>The Modrinth App: a launcher for mods</h2>
+    <ol class="flow">
+      <li>Go to <a href="https://modrinth.com/app"><strong>modrinth.com/app</strong></a>, download it, and install it (same "Yes" / "Allow" questions as before).</li>
+      <li>Open the Modrinth App and click <span class="btn">Sign in</span>. A <strong>Microsoft</strong> window opens: sign in with the account you play Minecraft with.</li>
+    </ol>
+    <div class="safe"><strong>Why this is safe:</strong> Modrinth is the official home of most Minecraft mods, and the app is free from its own site. Your password goes only to Microsoft's sign-in window, never to Avery or to us. It runs Minecraft separately from your normal game, so your regular Minecraft and worlds stay exactly as they are.</div>
+    <ul class="tasks">
+      <li data-id="step2"><span class="checkbox"></span><span class="task-text">Modrinth App installed and signed in</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="step3">
+    <h2><span class="stepnum">3</span>Open Avery's mod pack</h2>
+    <ol class="flow">
+      <li>Download this file: <a href="https://github.com/av1017/minecraft-modpack/releases/download/friends-pack/Reajustiene-Cobblemon.mrpack"><strong>Reajustiene-Cobblemon.mrpack</strong></a>. Don't open or unzip it.</li>
+      <li>In the Modrinth App, click the <span class="btn">+</span> button on the left, then <span class="btn">From file</span>, and pick the file you just downloaded. (Or drag the file onto the Modrinth App window.)</li>
+      <li>Wait while it downloads everything. A new game called <strong>Reajustiene (Cobblemon)</strong> appears.</li>
+      <li>Click it, then the <span class="btn">&#9881; Settings</span> gear, then <span class="btn">Java and memory</span>. Turn on custom memory and set it to <span class="big">6144</span>.
+        <div class="os">If your computer has less than 16 GB of memory, or you're not sure, just text Avery and we'll pick together.</div></li>
+    </ol>
+    <div class="safe"><strong>Why this is safe:</strong> the file is tiny and has no programs in it. It's a list telling the Modrinth App which mods to download, straight from each mod's official Modrinth page, plus our key settings. It's the same set Avery, Erin, and Jacob play with.</div>
+    <ul class="tasks">
+      <li data-id="step3"><span class="checkbox"></span><span class="task-text">Pack opened and memory set to 6144</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="step4">
+    <h2><span class="stepnum">4</span>Play!</h2>
+    <ol class="flow">
+      <li>Make sure Tailscale is on.</li>
+      <li>In the Modrinth App, click <span class="btn">&#9654; Play</span> on <strong>Reajustiene (Cobblemon)</strong>. The first start takes a few minutes. That's normal.</li>
+      <li>Click <span class="btn">Multiplayer</span>. <strong>Reajustiene</strong> is already in the list. Click it, then <span class="btn">Join Server</span>.</li>
+    </ol>
+    <p>You're in! Avery will show you around. If you're curious, the <a href="cobblemon.html">Pok&eacute;mon basics</a> page explains catching and battling.</p>
+    <ul class="tasks">
+      <li data-id="step4"><span class="checkbox"></span><span class="task-text">Joined the server</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="stuck">
+    <h2>Stuck? Text Avery.</h2>
+    <p>Send a photo of your screen and say which step you're on. Common ones, so you know they're not your fault:</p>
+    <ul>
+      <li><strong>"Not white-listed":</strong> Avery hasn't added your name yet.</li>
+      <li><strong>"Can't connect":</strong> check that Tailscale is on, then try <strong>Reajustiene (backup address)</strong> in the list.</li>
+      <li><strong>Something about mods not matching:</strong> Avery updated the pack. Download the file again and repeat step 3.</li>
+      <li><strong>The game closes while loading:</strong> usually the memory setting in step 3.</li>
+    </ul>
+    <p class="note">More detail for the curious: <a href="online.html">Playing From Anywhere</a>.</p>
+  </section>
+
+  <footer>Made for our friends &middot; Oct 2026</footer>

@@ -38,6 +38,8 @@ h2 { font-size: 1rem; margin: 30px 0 12px; }
 .world .label { font-family: "Space Mono", monospace; font-size: 0.7rem; letter-spacing: 0.08em; }
 .world.ow .label { color: var(--grass); }
 .world.cb .label { color: var(--ball); }
+.world.cv { border-color: var(--accent, #2f7fd8); }
+.world.cv .label { color: var(--accent, #2f7fd8); }
 .world h3 { font-family: "Silkscreen", monospace; font-size: 1rem; margin: 0; }
 .world p { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
 .world ul { margin: 4px 0 0; padding-left: 1.1em; font-size: 0.92rem; }
@@ -62,6 +64,7 @@ footer { margin-top: 36px; color: var(--ink-faint); font-family: "Space Mono", m
   <h2>New in October</h2>
   <div class="box">
     <ul class="news">
+      <li><strong>Coming soon: Cobble Valley.</strong> A fresh server world built around our own mod, <strong>Cobble Valley Ages</strong>: the group moves through ages (Wood to Champion) by earning gym badges, everyone builds skill with their own gear, recipes are learned from quests, friends and instruction books, and Prize Crates drop from quests, chests and gyms. Read <a href="cv-start.html">Start Here</a>; every page now has an "In Cobble Valley" box.</li>
       <li><strong>Our own server:</strong> the Cobblemon world now runs on a home server that stays on all the time (a test copy for now). Friends join through Tailscale, with one pack file for the Modrinth App, on Windows or Mac. See <a href="online.html">Playing From Anywhere</a>.</li>
       <li><strong>Armor, weapons &amp; clothes:</strong> 40 special armor pieces, medieval knight gear, villain-team armor, Pok&eacute;mon-gem trims, trainer outfits, handmade clothes, and hats. Smithing templates can be crafted now. Which gear is best, and how to hide armor so your outfit shows: <a href="gear.html">Armor, Weapons &amp; Style</a>.</li>
       <li><strong>Can't find an item?</strong> Type <code>@</code> and a mod's name in the REI search box. The cheat sheet is on <a href="controls.html#find">Every Key</a>.</li>
@@ -76,7 +79,7 @@ footer { margin-top: 36px; color: var(--ink-faint); font-family: "Space Mono", m
     </ul>
   </div>
 
-  <h2>Our two worlds</h2>
+  <h2>Our worlds</h2>
   <div class="worlds">
     <div class="world ow">
       <span class="label">LAUNCHER PROFILE: FABRIC 26.3 (MODDED)</span>
@@ -99,6 +102,17 @@ footer { margin-top: 36px; color: var(--ink-faint); font-family: "Space Mono", m
         <li><a href="gyms.html">Trainers &amp; Gyms</a>, <a href="portalgun.html">Portal Gun</a>, <a href="backpack.html">Backpack</a></li>
         <li><a href="ships.html">Ships</a>, <a href="aircraft.html">Planes</a>, <a href="wheels.html">Cars &amp; Bikes</a>, <a href="villagers.html">Villagers</a>, <a href="breeding.html">Eggs</a></li>
         <li><a href="visuals.html">Light &amp; Texture</a>: texture packs and shaders</li>
+      </ul>
+    </div>
+    <div class="world cv">
+      <span class="label">SERVER WORLD &middot; COMING SOON &middot; COBBLEMON PROFILE</span>
+      <h3>Cobble Valley</h3>
+      <p>The Cobblemon pack plus our Cobble Valley Ages mod: ages, skill, learned recipes, books and crates. Easy, fresh seed, on our server.</p>
+      <ul>
+        <li><a href="cv-start.html">Start Here</a>: what's different, your first 30 minutes</li>
+        <li><a href="cv-ages.html">Ages &amp; Badges</a>, <a href="cv-skill.html">Skill &amp; Quality</a>, <a href="cv-learning.html">Learning Recipes</a></li>
+        <li><a href="cv-quests.html">Quest Book</a>, <a href="cv-books.html">Books &amp; Prize Crates</a>, <a href="cv-gear.html">Gear by Age</a></li>
+        <li><a href="cv-lookup.html">Item Lookup</a>: any item's age and how to learn it</li>
       </ul>
     </div>
   </div>

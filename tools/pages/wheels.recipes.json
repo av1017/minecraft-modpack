@@ -1,0 +1,18 @@
+{
+  "bikes": [
+    { "name": "Bike (any wool color)", "note": "Use any of the 16 wool colors for that color of bike. Swap the wool for a copper or iron ingot, diamond, emerald, or netherite ingot for a metal bike, or a Nether Star for the Rainbow Bike.", "grid": ["Iron Ingot","Saddle","Iron Ingot","Iron Ingot","Red Wool","Iron Ingot","Black Dye","Redstone Block","Black Dye"], "out": "Red Bike" },
+    { "name": "Bike Wrench", "note": "Repairs bikes.", "grid": ["","Iron Ingot","","","Stick","Iron Ingot","Stick","",""], "out": "Bike Wrench" }
+  ],
+  "stations": [
+    { "name": "Auto Mechanic Table", "note": "Stone means cobblestone, blackstone, or cobbled deepslate.", "grid": ["Copper Ingot","Copper Ingot","","Stone","Stone","","","",""], "out": "Auto Mechanic Table" },
+    { "name": "Automobile Assembler", "grid": ["Copper Ingot","Copper Ingot","Copper Ingot","","Stone","","Stone","Stone","Stone"], "out": "Automobile Assembler" },
+    { "name": "Crowbar", "note": "Shapeless.", "grid": ["Copper Ingot","Iron Ingot","","","","","","",""], "out": "Crowbar" }
+  ],
+  "track": [
+    { "name": "Dash Panel", "grid": ["Iron Ingot","Glow Ink Sac","Iron Ingot","Iron Ingot","Redstone","Iron Ingot","Iron Ingot","Blaze Powder","Iron Ingot"], "out": "Dash Panel" },
+    { "name": "Slope", "grid": ["","Iron Ingot","Iron Ingot","Iron Ingot","Glow Ink Sac","Slime Ball","","",""], "out": "Slope" },
+    { "name": "Steep Slope", "grid": ["","","Iron Ingot","","Iron Ingot","Iron Ingot","Iron Ingot","Glow Ink Sac","Slime Ball"], "out": "Steep Slope" },
+    { "name": "Launch Gel", "grid": ["Slime Ball","Quartz","Slime Ball","","","","","",""], "out": "Launch Gel" },
+    { "name": "Grass Off Road", "note": "Dirt, sand, and snow versions use dirt, sand, or snow blocks around gravel.", "grid": ["Short Grass","Coarse Dirt","Short Grass","","","","","",""], "out": "Grass Off Road" }
+  ]
+}

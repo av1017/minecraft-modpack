@@ -1,0 +1,110 @@
+<!-- title: Item Lookup · Cobble Valley -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Item Lookup</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobble Valley &middot; every item in the pack</span>
+    <h1>Item Lookup</h1>
+    <p>Type part of a name (or a mod, or an id like <code>cobblemon:great_ball</code>) to see any item's age and how you get to craft it. All <!-- include: generated/cv-lookup-count.html --> items in the Cobble Valley pack are here.</p>
+  </div>
+
+  <section class="panel" id="lookup">
+    <div class="lookup-bar">
+      <input id="q" type="search" placeholder="Search: chair, steel, great ball..." aria-label="Search items" autocomplete="off">
+      <select id="f-age" aria-label="Age"><option value="">Any age</option></select>
+      <select id="f-kind" aria-label="Kind">
+        <option value="">Any kind</option>
+        <option value="gear">Gear</option>
+        <option value="B">Needs a book</option>
+        <option value="M">Must be learned</option>
+        <option value="disc">Needs a discipline</option>
+        <option value="A">Free</option>
+      </select>
+      <select id="f-mod" aria-label="Mod"><option value="">Any mod</option></select>
+    </div>
+    <div id="lookup-status">Loading...</div>
+    <div class="table-scroll"><table class="spec" id="results">
+      <thead><tr><th>Item</th><th>Mod</th><th>Age</th><th>How</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="key">
+    <h2>Reading the Results</h2>
+    <ul>
+      <li><strong>Free once its age is reached:</strong> anyone can craft it when the group is in that age.</li>
+      <li><strong>Must be learned:</strong> a quest or a teacher first, then crafting it masters it. <a href="cv-learning.html">Learning Recipes</a></li>
+      <li><strong>Book:</strong> read that instruction book. <a href="cv-books.html">Books &amp; Prize Crates</a></li>
+      <li><strong>Needs a discipline:</strong> learn that discipline too. <a href="cv-disciplines.html">Disciplines</a></li>
+      <li><strong>Gear:</strong> your skill sets how well it works; "mastery quest" means it has one. <a href="cv-gear.html">Gear by Age</a></li>
+      <li><strong>Found, not crafted:</strong> no recipe; you find it, trade for it, or get it from Pok&eacute;mon or mobs.</li>
+    </ul>
+  </section>
+
+  <!-- include: generated/cv-lookup-data.html -->
+  <script>
+  (function () {
+    var D = window.CV_DATA, rows = [];
+    var AGE_IDS = ["wood", "stone", "iron", "diamond", "nether", "end", "champion"];
+    Object.keys(D.items).forEach(function (ns) {
+      D.items[ns].forEach(function (r) {
+        rows.push({ id: ns + ":" + r[0], name: r[1], age: r[2], code: r[3], disc: r[4], book: r[5], recipes: r[6], ns: ns,
+                    hay: (r[1] + " " + ns + ":" + r[0] + " " + D.mods[ns]).toLowerCase() });
+      });
+    });
+    var q = document.getElementById("q"), fAge = document.getElementById("f-age"), fKind = document.getElementById("f-kind"),
+        fMod = document.getElementById("f-mod"), status = document.getElementById("lookup-status"),
+        tbody = document.querySelector("#results tbody");
+    D.ages.forEach(function (a, i) { var o = document.createElement("option"); o.value = i; o.textContent = a; fAge.appendChild(o); });
+    Object.keys(D.mods).sort(function (a, b) { return D.mods[a].localeCompare(D.mods[b]); }).forEach(function (ns) {
+      var o = document.createElement("option"); o.value = ns; o.textContent = D.mods[ns]; fMod.appendChild(o);
+    });
+    var CATS = { T: "tool", W: "weapon", A: "armor", R: "ranged weapon", S: "shield" };
+    function how(r) {
+      var cat = r.code.charAt(0), pol = r.code.charAt(1), quest = r.code.indexOf("Q") >= 0, parts = [];
+      if (pol === "B") parts.push(r.book >= 0 ? "book: " + D.books[r.book] : "book-only (no recipe)");
+      else if (pol === "M") parts.push("must be learned (quest, teacher or practice)");
+      else if (pol === "E") parts.push("always free");
+      else if (cat !== "N") parts.push(r.recipes ? "learn by quest or teacher" : "found, not crafted");
+      else parts.push(r.recipes ? "free once its age is reached" : "found, not crafted");
+      if (r.disc) parts.push("needs " + D.disciplines[r.disc]);
+      if (cat !== "N") parts.push(CATS[cat] + ": skill matters" + (quest ? "; has a mastery quest" : ""));
+      return parts.join(" · ");
+    }
+    function cell(tr, text, cls) { var td = document.createElement("td"); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); return td; }
+    function render() {
+      var words = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean), age = fAge.value, kind = fKind.value, mod = fMod.value;
+      var hits = rows.filter(function (r) {
+        if (age !== "" && r.age !== +age) return false;
+        if (mod && r.ns !== mod) return false;
+        if (kind === "gear" && r.code.charAt(0) === "N") return false;
+        if (kind === "disc" && !r.disc) return false;
+        if ((kind === "A" || kind === "B" || kind === "M") && r.code.charAt(1) !== kind) return false;
+        for (var i = 0; i < words.length; i++) if (r.hay.indexOf(words[i]) < 0) return false;
+        return true;
+      });
+      tbody.textContent = "";
+      var shown = hits.slice(0, 200);
+      shown.forEach(function (r) {
+        var tr = document.createElement("tr");
+        var td = cell(tr, r.name);
+        var small = document.createElement("div"); small.className = "note"; small.textContent = r.id; td.appendChild(small);
+        cell(tr, D.mods[r.ns]);
+        var a = document.createElement("td"), chip = document.createElement("span");
+        chip.className = "cv-age cv-age-" + AGE_IDS[r.age]; chip.textContent = D.ages[r.age].replace(" Age", ""); a.appendChild(chip); tr.appendChild(a);
+        cell(tr, how(r));
+        tbody.appendChild(tr);
+      });
+      status.textContent = hits.length === 0 ? "No items match." :
+        hits.length > shown.length ? hits.length.toLocaleString() + " items match; showing the first 200. Type more to narrow it down." :
+        hits.length.toLocaleString() + (hits.length === 1 ? " item." : " items.");
+    }
+    var timer;
+    q.addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(render, 120); });
+    [fAge, fKind, fMod].forEach(function (s) { s.addEventListener("change", render); });
+    var start = (location.hash || "").replace(/^#q=/, "");
+    if (start && start !== location.hash) q.value = decodeURIComponent(start);
+    render();
+  })();
+  </script>
+
+  <footer>Cobble Valley Ages v0.1 &middot; generated from the full pack</footer>

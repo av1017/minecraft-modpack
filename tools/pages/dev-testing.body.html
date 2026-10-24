@@ -1,0 +1,80 @@
+<!-- title: Dev: Testing · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Testing</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; GameTests, the full-pack server, playtests</span>
+    <h1>Dev: Testing</h1>
+    <p>Three layers: <strong>GameTests</strong> (fast, every build, vanilla only), a <strong>full-pack test server</strong> (real recipes, real loot, catches data errors), and a <strong>playtest</strong> (does it feel right). Run all three before a release.</p>
+    <div class="stats">
+      <div class="stat"><b>22</b><span>GameTests, about 5 seconds</span></div>
+      <div class="stat"><b>77</b><span>server mods on the test server</span></div>
+      <div class="stat"><b>0</b><span>loot/advancement errors allowed</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#gametests">GameTests</a>
+    <a href="#server">Full-Pack Server</a>
+    <a href="#playtest">Playtest Checklist</a>
+  </nav>
+
+  <section class="panel" id="gametests">
+    <h2>GameTests</h2>
+    <p><code>./gradlew build</code> runs them; <code>./gradlew runGameTest</code> runs only them. Source: <code>src/gametest/java/.../CvAgesGameTests.java</code>. A tiny test datapack (<code>src/gametest/resources/data/cvagestest/</code>) adds test books and makes the flower pot, item frame, painting and lantern book-only.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Test</th><th>Proves</th></tr></thead>
+      <tbody>
+        <tr><td>classifierSortsGear</td><td>Tools, weapons, armor, shields, ranged are recognized</td></tr>
+        <tr><td>agesResolveFromRecipes</td><td>Vanilla ages come out right (incl. smithing, loops, repair fallback, bushcraft torch/campfire = Wood)</td></tr>
+        <tr><td>effectivenessCurve</td><td>The skill &rarr; strength curve and Strange Object values</td></tr>
+        <tr><td>miningSpeedScalesWithSkill, unknownToolDropsNothing</td><td>Dig speed follows skill; Strange Object tools harvest nothing</td></tr>
+        <tr><td>attackAndArmorPenalties, qualityLowersDurability</td><td>Damage, armor and durability scale</td></tr>
+        <tr><td>craftGateDecisions, craftingGridChargesExtras</td><td>Who may craft, extras math, quality, charging the real grid</td></tr>
+        <tr><td>discoveryRevealsStrangeObjects, practiceIsCappedPerMinute</td><td>Discovery and the practice cap</td></tr>
+        <tr><td>lessonTeachesAndCancels, lessonTeachesADiscipline</td><td>Lessons, cancel rules, discipline lessons</td></tr>
+        <tr><td>badgesCountForTheGroup, netherLockedUntilItsAge</td><td>Group badges unlock ages; dimension locks</td></tr>
+        <tr><td>enchantingNeedsDisciplineAndMastery, disciplinesGateStationsAndRecipes</td><td>Discipline gates</td></tr>
+        <tr><td>booksTeachAndAreUsedUp, prizeCratesRollBooksYouDontKnow, cratesAreInjectedAndRewarded</td><td>Books, crates, chest injection, quest reward tables</td></tr>
+        <tr><td>leavesDropByHandForBushcraft</td><td>Leaves drop by hand sometimes; shears unchanged</td></tr>
+        <tr><td>savedKnowledgeRoundTrips</td><td>Save files load back, even for removed mods</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>Writing one:</strong> use the <code>survivor(h)</code> helper (the vanilla mock player is always creative, which bypasses the mod), set ages with <code>ages(s, ...)</code>, do the work in the first tick, and <code>remove(p)</code> your players before checking. Tests share one server, so never rely on state another test left.</div>
+  </section>
+
+  <section class="panel" id="server">
+    <h2>Full-Pack Server</h2>
+<pre class="tree">python -I tools/test_server.py setup C:\cvtest --accept-eula   # once; again after pack changes
+set JAVA21=C:\Users\thoma\.jdks\jdk-21.0.12.1+1\bin\java.exe
+python -I tools/test_server.py run C:\cvtest "cvages age" "cvages dump" "cvages why minecraft:torch"</pre>
+    <ul>
+      <li>It copies the freshly built jar in each run, waits for "Done", runs your commands, stops, and prints the lines that matter. The full log is <code>cvrun.log</code>.</li>
+      <li>Must be clean: no "validation problem", "Couldn't parse", or advancement errors. ("No data fixer registered" lines are normal for modded entities.)</li>
+      <li>Handy checks: <code>loot spawn 0 100 0 loot cvages:prize_crates/iron</code>, <code>loot spawn 0 100 0 loot rctmod:trainers/groups/leader</code> (should drop a crate).</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="playtest">
+    <h2>Playtest Checklist</h2>
+    <p class="sub">In a laptop survival test world with the full pack. Your checkmarks save in this browser.</p>
+    <ul class="tasks">
+      <li data-id="pt1"><span class="checkbox"></span><span class="task-text">First join: a Wood Age Prize Crate arrives; opening it gives a book and supplies.</span></li>
+      <li data-id="pt2"><span class="checkbox"></span><span class="task-text">Leaves drop by hand sometimes; craft a leaf bed from sticks; sleep in it; set spawn.</span></li>
+      <li data-id="pt3"><span class="checkbox"></span><span class="task-text">Leaf torches and a coal-free campfire craft.</span></li>
+      <li data-id="pt4"><span class="checkbox"></span><span class="task-text">Holding planks + sticks masters the wooden pickaxe; crafting table + pickaxe completes First Steps (Stone Age title).</span></li>
+      <li data-id="pt5"><span class="checkbox"></span><span class="task-text">A furniture recipe is refused until you read its book; then it crafts normally.</span></li>
+      <li data-id="pt6"><span class="checkbox"></span><span class="task-text">Farmer's Delight cooking pot won't open until Cooking is learned (quest).</span></li>
+      <li data-id="pt7"><span class="checkbox"></span><span class="task-text">Skill rises with use; tooltip numbers move; a Crude craft at low skill.</span></li>
+      <li data-id="pt8"><span class="checkbox"></span><span class="task-text">A lesson with a second account (crouch + right-click), and its cancel rules.</span></li>
+      <li data-id="pt9"><span class="checkbox"></span><span class="task-text">An iron ingot is a Strange Object in the Stone Age; carrying it reveals it.</span></li>
+      <li data-id="pt10"><span class="checkbox"></span><span class="task-text">Beat a gym leader: badge counts, Iron Age unlocks, leader drops a crate.</span></li>
+      <li data-id="pt11"><span class="checkbox"></span><span class="task-text">The Nether portal refuses before the Nether Age.</span></li>
+      <li data-id="pt12"><span class="checkbox"></span><span class="task-text">Skim <code>tools/age_dump.csv</code> (or Item Lookup) for items in a surprising age, and the BOOK list.</span></li>
+    </ul>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

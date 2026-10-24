@@ -1,0 +1,75 @@
+<!-- title: Learning Recipes · Cobble Valley -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Learning Recipes</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobble Valley &middot; who can craft what</span>
+    <h1>Learning Recipes</h1>
+    <p>Reaching an age makes its items possible; knowing how makes them yours. Plain things are free, gear and a few key blocks must be learned, furniture comes from books, and some crafts need a discipline. Learners pay extra ingredients and get lower quality, but never lose a craft.</p>
+    <div class="stats">
+      <div class="stat"><b>4 ways</b><span>to learn: quests, lessons, books, practice</span></div>
+      <div class="stat"><b>Extra</b><span>ingredients while you're learning</span></div>
+      <div class="stat"><b>0 fails</b><span>you always see the result first</span></div>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#kinds">Kinds of Recipe</a>
+    <a href="#ways">Ways to Learn</a>
+    <a href="#lessons">Teaching a Friend</a>
+    <a href="#cost">The Learner's Cost</a>
+  </nav>
+
+  <section class="panel" id="kinds">
+    <h2>Kinds of Recipe</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Kind</th><th>What it means</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Free</strong></td><td>Craft it as soon as the group reaches its age.</td><td>Planks, torches, chests, Pok&eacute; Balls, most blocks and food</td></tr>
+        <tr><td><strong>Gear</strong></td><td>Must be learned. Its mastery quest usually does it for you the moment you hold the ingredients.</td><td>Every tool, weapon, armor piece and shield</td></tr>
+        <tr><td><strong>Must learn</strong></td><td>Key blocks you learn by quest or from a teacher, then master by crafting.</td><td>Furnace, blast furnace, smoker, anvil, enchanting table, brewing stand, beacon, Great Ball, Ultra Ball</td></tr>
+        <tr><td><strong>Book</strong></td><td>Furniture and decoration: read its instruction book.</td><td>Chairs, tables, lamps, curtains, windows (<a href="cv-books.html">all books</a>)</td></tr>
+        <tr><td><strong>Discipline</strong></td><td>Also needs a discipline learned.</td><td>Smithing templates (Blacksmithing), trainer outfits (Tailoring)</td></tr>
+      </tbody>
+    </table></div>
+    <p>The item's tooltip always tells you: <em>You know how to make this</em>, <em>Learning to make this</em>, or <em>You don't know how to make this yet</em>. To check anything: <a href="cv-lookup.html">Item Lookup</a>.</p>
+  </section>
+
+  <section class="panel" id="ways">
+    <h2>Ways to Learn</h2>
+    <div class="lineup">
+      <div class="card"><span class="cname">Quests</span><span class="ctag">instant mastery</span><p>The <strong>Cobble Valley</strong> tab (<span class="kbd">L</span>) has a mastery quest for most gear and key blocks: gather what it asks and you master the item (and get a Prize Crate). Everyone can do every quest. <a href="cv-quests.html">Quest Book</a></p></div>
+      <div class="card"><span class="cname">Lessons</span><span class="ctag">from a friend who's mastered it</span><p>A master teaches you in person. You start at 20% skill, can craft it (with extras), and learn 50% faster. <a href="#lessons">How</a></p></div>
+      <div class="card"><span class="cname">Instruction books</span><span class="ctag">furniture and decor</span><p>Right-click to read: every recipe in it becomes yours, fully. From Prize Crates. <a href="cv-books.html">Books</a></p></div>
+      <div class="card"><span class="cname">Practice</span><span class="ctag">the slow way</span><p>Using gear raises your skill, and 100% means you've mastered it. Crafting a must-learn item you've been taught raises it too.</p></div>
+      <div class="card"><span class="cname">Written notes</span><span class="ctag">coming in v0.2</span><p>A master will be able to write notes you read later (start at 10%, learn 25% faster). Not in the game yet.</p></div>
+    </div>
+  </section>
+
+  <section class="panel" id="lessons">
+    <h2>Teaching a Friend</h2>
+    <ol class="flow">
+      <li>The teacher holds the item they've <strong>mastered</strong> (for a discipline, its tool: see <a href="cv-disciplines.html">Disciplines</a>).</li>
+      <li>Stand within 3 blocks, <strong>crouch and right-click</strong> the learner.</li>
+      <li>A bar shows the lesson: 10 seconds, plus 2 more per age (an Iron Age item takes 14 seconds).</li>
+      <li>Stay within 6 blocks and keep holding the item. Walking apart, switching items, dying or leaving cancels it.</li>
+      <li>Done: the learner can craft it (with extra ingredients while learning) at 20% skill, and learns it 50% faster from then on.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="cost">
+    <h2>The Learner's Cost</h2>
+    <p>While you're still learning, a craft takes <strong>extra ingredients</strong> on top of the recipe, and gear comes out at a lower <a href="cv-skill.html#quality">quality</a>. The extras shrink as your skill grows and vanish at mastery.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>You are</th><th>Extra ingredients</th></tr></thead>
+      <tbody>
+        <tr><td>Taught by a lesson</td><td>75% of the recipe's ingredient count, times what's left to learn</td></tr>
+        <tr><td>Learning from notes (v0.2)</td><td>100% of the count, times what's left to learn</td></tr>
+        <tr><td>Learning a must-learn block</td><td>50% of the count, times what's left to learn</td></tr>
+        <tr><td>A master</td><td>None</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Example:</strong> an iron pickaxe uses 5 items (3 iron, 2 sticks). Taught at 20% skill: 5 &times; 0.75 &times; 0.8 = 3, rounded up, so 3 extra items, taken from the most common ingredient first. Put more than one of each in the grid and the result appears; it shows its quality before you take it.</p>
+    <div class="callout">Learners need a <strong>crafting table</strong> (the 2&times;2 grid has no room for extras). Bucket-style ingredients that leave something behind are never charged extra.</div>
+  </section>
+
+  <footer>Cobble Valley Ages v0.1</footer>

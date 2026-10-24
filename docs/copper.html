@@ -248,6 +248,30 @@ footer { text-align: center; color: var(--ink-faint); font-family: "Space Mono",
   </nav>
 
   <!-- BASIC -->
+<!-- cv-box -->
+<style>
+.cvx { border: 2px solid var(--accent, #2f7fd8); background: var(--accent-bg, #e2eefb); padding: 12px 16px 10px; margin: 18px 0 8px; font-size: 0.92rem; color: var(--ink-soft, #4a4234); }
+.cvx-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; align-items: baseline; }
+.cvx-tag { font-family: "Silkscreen", monospace; font-size: 0.8rem; color: var(--accent, #2f7fd8); letter-spacing: 0.04em; }
+.cvx-link { font-size: 0.8rem; }
+.cvx ul { margin: 8px 0 4px; padding-left: 1.2em; }
+.cvx li { margin: 3px 0; }
+.cvx strong { color: var(--ink, #241f16); }
+.cvx-facts { margin: 6px 0; }
+.cvx-scroll { overflow-x: auto; }
+.cvx-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin: 6px 0; }
+.cvx-table th { text-align: left; font-family: "Silkscreen", monospace; font-size: 0.66rem; padding: 4px 6px; border-bottom: 2px solid var(--panel-border, #b8ae95); }
+.cvx-table td { padding: 5px 6px; border-bottom: 1px solid var(--panel-border, #b8ae95); vertical-align: top; }
+.cvx-foot { margin: 6px 0 0; font-size: 0.8rem; color: var(--ink-faint, #7a7161); }
+</style>
+<aside class="cvx" aria-label="In Cobble Valley">
+<div class="cvx-head"><span class="cvx-tag">In Cobble Valley</span><a class="cvx-link" href="cv-start.html">What is this?</a></div>
+<ul><li>Copper is a Stone Age metal, so it's the first metal you'll use.</li></ul>
+<div class="cvx-scroll"><table class="cvx-table"><thead><tr><th>Item</th><th>Age</th><th>How</th></tr></thead><tbody><tr><td>Raw Copper</td><td>Stone Age</td><td>free once its age is reached</td></tr><tr><td>Copper Ingot</td><td>Stone Age</td><td>free once its age is reached</td></tr><tr><td>Lightning Rod</td><td>Stone Age</td><td>free once its age is reached</td></tr><tr><td>Spyglass</td><td>Iron Age</td><td>free once its age is reached</td></tr><tr><td>Brush</td><td>Stone Age</td><td>free once its age is reached</td></tr></tbody></table></div>
+<p class="cvx-foot">Any item: <a href="cv-lookup.html">Item Lookup</a>. Outside Cobble Valley (Our World, LAN worlds) none of this applies.</p>
+</aside>
+<!-- /cv-box -->
+
   <section class="panel" id="basic">
     <span class="tier-tag basic">BASIC</span>
     <h2>What Copper Is Actually For</h2>

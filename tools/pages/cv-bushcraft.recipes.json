@@ -1,0 +1,8 @@
+{
+  "bush": [
+    {"name": "Leaf Bed (from sticks)", "grid": ["Leaves", "Leaves", "Leaves", "Stick", "Stick", "Stick", null, null, null], "out": "Leaf Bed", "note": "Same leaf type in all three slots. Sleeps and sets spawn."},
+    {"name": "Leaf Torch", "grid": [null, "Leaves", null, null, "Stick", null, null, null, null], "out": "2 Torches", "note": "Any leaves. (Coal or charcoal on a stick still gives 4.)"},
+    {"name": "Bushcraft Campfire", "grid": [null, "Stick", null, "Stick", "Stick", "Stick", "Log", "Log", "Log"], "out": "Campfire", "note": "Any logs or wood. No coal needed."},
+    {"name": "Hay Bedding", "grid": ["Hay Bale", "Hay Bale", "Hay Bale", "Stick", "Stick", "Stick", null, null, null], "out": "Oak Leaf Bed"}
+  ]
+}

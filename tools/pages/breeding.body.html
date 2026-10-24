@@ -1,0 +1,90 @@
+<!-- title: Pokémon Eggs -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Pok&eacute;mon Eggs</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Cobblemon world &middot; Cobbreeding mod</span>
+    <h1>Pok&eacute;mon Eggs</h1>
+    <p>Breed your Pok&eacute;mon in a Pasture Block to get eggs, then carry the eggs around until they hatch. Babies can inherit regional forms and moves, sometimes get a hidden ability, and are more likely to be shiny when the parents come from two different trainers, so breed yours with your partner's.</p>
+    <div class="stats">
+      <div class="stat"><b>7&ndash;12 min</b><span>between eggs from one pasture</span></div>
+      <div class="stat"><b>5 eggs</b><span>fit in a pasture before it's full</span></div>
+      <div class="stat"><b>&times;4 shiny</b><span>when the parents come from different trainers</span></div>
+      <div class="stat"><b>5%</b><span>chance an egg hatches as an Alpha</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <span id="progress-label">0 / 0 checked</span>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#breed">Getting Eggs</a>
+    <a href="#pairs">Who Can Breed</a>
+    <a href="#hatch">Hatching</a>
+    <a href="#tips">Shinies &amp; Tips</a>
+  </nav>
+
+  <!-- BREED -->
+  <section class="panel" id="breed">
+    <h2>Getting Eggs</h2>
+    <ol class="flow">
+      <li><strong>Place a Pasture Block</strong>, Cobblemon's own block for letting Pok&eacute;mon roam. Find its recipe in the REI list: hover it and press <span class="kbd">Y</span>.</li>
+      <li><strong>Put two Pok&eacute;mon that can breed in it</strong> (see the next section).</li>
+      <li><strong>Turn breeding on</strong> with the breeding button that Cobbreeding adds to the pasture screen.</li>
+      <li><strong>Wait.</strong> A new egg shows up every 7 to 12 minutes while someone is nearby. The pasture holds 5 eggs; open it to collect them, or put a hopper under it to pull them out.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="breed-first"><span class="checkbox"></span><span class="task-text">Get your first egg</span></li>
+    </ul>
+  </section>
+
+  <!-- PAIRS -->
+  <section class="panel" id="pairs">
+    <h2>Who Can Breed</h2>
+    <p class="sub">The same rules as the main Pok&eacute;mon games.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Pair</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>A male and a female that share an <strong>egg group</strong></td><td>An egg of the mother's species, at its first evolution stage</td></tr>
+        <tr><td>Any breedable Pok&eacute;mon + a <strong>Ditto</strong></td><td>An egg of the other Pok&eacute;mon. Ditto is the only way to breed genderless Pok&eacute;mon.</td></tr>
+        <tr><td>Ditto + Ditto</td><td>Nothing</td></tr>
+        <tr><td>Legendaries, mythicals, and other "can't breed" Pok&eacute;mon</td><td>Nothing</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">A Pok&eacute;mon's egg groups are on its Pok&eacute;dex page. Babies can inherit regional forms (Alolan, Galarian, Hisuian, Paldean) and some looks, like Burmy's cloak or Magikarp's pattern.</p>
+  </section>
+
+  <!-- HATCH -->
+  <section class="panel" id="hatch">
+    <h2>Hatching</h2>
+    <ol class="flow">
+      <li><strong>Keep the egg in your inventory.</strong> It counts down while you play; hover it to check.</li>
+      <li><strong>Speed it up</strong> with a party Pok&eacute;mon that has <strong>Flame Body</strong>, <strong>Magma Armor</strong>, or <strong>Steam Engine</strong>, like in the main games.</li>
+      <li><strong>When it's done, it hatches straight into your party.</strong> Leave a party slot free.</li>
+    </ol>
+    <ul class="tasks">
+      <li data-id="hatch-first"><span class="checkbox"></span><span class="task-text">Hatch an egg</span></li>
+      <li data-id="hatch-flame"><span class="checkbox"></span><span class="task-text">Get a Flame Body Pok&eacute;mon (like Slugma or Litwick) for faster hatching</span></li>
+    </ul>
+  </section>
+
+  <!-- TIPS -->
+  <section class="panel" id="tips">
+    <h2>Shinies &amp; Tips</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Trick</th><th>How it works</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Masuda method</strong></td><td>If the two parents have different original trainers, eggs are <strong>4&times; more likely to be shiny</strong>. Breed one of your Pok&eacute;mon with one of your partner's.</td></tr>
+        <tr><td><strong>Hidden abilities</strong></td><td>Babies can sometimes get a hidden ability even if neither parent has it</td></tr>
+        <tr><td><strong>Mirror Herb</strong></td><td>A Pok&eacute;mon holding one can pick up egg moves from its pasture partner</td></tr>
+        <tr><td><strong>Alphas</strong></td><td>Each egg has a 5% chance to hatch as an Alpha</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-id="tips-masuda"><span class="checkbox"></span><span class="task-text">Breed a pair from both of you (Masuda method)</span></li>
+      <li data-id="tips-shiny"><span class="checkbox"></span><span class="task-text">Hatch a shiny</span></li>
+    </ul>
+    <p class="note">More Pok&eacute;mon help: <a href="cobblemon.html">Pok&eacute;mon Trail</a> and <a href="gyms.html">Trainers &amp; Gyms</a>.</p>
+  </section>
+
+  <footer>Breeding rules and timings from the Cobbreeding 2.4.1 files and our config &middot; Oct 2026</footer>

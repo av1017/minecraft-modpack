@@ -1,0 +1,128 @@
+<!-- title: Dev: Data Files · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Data Files</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; every JSON the mod reads</span>
+    <h1>Dev: Data Files</h1>
+    <p>All of the mod's rules live in datapack JSON under <code>data/&lt;namespace&gt;/cvages/</code>, so any datapack (or another mod) can add to them. The built-in ones are written by <code>tools/gen_data.py</code>, <code>gen_quests.py</code> and <code>gen_books.py</code>: <strong>edit the tables in those scripts, not the JSON</strong>. After a change: rebuild, or for a datapack on a running server, <code>/reload</code>.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#ages">ages</a>
+    <a href="#seeds">seeds</a>
+    <a href="#rules">item_rules</a>
+    <a href="#tags">tags</a>
+    <a href="#disciplines">disciplines</a>
+    <a href="#books">books</a>
+    <a href="#badges">badge_sources</a>
+    <a href="#tuning">tuning</a>
+    <a href="#other">loot, recipes, quests</a>
+  </nav>
+
+  <section class="panel" id="ages">
+    <h2>cvages/ages/&lt;id&gt;.json</h2>
+<pre class="tree">{ "order": 2, "name": "Iron Age", "color": "#D8D8D8",
+  "badges": 1,                      distinct gym badges the group needs
+  "group_quests": [],               advancement ids; all needed, anyone can earn them
+  "dimensions": [] }                dimensions locked until this age</pre>
+    <p>Ages unlock in <code>order</code>; an age needs the previous one. Generated from <code>AGES</code> in gen_data.py.</p>
+  </section>
+
+  <section class="panel" id="seeds">
+    <h2>cvages/seeds/*.json</h2>
+<pre class="tree">{ "stone": ["minecraft:cobblestone", "minecraft:coal", ...],
+  "iron":  ["minecraft:iron_ingot", ...], ... }</pre>
+    <p>Items pinned to an age; every other age is worked out from recipes. Recipes that make a seed are ignored. From <code>SEEDS</code>.</p>
+  </section>
+
+  <section class="panel" id="rules">
+    <h2>cvages/item_rules/*.json</h2>
+<pre class="tree">{ "rules": [
+  { "match": "cobblemon:great_ball", "policy": "must_learn" },
+  { "match": "/cobblemon:.*_berry/", "age": "wood" },
+  { "match": "@poke-clothing", "category": "none", "discipline": "tailoring" },
+  { "match": "#minecraft:trim_templates", "discipline": "blacksmithing" } ] }</pre>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Field</th><th>Values</th></tr></thead>
+      <tbody>
+        <tr><td><code>match</code></td><td><code>ns:item</code>, <code>#ns:tag</code>, <code>@modid</code>, or <code>/regex/</code> (matched against the full id)</td></tr>
+        <tr><td><code>age</code></td><td>an age id: overrides the computed age</td></tr>
+        <tr><td><code>category</code></td><td><code>none</code>, <code>tool</code>, <code>melee</code>, <code>armor</code>, <code>ranged</code>, <code>shield</code>: overrides the gear classifier</td></tr>
+        <tr><td><code>policy</code></td><td><code>auto</code>, <code>must_learn</code>, <code>book</code>, <code>exempt</code></td></tr>
+        <tr><td><code>discipline</code></td><td>a discipline id (crafting needs it); <code>""</code> clears one</td></tr>
+      </tbody>
+    </table></div>
+    <p>Rules apply in file order and later rules win, so exceptions go after the rule they except. Built-in files: <code>cobblemon_essentials.json</code> (<code>COBBLEMON_RULES</code>) and <code>decor_books.json</code> (<code>DECOR_BOOK_RULES</code>).</p>
+  </section>
+
+  <section class="panel" id="tags">
+    <h2>Tags</h2>
+    <ul>
+      <li><code>#cvages:must_learn</code>: base policy must-learn (furnace, anvil, enchanting table...). From <code>MUST_LEARN</code>.</li>
+      <li><code>#cvages:exempt</code>: never gated (our book and crate items, the trainer card).</li>
+    </ul>
+    <p>Tags set the starting policy; item rules override them.</p>
+  </section>
+
+  <section class="panel" id="disciplines">
+    <h2>cvages/disciplines/&lt;id&gt;.json</h2>
+<pre class="tree">{ "name": "Cooking", "age": "stone",
+  "proxy_items": ["farmersdelight:cooking_pot", ...],   holding one lets a master teach it
+  "gated_blocks": ["farmersdelight:cooking_pot", ...] } these won't open until learned</pre>
+    <p>The knowledge key is <code>cvages:discipline/&lt;id&gt;</code>. Proxy items and blocks accept <code>#tags</code>; ids from missing mods are ignored. Enchanting has no gated blocks: its table and anvil checks are in mixins. From <code>DISCIPLINES</code>.</p>
+  </section>
+
+  <section class="panel" id="books">
+    <h2>cvages/books/&lt;mod&gt;/&lt;family&gt;.json</h2>
+<pre class="tree">{ "title": "Handcrafted: Chairs, Corner Trims &amp; Couches",
+  "age": "wood",                     earliest age it can be read
+  "items": ["handcrafted:acacia_chair", ...] }</pre>
+    <p>Book id = <code>&lt;namespace&gt;:&lt;path&gt;</code>. Items from missing mods are dropped; a book left empty is skipped. Generated by <code>gen_books.py</code> from the dump: every craftable BOOK item lands in exactly one book.</p>
+  </section>
+
+  <section class="panel" id="badges">
+    <h2>cvages/badge_sources.json</h2>
+<pre class="tree">{ "leaders": { "brock": ["rctmod:trainers/defeat_leader_brock"],
+               "roark": ["rctmod:trainers/defeat_gym_leader_roark_1", "..._roark_2"], ... } }</pre>
+    <p>Leader key &rarr; advancements meaning "beat this leader". Distinct keys earned by anyone count as group badges. From <code>leaders()</code>.</p>
+  </section>
+
+  <section class="panel" id="tuning">
+    <h2>cvages/tuning.json</h2>
+    <p>Every number. Missing fields use the built-in defaults (same values). From <code>TUNING</code>.</p>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Field</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>recognizedBase, curveExponent</td><td>0.35, 0.8</td><td>Effectiveness = base + (1 - base) &times; (skill/100)^exponent</td></tr>
+        <tr><td>preAgeUndiscovered</td><td>0.05</td><td>Strange Object effectiveness</td></tr>
+        <tr><td>preAgeDiscoveredBase, preAgeSkillCap</td><td>0.10, 25</td><td>Discovered but ahead of its age: base, and the skill cap</td></tr>
+        <tr><td>gainTool, gainMelee, gainArmorPerPoint, gainRanged</td><td>0.08, 0.25, 0.05, 0.4</td><td>Skill per block (&times; hardness 0.5-3), per hit, per point of damage absorbed, per shot</td></tr>
+        <tr><td>gainCraftMustLearn, gainCraftGear</td><td>5, 1</td><td>Skill per craft</td></tr>
+        <tr><td>perMinuteCap, minGainFactor</td><td>2.0, 0.15</td><td>Max skill per item per minute; gains scale by max(minGainFactor, 1.15 - skill/100)</td></tr>
+        <tr><td>taughtGainMult, notesGainMult</td><td>1.5, 1.25</td><td>Faster learning when taught / from notes</td></tr>
+        <tr><td>discoveryThreshold</td><td>300</td><td>Points to figure out a Strange Object</td></tr>
+        <tr><td>discoveryHoldPerSecond, discoveryHoldCapFraction</td><td>1, 0.4</td><td>Points per second carried; gear can only get 40% of the threshold that way</td></tr>
+        <tr><td>discoveryMine, discoveryMineCorrect, discoveryHit, discoveryHurtWearing, discoveryShoot</td><td>2, 5, 5, 4, 5</td><td>Points per use</td></tr>
+        <tr><td>discoveryGroupBonus, discoveredMinSkill</td><td>2.0, 2</td><td>Multiplier if anyone else discovered it; skill floor on discovery</td></tr>
+        <tr><td>lessonBaseTicks, lessonPerAgeTicks</td><td>200, 40</td><td>Lesson length (20 ticks = 1 second)</td></tr>
+        <tr><td>lessonStartDistance, lessonMaxDistance</td><td>3, 6</td><td>Blocks</td></tr>
+        <tr><td>taughtMinSkill, notesMinSkill, lessonCooldownTicks</td><td>20, 10, 600</td><td>Starting skill when taught / from notes; repeat-lesson cooldown</td></tr>
+        <tr><td>taughtExtraFraction, notesExtraFraction, mustLearnExtraFraction</td><td>0.75, 1.0, 0.5</td><td>Extra ingredients = ceil(ingredient count &times; fraction &times; (1 - skill/100))</td></tr>
+        <tr><td>roughAt, fineAt</td><td>30, 70</td><td>Crafter skill for Rough and Fine quality</td></tr>
+      </tbody>
+    </table></div>
+    <p>Gamerule <code>cvagesPracticeRate</code> (percent, default 100) multiplies all practice gain on a world.</p>
+  </section>
+
+  <section class="panel" id="other">
+    <h2>Loot, Recipes, Quests</h2>
+    <ul>
+      <li><code>loot_table/prize_crates/&lt;age&gt;.json</code> (+ <code>extras/&lt;age&gt;.json</code>, loads only with Cobblemon) and <code>loot_table/rewards/crate_&lt;age&gt;.json</code>, <code>maybe_crate_&lt;age&gt;.json</code>: from <code>CRATES</code>, <code>CRATE_EXTRAS</code>, <code>HIDDEN_QUEST_CRATE_CHANCE</code>.</li>
+      <li>Loot functions: <code>cvages:random_book</code> (<code>age</code>: id or <code>current</code>) and <code>cvages:set_crate_age</code> (same).</li>
+      <li>Structure-chest and trainer crate odds are in Java (<code>content/LootInjection.java</code>), because loot tables load before our data.</li>
+      <li><code>recipe/bushcraft/*.json</code>: from <code>write_bushcraft()</code>; the leaf-bed ones load only with Leaf Beds.</li>
+      <li><code>advancement/</code> and <code>function/master/</code>: the quest tab, from gen_quests.py. Hand-made extras go in <code>advancement/custom/</code> (never deleted by the generator).</li>
+    </ul>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

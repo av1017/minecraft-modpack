@@ -1,0 +1,64 @@
+<!-- title: Dev: Releasing · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Releasing</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; from a jar to everyone's game</span>
+    <h1>Dev: Releasing</h1>
+    <p>Same path as Twin Portals: a GitHub release on the modpack repo, a pinned entry in the cobblemon <code>mods.json</code>, then the server and the friends' pack. Order matters: <strong>never push the manifest before the release asset exists</strong>, or everyone's sync fails to download it.</p>
+  </div>
+
+  <nav class="jump" aria-label="Jump to section">
+    <a href="#steps">Release Steps</a>
+    <a href="#server">Updating the Server</a>
+    <a href="#launch">The First Launch</a>
+    <a href="#versions">Versions</a>
+  </nav>
+
+  <section class="panel" id="steps">
+    <h2>Release Steps</h2>
+    <ol class="flow">
+      <li>Bump <code>version</code> in <code>gradle.properties</code>; <code>./gradlew build</code> (all tests pass); full-pack server run is clean.</li>
+      <li>Commit and tag the mod repo: <code>git tag cvages-vX.Y.Z</code>.</li>
+      <li>Upload the jar as a release on <code>av1017/minecraft-modpack</code>: <code>gh release create cvages-vX.Y.Z ~/.gradle-builds/cvages/libs/cvages-X.Y.Z.jar --title "Cobble Valley Ages X.Y.Z" --notes "..."</code></li>
+      <li>Edit the pack's entry by hand (it's <code>pinned</code>, so add-mod.ps1 leaves it alone): <code>filename</code>, <code>url</code> (the release download link), <code>version</code>, <code>version_id</code>, and <code>sha1</code> (<code>sha1sum</code> of the jar). <code>project_id: "cvages-local"</code>, <code>side: "both"</code>.</li>
+      <li>Regenerate the wiki (<code>python -I tools/pages/make.py</code>), commit and push the modpack repo.</li>
+      <li>Update the server (below), then rebuild the friends' pack: <code>python -I tools/build-friends-pack.py --upload</code>.</li>
+      <li>Add a log entry.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="server">
+    <h2>Updating the Server</h2>
+    <ol class="flow">
+      <li>Tell people first if anyone may be playing.</li>
+      <li>Over 3 minutes of downtime? <code>sudo touch /var/lib/homeserver/watchdog/maintenance</code> so the watchdog doesn't page you.</li>
+      <li><code>ssh homeserver-lan</code> (Proton VPN blocks the Tailscale route), then run <code>update-mods.py</code> in <code>/srv/homeserver/services/minecraft</code>: it syncs the side:both mods from the manifest and restarts the container.</li>
+      <li>Check the log for a clean start and "Cobble Valley Ages data: ..." with the expected counts.</li>
+      <li>Remove the maintenance flag; commit any server config change and add a server log entry.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="launch">
+    <h2>The First Launch (Cobble Valley world)</h2>
+    <ul class="tasks">
+      <li data-id="l1"><span class="checkbox"></span><span class="task-text">Avery's playtest done (<a href="dev-testing.html#playtest">checklist</a>); age table and BOOK list reviewed.</span></li>
+      <li data-id="l2"><span class="checkbox"></span><span class="task-text">Release <code>cvages-v0.1.0</code>; add its pinned manifest entry.</span></li>
+      <li data-id="l3"><span class="checkbox"></span><span class="task-text">Merge the modpack <code>cobble-valley</code> branch (Leaf Beds) into main with the cvages entry; push.</span></li>
+      <li data-id="l4"><span class="checkbox"></span><span class="task-text">Server: maintenance flag, back up the sandbox world, <code>update-mods.py</code>.</span></li>
+      <li data-id="l5"><span class="checkbox"></span><span class="task-text">Server env: <code>LEVEL: Cobble Valley</code>, <code>DIFFICULTY: easy</code>, a new seed; commit the compose change.</span></li>
+      <li data-id="l6"><span class="checkbox"></span><span class="task-text">First start: check the log, <code>/ages age</code> shows Wood Age, a test login gets the Wood crate.</span></li>
+      <li data-id="l7"><span class="checkbox"></span><span class="task-text">Rebuild the friends' pack; update Erin's and Jacob's setup notes; tell everyone to read Start Here.</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="versions">
+    <h2>Versions</h2>
+    <ul>
+      <li><strong>Patch</strong> (0.1.1): fixes, numbers, data. Safe mid-world.</li>
+      <li><strong>Minor</strong> (0.2.0): new features (notes, real sleeping enchantments). Safe mid-world; announce changes.</li>
+      <li>Save data uses string keys, so removing or renaming items never corrupts it. Changing an item's <em>age</em> mid-world just changes what's recognized.</li>
+      <li>Clients and the server must run the same version (payloads change between versions).</li>
+    </ul>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

@@ -1,0 +1,56 @@
+<!-- title: Dev: Commands · Cobble Valley Ages -->
+  <nav class="crumb"><a href="index.html">&larr; Stronghold Route</a><span>/</span><span>Dev: Commands</span></nav>
+
+  <div class="hero">
+    <span class="eyebrow">Dev wiki &middot; /cvages and gamerules</span>
+    <h1>Dev: Commands</h1>
+    <p>Everything is under <code>/cvages</code>; <code>/ages</code> is the same command. Two parts are for everyone; the rest need op level 2. A <em>key</em> is an item id (<code>minecraft:iron_pickaxe</code>) or a discipline (<code>cvages:discipline/cooking</code>); tab-completion suggests them.</p>
+  </div>
+
+  <section class="panel" id="everyone">
+    <h2>For Everyone</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Command</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>/ages age</code></td><td>The group's ages (ticked / not), the current age, and the badges so far.</td></tr>
+        <tr><td><code>/ages info</code></td><td>Your knowledge summary.</td></tr>
+        <tr><td><code>/ages info &lt;key&gt;</code></td><td>Your skill, recipe status and discovery for one item.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="ops">
+    <h2>For Ops</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Command</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>/cvages info &lt;player&gt; &lt;key&gt;</code></td><td>Someone else's knowledge of an item.</td></tr>
+        <tr><td><code>/cvages age unlock &lt;age&gt;</code> / <code>lock &lt;age&gt;</code></td><td>Force an age on or off (unlock announces it like a real unlock).</td></tr>
+        <tr><td><code>/cvages master &lt;players&gt; &lt;key&gt; [quest]</code></td><td>Instant mastery. <code>quest</code> marks it as quest-earned (what quest rewards run).</td></tr>
+        <tr><td><code>/cvages teach &lt;players&gt; &lt;key&gt; lesson|notes</code></td><td>As if taught by a lesson (20% skill) or notes (10%).</td></tr>
+        <tr><td><code>/cvages skill &lt;players&gt; &lt;key&gt; &lt;0-100&gt;</code></td><td>Set skill exactly.</td></tr>
+        <tr><td><code>/cvages discover &lt;players&gt; &lt;key&gt;</code></td><td>Figure out a Strange Object instantly.</td></tr>
+        <tr><td><code>/cvages forget &lt;players&gt; &lt;key&gt;</code></td><td>Wipe someone's knowledge of an item (testing).</td></tr>
+        <tr><td><code>/cvages classify &lt;key&gt;</code></td><td>An item's age, category, policy and discipline.</td></tr>
+        <tr><td><code>/cvages why &lt;key&gt;</code></td><td>Why it has that age: the reason, and each recipe with its ingredients' ages.</td></tr>
+        <tr><td><code>/cvages dump</code></td><td>Writes <code>config/cvages/age_dump.csv</code> (every item: name, age, category, policy, discipline, recipe count, reason) and <code>gear.json</code> (gear with ingredients, for gen_quests).</td></tr>
+        <tr><td><code>/cvages badges</code></td><td>List the group's badges. <code>badges add &lt;leader&gt;</code> / <code>remove &lt;leader&gt;</code> fix the count (leader keys from badge_sources.json, e.g. <code>brock</code>).</td></tr>
+        <tr><td><code>/cvages lesson cancel &lt;player&gt;</code></td><td>End a stuck lesson.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout">Creative and spectator players bypass everything (gates, penalties, locks), which is handy for building and testing but means you can't test the mod in creative.</div>
+  </section>
+
+  <section class="panel" id="gamerules">
+    <h2>Gamerules</h2>
+    <div class="table-scroll"><table class="spec">
+      <thead><tr><th>Gamerule</th><th>Default</th><th>Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>cvagesEnabled</code></td><td>true</td><td>The master switch. Off = vanilla behaviour (knowledge is kept).</td></tr>
+        <tr><td><code>cvagesBlockDimensions</code></td><td>true</td><td>Lock the Nether and End until their ages.</td></tr>
+        <tr><td><code>cvagesPracticeRate</code></td><td>100</td><td>Percent multiplier on all practice gain (0-10000).</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>Dev wiki &middot; Cobble Valley Ages v0.1</footer>

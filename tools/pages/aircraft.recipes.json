@@ -1,0 +1,18 @@
+{
+  "parts": [
+    { "name": "Hull", "grid": ["Log","Log","Log","Iron Ingot","Iron Ingot","Iron Ingot","Log","Log","Log"], "out": "Hull" },
+    { "name": "Boiler", "grid": ["Copper Ingot","Copper Ingot","Copper Ingot","Copper Ingot","","Copper Ingot","Copper Ingot","Furnace","Copper Ingot"], "out": "Boiler" },
+    { "name": "Engine", "note": "Needs a Boiler first.", "grid": ["","Cobble-stone","","Piston","Blast Furnace","Piston","Cobble-stone","Boiler","Cobble-stone"], "out": "Engine" },
+    { "name": "Sail", "grid": ["White Carpet","White Carpet","String","White Carpet","White Carpet","String","White Carpet","White Carpet","String"], "out": "Sail" },
+    { "name": "Propeller", "grid": ["Iron Ingot","Iron Ingot","","","Iron Ingot","","","Iron Ingot","Iron Ingot"], "out": "Propeller" }
+  ],
+  "aircraft": [
+    { "name": "Airship", "grid": ["Sail","Sail","Sail","Sail","Sail","Sail","Hull","Hull","Engine"], "out": "Airship" },
+    { "name": "Biplane", "grid": ["","Hull","","Hull","Engine","Propeller","","Hull",""], "out": "Biplane" },
+    { "name": "Gyrodyne", "note": "No engine: you pedal it.", "grid": ["","Sail","","Hull","Propeller","Hull","","Sail",""], "out": "Gyrodyne" },
+    { "name": "Quadrocopter", "grid": ["Propeller","Bamboo","Propeller","Bamboo","Engine","Bamboo","Propeller","Bamboo","Propeller"], "out": "Quadro-copter" },
+    { "name": "Cargo Airship", "note": "Made from an Airship.", "grid": ["Chest","Airship","Chest","Chest","Hull","Chest","","",""], "out": "Cargo Airship" },
+    { "name": "Warship", "note": "Made from a Cargo Airship.", "grid": ["Sail","Hull","Sail","Engine","Cargo Airship","Engine","Hull","Industrial Gears","Hull"], "out": "Warship" },
+    { "name": "Bamboo Hopper", "note": "Made from two Biplanes.", "grid": ["Biplane","Hull","Biplane","Bamboo Block","Engine","Bamboo Block","Bamboo Block","Bamboo Block","Bamboo Block"], "out": "Bamboo Hopper" }
+  ]
+}
