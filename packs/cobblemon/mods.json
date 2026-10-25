@@ -1760,6 +1760,9 @@
     "why": "The host's own key bindings (saved with tools/export-keys.ps1), so every PC's controls match. Keys a PC lacks always get it; sync -MatchKeys or a first-time setup sets all of them"
   },
   "config_fixes": [
+    {"file": "config/punchy/punchy_config.json", "find": "(\"itemBlacklist\"\\s*:\\s*)\\[\\s*\\]", "replace": "${1}[\"twinportals:portal_device\", \"ricksportalgun:portal_gun\", \"ricksportalgun:portal_gun_mk2\"]", "why": "Punchy re-poses held items in first person and pointed the Portal Device (and Rick's portal guns, which also have custom 3D models) at the sky. Its item blacklist leaves them drawn as their own models"},
+    {"file": "config/punchy/triggerable-keybindings.json", "find": "(\"punchy_sword_inspect_rework\"\\s*:\\s*)\"key\\.keyboard\\.g\"", "replace": "${1}\"key.keyboard.unknown\"", "why": "Punchy's sword-inspect key (kept in its own file, not options.txt) was on G, the backpack key"},
+    {"file": "config/punchy/triggerable-keybindings.json", "find": "(\"punchy_sword_inspect_old\"\\s*:\\s*)\"key\\.keyboard\\.j\"", "replace": "${1}\"key.keyboard.unknown\"", "why": "Punchy's old sword-inspect key was on J, the portal gun menu key"},
     {"file": "options.txt", "find": "(?m)^(resourcePacks:\\[(?!.*\"punchy:punchy\").*?)\\](?=\\r?$)", "replace": "${1},\"punchy:punchy\"]", "why": "Punchy!'s first-person animations live in its built-in resource pack, which starts switched off (Punchy shows a 'resource pack disabled' popup). Adds it to the end of the enabled packs if it's missing"},
     {"file": "config/supplementaries-common.json", "find": "(\"placeable_books\"\\s*:\\s*\\{(?:\\s*//[^\\r\\n]*)*\\s*\"enabled\"\\s*:\\s*)true", "replace": "${1}false", "why": "Supplementaries' placeable books put a book down on any block you right-click, so the Keeper's Journal pages (written books) got placed instead of opened"},
     {
