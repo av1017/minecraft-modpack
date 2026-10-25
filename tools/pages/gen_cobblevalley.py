@@ -280,8 +280,13 @@ def gen_quests(d):
             continue
         rows = []
         for q in sorted(qs, key=lambda q: (q["kind"] != "group", q["title"])):
-            desc = q["desc"].replace(" Reward: you master it, plus a Prize Crate.", "").replace(". Reward: you master it, plus a Prize Crate", "")
-            rew = "master it + a Prize Crate" if q["kind"] == "mastery" else "the whole group reaches the Stone Age + a Prize Crate"
+            desc = q["desc"].split(" Reward:")[0]
+            if q["kind"] == "group":
+                rew = "the whole group reaches the Stone Age + a Prize Crate"
+            elif "you master it" in q["desc"]:
+                rew = "master it + a Prize Crate"
+            else:
+                rew = "learn to make it + a Prize Crate"
             rows.append([f'<strong>{esc(q["title"].replace("Master: ", ""))}</strong>', esc(desc), rew])
         out.append(f'<h3>{age_chip(d, age)}</h3>' + table(["Quest", "What you need", "Reward"], rows))
     write("cv-quests.html", "\n".join(out))

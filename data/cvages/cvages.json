@@ -3363,7 +3363,7 @@
   {
    "id": "cvages:mastery/diamond/minecraft/enchanting_table",
    "title": "Master: Enchanting Table",
-   "desc": "Gather 2 diamond, 4 obsidian, 1 book. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 2 diamond, 4 obsidian, 1 book. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:enchanting_table",
    "age": "diamond",
    "frame": "task",
@@ -3379,7 +3379,7 @@
   {
    "id": "cvages:mastery/end/minecraft/beacon",
    "title": "Master: Beacon",
-   "desc": "Gather 1 nether star, 3 obsidian, 5 glass. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 1 nether star, 3 obsidian, 5 glass. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:beacon",
    "age": "end",
    "frame": "task",
@@ -3395,7 +3395,7 @@
   {
    "id": "cvages:mastery/iron/cobblemon/great_ball",
    "title": "Master: Great Ball",
-   "desc": "Gather 2 blue apricorn, 2 red apricorn, 1 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 2 blue apricorn, 2 red apricorn, 1 iron ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "cobblemon:great_ball",
    "age": "iron",
    "frame": "task",
@@ -3411,7 +3411,7 @@
   {
    "id": "cvages:mastery/iron/cobblemon/ultra_ball",
    "title": "Master: Ultra Ball",
-   "desc": "Gather 2 black apricorn, 2 yellow apricorn, 1 gold ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 2 black apricorn, 2 yellow apricorn, 1 gold ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "cobblemon:ultra_ball",
    "age": "iron",
    "frame": "task",
@@ -3443,7 +3443,7 @@
   {
    "id": "cvages:mastery/iron/minecraft/anvil",
    "title": "Master: Anvil",
-   "desc": "Gather 3 iron block, 4 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 3 iron block, 4 iron ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:anvil",
    "age": "iron",
    "frame": "task",
@@ -3459,7 +3459,7 @@
   {
    "id": "cvages:mastery/iron/minecraft/blast_furnace",
    "title": "Master: Blast Furnace",
-   "desc": "Gather 5 iron ingot, 1 furnace, 3 smooth stone. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 5 iron ingot, 1 furnace, 3 smooth stone. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:blast_furnace",
    "age": "iron",
    "frame": "task",
@@ -3507,7 +3507,7 @@
   {
    "id": "cvages:mastery/iron/minecraft/iron_boots",
    "title": "Master: Iron Boots",
-   "desc": "Gather 4 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 4 iron ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:iron_boots",
    "age": "iron",
    "frame": "task",
@@ -3539,7 +3539,7 @@
   {
    "id": "cvages:mastery/iron/minecraft/iron_helmet",
    "title": "Master: Iron Helmet",
-   "desc": "Gather 5 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 5 iron ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:iron_helmet",
    "age": "iron",
    "frame": "task",
@@ -3555,7 +3555,7 @@
   {
    "id": "cvages:mastery/iron/minecraft/iron_leggings",
    "title": "Master: Iron Leggings",
-   "desc": "Gather 7 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 7 iron ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:iron_leggings",
    "age": "iron",
    "frame": "task",
@@ -3619,7 +3619,7 @@
   {
    "id": "cvages:mastery/iron/minecraft/shield",
    "title": "Master: Shield",
-   "desc": "Gather 6 planks, 1 iron ingot. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 6 planks, 1 iron ingot. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:shield",
    "age": "iron",
    "frame": "task",
@@ -3651,7 +3651,7 @@
   {
    "id": "cvages:mastery/nether/minecraft/brewing_stand",
    "title": "Master: Brewing Stand",
-   "desc": "Gather 1 blaze rod, 3 cobblestone. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 1 blaze rod, 3 cobblestone. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:brewing_stand",
    "age": "nether",
    "frame": "task",
@@ -3699,7 +3699,7 @@
   {
    "id": "cvages:mastery/stone/minecraft/furnace",
    "title": "Master: Furnace",
-   "desc": "Gather 8 cobblestone. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 8 cobblestone. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:furnace",
    "age": "stone",
    "frame": "task",
@@ -3715,7 +3715,7 @@
   {
    "id": "cvages:mastery/stone/minecraft/smoker",
    "title": "Master: Smoker",
-   "desc": "Gather 1 furnace, 4 logs. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 1 furnace, 4 logs. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:smoker",
    "age": "stone",
    "frame": "task",
@@ -3795,7 +3795,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/bow",
    "title": "Master: Bow",
-   "desc": "Gather 3 string, 3 stick. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 3 string, 3 stick. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:bow",
    "age": "wood",
    "frame": "task",
@@ -3811,7 +3811,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/leather_chestplate",
    "title": "Master: Leather Tunic",
-   "desc": "Gather 8 leather. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 8 leather. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:leather_chestplate",
    "age": "wood",
    "frame": "task",
@@ -3827,7 +3827,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/wooden_axe",
    "title": "Master: Wooden Axe",
-   "desc": "Gather 3 planks, 2 stick. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 3 planks, 2 stick. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:wooden_axe",
    "age": "wood",
    "frame": "task",
@@ -3843,7 +3843,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/wooden_hoe",
    "title": "Master: Wooden Hoe",
-   "desc": "Gather 2 planks, 2 stick. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 2 planks, 2 stick. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:wooden_hoe",
    "age": "wood",
    "frame": "task",
@@ -3859,7 +3859,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/wooden_pickaxe",
    "title": "Master: Wooden Pickaxe",
-   "desc": "Gather 3 planks, 2 stick. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 3 planks, 2 stick. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:wooden_pickaxe",
    "age": "wood",
    "frame": "task",
@@ -3875,7 +3875,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/wooden_shovel",
    "title": "Master: Wooden Shovel",
-   "desc": "Gather 1 planks, 2 stick. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 1 planks, 2 stick. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:wooden_shovel",
    "age": "wood",
    "frame": "task",
@@ -3891,7 +3891,7 @@
   {
    "id": "cvages:mastery/wood/minecraft/wooden_sword",
    "title": "Master: Wooden Sword",
-   "desc": "Gather 2 planks, 1 stick. Reward: you master it, plus a Prize Crate.",
+   "desc": "Gather 2 planks, 1 stick. Reward: you can make it (as a learner: practice to master it), plus a Prize Crate.",
    "icon": "minecraft:wooden_sword",
    "age": "wood",
    "frame": "task",
