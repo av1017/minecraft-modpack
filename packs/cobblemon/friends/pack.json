@@ -6,7 +6,7 @@
     "e4mc": "only for hosting a laptop world; friends join the server over Tailscale"
   },
   "data_version": 3955,
-  "builtin_resourcepacks": ["cobblemon:regionbiasforms", "cobblemon:gyaradosjump", "moonlight:merged_pack"],
+  "builtin_resourcepacks": ["cobblemon:regionbiasforms", "cobblemon:gyaradosjump", "moonlight:merged_pack", "punchy:punchy"],
   "servers": [
     { "name": "Reajustiene", "ip": "homeserver.tail5e6af0.ts.net" },
     { "name": "Reajustiene (backup address)", "ip": "100.66.188.58" }

@@ -1760,6 +1760,8 @@
     "why": "The host's own key bindings (saved with tools/export-keys.ps1), so every PC's controls match. Keys a PC lacks always get it; sync -MatchKeys or a first-time setup sets all of them"
   },
   "config_fixes": [
+    {"file": "options.txt", "find": "(?m)^(resourcePacks:\\[(?!.*\"punchy:punchy\").*?)\\](?=\\r?$)", "replace": "${1},\"punchy:punchy\"]", "why": "Punchy!'s first-person animations live in its built-in resource pack, which starts switched off (Punchy shows a 'resource pack disabled' popup). Adds it to the end of the enabled packs if it's missing"},
+    {"file": "config/supplementaries-common.json", "find": "(\"placeable_books\"\\s*:\\s*\\{(?:\\s*//[^\\r\\n]*)*\\s*\"enabled\"\\s*:\\s*)true", "replace": "${1}false", "why": "Supplementaries' placeable books put a book down on any block you right-click, so the Keeper's Journal pages (written books) got placed instead of opened"},
     {
       "file": "config/simplehats.json5",
       "find": "(\"forceFirstPersonNoRender\"\\s*:\\s*)false",
