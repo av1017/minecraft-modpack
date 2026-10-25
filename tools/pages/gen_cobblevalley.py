@@ -494,11 +494,12 @@ PAGES = {
         "Wooden tools are free to craft. Anyone holding a crafting table and a wooden pickaxe completes <strong>First Steps</strong>, and the whole group enters the Stone Age.",
         "The furnace, anvil and enchanting table must be <strong>learned</strong> before you can craft them: quest, teacher, or practice."]},
     "join": {"sel": [], "key": [], "notes": [
-        "When Cobble Valley launches, the server switches to it. You'll join the same way. On day one: open the quest tab "
-        '(the Advancements key, <span class="kbd">L</span>) and find the <strong>Cobble Valley</strong> tab, and read <a href="cv-start.html">Start Here</a>.']},
+        "The server runs Cobble Valley now: you join the same way. On day one, open the quest book "
+        '(the Advancements key, <span class="kbd">L</span>), find the <strong>Cobble Valley</strong> and <strong>Keeper\'s Journal</strong> tabs, '
+        'and read <a href="cv-start.html">Start Here</a>.']},
     "online": {"sel": [], "key": [], "notes": [
-        "Right now the server still runs the sandbox world. When Cobble Valley launches it replaces it, with the same address and mod pack "
-        '(plus Leaf Beds and Cobble Valley Ages). Your progress there is saved on the server: <a href="cv-start.html">Start Here</a>.']},
+        "The server's world is <strong>Cobble Valley</strong> (Easy, a fresh seed), with the same address. The pack added Leaf Beds, "
+        'Cobble Valley Ages and a few client mods: update before joining. <a href="cv-start.html">Start Here</a>.']},
     "mods": {"sel": ["@farmersdelight", "@weaversparadise"], "key": ["farmersdelight:cooking_pot", "farmersdelight:skillet",
                                                                       "farmersdelight:cutting_board", "weaversparadise:clothcrafting_station"], "notes": [
         "This page is about <strong>Our World</strong> (26.3). Several of these mods are also in the Cobblemon pack, and in Cobble Valley "
