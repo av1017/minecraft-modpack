@@ -1246,17 +1246,6 @@
       "side": "client"
     },
     {
-      "name": "Particular ✨",
-      "slug": "particular",
-      "project_id": "B1CcCd9h",
-      "version_id": "3dq7wTCR",
-      "version": "1.1.2+1.21",
-      "filename": "particular-1.1.2+1.21.jar",
-      "url": "https://cdn.modrinth.com/data/B1CcCd9h/versions/3dq7wTCR/particular-1.1.2%2B1.21.jar",
-      "sha1": "aa59b31359c2211f4a2d401235c4926084d4f97e",
-      "side": "client"
-    },
-    {
       "name": "Punchy!",
       "slug": "punchy-fpa",
       "project_id": "8aoMKplv",
