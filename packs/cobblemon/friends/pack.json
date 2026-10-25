@@ -1,6 +1,6 @@
 {
   "note": "Settings for tools/build-friends-pack.py: the .mrpack friends import into the Modrinth App (no sync.ps1, works on Mac). Files under overrides/ are copied into the instance as-is; the pack's config_files are added too.",
-  "name": "Reajustiene (Cobblemon)",
+  "name": "Cobble Valley (Cobblemon)",
   "summary": "Our Cobblemon server's mods, texture packs, and key settings. Import into the Modrinth App.",
   "exclude": {
     "e4mc": "only for hosting a laptop world; friends join the server over Tailscale"
@@ -8,9 +8,9 @@
   "data_version": 3955,
   "builtin_resourcepacks": ["cobblemon:regionbiasforms", "cobblemon:gyaradosjump", "moonlight:merged_pack", "punchy:punchy"],
   "servers": [
-    { "name": "Reajustiene", "ip": "homeserver.tail5e6af0.ts.net" },
-    { "name": "Reajustiene (backup address)", "ip": "100.66.188.58" }
+    { "name": "Cobble Valley", "ip": "homeserver.tail5e6af0.ts.net" },
+    { "name": "Cobble Valley (backup address)", "ip": "100.66.188.58" }
   ],
   "release_tag": "friends-pack",
-  "asset": "Reajustiene-Cobblemon.mrpack"
+  "asset": "Cobble-Valley-Cobblemon.mrpack"
 }
