@@ -160,6 +160,19 @@
       "side": "both"
     },
     {
+      "name": "Cobble Valley Ages (our own mod)",
+      "slug": "cvages",
+      "project_id": "cvages-local",
+      "version_id": "cvages-0.1.1",
+      "version": "0.1.1",
+      "filename": "cvages-0.1.1.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.1.1/cvages-0.1.1.jar",
+      "sha1": "080d77fa3a7558551d929156dc979575ec44502d",
+      "side": "both",
+      "pinned": true,
+      "pinned_reason": "Our own mod (source: minecraftServer/cobble-valley-ages, not on Modrinth). Ages, skill, learning recipes, books and crates for the Cobble Valley world. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
       "name": "Cobbled Armor & Tool Trims - Cobblemon",
       "slug": "cobbled-armour-trims",
       "project_id": "Ui0aohNY",
@@ -604,6 +617,17 @@
       "side": "both"
     },
     {
+      "name": "Open Parties and Claims",
+      "slug": "open-parties-and-claims",
+      "project_id": "gF3BGWvG",
+      "version_id": "4XHYA7yQ",
+      "version": "fabric-1.21.1-0.33.0",
+      "filename": "open-parties-and-claims-fabric-1.21.1-0.33.0.jar",
+      "url": "https://cdn.modrinth.com/data/gF3BGWvG/versions/4XHYA7yQ/open-parties-and-claims-fabric-1.21.1-0.33.0.jar",
+      "sha1": "685e5f46457d67e001a34c203c0d87b9ae28c27d",
+      "side": "both"
+    },
+    {
       "name": "oωo (owo-lib)",
       "slug": "owo-lib",
       "project_id": "ccKDOlHs",
@@ -881,19 +905,6 @@
       "side": "both",
       "pinned": true,
       "pinned_reason": "Our own mod (source: minecraftServer/portal-gun-mod, not on Modrinth). Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
-    },
-    {
-      "name": "Cobble Valley Ages (our own mod)",
-      "slug": "cvages",
-      "project_id": "cvages-local",
-      "version_id": "cvages-0.1.1",
-      "version": "0.1.1",
-      "filename": "cvages-0.1.1.jar",
-      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.1.1/cvages-0.1.1.jar",
-      "sha1": "080d77fa3a7558551d929156dc979575ec44502d",
-      "side": "both",
-      "pinned": true,
-      "pinned_reason": "Our own mod (source: minecraftServer/cobble-valley-ages, not on Modrinth). Ages, skill, learning recipes, books and crates for the Cobble Valley world. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
     },
     {
       "name": "Visual Workbench",
@@ -1558,6 +1569,12 @@
       "why": "[ is Weaver's Paradise's upper-wear menu; apostrophe is free"
     },
     {
+      "key": "key_gui.xaero_pac_key_open_menu",
+      "from": "key.keyboard.apostrophe",
+      "to": "key.keyboard.comma",
+      "why": "Apostrophe is Inventory Tabs' toggle; comma is free (Open Parties and Claims' menu, for making a party)"
+    },
+    {
       "key": "key_key.punchy.inspect",
       "from": "key.keyboard.i",
       "to": "key.keyboard.backslash",
@@ -1773,10 +1790,30 @@
     "why": "The host's own key bindings (saved with tools/export-keys.ps1), so every PC's controls match. Keys a PC lacks always get it; sync -MatchKeys or a first-time setup sets all of them"
   },
   "config_fixes": [
-    {"file": "config/punchy/triggerable-keybindings.json", "find": "(\"punchy_sword_inspect_rework\"\\s*:\\s*)\"key\\.keyboard\\.g\"", "replace": "${1}\"key.keyboard.unknown\"", "why": "Punchy's sword-inspect key (kept in its own file, not options.txt) was on G, the backpack key"},
-    {"file": "config/punchy/triggerable-keybindings.json", "find": "(\"punchy_sword_inspect_old\"\\s*:\\s*)\"key\\.keyboard\\.j\"", "replace": "${1}\"key.keyboard.unknown\"", "why": "Punchy's old sword-inspect key was on J, the portal gun menu key"},
-    {"file": "options.txt", "find": "(?m)^(resourcePacks:\\[(?!.*\"punchy:punchy\").*?)\\](?=\\r?$)", "replace": "${1},\"punchy:punchy\"]", "why": "Punchy!'s first-person animations live in its built-in resource pack, which starts switched off (Punchy shows a 'resource pack disabled' popup). Adds it to the end of the enabled packs if it's missing"},
-    {"file": "config/supplementaries-common.json", "find": "(\"placeable_books\"\\s*:\\s*\\{(?:\\s*//[^\\r\\n]*)*\\s*\"enabled\"\\s*:\\s*)true", "replace": "${1}false", "why": "Supplementaries' placeable books put a book down on any block you right-click, so the Keeper's Journal pages (written books) got placed instead of opened"},
+    {
+      "file": "config/punchy/triggerable-keybindings.json",
+      "find": "(\"punchy_sword_inspect_rework\"\\s*:\\s*)\"key\\.keyboard\\.g\"",
+      "replace": "${1}\"key.keyboard.unknown\"",
+      "why": "Punchy's sword-inspect key (kept in its own file, not options.txt) was on G, the backpack key"
+    },
+    {
+      "file": "config/punchy/triggerable-keybindings.json",
+      "find": "(\"punchy_sword_inspect_old\"\\s*:\\s*)\"key\\.keyboard\\.j\"",
+      "replace": "${1}\"key.keyboard.unknown\"",
+      "why": "Punchy's old sword-inspect key was on J, the portal gun menu key"
+    },
+    {
+      "file": "options.txt",
+      "find": "(?m)^(resourcePacks:\\[(?!.*\"punchy:punchy\").*?)\\](?=\\r?$)",
+      "replace": "${1},\"punchy:punchy\"]",
+      "why": "Punchy!'s first-person animations live in its built-in resource pack, which starts switched off (Punchy shows a 'resource pack disabled' popup). Adds it to the end of the enabled packs if it's missing"
+    },
+    {
+      "file": "config/supplementaries-common.json",
+      "find": "(\"placeable_books\"\\s*:\\s*\\{(?:\\s*//[^\\r\\n]*)*\\s*\"enabled\"\\s*:\\s*)true",
+      "replace": "${1}false",
+      "why": "Supplementaries' placeable books put a book down on any block you right-click, so the Keeper's Journal pages (written books) got placed instead of opened"
+    },
     {
       "file": "config/simplehats.json5",
       "find": "(\"forceFirstPersonNoRender\"\\s*:\\s*)false",
