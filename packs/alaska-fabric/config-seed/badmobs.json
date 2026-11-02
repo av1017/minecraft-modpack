@@ -1,0 +1,343 @@
+{
+  "minecraft:allay": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:blaze": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:bogged": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:cave_spider": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:chicken": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:cow": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:creeper": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:drowned": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:elder_guardian": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:enderman": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:endermite": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:evoker": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:glow_squid": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:guardian": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:horse": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:iron_golem": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:phantom": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:pig": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:pillager": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:skeleton": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:slime": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:sniffer": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:spider": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:squid": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:stray": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:vex": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:villager": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:wandering_trader": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:witch": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:zombie": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  },
+  "minecraft:zombie_villager": {
+    "disallowedTypes": [
+      "NATURAL",
+      "CHUNK_GENERATION",
+      "STRUCTURE",
+      "PATROL",
+      "REINFORCEMENT",
+      "JOCKEY",
+      "EVENT"
+    ]
+  }
+}

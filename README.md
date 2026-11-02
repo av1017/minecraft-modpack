@@ -11,6 +11,7 @@ The repo stores **lists** of mods, not the mod files. The sync script downloads 
 |---|---|---|---|---|
 | **our-world** | Fabric 26.3 (Modded) | 26.3 | `%APPDATA%\.minecraft` | `Sync Our World.bat` |
 | **cobblemon** | Cobblemon 1.21.1 | 1.21.1 | `%APPDATA%\.minecraft-cobblemon` | `Sync Cobblemon.bat` |
+| **alaska-fabric** | Alaskan Wilderness (Fabric) | 1.21.1 | `%APPDATA%\.minecraft-alaska-fabric` | `Sync Alaska.bat` |
 
 Each pack has its own game folder, with its own worlds, mods, and settings, so they never interfere with each other. Exact versions are in `packs/<pack>/mods.json`.
 
@@ -44,7 +45,7 @@ The sync installs each pack's texture packs into its `resourcepacks` folder and 
 ## Set up a new PC
 1. **Install Minecraft Java Edition** and sign in. Play vanilla once, then close the game and launcher.
 2. **Clone this repo:** `git clone https://github.com/av1017/minecraft-modpack.git`
-3. **Run the sync** for each pack you want: double-click `Sync Our World.bat` and/or `Sync Cobblemon.bat`. Or open Claude Code in the folder and say *"Read CLAUDE.md and sync my Minecraft mods."*
+3. **Run the sync** for each pack you want: double-click `Sync Our World.bat`, `Sync Cobblemon.bat` and/or `Sync Alaska.bat`. Or open Claude Code in the folder and say *"Read CLAUDE.md and sync my Minecraft mods."*
 4. **Play:** in the launcher, pick the pack's profile and press Play. A pack's first launch is slower, because the launcher downloads that Minecraft version.
 5. **Sync once more after that first launch.** Some fixes (REI's keys, AutoSwitch, Distant Horizons' lighter settings) edit files the mods only create when the game first runs.
 

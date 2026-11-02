@@ -16,6 +16,11 @@
 
   Mods are downloaded from Modrinth (as their authors require) and checked
   against the SHA-1 in mods.json before anything is changed.
+
+  Optional manifest keys (packs without them behave as before):
+    options_from  {game_dir, why}: on first setup of a separate game folder, copy options.txt from that pack's game
+                  folder instead of the launcher folder, minus its texture-pack lines.
+    config_seed   {source, why}: files under that repo folder are copied into <game folder>\config only when missing.
 #>
 param(
   [string]$Pack = "our-world",
@@ -139,7 +144,12 @@ foreach ($sp in $spList) {
 }
 
 # A new separate game folder starts with default settings; copy your existing settings and keybinds once.
+# "options_from" names another pack's game folder to copy them from (else the launcher folder's).
 $srcOptions = Join-Path $MinecraftDir "options.txt"
+if ($m.PSObject.Properties.Name -contains "options_from" -and $m.options_from) {
+  $fromOptions = Join-Path (Join-Path (Split-Path -Parent $MinecraftDir) $m.options_from.game_dir) "options.txt"
+  if (Test-Path -LiteralPath $fromOptions) { $srcOptions = $fromOptions }
+}
 $dstOptions = Join-Path $gameDir "options.txt"
 $needOptions = ($gameDir -ne $MinecraftDir) -and (Test-Path $srcOptions) -and -not (Test-Path $dstOptions)
 
@@ -193,6 +203,8 @@ if ($m.PSObject.Properties.Name -contains "config_fixes") { $cfgFixes = @($m.con
 $cfgChanges = @(); $cfgPending = @()
 foreach ($c in $cfgFixes) {
   $cfgPath = Join-Path $gameDir $c.file
+  # On first setup options.txt is copied in before the fixes run, so check the fix against the copy's source.
+  if ($needOptions -and $c.file -eq "options.txt") { $cfgPath = $srcOptions }
   if (-not (Test-Path -LiteralPath $cfgPath)) { $cfgPending += $c; continue }
   if ([regex]::IsMatch([System.IO.File]::ReadAllText($cfgPath), $c.find)) { $cfgChanges += $c }
 }
@@ -210,6 +222,19 @@ foreach ($c in $cfgFiles) {
   if (-not (Test-Path -LiteralPath $dst) -or (Sha1Of $dst) -ne (Sha1Of $src)) { $cfgFileChanges += $c }
 }
 
+# Seed configs: each file under "config_seed.source" (a repo folder) is copied to <game folder>\config only when that
+# file doesn't exist yet, so anything a mod or player has written since is never overwritten.
+$seedFiles = @()
+if ($m.PSObject.Properties.Name -contains "config_seed" -and $m.config_seed) {
+  $seedRoot = Join-Path $repo $m.config_seed.source
+  if (-not (Test-Path -LiteralPath $seedRoot)) { Fail "mods.json lists config seed folder $($m.config_seed.source), but it isn't in the repo." }
+  $seedRoot = (Resolve-Path -LiteralPath $seedRoot).Path.TrimEnd('\')
+  foreach ($f in Get-ChildItem -LiteralPath $seedRoot -Recurse -File) {
+    $rel = $f.FullName.Substring($seedRoot.Length + 1)
+    if (-not (Test-Path -LiteralPath (Join-Path $gameDir "config\$rel"))) { $seedFiles += [pscustomobject]@{ src = $f.FullName; rel = $rel } }
+  }
+}
+
 foreach ($f in $toRemove)    { Plan "Remove (not in mods.json): $($f.Name)" }
 foreach ($k in $keyChanges)  { Plan "Keybind fix: $($k.key) -> $($k.to) ($($k.why))" }
 if ($layoutChanges.Count -gt 0) {
@@ -219,6 +244,7 @@ if ($layoutChanges.Count -gt 0) {
 foreach ($c in $cfgChanges)  { Plan "Config fix: $($c.file) ($($c.why))" }
 foreach ($c in $cfgPending)  { Note "Config fix waits for the mod's first launch: $($c.file) ($($c.why))" }
 foreach ($c in $cfgFileChanges) { Plan "Config file: $($c.file) ($($c.why))" }
+if ($seedFiles.Count -gt 0) { Plan "Seed $($seedFiles.Count) config file(s) that don't exist yet ($($m.config_seed.why))" }
 foreach ($mod in $toInstall) { Plan "Install: $($mod.name) $($mod.version)" }
 foreach ($rp in $rpToInstall) { Plan "Install resource pack: $($rp.name) $($rp.version)" }
 foreach ($sp in $spToInstall) { Plan "Install shader pack: $($sp.name) $($sp.version)" }
@@ -233,7 +259,7 @@ if ($rpList.Count -gt 0) { Ok "$($rpList.Count - $rpToInstall.Count) of $($rpLis
 
 if ($spList.Count -gt 0) { Ok "$($spList.Count - $spToInstall.Count) of $($spList.Count) shader packs already up to date" }
 
-$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $layoutChanges.Count + $cfgChanges.Count + $cfgFileChanges.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
+$changes = $toRemove.Count + $toInstall.Count + $rpToInstall.Count + $spToInstall.Count + $keyChanges.Count + $layoutChanges.Count + $cfgChanges.Count + $cfgFileChanges.Count + $seedFiles.Count + [int]$needLoader + [int]$needProfile + [int]$needOptions
 if ($changes -eq 0) {
   Write-Host "`nALREADY IN SYNC. Nothing to change." -ForegroundColor Green
   exit 0
@@ -314,8 +340,23 @@ if ($needLoader) {
 
 if ($needOptions) {
   Copy-Item -LiteralPath $srcOptions -Destination $dstOptions
+  if ($srcOptions -ne (Join-Path $MinecraftDir "options.txt")) {
+    # Another pack's texture pack list names packs this one doesn't have; start from the default list so this
+    # pack's own resource packs go on in their listed order.
+    $raw = [System.IO.File]::ReadAllText($dstOptions)
+    $nl = "`n"; if ($raw.Contains("`r`n")) { $nl = "`r`n" }
+    $kept = @($raw.TrimEnd("`r", "`n") -split [regex]::Escape($nl) | Where-Object { $_ -notmatch '^(resourcePacks|incompatibleResourcePacks):' })
+    [System.IO.File]::WriteAllText($dstOptions, (($kept -join $nl) + $nl), $utf8NoBom)
+  }
   Ok "Copied game settings and keybinds"
 }
+
+foreach ($s in $seedFiles) {
+  $dst = Join-Path $gameDir "config\$($s.rel)"
+  New-Item -ItemType Directory -Force -Path (Split-Path $dst) | Out-Null
+  Copy-Item -LiteralPath $s.src -Destination $dst
+}
+if ($seedFiles.Count -gt 0) { Ok "Seeded $($seedFiles.Count) config file(s)" }
 
 # Apply keybind fixes and the key layout (worked out above).
 $keyChanges = @($keyChanges) + @($layoutChanges)
