@@ -995,17 +995,6 @@
       "side": "client"
     },
     {
-      "name": "AutoSwitch",
-      "slug": "autoswitch",
-      "project_id": "uSdcnlts",
-      "version_id": "K4NFO7bc",
-      "version": "9.1.2",
-      "filename": "autoswitch-9.1.2.jar",
-      "url": "https://cdn.modrinth.com/data/uSdcnlts/versions/K4NFO7bc/autoswitch-9.1.2.jar",
-      "sha1": "bede73f41889920dc670d44e5ad834a2f6525952",
-      "side": "client"
-    },
-    {
       "name": "Chest Tracker",
       "slug": "chest-tracker",
       "project_id": "ni4SrKmq",
@@ -1533,12 +1522,6 @@
       "why": "Z is Xaero's 'enlarge minimap'; H is free in this profile"
     },
     {
-      "key": "key_key.autoswitch.toggle",
-      "from": "key.keyboard.r",
-      "to": "key.keyboard.n",
-      "why": "R is Cobblemon's throw Pokémon and Iris's reload; N is free in both profiles"
-    },
-    {
       "key": "key_zoomify.key.zoom.secondary",
       "from": "key.keyboard.f6",
       "to": "key.keyboard.unknown",
@@ -1593,12 +1576,6 @@
       "find": "(\"recipeKeybind\"\\s*:\\s*\\{\\s*\"keyCode\"\\s*:\\s*)\"key\\.keyboard\\.r\"",
       "replace": "${1}\"key.keyboard.y\"",
       "why": "REI's 'show recipe' on R also triggered Inventory Profiles Next's sort; recipe moves to Y, next to REI's U for uses"
-    },
-    {
-      "file": "config/autoswitchUseAction.cfg",
-      "find": "(?m)^(minecraft!creeper[ \\t]*=[ \\t]*)minecraft:flint_and_steel(?=\\r?$)",
-      "replace": "${1}",
-      "why": "AutoSwitch swapped to flint and steel when right-clicking a creeper, which lights it"
     },
     {
       "file": "config/DistantHorizons.toml",
