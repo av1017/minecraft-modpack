@@ -87,6 +87,19 @@
       "side": "both"
     },
     {
+      "name": "Alaska Fire Towers (our own mod)",
+      "slug": "alaskatower",
+      "project_id": "alaskatower-local",
+      "version_id": "alaskatower-1.0.0",
+      "version": "1.0.0",
+      "filename": "alaskatower-1.0.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/firetower-v1.0.0/alaskatower-1.0.0.jar",
+      "sha1": "10c62a17921f56494e8f1466be2e1326a4ff6d2d",
+      "side": "both",
+      "pinned": true,
+      "pinned_reason": "Our own mod (source: minecraftAlaska/fire-tower, not on Modrinth): fire lookout towers, and new worlds start in one. Update by re-running tools/gen_tower.py and gradlew build there, uploading a new GitHub release, and editing this entry by hand."
+    },
+    {
       "name": "Another Furniture",
       "slug": "another-furniture",
       "project_id": "ulloLmqG",
