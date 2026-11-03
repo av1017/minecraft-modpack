@@ -163,11 +163,11 @@
       "name": "Cobble Valley Ages (our own mod)",
       "slug": "cvages",
       "project_id": "cvages-local",
-      "version_id": "cvages-0.1.1",
-      "version": "0.1.1",
-      "filename": "cvages-0.1.1.jar",
-      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.1.1/cvages-0.1.1.jar",
-      "sha1": "080d77fa3a7558551d929156dc979575ec44502d",
+      "version_id": "cvages-0.2.0",
+      "version": "0.2.0",
+      "filename": "cvages-0.2.0.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.2.0/cvages-0.2.0.jar",
+      "sha1": "3882afe42cf3b9b5f7f4cee70ed688edde66af7e",
       "side": "both",
       "pinned": true,
       "pinned_reason": "Our own mod (source: minecraftServer/cobble-valley-ages, not on Modrinth). Ages, skill, learning recipes, books and crates for the Cobble Valley world. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
@@ -1733,7 +1733,13 @@
       "key": "key_key.showmeyourskin.open_settings",
       "from": "key.keyboard.k",
       "to": "key.keyboard.unknown",
-      "why": "K toggles shaders; Show Me Your Skin's settings are under Mods on the pause menu"
+      "why": "K opens Skills (Cobble Valley Ages); Show Me Your Skin's settings are under Mods on the pause menu"
+    },
+    {
+      "key": "key_iris.keybind.toggleShaders",
+      "from": "key.keyboard.k",
+      "to": "key.keyboard.backslash",
+      "why": "K opens the Skills screen (Cobble Valley Ages 0.2.0); backslash is free"
     },
     {
       "key": "key_key.showmeyourskin.global_toggle",

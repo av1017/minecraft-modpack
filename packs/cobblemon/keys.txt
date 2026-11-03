@@ -31,7 +31,7 @@ key_gui.xaero_zoom_in:key.keyboard.unknown
 key_gui.xaero_zoom_out:key.keyboard.unknown
 key_iris.keybind.reload:key.keyboard.unknown
 key_iris.keybind.shaderPackSelection:key.keyboard.unknown
-key_iris.keybind.toggleShaders:key.keyboard.k
+key_iris.keybind.toggleShaders:key.keyboard.backslash
 key_iris.keybind.wireframe:key.keyboard.unknown
 key_key.advancements:key.keyboard.l
 key_key.attack:key.mouse.left
@@ -45,6 +45,7 @@ key_key.cobblemon.summary:key.keyboard.i
 key_key.cobblemon.throwpartypokemon:key.keyboard.r
 key_key.cobblemon.upshiftparty:key.keyboard.up
 key_key.command:key.keyboard.slash
+key_key.cvages.skills:key.keyboard.k
 key_key.drop:key.keyboard.q
 key_key.firstperson.toggle:key.keyboard.f6
 key_key.forward:key.keyboard.w
