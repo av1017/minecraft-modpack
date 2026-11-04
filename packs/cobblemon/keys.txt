@@ -35,7 +35,6 @@ key_iris.keybind.toggleShaders:key.keyboard.backslash
 key_iris.keybind.wireframe:key.keyboard.unknown
 key_key.advancements:key.keyboard.l
 key_key.attack:key.mouse.left
-key_key.autoswitch.toggle:key.keyboard.n
 key_key.back:key.keyboard.s
 key_key.chat:key.keyboard.t
 key_key.cobblemon.downshiftparty:key.keyboard.down
