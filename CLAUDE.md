@@ -104,7 +104,7 @@ If `.minecraft` isn't at `%APPDATA%\.minecraft`, find the folder containing `lau
 4. **Back up the pack's world** (zip its folder under the pack's game folder `saves\`) before syncing changes to gameplay mods.
 5. **Run the sync,** then ask the user to **launch and load the world** to confirm it works.
 6. **Only then commit and push:** `git add packs && git commit -m "<pack>: add <mod> <version>" && git push`
-7. **Remind the user** that every other PC must `git pull` and sync that pack before the next LAN session.
+7. **Remind the user** that every other PC must update before the next session: `Update Minecraft.bat` (or `/update-minecraft` in Claude Code) pulls and syncs Cobblemon and Alaska; the single-pack `Sync ... .bat` files pull first too (via `tools/pull-latest.cmd`).
 8. **For `cobblemon`, also update the server and the friends' pack** (both read the pushed `mods.json`):
    - Server (homeserver, over `ssh homeserver`): `cd /srv/homeserver/services/minecraft && ./update-mods.py` (dry run), then `sudo touch /var/lib/homeserver/watchdog/maintenance && docker compose stop && ./update-mods.py --apply && docker compose up -d`, and `sudo rm /var/lib/homeserver/watchdog/maintenance` once the log shows "Done". The flag stops the watchdog paging Avery's phone. Warn online players first with `docker exec minecraft rcon-cli say ...`. Commit nothing there unless the compose file changes, but add a line to its `logs/YYYYMMDD.md`.
    - Friends' pack: `python -I tools/build-friends-pack.py --upload`, then tell the user to let friends know (they re-import the file; see the guide's Playing From Anywhere page).
@@ -125,7 +125,7 @@ The `.mrpack` lists download URLs and hashes only (no jars), so it respects mod 
    - `profile` (unique key and name)
    - `"mods": []`
 2. Fill it with `tools/add-mod.ps1`.
-3. Add a `Sync <Name>.bat` like the existing ones, and update the README and this file.
+3. Add a `Sync <Name>.bat` like the existing ones (CRLF line endings; call `tools\pull-latest.cmd` first), add the pack to `Update Minecraft.bat` and the `/update-minecraft` skill if friends play it, and update the README and this file.
 
 ## Troubleshooting
 - **Crash:** read `logs\latest.log` and the newest `crash-reports\` file in the pack's **game folder**. Look for the mod ID in "Incompatible mods", "requires", or the top of the stack trace. Re-run `sync.ps1 -Pack <pack> -DryRun` to confirm files are intact. Roll back with git history and sync.

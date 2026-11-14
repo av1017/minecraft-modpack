@@ -15,6 +15,10 @@ The repo stores **lists** of mods, not the mod files. The sync script downloads 
 
 Each pack has its own game folder, with its own worlds, mods, and settings, so they never interfere with each other. Exact versions are in `packs/<pack>/mods.json`.
 
+## Updating (close Minecraft first)
+- **Double-click `Update Minecraft.bat`.** It downloads the latest pack (`git pull`), then syncs Cobblemon and Alaskan Wilderness. The single-pack `Sync ... .bat` files also download first. If Git isn't installed or the download fails, they sync the pack as it is on the PC.
+- **Or, in Claude Code** opened in this folder, type `/update-minecraft`. Claude does the same steps and explains any error in plain words (the skill is in `.claude/skills/update-minecraft/`).
+
 ### our-world
 - **Mods:** Wool Tweaks, Farmer's Delight, Rustic Delight, inventory sorting (Inventory Profiles Next, Mouse Tweaks, Mod Menu), EMF + ETF for animated mobs, and performance mods (Sodium, Lithium, FerriteCore), Distant Horizons (far view distance), Traveler's Backpack, First-person Model, REI (item list and recipes), Jade (what am I looking at), Logical Zoom, AutoSwitch, and decoration mods (Macaw's Furniture, Windows, and Lights; Beautify; Storage Delight), plus the libraries they need. The profile gets 4 GB of memory.
 - **Texture pack:** Fresh Animations.
