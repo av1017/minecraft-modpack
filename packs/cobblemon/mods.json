@@ -163,11 +163,11 @@
       "name": "Cobble Valley Ages (our own mod)",
       "slug": "cvages",
       "project_id": "cvages-local",
-      "version_id": "cvages-0.3.5",
-      "version": "0.3.5",
-      "filename": "cvages-0.3.5.jar",
-      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.3.5/cvages-0.3.5.jar",
-      "sha1": "b9404dab4d6030cd746435da25425fd30a16b07c",
+      "version_id": "cvages-0.3.6",
+      "version": "0.3.6",
+      "filename": "cvages-0.3.6.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.3.6/cvages-0.3.6.jar",
+      "sha1": "47a435637f857ee23378bcc291bdff6f510b4b39",
       "side": "both",
       "pinned": true,
       "pinned_reason": "Our own mod (source: minecraftServer/cobble-valley-ages, not on Modrinth). Ages, skill, learning recipes, books and crates for the Cobble Valley world. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
@@ -1790,6 +1790,12 @@
     "why": "The host's own key bindings (saved with tools/export-keys.ps1), so every PC's controls match. Keys a PC lacks always get it; sync -MatchKeys or a first-time setup sets all of them"
   },
   "config_fixes": [
+    {
+      "file": "config/chesttracker.json5",
+      "find": "(inventory_button:\\s*\\{\\s*enabled:\\s*)true",
+      "replace": "${1}false",
+      "why": "Chest Tracker's chest-screen button sat on top of Inventory Profiles Next's sort and move buttons; Chest Tracker still opens with its key (semicolon)"
+    },
     {
       "file": "config/punchy/triggerable-keybindings.json",
       "find": "(\"punchy_sword_inspect_rework\"\\s*:\\s*)\"key\\.keyboard\\.g\"",
