@@ -163,11 +163,11 @@
       "name": "Cobble Valley Ages (our own mod)",
       "slug": "cvages",
       "project_id": "cvages-local",
-      "version_id": "cvages-0.3.6",
-      "version": "0.3.6",
-      "filename": "cvages-0.3.6.jar",
-      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.3.6/cvages-0.3.6.jar",
-      "sha1": "47a435637f857ee23378bcc291bdff6f510b4b39",
+      "version_id": "cvages-0.3.8",
+      "version": "0.3.8",
+      "filename": "cvages-0.3.8.jar",
+      "url": "https://github.com/av1017/minecraft-modpack/releases/download/cvages-v0.3.8/cvages-0.3.8.jar",
+      "sha1": "1783f77c805b96d700a2a0370321104096109134",
       "side": "both",
       "pinned": true,
       "pinned_reason": "Our own mod (source: minecraftServer/cobble-valley-ages, not on Modrinth). Ages, skill, learning recipes, books and crates for the Cobble Valley world. Update by rebuilding, uploading a new GitHub release, and editing this entry by hand."
@@ -280,6 +280,17 @@
       "filename": "coolrain-1.4.0-1.21.1.jar",
       "url": "https://cdn.modrinth.com/data/iDyqnQLT/versions/i2dHlstR/coolrain-1.4.0-1.21.1.jar",
       "sha1": "32271790c96dfcb71134f6a40e8a5bf8179375f3",
+      "side": "both"
+    },
+    {
+      "name": "Copper Age Backport",
+      "slug": "backport-copper-age",
+      "project_id": "a1llHwl4",
+      "version_id": "FL44OinM",
+      "version": "1.21.1-0.1.4",
+      "filename": "copperagebackport-fabric-1.21.1-0.1.4.jar",
+      "url": "https://cdn.modrinth.com/data/a1llHwl4/versions/FL44OinM/copperagebackport-fabric-1.21.1-0.1.4.jar",
+      "sha1": "17777733974b4c3681b377aeb4a743d9d706b7ed",
       "side": "both"
     },
     {
@@ -628,17 +639,6 @@
       "side": "both"
     },
     {
-      "name": "PeterWolf's Realistic Tree Felling",
-      "slug": "peterwolfs-realistic-tree-felling",
-      "project_id": "GevfEXnx",
-      "version_id": "c9O4LZfH",
-      "version": "1.1.7+1.21.1",
-      "filename": "peterwolfs-realistic-tree-felling-1.1.7+1.21.1.jar",
-      "url": "https://cdn.modrinth.com/data/GevfEXnx/versions/c9O4LZfH/peterwolfs-realistic-tree-felling-1.1.7%2B1.21.1.jar",
-      "sha1": "7af9e80fdf5c307acebe3437e4bbfcd5d635546d",
-      "side": "both"
-    },
-    {
       "name": "oωo (owo-lib)",
       "slug": "owo-lib",
       "project_id": "ccKDOlHs",
@@ -658,6 +658,17 @@
       "filename": "Patchouli-1.21.1-93-FABRIC.jar",
       "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/XIjNwQkI/Patchouli-1.21.1-93-FABRIC.jar",
       "sha1": "693eb5235ccbcef67569bd62d6c5dd34c4d73459",
+      "side": "both"
+    },
+    {
+      "name": "PeterWolf's Realistic Tree Felling",
+      "slug": "peterwolfs-realistic-tree-felling",
+      "project_id": "GevfEXnx",
+      "version_id": "c9O4LZfH",
+      "version": "1.1.7+1.21.1",
+      "filename": "peterwolfs-realistic-tree-felling-1.1.7+1.21.1.jar",
+      "url": "https://cdn.modrinth.com/data/GevfEXnx/versions/c9O4LZfH/peterwolfs-realistic-tree-felling-1.1.7%2B1.21.1.jar",
+      "sha1": "7af9e80fdf5c307acebe3437e4bbfcd5d635546d",
       "side": "both"
     },
     {
@@ -880,6 +891,17 @@
       "filename": "placeholder-api-2.4.2+1.21.jar",
       "url": "https://cdn.modrinth.com/data/eXts2L7r/versions/U5bhVym2/placeholder-api-2.4.2%2B1.21.jar",
       "sha1": "aa1b9a49f9f190dfe4825c502b150817dd2998c3",
+      "side": "both"
+    },
+    {
+      "name": "Tom's Simple Storage Mod",
+      "slug": "toms-storage",
+      "project_id": "XZNI4Cpy",
+      "version_id": "nhRuPk5W",
+      "version": "1.21-2.4.2-fabric",
+      "filename": "toms_storage_fabric-1.21-2.4.2.jar",
+      "url": "https://cdn.modrinth.com/data/XZNI4Cpy/versions/nhRuPk5W/toms_storage_fabric-1.21-2.4.2.jar",
+      "sha1": "a0859e6f04aebb4afdc1923eac689f7d3309261c",
       "side": "both"
     },
     {

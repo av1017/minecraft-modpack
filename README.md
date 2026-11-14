@@ -26,6 +26,7 @@ Each pack has its own game folder, with its own worlds, mods, and settings, so t
 ### cobblemon
 - **Cobblemon:** catch, battle, evolve, and ride Pokémon. A fan-made mod with original models.
 - **Xaero's Minimap + Xaero's World Map:** a corner minimap, a full-screen map, and waypoints.
+- **Storage:** Tom's Simple Storage (one terminal over every linked chest; Iron Age recipes from Cobble Valley Ages) and Copper Age Backport (copper golems that sort items from copper chests, copper chests, shelves, copper tools and armor).
 - **Trainers and gyms:** Radical Cobblemon Trainers (trainers, level caps, Trainer Card), Radical Gyms & Structures (Kanto gyms and League), Cobblemon Pokemon Badges, CobbleFurnies. The host's world also has the RCT badge data pack (`host_world_datapacks`).
 - **Terralith:** about 95 new biomes and bigger terrain in unexplored land.
 - **Getting around:** Small Ships (7 sailing ships, built at a Dockyard), Immersive Aircraft (airships, biplanes, copters), PokeBike (bikes), and Automobility + Momentum (build-your-own cars). The vehicle keys are moved to C and X.
